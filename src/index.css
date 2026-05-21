@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  
+  --color-primary: #1B4344;
+  --color-secondary: #071717;
+  --color-accent: #D0B18A;
+  --color-bg-light: #F2EEE6;
+  --color-bg-card: #FAFAF8;
+  --color-text-dark: #1A2828;
+  --color-text-light: #F2EEE6;
+  --color-border-light: #DEDBD3;
+  --color-border-dark: #255556;
+
+  --animate-marquee: marquee 45s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bg-light text-text-dark font-medium antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6, button, a, strong, b {
+    font-weight: 500 !important;
+  }
+}
+
+/* Elegant, natural UI utilities - strictly solid colors */
+.elegant-border {
+  @apply border-border-light;
+}
+
+.elegant-shadow {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+    0 10px 15px -3px rgba(0, 0, 0, 0.03),
+    0 20px 25px -5px rgba(0, 0, 0, 0.02);
+}
+
+/* ─── Unified Buttons ───────────────────────────────────────────────────────── */
+
+.btn-primary {
+  @apply px-9 py-4 bg-primary text-text-light text-base font-medium rounded-full hover:bg-accent hover:text-secondary hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none w-fit;
+}
+
+.btn-primary-sm {
+  @apply px-7 py-3.5 bg-primary text-text-light text-base font-medium rounded-full hover:bg-accent hover:text-secondary hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none w-fit;
+}
+
+.btn-outline-light {
+  @apply px-9 py-4 border border-text-light/30 text-text-light text-base font-medium rounded-full hover:border-accent hover:text-accent hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none w-fit;
+}
+
+.btn-outline-dark {
+  @apply px-7 py-3.5 border border-primary text-primary text-base font-medium rounded-full hover:border-accent hover:text-accent hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none w-fit;
+}
+
+.btn-link {
+  @apply flex items-center gap-2 text-text-dark hover:text-primary font-medium transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none px-2 py-1 rounded;
+}
+
+/* ─── Unified Cards ─────────────────────────────────────────────────────────── */
+
+.card-interactive {
+  @apply relative bg-bg-card text-text-dark rounded-3xl p-8 overflow-hidden border border-border-light hover:bg-primary hover:text-text-light hover:border-primary transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none focus-visible:border-primary;
+}
+
+.card-static {
+  @apply bg-bg-card border border-border-light rounded-2xl p-7 hover:border-primary hover:shadow-md transition-all duration-300;
+}
+
+/* ─── Image Placeholders ────────────────────────────────────────────────────── */
+
+/* Dark placeholder (used in Hero) */
+.img-placeholder-dark {
+  @apply relative h-[65vh] rounded-3xl overflow-hidden border border-border-dark bg-primary/5 flex flex-col items-center justify-center p-8 gap-4 hover:border-accent transition-all duration-500;
+}
+
+/* Light placeholder (used in About, GuestHouse, News) */
+.img-placeholder-light {
+  @apply relative rounded-2xl overflow-hidden bg-bg-card border border-border-light flex flex-col items-center justify-center p-6 gap-4 hover:border-accent transition-all duration-500 shadow-sm hover:shadow-md;
+}
+
+/* Icon containers inside placeholders */
+.img-icon-container {
+  @apply w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center border border-primary/10 transition-colors duration-300 group-hover:bg-accent group-hover:text-secondary group-hover:border-accent;
+}
+
+/* Specific icon container for dark placeholder */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
