@@ -363,7 +363,7 @@ function Directions() {
   ];
 
   return (
-    <section id="directions" className="py-12 md:py-20 lg:py-24 bg-primary relative z-10">
+    <section id="directions" className="pt-12 md:pt-20 lg:pt-24 pb-0 bg-primary relative z-10">
       <div className="max-w-[1400px] mx-auto px-6 mb-8 lg:mb-12">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-light">
           Направления <span className="italic text-accent">проекта</span>
@@ -726,10 +726,10 @@ function News() {
 // ─── Media ────────────────────────────────────────────────────────────────────
 function Media() {
   const outlets = [
-    { name: 'Агроинвестор', domain: 'agroinvestor.ru', url: 'https://agroinvestor.ru' },
-    { name: 'The Village', domain: 'the-village.ru', url: 'https://www.the-village.ru' },
-    { name: 'РБК', domain: 'rbc.ru', url: 'https://www.rbc.ru' },
-    { name: 'Fermer.ru', domain: 'fermer.ru', url: 'https://fermer.ru' },
+    { name: 'Агроинвестор', image: '/agro.jpg', url: 'https://agroinvestor.ru' },
+    { name: 'The Village', image: '/vill.png', url: 'https://www.the-village.ru' },
+    { name: 'РБК', image: '/rbk.png', url: 'https://www.rbc.ru' },
+    { name: 'Fermer.ru', image: '/channels4_profile.jpg', url: 'https://fermer.ru' },
   ];
 
   return (
@@ -747,22 +747,23 @@ function Media() {
         </div>
 
         {/* Logo grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border-light">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {outlets.map((item) => (
             <a
-              key={item.domain}
+              key={item.name}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-bg-card hover:bg-primary flex flex-col items-center justify-center gap-4 py-12 px-8 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+              className="group bg-bg-card flex flex-col items-center justify-between p-6 sm:p-8 aspect-square rounded-3xl border border-border-light hover:border-accent hover:shadow-[0_20px_40px_rgba(27,67,68,0.08)] hover:-translate-y-1.5 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
             >
-              <img
-                src={`https://logo.clearbit.com/${item.domain}`}
-                alt={item.name}
-                className="h-10 w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-              <span className="text-text-dark/50 group-hover:text-text-light text-xs font-medium tracking-widest uppercase transition-colors duration-300">
+              <div className="w-full flex-1 flex items-center justify-center overflow-hidden rounded-2xl bg-white p-6 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-border-light/30">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <span className="mt-4 text-text-dark/50 group-hover:text-primary text-xs font-bold tracking-widest uppercase transition-colors duration-300">
                 {item.name}
               </span>
             </a>
