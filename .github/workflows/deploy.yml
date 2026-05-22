@@ -29,7 +29,7 @@ jobs:
         with:
           host: server66.hosting.reg.ru
           username: ${{ secrets.HOSTING_USER }}
-          password: ${{ secrets.HOSTING_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: "dist/*"
           target: "/var/www/${{ secrets.HOSTING_USER }}/data/www/noblefarm.ru"
