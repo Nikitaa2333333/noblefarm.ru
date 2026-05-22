@@ -27,11 +27,23 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('body-lock');
+    } else {
+      document.body.classList.remove('body-lock');
+    }
+    return () => {
+      document.body.classList.remove('body-lock');
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: 'Генетика', id: 'directions' },
     { label: 'Пантовая продукция', id: 'directions' },
     { label: 'Современное оленеводство', id: 'importance' },
-    { label: 'Познакомиться с оленеводством', id: 'guests' },
+    { label: 'Познакомиться с оленеводством', id: 'contacts' },
     { label: 'Новости проекта', id: 'news' },
     { label: 'Контакты и сотрудничество', id: 'contacts' },
   ];
@@ -77,12 +89,18 @@ function Navbar() {
           <div className="flex items-center gap-3 text-text-light shrink-0">
             <a
               href="tel:+79258710937"
-              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-1.5 rounded cursor-pointer"
+              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-3 rounded cursor-pointer flex items-center justify-center w-11 h-11"
               aria-label="Позвонить"
             >
               <Phone className="w-4 h-4" strokeWidth={1.8} />
             </a>
-            <span className="text-[11px] hidden md:block font-medium">Ru / En</span>
+            
+            {/* Interactive language switcher */}
+            <div className="hidden md:flex items-center gap-1.5 text-[11px] font-semibold tracking-wider">
+              <span className="text-accent cursor-pointer">RU</span>
+              <span className="text-text-light/40">/</span>
+              <span className="hover:text-accent transition-colors cursor-pointer text-text-light/60">EN</span>
+            </div>
 
             {/* Burger Button */}
             <button
@@ -125,7 +143,12 @@ function Navbar() {
             <Phone className="w-5 h-5 text-accent" />
             <span>Позвонить</span>
           </a>
-          <span className="text-sm font-medium py-3">Ru / En</span>
+          
+          <div className="flex items-center gap-2 text-sm font-semibold tracking-wider py-3">
+            <span className="text-accent cursor-pointer">RU</span>
+            <span className="text-text-light/40">/</span>
+            <span className="hover:text-accent transition-colors cursor-pointer text-text-light/60">EN</span>
+          </div>
         </div>
       </div>
     </>
@@ -146,12 +169,13 @@ function Hero() {
       {/* Background Image and Gradient Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="/hero-bg.png"
+          src="/opt/hero-bg.webp"
           alt="Благородный олень"
           className="w-full h-full object-cover object-[70%_50%] md:object-right"
+          loading="eager"
         />
-        {/* Cinematic gradient: solid dark teal on the left, fading to transparent on the right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-transparent lg:from-secondary/95 lg:via-secondary/50 lg:to-transparent" />
+        {/* Cinematic gradient: solid dark teal on the left, fading to transparent on the right; responsive vertical layout on mobile */}
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 via-secondary/70 to-secondary/90 md:bg-gradient-to-r md:from-secondary/95 md:via-secondary/80 md:to-transparent lg:from-secondary/95 lg:via-secondary/50 lg:to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-28 pb-20">
@@ -161,42 +185,42 @@ function Hero() {
           transition={{ type: 'tween', ease: 'easeOut', duration: 0.6 }}
           className="max-w-[800px] flex flex-col gap-6"
         >
-          <div className="text-accent text-sm font-medium">
+          <div className="text-accent text-sm font-semibold tracking-wider">
             Московская область
           </div>
 
-          <h1 className="font-serif font-medium text-6xl md:text-7xl lg:text-[6.5rem] leading-[1.0] tracking-tight text-text-light mt-2">
-            Современное<br />
-            <span className="italic text-accent">оленеводство</span><br />
-            в России
+          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light mt-2">
+            Современное <br className="hidden md:inline" />
+            <span className="italic text-accent">оленеводство</span> <br className="hidden md:inline" />
+            в{"\u00a0"}России
           </h1>
 
-          <p className="mt-4 text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
             Разведение благородных европейских оленей, племенная работа, генетика стада и развитие пантового направления в Московской области.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-4 lg:gap-x-5 gap-y-2">
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
             {heroIcons.map((item, i) => (
               <div
                 key={i}
                 className="flex items-center gap-2 text-text-light text-sm font-medium"
               >
                 <div className="text-accent shrink-0">{item.icon}</div>
-                <span className="leading-tight whitespace-nowrap">{item.label}</span>
+                <span className="leading-tight">{item.label}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-4 items-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full">
             <button
               onClick={() => scrollTo('about')}
-              className="btn-primary"
+              className="btn-primary w-full sm:w-auto text-center justify-center"
             >
               О хозяйстве
             </button>
             <button
               onClick={() => scrollTo('news')}
-              className="btn-outline-light"
+              className="btn-outline-light w-full sm:w-auto text-center justify-center"
             >
               Новости проекта
             </button>
@@ -204,7 +228,16 @@ function Hero() {
         </motion.div>
       </div>
 
-
+      {/* Scroll Down Indicator */}
+      <div 
+        onClick={() => scrollTo('about')}
+        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-center gap-3 text-text-light/50 hover:text-accent transition-colors duration-300 cursor-pointer group"
+      >
+        <span className="text-xs font-semibold uppercase tracking-widest">Листайте вниз</span>
+        <div className="w-8 h-8 rounded-full border border-text-light/20 flex items-center justify-center group-hover:border-accent transition-colors duration-300">
+          <ArrowRight className="w-4 h-4 rotate-90 transition-transform group-hover:translate-y-0.5 duration-300" />
+        </div>
+      </div>
     </section>
   );
 }
@@ -212,15 +245,15 @@ function Hero() {
 // ─── Gallery ──────────────────────────────────────────────────────────────────
 function Gallery() {
   const images = [
-    '/about-1.webp',
-    '/about-2.webp',
-    '/about-3.webp',
-    '/about-4.webp',
-    '/about-5.webp',
-    '/about-6.webp',
-    '/about-7.webp',
-    '/about-8.webp',
-    '/about-9.webp',
+    '/opt/about-1.webp',
+    '/opt/about-2.webp',
+    '/opt/about-3.webp',
+    '/opt/about-4.webp',
+    '/opt/about-5.webp',
+    '/opt/about-6.webp',
+    '/opt/about-7.webp',
+    '/opt/about-8.webp',
+    '/opt/about-9.webp',
   ];
 
   return (
@@ -266,13 +299,13 @@ function Gallery() {
 // ─── About ("Кто мы") ─────────────────────────────────────────────────────────
 function About() {
   return (
-    <section id="about" className="py-10 lg:py-14 bg-primary overflow-hidden">
+    <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden">
       {/* Text block */}
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Heading */}
           <div className="lg:col-span-6">
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.1]">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
               Создаём культуру{' '}
               <span className="italic block mt-2 text-accent">современного оленеводства</span>
             </h2>
@@ -280,10 +313,10 @@ function About() {
 
           {/* Right Column: Description & Features */}
           <div className="lg:col-span-6 lg:pl-10 text-text-light">
-            <p className="text-text-light text-[24px] font-medium leading-relaxed max-w-lg mb-8">
+            <p className="text-text-light text-lg sm:text-xl lg:text-[24px] font-medium leading-relaxed max-w-lg mb-8">
               Современное хозяйство с инженерным подходом к содержанию и разведению благородного европейского оленя. Работаем по международным стандартам, опираясь на опыт ведущих хозяйств Новой Зеландии и Европы.
             </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-text-light/80 max-w-lg">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4.5 text-text-light/80 max-w-lg">
               {[
                 'Современное хозяйство',
                 'Инженерный подход',
@@ -310,29 +343,29 @@ function Directions() {
     {
       title: 'Генетика и племенная работа',
       desc: 'Формирование высокопродуктивного стада на основе отбора по генетическим показателям.',
-      image: '/about-2.webp'
+      image: '/opt/about-2.webp'
     },
     {
       title: 'Ветеринарное сопровождение',
       desc: 'Системная ветеринарная работа, профилактика и постоянный мониторинг здоровья животных.',
-      image: '/about-4.webp'
+      image: '/opt/about-4.webp'
     },
     {
       title: 'Пантовое направление',
       desc: 'Производство и переработка пантов благородного оленя — востребованный продукт мирового рынка.',
-      image: '/about-6.webp'
+      image: '/opt/about-6.webp'
     },
     {
       title: 'Международный опыт',
       desc: 'Партнёрство с хозяйствами Новой Зеландии и Европы. Лучшие практики оленеводства — в России.',
-      image: '/about-8.webp'
+      image: '/opt/about-8.webp'
     },
   ];
 
   return (
-    <section id="directions" className="pt-10 lg:pt-14 bg-primary relative z-10">
-      <div className="max-w-[1400px] mx-auto px-6 mb-8 lg:mb-10">
-        <h2 className="font-serif text-5xl lg:text-7xl font-medium tracking-tight text-text-light">
+    <section id="directions" className="py-12 md:py-20 lg:py-24 bg-primary relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 mb-8 lg:mb-12">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-light">
           Направления <span className="italic text-accent">проекта</span>
         </h2>
       </div>
@@ -342,7 +375,7 @@ function Directions() {
           <div
             key={i}
             tabIndex={0}
-            className="group relative min-h-[480px] lg:min-h-[560px] rounded-none overflow-hidden flex flex-col justify-between p-8 lg:p-12 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+            className="group relative min-h-[360px] sm:min-h-[440px] md:min-h-[480px] lg:min-h-[560px] rounded-none overflow-hidden flex flex-col justify-between p-8 lg:p-12 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none card-glow border border-transparent"
           >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
@@ -350,6 +383,7 @@ function Directions() {
                 src={card.image}
                 alt={card.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
               />
               {/* Natural, clear gradient overlay: dark at the bottom for text readability, clear at the top */}
               <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/25 to-transparent transition-all duration-500 group-hover:from-secondary/95 group-hover:via-secondary/35" />
@@ -357,13 +391,17 @@ function Directions() {
 
             {/* Text Content */}
             <div className="relative z-10 mt-auto">
-              <h3 className="font-serif text-3xl lg:text-4xl font-medium mb-4 leading-tight text-text-light">
+              <h3 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mb-3.5 leading-tight text-text-light">
                 {card.title}
               </h3>
-              <p className="text-text-light/85 font-medium text-base lg:text-lg leading-relaxed mb-6 max-w-xl">
+              <p className="text-text-light/85 font-medium text-sm sm:text-base lg:text-lg leading-relaxed mb-6 max-w-xl">
                 {card.desc}
               </p>
-              <button className="flex items-center gap-2 text-accent group-hover:text-text-light text-base font-medium group-hover:gap-3 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none">
+              <button 
+                onClick={() => scrollTo('contacts')}
+                className="flex items-center gap-2 text-accent group-hover:text-text-light text-base font-semibold group-hover:gap-3 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none py-2.5"
+                style={{ minHeight: '44px' }}
+              >
                 Подробнее <ArrowRight className="w-4.5 h-4.5" />
               </button>
             </div>
@@ -384,15 +422,15 @@ function WhyImportant() {
   ];
 
   return (
-    <section id="importance" className="py-10 lg:py-14 px-6 bg-bg-light text-text-dark relative overflow-hidden">
+    <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="font-serif text-5xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.1] mb-10 lg:mb-14 max-w-2xl">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] mb-10 lg:mb-14 max-w-2xl">
           Новая отрасль для{' '}
           <span className="italic">региона и страны</span>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-          <p className="text-text-dark font-medium text-[22px] leading-relaxed self-start">
+          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start">
             В мире оленеводство — зрелая, технологичная отрасль. В России оно пока ограничено традиционным северным форматом. Наш проект создаётся в Московской области как модель для будущего развития.
           </p>
 
@@ -402,12 +440,12 @@ function WhyImportant() {
                 key={i}
                 className={`flex gap-6 items-start ${i === 0 ? 'pb-7' : i < advantages.length - 1 ? 'py-7' : 'pt-7'} ${i < advantages.length - 1 ? 'border-b border-border-light' : ''}`}
               >
-                <span className="font-serif text-[2.5rem] leading-none text-accent font-medium shrink-0 w-10 text-right">
+                <span className="font-serif text-2xl md:text-[2.5rem] leading-none text-accent font-medium shrink-0 w-10 text-right">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
                   <p className="font-bold text-lg mb-1.5 text-text-dark">{item.title}</p>
-                  <p className="text-text-dark font-medium text-base leading-relaxed">{item.desc}</p>
+                  <p className="text-text-dark/80 font-medium text-sm sm:text-base leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -622,11 +660,11 @@ function News() {
   }, []);
 
   return (
-    <section id="news" className="py-14 lg:py-20 px-6 bg-bg-light">
+    <section id="news" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <h2 className="font-serif text-5xl lg:text-7xl font-medium tracking-tight text-text-dark">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-dark">
               Новости <span className="italic">проекта</span>
             </h2>
           </div>
@@ -634,7 +672,7 @@ function News() {
             href="https://t.me/kfhNoble"
             target="_blank"
             rel="noopener noreferrer"
-            className="group btn-link shrink-0 text-base"
+            className="group btn-link shrink-0 text-base py-2"
           >
             Все новости в Telegram <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
@@ -695,15 +733,15 @@ function Media() {
   ];
 
   return (
-    <section id="media" className="py-14 lg:py-20 px-6 bg-bg-light border-t border-border-light">
+    <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light border-t border-border-light">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center mb-14">
-          <h2 className="font-serif text-5xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.1] text-text-dark">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark">
             О нас <span className="italic">пишут</span>
           </h2>
-          <p className="text-text-dark/70 font-medium text-lg leading-relaxed max-w-lg">
+          <p className="text-text-dark/70 font-medium text-base sm:text-lg leading-relaxed max-w-lg">
             Проект «Благородный Север» привлекает внимание ведущих отраслевых и деловых изданий России. Мы открыты к сотрудничеству со СМИ и экспертным сообществом.
           </p>
         </div>
@@ -738,7 +776,14 @@ function Media() {
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 function Footer() {
-  const menuLinks = ['Генетика', 'Пантовая продукция', 'Современное оленеводство', 'Познакомиться с оленеводством', 'Новости проекта', 'В СМИ'];
+  const menuLinks = [
+    { label: 'Генетика', id: 'directions' },
+    { label: 'Пантовая продукция', id: 'directions' },
+    { label: 'Современное оленеводство', id: 'importance' },
+    { label: 'Познакомиться с оленеводством', id: 'contacts' },
+    { label: 'Новости проекта', id: 'news' },
+    { label: 'В СМИ', id: 'media' }
+  ];
 
   return (
     <footer id="contacts" className="bg-secondary text-text-light pt-14 pb-10 px-6 rounded-t-[60px] lg:rounded-t-[80px] mt-8 border-t border-border-dark">
@@ -754,28 +799,47 @@ function Footer() {
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-medium">Навигация</div>
-            <ul className="space-y-3 text-text-light/70 font-medium text-base">
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Навигация</div>
+            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
               {menuLinks.map((item) => (
-                <li key={item}>
-                  <a href="#" className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded px-1 py-0.5 cursor-pointer">{item}</a>
+                <li key={item.label}>
+                  <button 
+                    onClick={() => scrollTo(item.id)} 
+                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer text-left w-full block"
+                  >
+                    {item.label}
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-medium">Контакты</div>
-            <ul className="space-y-3 text-text-light/70 font-medium text-base">
-              <li><a href="tel:+79258710937" className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded px-1 py-0.5 cursor-pointer">+7 (925) 871-09-37</a></li>
-              <li><a href="mailto:info@" className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded px-1 py-0.5 cursor-pointer">info@blagorodnysever.ru</a></li>
-              <li className="text-text-light/70 font-medium">Московская область</li>
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Контакты</div>
+            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
+              <li>
+                <a 
+                  href="tel:+79258710937" 
+                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
+                >
+                  +7 (925) 871-09-37
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:info@blagorodnysever.ru" 
+                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
+                >
+                  info@blagorodnysever.ru
+                </a>
+              </li>
+              <li className="text-text-light/70 font-medium py-2">Московская область</li>
             </ul>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-medium">Соцсети</div>
-            <ul className="space-y-3 text-text-light/70 font-medium text-base">
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Соцсети</div>
+            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
               {[
                 { name: 'ВКонтакте', url: 'https://vk.ru/kfh_noble?t2fs=cf2fdf36ee78a94985_3' },
                 { name: 'Telegram', url: 'https://t.me/kfhNoble' },
@@ -786,7 +850,7 @@ function Footer() {
                     href={soc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded px-1 py-0.5 cursor-pointer"
+                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
                   >
                     {soc.name}
                   </a>

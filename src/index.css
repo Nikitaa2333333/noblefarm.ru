@@ -109,3 +109,19 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Premium micro-interactions and glow effects */
+.card-glow {
+  transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 35px rgba(208, 177, 138, 0.25);
+  border-color: rgba(208, 177, 138, 0.45) !important;
+}
+
+/* Body lock style for open mobile nav drawer */
+.body-lock {
+  overflow: hidden;
+  height: 100vh;
+}
