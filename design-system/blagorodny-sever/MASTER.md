@@ -32,13 +32,13 @@
 
 ### Typography
 
-- **Heading Font:** Playfair Display (Serif)
+- **Heading Font:** Century Schoolbook (Serif)
 - **Body Font:** Manrope (Sans-serif)
 - **Mood:** calm, wellness, premium, ecological, natural, organic
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 ```
 
 ---
@@ -53,7 +53,7 @@
   background: var(--color-accent);
   color: var(--color-secondary);
   padding: 14px 32px;
-  border-radius: 9999px;
+  border-radius: 6px;
   font-weight: 600;
   transition: all 300ms ease;
   cursor: pointer;
@@ -71,7 +71,7 @@
   color: var(--color-text-light);
   border: 1px solid var(--color-text-light);
   padding: 14px 32px;
-  border-radius: 9999px;
+  border-radius: 6px;
   font-weight: 600;
   transition: all 300ms ease;
   cursor: pointer;
@@ -86,12 +86,15 @@
 ### Cards
 
 ```css
-/* Interactive Card (Directions block) */
+/* Interactive & Static Cards, Skeletons, Grid Panels (including Partners) */
+.card-interactive, .card-static, .img-placeholder-dark, .img-placeholder-light {
+  border-radius: 0 !important; /* Strict 90-degree square corners */
+}
+
 .card-interactive {
   background: var(--color-bg-card);
   color: var(--color-text-dark);
   border: 1px solid var(--color-border-light);
-  border-radius: 24px;
   padding: 32px;
   transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -110,11 +113,14 @@
 
 ## Style Guidelines
 
-**Style:** Organic Biophilic / Premium Eco-Tourism
+**Style:** Organic Biophilic / Premium Eco-Tourism / Strict Conservative
 
-**Keywords:** Nature, organic shapes, green, sustainable, rounded, flowing, wellness, earthy, natural textures
+**Keywords:** Nature, organic shapes, green, sustainable, square layout, conservative, wellness, earthy, natural textures
 
-**Key Effects:** Soft rounded corners (16-24px), smooth CSS transitions (300-500ms), high text contrast (min 4.5:1), responsive layout flow.
+**Key Effects:**
+- **Plates & Cards (0px)**: All panels, cards, grids, skeletons, and media plaques (including partner logo grid and footer panel) must have 90-degree square corners (`rounded-none` / `border-radius: 0;`), with the sole exception of the Directions cards which feature a custom bottom-right asymmetrical corner.
+- **Buttons & Small Interactive Elements (6px)**: Buttons, form inputs, navbar buttons, dropdowns, and link focus rings must use minimal rounding (`rounded-[6px]` / `border-radius: 6px;`) for a consistent, professional, and serious conservative aesthetic.
+- **Transitions & contrast**: Smooth CSS transitions (300-500ms), high text contrast (min 4.5:1), responsive layout flow.
 
 ---
 

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "vk_post_mock_1",
+    "date": "22 мая 2026",
+    "title": "Тестовая новость ВКонтакте",
+    "text": "Этот пост загружен динамически из файла vk-news.json. При развертывании в GitHub Actions этот файл будет обновляться автоматически скриптом fetch-vk-posts.js.",
+    "image": "/about-8.webp",
+    "link": "https://vk.com/kfh_noble"
+  }
+]

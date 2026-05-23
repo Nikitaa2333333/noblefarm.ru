@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Dna, Leaf, Globe,
   Award, ArrowRight, Check, Phone,
-  Menu, X,
+  Menu, X, Sparkles,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Language, TRANSLATIONS } from './translations';
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -17,7 +18,12 @@ const scrollTo = (id: string) => {
 };
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
-function Navbar() {
+interface NavbarProps {
+  lang: Language;
+  setLang: (lang: Language) => void;
+}
+
+function Navbar({ lang, setLang }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,47 +45,53 @@ function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  const t = TRANSLATIONS[lang].navbar;
+
   const navLinks = [
-    { label: 'Генетика', id: 'directions' },
-    { label: 'Пантовая продукция', id: 'directions' },
-    { label: 'Современное оленеводство', id: 'importance' },
-    { label: 'Познакомиться с оленеводством', id: 'contacts' },
-    { label: 'Новости проекта', id: 'news' },
-    { label: 'Контакты и сотрудничество', id: 'contacts' },
+    { label: t.genetics, id: 'genetics' },
+    { label: t.antlers, id: 'antlers' },
+    { label: t.importance, id: 'importance' },
+    { label: t.reindeerIntro, id: 'reindeer-intro' },
+    { label: t.news, id: 'news' },
+    { label: t.media, id: 'media' },
+    { label: t.contacts, id: 'contacts' },
   ];
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 px-4 transition-all duration-500 ${scrolled || mobileMenuOpen
-            ? 'h-14 bg-secondary'
-            : 'h-[72px] bg-secondary/95 backdrop-blur-md'
+            ? 'h-12 bg-secondary'
+            : 'h-16 bg-secondary/95 backdrop-blur-md'
           }`}
       >
         <div className="max-w-[1400px] mx-auto h-full flex items-center justify-between">
           <div
-            className="font-serif font-medium text-lg text-text-light cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded transition-all shrink-0"
+            className="flex items-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] transition-all shrink-0"
             tabIndex={0}
             onClick={() => {
-              scrollTo('hero');
+              scrollTo('about');
               setMobileMenuOpen(false);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                scrollTo('hero');
+                scrollTo('about');
                 setMobileMenuOpen(false);
               }
             }}
           >
-            Благородный<span className="text-accent italic"> Север</span>
+            <img src="/logo.png" className={`transition-all duration-500 object-contain w-auto ${scrolled ? 'h-6' : 'h-7'}`} alt="Благородный Север" />
+            <span className={`font-serif font-medium text-accent italic tracking-wide leading-none transition-all duration-500 ${scrolled ? 'text-sm md:text-base' : 'text-base md:text-lg'}`}>
+              {t.logo}{t.logoItalic}
+            </span>
           </div>
 
-          <div className="hidden lg:flex items-center gap-3 text-[12px] font-medium text-text-light">
+          <div className="hidden xl:flex items-center gap-1.5 2xl:gap-3 text-[11px] 2xl:text-[13px] font-medium text-text-light">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => scrollTo(link.id)}
-                className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1.5 py-1 rounded"
+                className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1.5 py-1 rounded-[6px]"
               >
                 {link.label}
               </button>
@@ -89,24 +101,43 @@ function Navbar() {
           <div className="flex items-center gap-3 text-text-light shrink-0">
             <a
               href="tel:+79258710937"
-              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-3 rounded cursor-pointer flex items-center justify-center w-11 h-11"
-              aria-label="Позвонить"
+              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-3 rounded-[6px] cursor-pointer flex items-center justify-center w-11 h-11"
+              aria-label={t.call}
             >
               <Phone className="w-4 h-4" strokeWidth={1.8} />
             </a>
             
             {/* Interactive language switcher */}
             <div className="hidden md:flex items-center gap-1.5 text-[11px] font-semibold tracking-wider">
-              <span className="text-accent cursor-pointer">RU</span>
+              <button
+                onClick={() => setLang('RU')}
+                className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'RU' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+              >
+                RU
+              </button>
               <span className="text-text-light/40">/</span>
-              <span className="hover:text-accent transition-colors cursor-pointer text-text-light/60">EN</span>
+              <button
+                onClick={() => setLang('EN')}
+                className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'EN' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+              >
+                EN
+              </button>
+              <span className="text-text-light/40">/</span>
+              <button
+                onClick={() => setLang('CN')}
+                className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'CN' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+              >
+                CN
+              </button>
             </div>
 
             {/* Burger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-text-light hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none cursor-pointer transition-colors duration-300 flex items-center justify-center rounded-lg"
-              aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+              className="xl:hidden p-2 text-text-light hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none cursor-pointer transition-colors duration-300 flex items-center justify-center rounded-[6px]"
+              aria-label={mobileMenuOpen 
+                ? (lang === 'RU' ? 'Закрыть меню' : lang === 'CN' ? '关闭菜单' : 'Close menu') 
+                : (lang === 'RU' ? 'Открыть меню' : lang === 'CN' ? '打开菜单' : 'Open menu')}
               style={{ minWidth: '44px', minHeight: '44px' }}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -117,9 +148,9 @@ function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed inset-0 top-[56px] bg-secondary z-40 transition-all duration-500 lg:hidden flex flex-col justify-between p-8 ${mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none'
+        className={`fixed inset-0 top-[48px] bg-secondary z-40 transition-all duration-500 xl:hidden flex flex-col justify-between p-8 ${mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none'
           }`}
-        style={{ height: 'calc(100vh - 56px)' }}
+        style={{ height: 'calc(100vh - 48px)' }}
       >
         <div className="flex flex-col gap-6 mt-8">
           {navLinks.map((link) => (
@@ -138,16 +169,42 @@ function Navbar() {
         <div className="flex items-center justify-between text-text-light border-t border-border-dark pt-6 pb-12">
           <a
             href="tel:+79258710937"
-            className="flex items-center gap-3 hover:text-accent py-3 text-base font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded cursor-pointer"
+            className="flex items-center gap-3 hover:text-accent py-3 text-base font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] cursor-pointer"
           >
             <Phone className="w-5 h-5 text-accent" />
-            <span>Позвонить</span>
+            <span>{t.call}</span>
           </a>
           
           <div className="flex items-center gap-2 text-sm font-semibold tracking-wider py-3">
-            <span className="text-accent cursor-pointer">RU</span>
+            <button
+              onClick={() => {
+                setLang('RU');
+                setMobileMenuOpen(false);
+              }}
+              className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'RU' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+            >
+              RU
+            </button>
             <span className="text-text-light/40">/</span>
-            <span className="hover:text-accent transition-colors cursor-pointer text-text-light/60">EN</span>
+            <button
+              onClick={() => {
+                setLang('EN');
+                setMobileMenuOpen(false);
+              }}
+              className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'EN' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+            >
+              EN
+            </button>
+            <span className="text-text-light/40">/</span>
+            <button
+              onClick={() => {
+                setLang('CN');
+                setMobileMenuOpen(false);
+              }}
+              className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'CN' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
+            >
+              CN
+            </button>
           </div>
         </div>
       </div>
@@ -155,27 +212,70 @@ function Navbar() {
   );
 }
 
+// ─── Section Props ────────────────────────────────────────────────────────────
+interface SectionProps {
+  lang: Language;
+}
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
-function Hero() {
+const HERO_BACKGROUNDS = [
+  { src: '/enhanced_hero_bg.png', isVertical: false },
+  { src: '/enhanced_about_1.png', isVertical: false },
+  { src: '/enhanced_about_2.png', isVertical: true },
+  { src: '/enhanced_about_3.png', isVertical: true },
+  { src: '/enhanced_about_4.png', isVertical: true },
+  { src: '/enhanced_about_5.png', isVertical: true },
+  { src: '/enhanced_about_6.png', isVertical: true },
+  { src: '/enhanced_about_7.png', isVertical: true },
+  { src: '/enhanced_about_8.png', isVertical: true },
+  { src: '/enhanced_about_9.png', isVertical: true },
+  { src: '/enhanced_deer_1.png', isVertical: true },
+  { src: '/enhanced_deer_2.png', isVertical: true },
+  { src: '/enhanced_deer_3.png', isVertical: true },
+];
+
+function Hero({ lang }: SectionProps) {
+  const [bgIndex, setBgIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBgIndex((prev) => (prev + 1) % HERO_BACKGROUNDS.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const t = TRANSLATIONS[lang].hero;
+
   const heroIcons = [
-    { icon: <Dna className="w-5 h-5" />, label: 'Племенная работа' },
-    { icon: <Leaf className="w-5 h-5" />, label: 'Генетика' },
-    { icon: <Award className="w-5 h-5" />, label: 'Пантовое направление' },
-    { icon: <Globe className="w-5 h-5" />, label: 'Международный опыт' },
+    { icon: <Dna className="w-5 h-5" />, label: t.breeding },
+    { icon: <Leaf className="w-5 h-5" />, label: t.genetics },
+    { icon: <Award className="w-5 h-5" />, label: t.antlers },
+    { icon: <Globe className="w-5 h-5" />, label: t.intl },
   ];
+
+  const activeBg = HERO_BACKGROUNDS[bgIndex];
 
   return (
     <section id="hero" className="relative min-h-[90vh] flex items-center overflow-hidden bg-secondary">
       {/* Background Image and Gradient Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src="/opt/hero-bg.webp"
-          alt="Благородный олень"
-          className="w-full h-full object-cover object-[70%_50%] md:object-right"
-          loading="eager"
-        />
+        <AnimatePresence mode="popLayout">
+          <motion.img
+            key={bgIndex}
+            src={activeBg.src}
+            alt="Благородный олень"
+            className="absolute inset-0 md:inset-y-0 md:left-[45%] md:right-0 md:w-[55%] md:h-full w-full h-full object-cover object-center"
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.5, ease: 'easeInOut' },
+              scale: { duration: 6.5, ease: 'easeOut' }
+            }}
+          />
+        </AnimatePresence>
         {/* Cinematic gradient: solid dark teal on the left, fading to transparent on the right; responsive vertical layout on mobile */}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 via-secondary/70 to-secondary/90 md:bg-gradient-to-r md:from-secondary/95 md:via-secondary/80 md:to-transparent lg:from-secondary/95 lg:via-secondary/50 lg:to-transparent" />
+        <div className="absolute inset-0 hero-gradient-overlay z-10 pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-28 pb-20">
@@ -183,20 +283,20 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'tween', ease: 'easeOut', duration: 0.6 }}
-          className="max-w-[800px] flex flex-col gap-6"
+          className="max-w-[800px] md:max-w-[550px] lg:max-w-[650px] flex flex-col gap-6"
         >
           <div className="text-accent text-sm font-semibold tracking-wider">
-            Московская область
+            {t.subtitle}
           </div>
 
           <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light mt-2">
-            Современное <br className="hidden md:inline" />
-            <span className="italic text-accent">оленеводство</span> <br className="hidden md:inline" />
-            в{"\u00a0"}России
+            {t.titleLine1} <br className="hidden md:inline" />
+            <span className="italic text-accent">{t.titleLine2}</span> <br className="hidden md:inline" />
+            {t.titleLine3}
           </h1>
 
           <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
-            Разведение благородных европейских оленей, племенная работа, генетика стада и развитие пантового направления в Московской области.
+            {t.desc}
           </p>
 
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
@@ -216,112 +316,49 @@ function Hero() {
               onClick={() => scrollTo('about')}
               className="btn-primary w-full sm:w-auto text-center justify-center"
             >
-              О хозяйстве
+              {t.btnAbout}
             </button>
             <button
               onClick={() => scrollTo('news')}
               className="btn-outline-light w-full sm:w-auto text-center justify-center"
             >
-              Новости проекта
+              {t.btnNews}
             </button>
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      <div 
-        onClick={() => scrollTo('about')}
-        className="absolute bottom-8 right-8 z-10 hidden sm:flex items-center gap-3 text-text-light/50 hover:text-accent transition-colors duration-300 cursor-pointer group"
-      >
-        <span className="text-xs font-semibold uppercase tracking-widest">Листайте вниз</span>
-        <div className="w-8 h-8 rounded-full border border-text-light/20 flex items-center justify-center group-hover:border-accent transition-colors duration-300">
-          <ArrowRight className="w-4 h-4 rotate-90 transition-transform group-hover:translate-y-0.5 duration-300" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Gallery ──────────────────────────────────────────────────────────────────
-function Gallery() {
-  const images = [
-    '/opt/about-1.webp',
-    '/opt/about-2.webp',
-    '/opt/about-3.webp',
-    '/opt/about-4.webp',
-    '/opt/about-5.webp',
-    '/opt/about-6.webp',
-    '/opt/about-7.webp',
-    '/opt/about-8.webp',
-    '/opt/about-9.webp',
-  ];
-
-  return (
-    <section className="w-full bg-bg-light overflow-hidden">
-      <div className="relative w-full overflow-hidden select-none">
-        <div className="flex flex-nowrap w-max animate-marquee hover:[animation-play-state:paused]">
-          {/* First set of images */}
-          <div className="flex gap-0 shrink-0">
-            {images.map((src, index) => (
-              <div
-                key={`gallery-1-${index}`}
-                className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[55vh] md:h-[65vh] shrink-0 overflow-hidden"
-              >
-                <img
-                  src={src}
-                  alt={`Галерея Благородный Север ${index + 1}`}
-                  className="w-full h-full object-cover block pointer-events-none transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-            ))}
-          </div>
-          {/* Second set of images for loop */}
-          <div className="flex gap-0 shrink-0">
-            {images.map((src, index) => (
-              <div
-                key={`gallery-2-${index}`}
-                className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[55vh] md:h-[65vh] shrink-0 overflow-hidden"
-              >
-                <img
-                  src={src}
-                  alt={`Галерея Благородный Север ${index + 1}`}
-                  className="w-full h-full object-cover block pointer-events-none transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
 
 // ─── About ("Кто мы") ─────────────────────────────────────────────────────────
-function About() {
+function About({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].about;
   return (
-    <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden">
+    <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden scroll-mt-24">
       {/* Text block */}
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Heading */}
           <div className="lg:col-span-6">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
-              Создаём культуру{' '}
-              <span className="italic block mt-2 text-accent">современного оленеводства</span>
+              {t.titlePart1}
+              <span className="italic block mt-2 text-accent">{t.titlePart2}</span>
             </h2>
           </div>
 
           {/* Right Column: Description & Features */}
           <div className="lg:col-span-6 lg:pl-10 text-text-light">
             <p className="text-text-light text-lg sm:text-xl lg:text-[24px] font-medium leading-relaxed max-w-lg mb-8">
-              Современное хозяйство с инженерным подходом к содержанию и разведению благородного европейского оленя. Работаем по международным стандартам, опираясь на опыт ведущих хозяйств Новой Зеландии и Европы.
+              {t.desc}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4.5 text-text-light/80 max-w-lg">
               {[
-                'Современное хозяйство',
-                'Инженерный подход',
-                'Международный опыт',
-                'Развитие новой отрасли',
+                t.item1,
+                t.item2,
+                t.item3,
+                t.item4,
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <Check className="w-4.5 h-4.5 text-accent shrink-0" strokeWidth={2.5} />
@@ -338,100 +375,112 @@ function About() {
 }
 
 // ─── Directions ───────────────────────────────────────────────────────────────
-function Directions() {
+function Directions({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].directions;
   const cards = [
     {
-      title: 'Генетика и племенная работа',
-      desc: 'Формирование высокопродуктивного стада на основе отбора по генетическим показателям.',
-      image: '/opt/about-2.webp'
+      id: 'genetics',
+      title: t.card1.title,
+      desc: t.card1.desc,
+      image: '/opt/about-2.webp',
+      icon: <Dna className="w-5 h-5" />
     },
     {
-      title: 'Ветеринарное сопровождение',
-      desc: 'Системная ветеринарная работа, профилактика и постоянный мониторинг здоровья животных.',
-      image: '/opt/about-4.webp'
+      id: 'reindeer-intro',
+      title: t.card2.title,
+      desc: t.card2.desc,
+      image: '/opt/about-4.webp',
+      icon: <Sparkles className="w-5 h-5" />
     },
     {
-      title: 'Пантовое направление',
-      desc: 'Производство и переработка пантов благородного оленя — востребованный продукт мирового рынка.',
-      image: '/opt/about-6.webp'
+      id: 'antlers',
+      title: t.card3.title,
+      desc: t.card3.desc,
+      image: '/opt/about-6.webp',
+      icon: <Award className="w-5 h-5" />
     },
     {
-      title: 'Международный опыт',
-      desc: 'Партнёрство с хозяйствами Новой Зеландии и Европы. Лучшие практики оленеводства — в России.',
-      image: '/opt/about-8.webp'
+      id: 'international',
+      title: t.card4.title,
+      desc: t.card4.desc,
+      image: '/opt/about-8.webp',
+      icon: <Globe className="w-5 h-5" />
     },
   ];
 
   return (
-    <section id="directions" className="pt-12 md:pt-20 lg:pt-24 pb-0 bg-primary relative z-10">
-      <div className="max-w-[1400px] mx-auto px-6 mb-8 lg:mb-12">
+    <section id="directions" className="py-12 md:py-20 lg:py-24 bg-primary relative z-10 scroll-mt-24">
+      <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-light">
-          Направления <span className="italic text-accent">проекта</span>
+          {t.title}<span className="italic text-accent">{t.titleAccent}</span>
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 w-full relative z-10 shadow-[0_25px_50px_rgba(0,0,0,0.45)]">
-        {cards.map((card, i) => (
-          <div
-            key={i}
-            tabIndex={0}
-            className="group relative min-h-[360px] sm:min-h-[440px] md:min-h-[480px] lg:min-h-[560px] rounded-none overflow-hidden flex flex-col justify-between p-8 lg:p-12 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none card-glow border border-transparent"
-          >
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-              <img
-                src={card.image}
-                alt={card.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
-              {/* Natural, clear gradient overlay: dark at the bottom for text readability, clear at the top */}
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/25 to-transparent transition-all duration-500 group-hover:from-secondary/95 group-hover:via-secondary/35" />
-            </div>
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {cards.map((card, i) => (
+            <div
+              key={i}
+              id={card.id}
+              tabIndex={0}
+              className="group relative min-h-[460px] rounded-none rounded-br-[80px] overflow-hidden flex flex-col justify-between p-7 lg:p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border border-white/5 scroll-mt-24"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Natural, clear gradient overlay: dark at the bottom for text readability, clear at the top */}
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/45 to-transparent transition-all duration-500 group-hover:from-secondary/98 group-hover:via-secondary/55" />
+              </div>
 
-            {/* Text Content */}
-            <div className="relative z-10 mt-auto">
-              <h3 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mb-3.5 leading-tight text-text-light">
-                {card.title}
-              </h3>
-              <p className="text-text-light/85 font-medium text-sm sm:text-base lg:text-lg leading-relaxed mb-6 max-w-xl">
-                {card.desc}
-              </p>
-              <button 
-                onClick={() => scrollTo('contacts')}
-                className="flex items-center gap-2 text-accent group-hover:text-text-light text-base font-semibold group-hover:gap-3 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none py-2.5"
-                style={{ minHeight: '44px' }}
-              >
-                Подробнее <ArrowRight className="w-4.5 h-4.5" />
-              </button>
+              {/* Text Content (at bottom) */}
+              <div className="relative z-10 mt-auto">
+                <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
+                  {card.title}
+                </h3>
+                <p className="text-text-light/80 font-medium text-xs sm:text-sm leading-relaxed mb-6">
+                  {card.desc}
+                </p>
+                <button 
+                  onClick={() => scrollTo('contacts')}
+                  className="flex items-center gap-1.5 text-accent group-hover:text-text-light text-sm font-semibold group-hover:gap-2.5 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none py-1"
+                >
+                  {t.readMore} <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 // ─── Why Important ────────────────────────────────────────────────────────────
-function WhyImportant() {
+function WhyImportant({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].whyImportant;
   const advantages = [
-    { title: 'Ответственное содержание', desc: 'Открытые вольеры, естественный выпас, минимальный стресс.' },
-    { title: 'Системный подход', desc: 'Каждый процесс задокументирован и оптимизирован.' },
-    { title: 'Ветеринарный контроль', desc: 'Постоянный мониторинг здоровья каждого животного.' },
-    { title: 'Прозрачность процессов', desc: 'Открыты для партнёров, СМИ и отраслевых экспертов.' },
+    { title: t.adv1.title, desc: t.adv1.desc },
+    { title: t.adv2.title, desc: t.adv2.desc },
+    { title: t.adv3.title, desc: t.adv3.desc },
+    { title: t.adv4.title, desc: t.adv4.desc },
   ];
 
   return (
-    <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden">
+    <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] mb-10 lg:mb-14 max-w-2xl">
-          Новая отрасль для{' '}
-          <span className="italic">региона и страны</span>
+          {t.title}
+          <span className="italic">{t.titleAccent}</span>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
           <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start">
-            В мире оленеводство — зрелая, технологичная отрасль. В России оно пока ограничено традиционным северным форматом. Наш проект создаётся в Московской области как модель для будущего развития.
+            {t.desc}
           </p>
 
           <div>
@@ -456,8 +505,7 @@ function WhyImportant() {
   );
 }
 
-// ─── News ─────────────────────────────────────────────────────────────────────
-interface TelegramPost {
+interface VKPost {
   id: string;
   date: string;
   title: string;
@@ -466,35 +514,35 @@ interface TelegramPost {
   link: string;
 }
 
-const DEFAULT_NEWS: TelegramPost[] = [
+const DEFAULT_NEWS: VKPost[] = [
   {
-    id: 'kfhNoble/236',
+    id: 'kfh_noble_1',
     date: '18 мая 2026',
-    title: 'Факты о пантах: свадебные традиции Азии',
-    text: 'Ценность оленьих рогов отражалась не только в медицине, но и в культурных традициях. В некоторых регионах Китая части рога входили в свадебные ритуалы как символ жизненной силы и семейного счастья.',
-    image: 'https://cdn4.telesco.pe/file/tXNWe4XQ-vFSZt3Yni4OuzbJxSPjnoI_sqA8y2cqeU9fBL2nFwHamWyaE_jWpIEW3X1LSUWpG00UL9K4B3fGs4ORLX2fVL859pwc1zfv7WCHBQ_RNfKFaeYHO6ysgL0UfdkN9D0jO0pSq0c77AoCpS07zlAUzwN3yGR52eyUbe2RyLlseuhCBVrdaxLsy443HDRpa0t8Cxk7KBb4FJKbzyQNwHEbmDegh271PZHS5Nws_pTyNmNyLZAyb_QYR1VnhF-MU7-voWOhc6WjPBp89JoiH7XmMcJImIC6iw7VQNDZMhtou-6Z0Hodqf62SGip3xfGz9-n7OgnkWcU13UJ1Q.jpg',
-    link: 'https://t.me/kfhNoble/236'
+    title: 'Регистрация бренда «Благородный Север»',
+    text: 'Официально зарегистрировали товарный знак нашего фермерского хозяйства. Это важный шаг для защиты бренда и будущего развития линейки пантовой продукции!',
+    image: '/about-2.webp',
+    link: 'https://vk.com/kfh_noble'
   },
   {
-    id: 'kfhNoble/235',
+    id: 'kfh_noble_2',
     date: '17 мая 2026',
-    title: 'Ожидаем, наблюдаем',
-    text: 'С нетерпением следим за событиями на ферме. Природа делает своё дело — остаётся только ждать и наблюдать.',
-    image: 'https://cdn4.telesco.pe/file/fp4m3fMi7hzlf-G5DTUsMjHDpk8lTi20Kqnp9cCZxDF_Ud0srltn2ljSGYkGlwZs4iAHpAoG4fj2DiZyGMeKaZBhXAISSlF7O3-LkXKCkRu769IN0LbAfufDZ7MD2xrhjtA-IPsB2ECTPpPnc9A5JpFs6t52BO5Vlnfgrw9JRHevN1U8rqqN4Ce1ITX63ew5bCrNKdSK06Wro8R1EpL3WNklQ78_VlaSu0y8WJt0CUoTaLxVr3Zz96wk4mneBt-WCmTZm5zeRVNE2ehIiY1G_IZFDfhntwVU9Zl-QoijUqptRLgVNmykS-3I2znDzSWdCPjXBe08I4TSt4FQmm-_Rw.jpg',
-    link: 'https://t.me/kfhNoble/235'
+    title: 'Обустройство новых пастбищ',
+    text: 'Завершаем монтаж качественного ограждения для просторных вольеров. Безопасность и естественные условия содержания оленей — наш главный приоритет.',
+    image: '/about-4.webp',
+    link: 'https://vk.com/kfh_noble'
   },
   {
-    id: 'kfhNoble/234',
+    id: 'kfh_noble_3',
     date: '16 мая 2026',
-    title: 'Факты об оленях: сезонное поведение',
-    text: 'Зимой олень пуглив — преобладает осторожность из-за хищников. К лету картина меняется: голод выходит на первый план, и поведение животного становится совершенно другим.',
-    image: 'https://cdn4.telesco.pe/file/thAUchSR5aXr1FwFJRaBI2yh1n7EfeshdNJzfhzeSU-VwHOQxFTm8p3yhBvjFBRpHORgAwAeXjr-HZmlMNGOf6_ZZsA3bBLTxC15z9cG3oIv0cpnu1udaJZDX15ZVeAB-cBvjwFMmUdMEdvB4ewCiTn3ONZrHDh-iNTO90pOrKCOUceGHivJaFq8U8oM5tGINK6ghKBPchxYueOQYI6k0-CJvuqtFIYtX7TvOY-hJSB7U99U7Tt6snuSnoEpPLDvvrS7Kf8Vr9JneIjZtI_CqDt-3P-67LUxAYwCdKqa27Z8KD1Q02hdg1LNEnV28x-xQb1a91IIa_ZEhrMNq5L4WA.jpg',
-    link: 'https://t.me/kfhNoble/234'
+    title: 'Адаптация и сезон линьки оленей',
+    text: 'Наши благородные олени активно меняют шерсть к лету. Ветеринарные специалисты отмечают отличный аппетит и прекрасное здоровье всего стада.',
+    image: '/about-6.webp',
+    link: 'https://vk.com/kfh_noble'
   }
 ];
 
 const SkeletonCard = () => (
-  <div className="bg-secondary animate-pulse">
+  <div className="bg-secondary animate-pulse rounded-none overflow-hidden">
     <div className="bg-primary/20 aspect-[16/10]" />
     <div className="p-7">
       <div className="h-3 bg-primary/20 w-1/4 mb-4" />
@@ -506,179 +554,56 @@ const SkeletonCard = () => (
   </div>
 );
 
-function News() {
-  const [posts, setPosts] = useState<TelegramPost[]>(DEFAULT_NEWS);
+function News({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].news;
+  const [posts, setPosts] = useState<VKPost[]>(DEFAULT_NEWS);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
     const loadNews = async () => {
-      const channelUrl = 'https://t.me/s/kfhNoble';
-      let html = '';
-      
-      // Попытка 1: corsproxy.io (возвращает чистый HTML, работает стабильно и быстро)
       try {
-        const res = await fetch(`https://corsproxy.io/?url=${encodeURIComponent(channelUrl)}`);
+        const res = await fetch('/vk-news.json');
         if (res.ok) {
-          html = await res.text();
-        } else {
-          console.warn('corsproxy.io returned status:', res.status);
-        }
-      } catch (e) {
-        console.warn('corsproxy.io failed, trying allorigins:', e);
-      }
-      
-      // Попытка 2: allorigins (fallback прокси)
-      if (!html) {
-        try {
-          const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(channelUrl)}`);
-          if (res.ok) {
-            const data = await res.json();
-            html = data.contents;
-          } else {
-            console.warn('allorigins returned status:', res.status);
-          }
-        } catch (e) {
-          console.error('allorigins failed as well:', e);
-        }
-      }
-      
-      if (!html) {
-        throw new Error('All CORS proxies failed to load Telegram channel');
-      }
-
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const messages = doc.querySelectorAll('.tgme_widget_message_wrap');
-      
-      const parsedPosts: TelegramPost[] = [];
-      
-      // Проходим с конца, чтобы получить новые посты
-      for (let i = messages.length - 1; i >= 0; i--) {
-        const msgWrap = messages[i];
-        const msg = msgWrap.querySelector('.tgme_widget_message');
-        if (!msg) continue;
-
-        // Пропускаем видео посты
-        const hasVideo = msg.querySelector('.tgme_widget_message_video_player, .tgme_widget_message_video, .tgme_widget_message_roundvideo');
-        if (hasVideo) continue;
-
-        const textEl = msg.querySelector('.tgme_widget_message_text');
-        if (!textEl) continue;
-
-        const fullText = textEl.textContent?.trim() || '';
-        if (!fullText) continue;
-
-        // Извлекаем картинку. В DOMParser стили не вычисляются, поэтому читаем атрибут style напрямую как строку!
-        let imageUrl: string | null = null;
-        
-        const photoEl = msg.querySelector('.tgme_widget_message_photo_wrap, .tgme_widget_message_grouped_wrap .tgme_widget_message_photo_wrap') as HTMLElement;
-        if (photoEl) {
-          const styleAttr = photoEl.getAttribute('style') || '';
-          const match = styleAttr.match(/background-image\s*:\s*url\(\s*['"]?([^'")]+)['"]?\s*\)/i);
-          if (match && match[1]) {
-            imageUrl = match[1];
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0 && active) {
+            setPosts(data);
           }
         }
-
-        // Согласно ТЗ, берем посты только с фотографией
-        if (!imageUrl) continue;
-
-        const linkEl = msg.querySelector('.tgme_widget_message_date') as HTMLAnchorElement;
-        const link = linkEl?.href || `https://t.me/kfhNoble/${msg.getAttribute('data-post')?.split('/').pop()}`;
-        const id = msg.getAttribute('data-post') || Math.random().toString();
-
-        const timeEl = msg.querySelector('.tgme_widget_message_date time');
-        let dateStr = '';
-        if (timeEl) {
-          const datetime = timeEl.getAttribute('datetime');
-          if (datetime) {
-            const date = new Date(datetime);
-            dateStr = date.toLocaleDateString('ru-RU', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            });
-          }
-        }
-        if (!dateStr) dateStr = 'Недавно';
-
-        // Выделяем заголовок и текст
-        const lines = fullText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-        let title = '';
-        let text = '';
-
-        if (lines.length > 0) {
-          title = lines[0];
-          if (title.length > 80) {
-            const spaceIndex = title.lastIndexOf(' ', 80);
-            const cutIndex = spaceIndex > 20 ? spaceIndex : 80;
-            title = title.substring(0, cutIndex) + '...';
-            text = fullText;
-          } else {
-            text = lines.slice(1).join('\n');
-            if (!text) text = title;
-          }
-        } else {
-          title = 'Новость проекта';
-          text = fullText;
-        }
-
-        parsedPosts.push({
-          id,
-          date: dateStr,
-          title,
-          text,
-          image: imageUrl,
-          link
-        });
-
-        // Выводим последние 3 новости с фото
-        if (parsedPosts.length >= 3) {
-          break;
-        }
-      }
-
-      if (parsedPosts.length > 0 && active) {
-        setPosts(parsedPosts);
-      }
-    };
-
-    loadNews()
-      .catch((err) => {
-        console.error('Failed to fetch Telegram news, using fallback:', err);
-      })
-      .finally(() => {
+      } catch (err) {
+        console.warn('Failed to load VK news from static JSON, using fallback data.', err);
+      } finally {
         if (active) {
           setIsLoading(false);
         }
-      });
-
+      }
+    };
+    loadNews();
     return () => {
       active = false;
     };
   }, []);
 
   return (
-    <section id="news" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light">
+    <section id="news" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-dark">
-              Новости <span className="italic">проекта</span>
+              {t.title}<span className="italic">{t.titleAccent}</span>
             </h2>
           </div>
           <a
-            href="https://t.me/kfhNoble"
+            href="https://vk.com/kfh_noble"
             target="_blank"
             rel="noopener noreferrer"
             className="group btn-link shrink-0 text-base py-2"
           >
-            Все новости в Telegram <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            {t.allNews} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 shadow-[0_25px_50px_rgba(0,0,0,0.35)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
             <>
               <SkeletonCard />
@@ -686,13 +611,13 @@ function News() {
               <SkeletonCard />
             </>
           ) : (
-            posts.map((article) => (
+            posts.slice(0, 3).map((article) => (
               <a
                 key={article.id}
                 href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-secondary flex flex-col overflow-hidden relative hover:z-10 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-500 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                className="group bg-secondary flex flex-col overflow-hidden relative rounded-none hover:z-10 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-500 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
                 <div className="overflow-hidden aspect-[16/10]">
                   <img
@@ -704,14 +629,14 @@ function News() {
                 </div>
                 <div className="p-7 flex flex-col flex-1">
                   <div className="text-accent text-xs font-medium mb-3 tracking-wide uppercase">{article.date}</div>
-                  <h3 className="font-serif text-xl font-medium text-text-light mb-3 leading-tight">
+                  <h3 className="font-serif text-xl font-medium text-text-light mb-3 leading-tight line-clamp-2">
                     {article.title}
                   </h3>
                   <p className="text-text-light/60 text-sm font-medium leading-relaxed line-clamp-3 mb-6">
                     {article.text}
                   </p>
                   <div className="mt-auto flex items-center gap-2 text-accent text-sm font-medium group-hover:gap-3 transition-all duration-300">
-                    Читать далее <ArrowRight className="w-4 h-4" />
+                    {lang === 'RU' ? 'Читать далее' : lang === 'CN' ? '阅读更多' : 'Read more'} <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </a>
@@ -724,7 +649,8 @@ function News() {
 }
 
 // ─── Media ────────────────────────────────────────────────────────────────────
-function Media() {
+function Media({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].media;
   const outlets = [
     { name: 'Агроинвестор', image: '/agro.jpg', url: 'https://agroinvestor.ru' },
     { name: 'The Village', image: '/vill.png', url: 'https://www.the-village.ru' },
@@ -733,16 +659,16 @@ function Media() {
   ];
 
   return (
-    <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light border-t border-border-light">
+    <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light border-t border-border-light scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center mb-14">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark">
-            О нас <span className="italic">пишут</span>
+            {t.title}<span className="italic">{t.titleAccent}</span>
           </h2>
           <p className="text-text-dark/70 font-medium text-base sm:text-lg leading-relaxed max-w-lg">
-            Проект «Благородный Север» привлекает внимание ведущих отраслевых и деловых изданий России. Мы открыты к сотрудничеству со СМИ и экспертным сообществом.
+            {t.desc}
           </p>
         </div>
 
@@ -754,9 +680,9 @@ function Media() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-bg-card flex flex-col items-center justify-between p-6 sm:p-8 aspect-square rounded-3xl border border-border-light hover:border-accent hover:shadow-[0_20px_40px_rgba(27,67,68,0.08)] hover:-translate-y-1.5 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+              className="group bg-bg-card flex flex-col items-center justify-between p-6 sm:p-8 aspect-square rounded-none border border-border-light hover:border-accent hover:shadow-[0_20px_40px_rgba(27,67,68,0.08)] hover:-translate-y-1.5 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
             >
-              <div className="w-full flex-1 flex items-center justify-center overflow-hidden rounded-2xl bg-white p-6 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-border-light/30">
+              <div className="w-full flex-1 flex items-center justify-center overflow-hidden rounded-none bg-white p-6 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-border-light/30">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -776,37 +702,42 @@ function Media() {
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
-function Footer() {
+function Footer({ lang }: SectionProps) {
+  const t = TRANSLATIONS[lang].footer;
   const menuLinks = [
-    { label: 'Генетика', id: 'directions' },
-    { label: 'Пантовая продукция', id: 'directions' },
-    { label: 'Современное оленеводство', id: 'importance' },
-    { label: 'Познакомиться с оленеводством', id: 'contacts' },
-    { label: 'Новости проекта', id: 'news' },
-    { label: 'В СМИ', id: 'media' }
+    { label: TRANSLATIONS[lang].navbar.about, id: 'about' },
+    { label: TRANSLATIONS[lang].navbar.genetics, id: 'genetics' },
+    { label: TRANSLATIONS[lang].navbar.antlers, id: 'antlers' },
+    { label: TRANSLATIONS[lang].navbar.importance, id: 'importance' },
+    { label: TRANSLATIONS[lang].navbar.reindeerIntro, id: 'reindeer-intro' },
+    { label: TRANSLATIONS[lang].navbar.news, id: 'news' },
+    { label: TRANSLATIONS[lang].navbar.media, id: 'media' }
   ];
 
   return (
-    <footer id="contacts" className="bg-secondary text-text-light pt-14 pb-10 px-6 rounded-t-[60px] lg:rounded-t-[80px] mt-8 border-t border-border-dark">
+    <footer id="contacts" className="bg-secondary text-text-light pt-14 pb-10 px-6 mt-8 border-t border-border-dark scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-border-dark">
           <div>
-            <div className="font-serif text-xl font-medium mb-4">
-              Благородный<span className="italic text-accent"> Север</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <img src="/logo.png" className="h-8 w-auto object-contain" alt="Благородный Север" />
+              <span className="font-serif font-medium text-xl text-accent italic tracking-wide leading-none">
+                {t.logo}{t.logoItalic}
+              </span>
             </div>
             <p className="text-text-light/70 font-medium text-sm leading-relaxed max-w-[200px]">
-              Современное оленеводство и развитие пантового направления в России.
+              {t.desc}
             </p>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Навигация</div>
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.nav}</div>
             <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
               {menuLinks.map((item) => (
                 <li key={item.label}>
                   <button 
                     onClick={() => scrollTo(item.id)} 
-                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer text-left w-full block"
+                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer text-left w-full block"
                   >
                     {item.label}
                   </button>
@@ -816,12 +747,12 @@ function Footer() {
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Контакты</div>
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.contacts}</div>
             <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
               <li>
                 <a 
                   href="tel:+79258710937" 
-                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
+                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                 >
                   +7 (925) 871-09-37
                 </a>
@@ -829,17 +760,17 @@ function Footer() {
               <li>
                 <a 
                   href="mailto:info@blagorodnysever.ru" 
-                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
+                  className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                 >
                   info@blagorodnysever.ru
                 </a>
               </li>
-              <li className="text-text-light/70 font-medium py-2">Московская область</li>
+              <li className="text-text-light/70 font-medium py-2">{t.region}</li>
             </ul>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">Соцсети</div>
+            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.socials}</div>
             <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
               {[
                 { name: 'ВКонтакте', url: 'https://vk.ru/kfh_noble?t2fs=cf2fdf36ee78a94985_3' },
@@ -851,7 +782,7 @@ function Footer() {
                     href={soc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded py-2 cursor-pointer block"
+                    className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                   >
                     {soc.name}
                   </a>
@@ -862,8 +793,8 @@ function Footer() {
         </div>
 
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-text-light/70 text-xs font-medium">
-          <p>© 2026 Благородный Север</p>
-          <p>Московская область</p>
+          <p>{t.copyright}</p>
+          <p>{t.region}</p>
         </div>
       </div>
     </footer>
@@ -872,19 +803,20 @@ function Footer() {
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
+  const [lang, setLang] = useState<Language>('RU');
+
   return (
     <main className="min-h-screen selection:bg-primary selection:text-text-light">
       <div className="bg-secondary relative">
-        <Navbar />
-        <Hero />
+        <Navbar lang={lang} setLang={setLang} />
+        <Hero lang={lang} />
       </div>
-      <Gallery />
-      <About />
-      <Directions />
-      <WhyImportant />
-      <News />
-      <Media />
-      <Footer />
+      <About lang={lang} />
+      <Directions lang={lang} />
+      <WhyImportant lang={lang} />
+      <News lang={lang} />
+      <Media lang={lang} />
+      <Footer lang={lang} />
     </main>
   );
 }
