@@ -128,7 +128,7 @@
 
 /* Premium feathered gradient overlay for Hero background slideshow */
 .hero-gradient-overlay {
-  background: linear-gradient(to bottom, #071717 0%, #071717 40%, rgba(7, 23, 23, 0.9) 65%, rgba(7, 23, 23, 0) 95%);
+  background: linear-gradient(to top, #071717 0%, #071717 55%, rgba(7, 23, 23, 0.8) 75%, rgba(7, 23, 23, 0) 100%);
 }
 
 @media (min-width: 768px) {

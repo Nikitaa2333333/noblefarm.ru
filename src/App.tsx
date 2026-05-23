@@ -258,13 +258,13 @@ function Hero({ lang }: SectionProps) {
   return (
     <section id="hero" className="relative min-h-[90vh] flex items-center overflow-hidden bg-secondary">
       {/* Background Image and Gradient Overlay */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[50vh] md:top-0 md:left-[45%] md:w-[55%] md:h-full z-0 overflow-hidden">
         <AnimatePresence mode="popLayout">
           <motion.img
             key={bgIndex}
             src={activeBg.src}
             alt="Благородный олень"
-            className="absolute inset-0 md:inset-y-0 md:left-[45%] md:right-0 md:w-[55%] md:h-full w-full h-full object-cover object-center"
+            className="absolute -top-1 -left-1 w-[calc(100%+8px)] h-[calc(100%+8px)] object-cover object-center"
             initial={{ opacity: 0, scale: 1 }}
             animate={{ opacity: 1, scale: 1.05 }}
             exit={{ opacity: 0 }}
@@ -274,11 +274,14 @@ function Hero({ lang }: SectionProps) {
             }}
           />
         </AnimatePresence>
-        {/* Cinematic gradient: solid dark teal on the left, fading to transparent on the right; responsive vertical layout on mobile */}
-        <div className="absolute inset-0 hero-gradient-overlay z-10 pointer-events-none" />
+        {/* Mobile gradient: fades to solid #071717 at the bottom edge of the image */}
+        <div className="absolute inset-x-0 top-0 bottom-[-4px] bg-gradient-to-t from-secondary via-secondary/50 to-transparent md:hidden z-10 pointer-events-none" />
       </div>
+      
+      {/* Desktop gradient overlay */}
+      <div className="hidden md:block absolute inset-0 hero-gradient-overlay z-10 pointer-events-none" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-28 pb-20">
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-[42vh] md:pt-28 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
