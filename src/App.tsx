@@ -219,23 +219,31 @@ interface SectionProps {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 const HERO_BACKGROUNDS = [
-  { src: '/enhanced_hero_bg.png', isVertical: false },
-  { src: '/enhanced_about_1.png', isVertical: false },
-  { src: '/enhanced_about_2.png', isVertical: true },
-  { src: '/enhanced_about_3.png', isVertical: true },
-  { src: '/enhanced_about_4.png', isVertical: true },
-  { src: '/enhanced_about_5.png', isVertical: true },
-  { src: '/enhanced_about_6.png', isVertical: true },
-  { src: '/enhanced_about_7.png', isVertical: true },
-  { src: '/enhanced_about_8.png', isVertical: true },
-  { src: '/enhanced_about_9.png', isVertical: true },
-  { src: '/enhanced_deer_1.png', isVertical: true },
-  { src: '/enhanced_deer_2.png', isVertical: true },
-  { src: '/enhanced_deer_3.png', isVertical: true },
+  { src: '/enhanced_hero_bg.webp', isVertical: false },
+  { src: '/enhanced_about_1.webp', isVertical: false },
+  { src: '/enhanced_about_2.webp', isVertical: true },
+  { src: '/enhanced_about_3.webp', isVertical: true },
+  { src: '/enhanced_about_4.webp', isVertical: true },
+  { src: '/enhanced_about_5.webp', isVertical: true },
+  { src: '/enhanced_about_6.webp', isVertical: true },
+  { src: '/enhanced_about_7.webp', isVertical: true },
+  { src: '/enhanced_about_8.webp', isVertical: true },
+  { src: '/enhanced_about_9.webp', isVertical: true },
+  { src: '/enhanced_deer_1.webp', isVertical: true },
+  { src: '/enhanced_deer_2.webp', isVertical: true },
+  { src: '/enhanced_deer_3.webp', isVertical: true },
 ];
 
 function Hero({ lang }: SectionProps) {
   const [bgIndex, setBgIndex] = useState(0);
+
+  // Asynchronously preload all background images for smooth slider transitions
+  useEffect(() => {
+    HERO_BACKGROUNDS.forEach((bg) => {
+      const img = new Image();
+      img.src = bg.src;
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -272,6 +280,7 @@ function Hero({ lang }: SectionProps) {
               opacity: { duration: 1.5, ease: 'easeInOut' },
               scale: { duration: 6.5, ease: 'easeOut' }
             }}
+            loading="eager"
           />
         </AnimatePresence>
         {/* Mobile gradient: fades to solid #071717 at the bottom edge of the image */}
