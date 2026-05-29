@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Award, Compass, Search, BookOpen, Cpu, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Check, ArrowRight } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabAntlersProps {
@@ -8,6 +9,7 @@ interface TabAntlersProps {
 }
 
 export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
+  const [activePhase, setActivePhase] = useState(0);
   const isRU = lang === 'RU';
   const isCN = lang === 'CN';
 
@@ -71,30 +73,32 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-bg-light pt-24 pb-20 text-text-dark"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <div className="max-w-[1400px] mx-auto px-6">
-        {/* ─── Hero / Header ────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-          <div className="lg:col-span-8">
-            <span className="text-accent text-sm font-semibold tracking-wider block mb-3">
+      {/* ─── Hero / Header ────────────────────────────────────────────────── */}
+      <section className="hero-side-image">
+        <div className="hero-side-image__grid">
+          <div className="hero-side-image__text">
+            <span className="hero-eyebrow">
               {isRU ? 'Биологические ресурсы' : isCN ? '生物资源开发' : 'Biological Resources'}
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-[4.5rem] font-medium leading-none text-text-dark">
-              {isRU ? 'Пантовое направление' : isCN ? '鹿茸产业方向' : 'Velvet Antler Direction'}
+            <h1 className="hero-title">
+              {isRU ? 'Пантовое ' : isCN ? '鹿茸' : 'Velvet Antler '}
+              <span className="h-section__accent">
+                {isRU ? 'направление' : isCN ? '产业方向' : 'Direction'}
+              </span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl font-medium text-text-dark max-w-3xl leading-relaxed">
+            <p className="hero-desc">
               {isRU
                 ? 'Одно из наиболее перспективных направлений современного оленеводства, основанное на уникальных биологических свойствах молодых рогов благородного оленя.'
                 : isCN
                   ? '基于欧洲红鹿幼角独特的生物学特性，这是现代养鹿业最具前景的发展方向之一。'
                   : 'One of the most promising directions of modern deer farming, based on the unique biological properties of young European Red Deer antlers.'}
             </p>
-            <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-primary font-bold text-sm">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-primary font-bold text-sm mt-2">
               <span>{isRU ? 'Наука' : isCN ? '科学研究' : 'Science'}</span>
               <span>•</span>
               <span>{isRU ? 'Биоресурсы' : isCN ? '生物资源' : 'Bioresources'}</span>
@@ -104,84 +108,190 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               <span>{isRU ? 'Международный опыт' : isCN ? '国际经验' : 'International Experience'}</span>
             </div>
           </div>
-          <div className="lg:col-span-4 overflow-hidden rounded-none rounded-br-[80px] shadow-lg border border-border-light aspect-[4/3]">
-            <img src="/enhanced_about_6.webp" className="w-full h-full object-cover" alt="Velvet Antlers" />
+          <div className="hero-side-image__media">
+            <img src="/enhanced_about_6.webp" alt="Velvet Antlers" />
           </div>
         </div>
+      </section>
 
-        {/* ─── Unique Biological Phenomenon ─────────────────────────────────── */}
-        <section className="bg-bg-card border border-border-light rounded-none p-8 md:p-12 mb-16 shadow-xs">
-          <div className="max-w-3xl mb-12">
-            <h2 className="font-serif text-2xl sm:text-4xl font-medium text-text-dark mb-4">
-              {isRU ? 'Уникальность, которой почти нет в природе' : isCN ? '自然界几乎独一无二的独特性' : 'Uniqueness Almost Unseen in Nature'}
-            </h2>
-            <div className="text-text-dark text-sm sm:text-base leading-relaxed flex flex-col gap-4 font-semibold">
-              <p>
-                {isRU
-                  ? 'Панты — это молодые неокостеневшие рога благородного оленя в фазе активного роста. В этот период они имеют мягкую структуру, интенсивное кровоснабжение и покрыты бархатистой тканью.'
-                  : isCN
-                    ? '鹿茸是欧洲红鹿处于快速生长阶段的未骨化幼角。在此期间，它们结构柔软，血液循环极其丰富，并覆有一层丝绒状的软皮组织。'
-                    : 'Velvet antlers are the young, unossified antlers of Red Deer in the active growth phase. During this period, they have a soft structure, intensive blood supply, and are covered with velvet fabric.'}
-              </p>
-              <p>
-                {isRU
-                  ? 'Их уникальность заключается в способности к полной ежегодной регенерации. После естественного сброса рогов олень ежегодно заново формирует новую структуру — процесс, практически не встречающийся среди млекопитающих.'
-                  : isCN
-                    ? '其独特之处在于具有每年完全再生的神奇能力。在老角自然脱落后，红鹿每年都会重新生长出完整的全新鹿角结构——这一再生过程在哺乳动物中几乎绝无仅有。'
-                    : 'Their uniqueness lies in the ability to undergo complete annual regeneration. After the natural shedding of hard antlers, the deer rebuilds a new structure every year—a process virtually unseen in other mammals.'}
-              </p>
-              <p>
-                {isRU
-                  ? 'Молодые рога растут с невероятной скоростью — от 1 до 4 см в сутки, а полный цикл развития занимает около 4 месяцев. Благодаря такой интенсивности роста и сложности формирования тканей панты давно вызывают интерес исследователей в области регенерации, биологии роста и восстановительных процессов.'
-                  : isCN
-                    ? '幼角以惊人的速度生长——每天生长1至4厘米，完整的生长周期仅需约4个月。得益于如此惊人的生长速度和复杂的组织形成，鹿茸长期以来一直吸引着组织再生、生长生物学和身体修复机制领域研究人员的极大兴趣。'
-                    : 'Young antlers grow at an incredible rate of 1 to 4 cm per day, with the full development cycle taking about 4 months. Due to this high intensity, they have long intrigued scientists.'}
-              </p>
+      {/* ─── Unique Biological Phenomenon ─────────────────────────────────── */}
+      <section className="section-accent">
+        <div className="section-inner">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <h2 className="h-section-light">
+                {isRU ? 'Уникальность, которой почти ' : isCN ? '自然界几乎独一无二的' : 'Uniqueness Almost Unseen in '}
+                <span className="h-section__accent">{isRU ? 'нет в природе' : isCN ? '独特性' : 'Nature'}</span>
+              </h2>
+              <div className="text-text-light text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
+                <p>
+                  {isRU
+                    ? 'Панты — это молодые неокостеневшие рога благородного оленя в фазе активного роста. В этот период они имеют мягкую структуру, интенсивное кровоснабжение и покрыты бархатистой тканью.'
+                    : isCN
+                      ? '鹿茸是欧洲红鹿处于快速生长阶段的未骨化幼角。在此期间，它们结构柔软，血液循环极其丰富，并覆有一层丝绒状的软皮组织。'
+                      : 'Velvet antlers are the young, unossified antlers of Red Deer in the active growth phase. During this period, they have a soft structure, intensive blood supply, and are covered with velvet fabric.'}
+                </p>
+                <p>
+                  {isRU
+                    ? 'Их уникальность заключается в способности к полной ежегодной регенерации. После естественного сброса рогов олень ежегодно заново формирует новую структуру — процесс, практически не встречающийся среди млекопитающих.'
+                    : isCN
+                      ? '其独特之处在于具有每年完全再生的神奇能力。在老角自然脱落后，红鹿每年都会重新生长出完整的全新鹿角结构——这一再生过程在哺乳动物中几乎绝无仅有。'
+                      : 'Their uniqueness lies in the ability to undergo complete annual regeneration. After the natural shedding of hard antlers, the deer rebuilds a new structure every year—a process virtually unseen in other mammals.'}
+                </p>
+                <p>
+                  {isRU
+                    ? 'Молодые рога растут с невероятной скоростью — от 1 до 4 см в сутки, а полный цикл развития занимает около 4 месяцев. Благодаря такой интенсивности роста и сложности формирования тканей панты давно вызывают интерес исследователей в области регенерации, биологии роста и восстановительных процессов.'
+                    : isCN
+                      ? '幼角以惊人的速度生长——每天生长1至4厘米，完整的生长周期仅需约4个月。得益于如此惊人的生长速度和复杂的组织形成，鹿茸长期以来一直吸引着组织再生、生长生物学和身体修复机制领域研究人员的极大兴趣。'
+                      : 'Young antlers grow at an incredible rate of 1 to 4 cm per day, with the full development cycle taking about 4 months. Due to this high intensity, they have long intrigued scientists.'}
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 border-t border-b border-border-light py-8">
-            <div className="text-center md:text-left">
-              <div className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">1–4 {isRU ? 'см в день' : '厘米/天'}</div>
-              <div className="text-xs sm:text-sm font-bold text-text-dark tracking-wider mt-3">{isRU ? 'скорость роста' : '生长速度'}</div>
-            </div>
-            <div className="text-center md:text-left">
-              <div className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">≈ 4 {isRU ? 'месяца' : '个月'}</div>
-              <div className="text-xs sm:text-sm font-bold text-text-dark tracking-wider mt-3">{isRU ? 'полный цикл формирования' : '完整生长周期'}</div>
-            </div>
-            <div className="text-center md:text-left">
-              <div className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">100% {isRU ? 'регенерация' : '每年完全再生'}</div>
-              <div className="text-xs sm:text-sm font-bold text-text-dark tracking-wider mt-3">{isRU ? 'уникальная способность среди млекопитающих' : '哺乳动物中罕见的再生机制'}</div>
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              {/* Stats Grid inside accent section - use bg-secondary/40 tiles for dark bg! */}
+              <div className="grid grid-cols-1 gap-4">
+                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
+                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
+                    1–4 {isRU ? 'см в день' : '厘米/天'}
+                  </span>
+                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
+                    {isRU ? 'скорость роста' : '生长速度'}
+                  </span>
+                </div>
+                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
+                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
+                    ≈ 4 {isRU ? 'месяца' : '个月'}
+                  </span>
+                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
+                    {isRU ? 'полный цикл формирования' : '完整生长周期'}
+                  </span>
+                </div>
+                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
+                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
+                    100% {isRU ? 'регенерация' : '每年完全再生'}
+                  </span>
+                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
+                    {isRU ? 'уникальная способность среди млекопитающих' : '哺乳动物中罕见的再生机制'}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Horizontal Growth Timeline */}
-          <div>
-            <h3 className="font-serif text-lg font-semibold text-text-dark mb-8 text-center md:text-left">
+          <div className="mt-16 border-t border-border-dark pt-10">
+            <h3 className="font-serif text-xl font-semibold text-text-light mb-8 text-center md:text-left">
               {isRU ? 'Таймлайн роста пантов' : isCN ? '鹿茸生长时间线' : 'Antler Growth Timeline'}
             </h3>
-            <div className="relative flex flex-col md:flex-row justify-between items-start gap-8 md:gap-4 md:before:content-[\'\'] md:before:absolute md:before:top-[15px] md:before:left-0 md:before:right-0 md:before:h-[2px] md:before:bg-border-light z-0">
-              {timelineGrowth.map((t, idx) => (
-                <div key={idx} className="relative z-10 flex md:flex-col items-center md:items-start gap-4 md:gap-0 w-full">
-                  <div className="w-8 h-8 rounded-full bg-bg-card border-4 border-primary text-accent flex items-center justify-center font-bold text-xs shrink-0 md:mb-4 shadow-sm" />
-                  <div>
-                    <h4 className="font-serif text-lg sm:text-xl font-bold text-text-dark mb-2 leading-tight">{t.season}</h4>
-                    <p className="text-xs font-semibold text-text-dark bg-bg-light px-2 py-1 rounded-[6px] w-fit leading-none">{t.phase}</p>
-                  </div>
+
+            {/* Timeline Stepper Container */}
+            <div className="relative flex flex-col gap-10">
+              {/* Stepper nodes */}
+              <div className="relative flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-0 z-10">
+                {/* Horizontal line underneath nodes */}
+                <div className="absolute top-[16px] left-[10%] right-[10%] h-[2px] bg-border-dark/30 hidden md:block z-0">
+                  <div 
+                    className="h-full bg-accent transition-all duration-500 ease-out"
+                    style={{ width: `${(activePhase / (timelineGrowth.length - 1)) * 100}%` }}
+                  />
                 </div>
-              ))}
+
+                {timelineGrowth.map((t, idx) => {
+                  const isActive = idx === activePhase;
+                  const isCompleted = idx <= activePhase;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActivePhase(idx)}
+                      className="relative z-10 flex flex-col items-center md:items-start gap-3 md:gap-0 md:w-1/4 text-center md:text-left group cursor-pointer focus-visible:outline-none"
+                    >
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-serif text-sm font-bold shrink-0 md:mb-4 transition-all duration-500 border ${
+                        isActive
+                          ? 'bg-accent text-secondary border-accent scale-110 shadow-soft-lg ring-4 ring-accent/30'
+                          : isCompleted
+                            ? 'bg-accent/80 text-secondary border-accent'
+                            : 'bg-secondary border-border-dark text-text-light/50 group-hover:border-accent group-hover:text-accent/90'
+                      }`}>
+                        <div className={`w-1.5 h-1.5 rounded-full ${isActive || isCompleted ? 'bg-secondary' : 'bg-text-light/40 group-hover:bg-accent'}`} />
+                      </div>
+                      <div className="flex flex-col items-center md:items-start">
+                        <h4 className={`font-serif text-lg font-bold mb-1 transition-colors duration-300 ${
+                          isActive ? 'text-accent' : 'text-text-light'
+                        }`}>
+                          {t.season}
+                        </h4>
+                        <p className={`text-xs font-semibold px-2.5 py-1 rounded-[6px] w-fit leading-none transition-all duration-300 ${
+                          isActive ? 'bg-accent text-secondary' : 'bg-secondary/40 text-text-light/80'
+                        }`}>
+                          {t.phase}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <motion.div
+                key={activePhase}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="bg-secondary/40 py-5 px-6 md:py-5 md:px-7 rounded-none shadow-soft max-w-3xl"
+              >
+                <div className="flex-1">
+                  <span className="text-accent text-xs font-bold tracking-wider block mb-1">
+                    {isRU ? 'Текущая фаза развития' : isCN ? '当前生长阶段' : 'Active Growth Phase'}
+                  </span>
+                  <h4 className="font-serif text-xl md:text-2xl font-bold text-text-light mb-2 leading-tight">
+                    {timelineGrowth[activePhase].season} — <span className="text-accent">{timelineGrowth[activePhase].phase}</span>
+                  </h4>
+                  <p className="text-sm text-text-light/85 max-w-2xl leading-relaxed">
+                    {activePhase === 0 && (
+                      isRU 
+                        ? 'С наступлением весны начинается новый годовой цикл. После сброса старых рогов запускается процесс стремительной регенерации и формирования молодых пантов.' 
+                        : isCN
+                          ? '随着春天的到来，新的年度周期开始。老角脱落后，幼角开始进入极其迅速的再生与形成过程。'
+                          : 'With the arrival of spring, a new annual cycle begins. After the shedding of old antlers, the process of rapid regeneration starts.'
+                    )}
+                    {activePhase === 1 && (
+                      isRU 
+                        ? 'Период максимальной интенсивности роста. Молодые панты насыщаются микроэлементами, а скорость деления клеток достигает наивысших показателей.' 
+                        : isCN
+                          ? '生长强度达到巅峰的时期。新生的鹿茸中富含各种微量元素，细胞分裂速度达到全年的最高水平。'
+                          : 'The period of maximum growth intensity. Young antlers are saturated with trace elements, and cell division reaches its peak.'
+                    )}
+                    {activePhase === 2 && (
+                      isRU 
+                        ? 'Завершающий этап активного накопления полезных биологически активных веществ. Панты достигают своего максимального объема и ценности.' 
+                        : isCN
+                          ? '活性生物营养物质积累的最后阶段。鹿茸在此期间达到最大的体积与极高药用价值。'
+                          : 'The final phase of active accumulation of beneficial bio-compounds. Antlers reach their maximum size and value.'
+                    )}
+                    {activePhase === 3 && (
+                      isRU 
+                        ? 'Происходит естественное окостенение структуры рогов. Завершается фаза регенерации и роста до следующего сезона.' 
+                        : isCN
+                          ? '鹿角结构开始自然骨化。再生与生长阶段完全结束，直至下一个年度周期的到来。'
+                          : 'Natural ossification of the antler structure begins. The regeneration and growth phase concludes until the next season.'
+                    )}
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── History & Centuries-Old Value ─────────────────────────────────── */}
-        <section className="bg-primary text-text-light rounded-none p-8 md:p-12 mb-16 shadow-lg border-y border-white/10">
+      {/* ─── History & Centuries-Old Value ─────────────────────────────────── */}
+      <section className="section-calm">
+        <div className="section-inner">
           <div className="max-w-3xl mb-12">
-            <h2 className="font-serif text-2xl sm:text-4xl font-medium text-accent leading-tight mb-4">
-              {isRU ? 'Ценность, известная на протяжении столетий' : isCN ? '流传数个世纪的珍贵价值' : 'Value Known for Centuries'}
+            <h2 className="h-section mb-4">
+              {isRU ? 'Ценность, известная на протяжении ' : isCN ? '流传数个世纪的' : 'Value Known for '}
+              <span className="h-section__accent">{isRU ? 'столетий' : isCN ? '珍贵价值' : 'Centuries'}</span>
             </h2>
-            <div className="text-text-light text-sm sm:text-base leading-relaxed flex flex-col gap-4 font-semibold">
+            <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
               <p>
                 {isRU
                   ? 'Панты оленя ценились на протяжении многих веков и занимали особое место в культурах Азии. Исторические упоминания об их использовании встречаются в традициях Китая, Кореи, Монголии и других регионов, где олень воспринимался как символ силы, жизненной энергии и восстановления.'
@@ -199,47 +309,52 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </div>
           </div>
 
-          {/* Historical timeline цепочка */}
-          <div className="border-t border-white/10 pt-8">
+          {/* Historical timeline cards */}
+          <div className="border-t border-border-light pt-8">
             <h3 className="font-serif text-sm font-semibold text-accent tracking-wider mb-8">
               {isRU ? 'Исторический путь' : isCN ? '历史发展轨迹' : 'Historical Path'}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
               {historicalTimeline.map((item, idx) => (
-                <div key={idx} className="relative flex gap-4 items-center bg-secondary/30 border border-white/5 p-4 rounded-[6px]">
+                <div key={idx} className="card-flat flex gap-4 items-center group hover:-translate-y-1 hover:shadow-soft-lg transition-all duration-300">
                   <span className="font-serif text-lg font-bold text-accent shrink-0">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
-                  <div className="font-semibold text-xs md:text-sm text-text-light leading-snug">{item.title}</div>
+                  <div className="font-bold text-xs md:text-sm text-text-dark leading-snug">{item.title}</div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── Scientific Interest ───────────────────────────────────────────── */}
-        <section className="bg-bg-card border border-border-light rounded-none p-8 md:p-12 mb-16 shadow-xs">
+      {/* ─── Scientific Interest ───────────────────────────────────────────── */}
+      <section className="section-accent">
+        <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Left: Intro */}
             <div className="lg:col-span-6 flex flex-col gap-6">
-              <h2 className="font-serif text-2xl sm:text-4xl font-medium text-text-dark">
-                {isRU ? 'Почему панты изучают учёные' : isCN ? '为什么科学家热衷于研究鹿茸' : 'Why Scientists Study Velvet Antlers'}
+              <h2 className="h-section-light">
+                {isRU ? 'Почему панты изучают ' : isCN ? '为什么科学家热衷于' : 'Why Scientists Study '}
+                <span className="h-section__accent">{isRU ? 'учёные' : isCN ? '研究鹿茸' : 'Velvet Antlers'}</span>
               </h2>
-              <p className="text-text-dark text-sm sm:text-base leading-relaxed font-semibold">
+              <p className="text-text-light text-base sm:text-lg leading-relaxed font-medium">
                 {isRU
                   ? 'Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма. Исследования посвящены изучению биологического состава пантов, механизмов роста тканей и потенциальной роли отдельных компонентов в процессах восстановления и адаптации организма.'
                   : isCN
-                    ? '得益于其定期再生能力和极快的生长速度，鹿茸已成为从组织生物学到人体机能恢复等多个科学领域的研究热点。相关学术探索致力于深入揭示鹿茸的复杂生物化学成分、组织生长的细胞分子机制，以及特定活性成分在促进人体损伤修复和环境适应中的潜在效能。'
+                    ? '得益于其定期再生能力 and 极快的生长速度，鹿茸已成为从组织生物学到人体机能恢复等多个科学领域的研究热点。相关学术探索致力于深入揭示鹿茸的复杂生物化学成分、组织生长的细胞分子机制，以及特定活性成分在促进人体损伤修复和环境适应中的潜在效能。'
                     : 'Due to their ability for regular regeneration and rapid growth, velvet antlers have become an object of scientific interest in fields from tissue biology to recovery processes. Research is devoted to analyzing their bio-composition and role in adaptation.'}
               </p>
               
-              <div className="mt-4 p-5 bg-bg-light/60 border border-border-light rounded-none">
-                <h4 className="font-serif text-base sm:text-lg font-bold text-text-dark mb-3">{isRU ? 'Где применяется в мировой практике' : isCN ? '全球主要应用领域' : 'Global Application Practice'}</h4>
-                <div className="flex flex-col gap-3 mt-3">
+              <div className="mt-4 p-6 bg-secondary/40 rounded-none">
+                <h4 className="font-serif text-base sm:text-lg font-bold text-accent mb-4">
+                  {isRU ? 'Где применяется в мировой практике' : isCN ? '全球主要应用领域' : 'Global Application Practice'}
+                </h4>
+                <div className="flex flex-col gap-4">
                   {applications.map((app, i) => (
-                    <div key={i} className="text-xs font-semibold leading-relaxed text-text-dark">
-                      <span className="text-primary font-bold block">{app.title}</span>
-                      <span className="text-text-dark block mt-0.5">{app.desc}</span>
+                    <div key={i} className="text-sm font-semibold leading-relaxed text-text-light border-b border-white/5 last:border-0 pb-3 last:pb-0">
+                      <span className="text-accent font-bold block">{app.title}</span>
+                      <span className="text-text-light/95 block mt-0.5">{app.desc}</span>
                     </div>
                   ))}
                 </div>
@@ -248,23 +363,23 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
             {/* Right: Checklist */}
             <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-10">
-              <h3 className="font-serif text-xl sm:text-2xl text-primary font-medium">
+              <h3 className="font-serif text-xl sm:text-2xl text-accent font-medium mb-2">
                 {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
               </h3>
               <div className="flex flex-col gap-3">
                 {whatIsStudied.map((item, idx) => (
-                  <div key={idx} className="flex gap-3 items-center bg-bg-light/40 border border-border-light/40 p-3.5 rounded-none">
-                    <div className="w-5 h-5 bg-primary/5 text-primary rounded-[4px] flex items-center justify-center text-[10px] font-bold shrink-0 border border-primary/10">✓</div>
-                    <span className="text-xs md:text-sm font-semibold text-text-dark">{item}</span>
+                  <div key={idx} className="flex gap-4 items-center bg-secondary/40 p-4 rounded-none">
+                    <Check className="w-5 h-5 text-accent shrink-0" strokeWidth={2.5} />
+                    <span className="text-xs md:text-sm font-semibold text-text-light">{item}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-8 border-t border-border-light pt-6 flex flex-col gap-4">
-                <button className="btn-outline-dark cursor-not-allowed opacity-80 text-xs py-3 px-6 w-fit leading-none">
+              <div className="mt-8 border-t border-border-dark pt-6 flex flex-col gap-4">
+                <button className="btn-outline-light cursor-not-allowed opacity-60 text-xs py-3.5 px-7 w-fit leading-none">
                   {isRU ? 'Научные исследования (в разработке)' : isCN ? '学术研究论著（开发中）' : 'Scientific Research (In Development)'}
                 </button>
-                <p className="text-[10px] font-semibold text-text-dark leading-relaxed max-w-md italic">
+                <p className="text-[10px] font-semibold text-text-light/70 leading-relaxed max-w-md italic">
                   {isRU
                     ? '*Представленная информация носит ознакомительный характер и не является медицинским утверждением.'
                     : isCN
@@ -274,15 +389,18 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── Biological Composition ────────────────────────────────────────── */}
-        <section className="bg-bg-card border border-border-light rounded-none p-8 md:p-12 mb-16 shadow-xs">
+      {/* ─── Biological Composition ────────────────────────────────────────── */}
+      <section className="section-calm">
+        <div className="section-inner">
           <div className="max-w-3xl mb-8">
-            <h2 className="font-serif text-2xl sm:text-4xl font-medium text-text-dark mb-4">
-              {isRU ? 'Биологический состав пантов' : isCN ? '鹿茸的天然生物化学成分' : 'Biological Composition of Velvet Antlers'}
+            <h2 className="h-section mb-4">
+              {isRU ? 'Биологический состав ' : isCN ? '鹿茸的天然' : 'Biological '}
+              <span className="h-section__accent">{isRU ? 'пантов' : isCN ? '生物化学成分' : 'Composition'}</span>
             </h2>
-            <p className="text-text-dark text-sm sm:text-base leading-relaxed font-semibold">
+            <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
               {isRU
                 ? 'Исследования показывают наличие в пантах комплекса природных компонентов, включая:'
                 : isCN
@@ -291,18 +409,17 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </p>
           </div>
 
-          {/* Clean scandinavian grid of cards, exactly word-for-word titles, no invented descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {composition.map((item, idx) => (
-              <div key={idx} className="bg-bg-light/60 border border-border-light rounded-none p-6 hover:border-accent hover:shadow-md transition-all duration-300 flex items-center justify-between min-h-[100px]">
-                <span className="font-serif text-sm sm:text-base font-semibold text-text-dark leading-snug">{item}</span>
+              <div key={idx} className="card-flat flex items-center justify-between min-h-[90px] group hover:-translate-y-1 hover:shadow-soft-lg transition-all duration-300">
+                <span className="font-serif text-sm sm:text-base font-bold text-text-dark leading-snug">{item}</span>
                 <span className="text-xs font-serif text-accent font-bold ml-2">{(idx+1).toString().padStart(2, '0')}</span>
               </div>
             ))}
           </div>
 
           <div className="mt-8 border-t border-border-light pt-6">
-            <p className="text-[11px] font-semibold text-text-dark italic">
+            <p className="text-[11px] font-semibold text-text-dark/80 italic">
               {isRU
                 ? 'Состав зависит от генетики животного, периода роста, условий содержания и технологии переработки.'
                 : isCN
@@ -310,43 +427,51 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                   : 'The specific composition depends on animal genetics, growth period, keeping conditions, and processing technology.'}
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── Quality Starts with Genetics ─────────────────────────────────── */}
-        <section className="bg-primary text-text-light rounded-none p-8 md:p-12 mb-16 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-8 border-y border-white/10">
+      {/* ─── Quality Starts with Genetics ─────────────────────────────────── */}
+      <section className="section-accent">
+        <div className="section-inner flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-2xl">
-            <h2 className="font-serif text-2xl sm:text-3xl font-medium text-accent mb-4">
-              {isRU ? 'Качество пантов начинается с качества стада' : isCN ? '高品质鹿茸源于优质种群' : 'Antler Quality Starts with Herd Quality'}
+            <h2 className="h-section-light mb-4">
+              {isRU ? 'Качество пантов начинается с ' : isCN ? '高品质鹿茸源于优质种群' : 'Antler Quality Starts with '}
+              <span className="h-section__accent">{isRU ? 'качества стада' : isCN ? '优质种群' : 'Herd Quality'}</span>
             </h2>
-            <p className="text-text-light text-sm sm:text-base leading-relaxed font-semibold">
-              {isRU
-                ? 'Потенциал развития пантов напрямую связан с происхождением животных, качеством племенных линий, здоровьем стада и подходом к селекции.'
-                : isCN
-                  ? '鹿茸丰产和高品质的长势潜力，与红鹿个体的纯正血统来源、核心种公牛遗传素质、整体健康状况以及长期的科学配种密不可分。'
-                  : 'The growth potential of velvet antlers is directly linked to the origin of animals, the quality of breeding lines, herd health, and the selection approach.'}
-            </p>
-            <p className="text-text-light text-sm sm:text-base leading-relaxed font-semibold mt-3">
-              {isRU
-                ? 'Благородный европейский олень отличается мощным развитием рогов и высоким потенциалом для развития пантового направления. Именно поэтому генетика и племенная работа являются фундаментом качества.'
-                : isCN
-                  ? '欧洲红鹿以其角骨生长极为粗壮和巨大的鹿茸开发前景著称。因此，长期的遗传改良和纯血选育是我们无可动摇的品质基石。'
-                  : 'European Red Deer is characterized by powerful antler development and a high potential for the industry. That is why genetics is the foundation of quality.'}
-            </p>
+            <div className="text-text-light text-base sm:text-lg leading-relaxed flex flex-col gap-3 font-medium">
+              <p>
+                {isRU
+                  ? 'Потенциал развития пантов напрямую связан с происхождением животных, качеством племенных линий, здоровьем стада и подходом к селекции.'
+                  : isCN
+                    ? '鹿茸丰产和高品质的长势潜力，与红鹿个体的纯正血统来源、核心种公牛遗传素质、整体健康状况以及长期的科学配种密不可分。'
+                    : 'The growth potential of velvet antlers is directly linked to the origin of animals, the quality of breeding lines, herd health, and the selection approach.'}
+              </p>
+              <p>
+                {isRU
+                  ? 'Благородный европейский олень отличается мощным развитием рогов и высоким потенциалом для развития пантового направления. Именно поэтому генетика и племенная работа являются фундаментом качества.'
+                  : isCN
+                    ? '欧洲红鹿以其角骨生长极为粗壮和巨大的鹿茸开发前景著称。因此，长期的遗传改良和纯血选育是我们无可动摇的品质基石。'
+                    : 'European Red Deer is characterized by powerful antler development and a high potential for the industry. That is why genetics is the foundation of quality.'}
+              </p>
+            </div>
           </div>
           <button
             onClick={() => onSwitchTab('genetics')}
-            className="btn-primary shrink-0 self-start md:self-auto flex items-center justify-center gap-1.5"
+            className="btn-outline-light shrink-0 self-start md:self-auto flex items-center justify-center gap-2"
           >
             {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'} <ArrowRight className="w-4 h-4" />
           </button>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── Our Approach ─────────────────────────────────────────────────── */}
-        <section className="bg-bg-card border border-border-light rounded-none p-8 md:p-12 shadow-xs">
-          <h2 className="font-serif text-2xl sm:text-3xl font-medium text-text-dark mb-4">
-            {isRU ? 'Наш взгляд на развитие направления' : isCN ? '我们对该领域的长远愿景' : 'Our Approach to the Industry'}
+      {/* ─── Our Approach ─────────────────────────────────────────────────── */}
+      <section className="section-calm">
+        <div className="section-inner">
+          <h2 className="h-section mb-6">
+            {isRU ? 'Наш взгляд на ' : isCN ? '我们对该领域的' : 'Our Approach to the '}
+            <span className="h-section__accent">{isRU ? 'развитие направления' : isCN ? '长远愿景' : 'Industry'}</span>
           </h2>
-          <div className="text-text-dark text-sm sm:text-base leading-relaxed flex flex-col gap-4 font-semibold max-w-3xl">
+          <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium max-w-3xl">
             <p>
               {isRU
                 ? 'В «Благородном Севере» мы рассматриваем пантовое направление как долгосрочную часть развития хозяйства, основанную на качестве животных, ответственном подходе, ветеринарном сопровождении и системной племенной работе.'
@@ -362,8 +487,8 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                   : 'In the future, we plan to develop our own velvet harvesting capacities and study modern approaches to deep processing and high-value product creation.'}
             </p>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </motion.div>
   );
 }
