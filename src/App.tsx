@@ -12,18 +12,24 @@ import {
 import { useEffect, useState } from 'react';
 import { Language, TRANSLATIONS } from './translations';
 
-const scrollTo = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-};
+// Import modular tab components
+import TabGenetics from './components/TabGenetics';
+import TabAntlers from './components/TabAntlers';
+import TabIndustry from './components/TabIndustry';
+import TabPopularization from './components/TabPopularization';
+import TabMedia from './components/TabMedia';
+import TabNews from './components/TabNews';
+import TabContacts from './components/TabContacts';
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 interface NavbarProps {
   lang: Language;
   setLang: (lang: Language) => void;
+  navigateAndScroll: (id: string) => void;
+  activeTab: string;
 }
 
-function Navbar({ lang, setLang }: NavbarProps) {
+function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -70,12 +76,12 @@ function Navbar({ lang, setLang }: NavbarProps) {
             className="flex items-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] transition-all shrink-0"
             tabIndex={0}
             onClick={() => {
-              scrollTo('about');
+              navigateAndScroll('about');
               setMobileMenuOpen(false);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                scrollTo('about');
+                navigateAndScroll('about');
                 setMobileMenuOpen(false);
               }
             }}
@@ -90,8 +96,10 @@ function Navbar({ lang, setLang }: NavbarProps) {
             {navLinks.map((link) => (
               <button
                 key={link.label}
-                onClick={() => scrollTo(link.id)}
-                className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1.5 py-1 rounded-[6px]"
+                onClick={() => navigateAndScroll(link.id)}
+                className={`hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1.5 py-1 rounded-[6px] ${
+                  activeTab === link.id ? 'text-accent font-bold' : ''
+                }`}
               >
                 {link.label}
               </button>
@@ -157,10 +165,12 @@ function Navbar({ lang, setLang }: NavbarProps) {
             <button
               key={link.label}
               onClick={() => {
-                scrollTo(link.id);
+                navigateAndScroll(link.id);
                 setMobileMenuOpen(false);
               }}
-              className="text-left text-text-light hover:text-accent py-3 text-xl font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors cursor-pointer border-b border-border-dark w-full"
+              className={`text-left hover:text-accent py-3 text-xl font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors cursor-pointer border-b border-border-dark w-full ${
+                activeTab === link.id ? 'text-accent font-bold border-accent/30' : 'text-text-light'
+              }`}
             >
               {link.label}
             </button>
@@ -215,6 +225,7 @@ function Navbar({ lang, setLang }: NavbarProps) {
 // ─── Section Props ────────────────────────────────────────────────────────────
 interface SectionProps {
   lang: Language;
+  navigateAndScroll?: (id: string) => void;
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
@@ -234,10 +245,10 @@ const HERO_BACKGROUNDS = [
   { src: '/enhanced_deer_3.webp', isVertical: true },
 ];
 
-function Hero({ lang }: SectionProps) {
+function Hero({ lang, navigateAndScroll }: SectionProps) {
   const [bgIndex, setBgIndex] = useState(0);
 
-  // Asynchronously preload all background images for smooth slider transitions
+  // Preload background images
   useEffect(() => {
     HERO_BACKGROUNDS.forEach((bg) => {
       const img = new Image();
@@ -265,7 +276,6 @@ function Hero({ lang }: SectionProps) {
 
   return (
     <section id="hero" className="relative min-h-[90vh] flex items-center overflow-hidden bg-secondary">
-      {/* Background Image and Gradient Overlay */}
       <div className="absolute top-0 left-0 w-full h-[50vh] md:top-0 md:left-[45%] md:w-[55%] md:h-full z-0 overflow-hidden">
         <AnimatePresence mode="popLayout">
           <motion.img
@@ -283,11 +293,9 @@ function Hero({ lang }: SectionProps) {
             loading="eager"
           />
         </AnimatePresence>
-        {/* Mobile gradient: fades to solid #071717 at the bottom edge of the image */}
         <div className="absolute inset-x-0 top-0 bottom-[-4px] bg-gradient-to-t from-secondary via-secondary/50 to-transparent md:hidden z-10 pointer-events-none" />
       </div>
       
-      {/* Desktop gradient overlay */}
       <div className="hidden md:block absolute inset-0 hero-gradient-overlay z-10 pointer-events-none" />
 
       <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-[42vh] md:pt-28 pb-20">
@@ -325,21 +333,20 @@ function Hero({ lang }: SectionProps) {
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full">
             <button
-              onClick={() => scrollTo('about')}
-              className="btn-primary w-full sm:w-auto text-center justify-center"
+              onClick={() => navigateAndScroll && navigateAndScroll('about')}
+              className="btn-primary w-full sm:w-auto text-center justify-center cursor-pointer"
             >
               {t.btnAbout}
             </button>
             <button
-              onClick={() => scrollTo('news')}
-              className="btn-outline-light w-full sm:w-auto text-center justify-center"
+              onClick={() => navigateAndScroll && navigateAndScroll('news')}
+              className="btn-outline-light w-full sm:w-auto text-center justify-center cursor-pointer"
             >
               {t.btnNews}
             </button>
           </div>
         </motion.div>
       </div>
-
     </section>
   );
 }
@@ -349,10 +356,8 @@ function About({ lang }: SectionProps) {
   const t = TRANSLATIONS[lang].about;
   return (
     <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden scroll-mt-24">
-      {/* Text block */}
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Left Column: Heading */}
           <div className="lg:col-span-6">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
               {t.titlePart1}
@@ -360,7 +365,6 @@ function About({ lang }: SectionProps) {
             </h2>
           </div>
 
-          {/* Right Column: Description & Features */}
           <div className="lg:col-span-6 lg:pl-10 text-text-light">
             <p className="text-text-light text-lg sm:text-xl lg:text-[24px] font-medium leading-relaxed max-w-lg mb-8">
               {t.desc}
@@ -378,7 +382,6 @@ function About({ lang }: SectionProps) {
                 </li>
               ))}
             </ul>
-
           </div>
         </div>
       </div>
@@ -387,7 +390,7 @@ function About({ lang }: SectionProps) {
 }
 
 // ─── Directions ───────────────────────────────────────────────────────────────
-function Directions({ lang }: SectionProps) {
+function Directions({ lang, navigateAndScroll }: SectionProps) {
   const t = TRANSLATIONS[lang].directions;
   const cards = [
     {
@@ -412,7 +415,7 @@ function Directions({ lang }: SectionProps) {
       icon: <Award className="w-5 h-5" />
     },
     {
-      id: 'international',
+      id: 'importance',
       title: t.card4.title,
       desc: t.card4.desc,
       image: '/opt/about-8.webp',
@@ -435,9 +438,9 @@ function Directions({ lang }: SectionProps) {
               key={i}
               id={card.id}
               tabIndex={0}
+              onClick={() => navigateAndScroll && navigateAndScroll(card.id)}
               className="group relative min-h-[460px] rounded-none rounded-br-[80px] overflow-hidden flex flex-col justify-between p-7 lg:p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border border-white/5 scroll-mt-24"
             >
-              {/* Background Image */}
               <div className="absolute inset-0 z-0">
                 <img
                   src={card.image}
@@ -445,11 +448,9 @@ function Directions({ lang }: SectionProps) {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                {/* Natural, clear gradient overlay: dark at the bottom for text readability, clear at the top */}
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/45 to-transparent transition-all duration-500 group-hover:from-secondary/98 group-hover:via-secondary/55" />
               </div>
 
-              {/* Text Content (at bottom) */}
               <div className="relative z-10 mt-auto">
                 <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
                   {card.title}
@@ -458,7 +459,10 @@ function Directions({ lang }: SectionProps) {
                   {card.desc}
                 </p>
                 <button 
-                  onClick={() => scrollTo('contacts')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigateAndScroll && navigateAndScroll(card.id);
+                  }}
                   className="flex items-center gap-1.5 text-accent group-hover:text-text-light text-sm font-semibold group-hover:gap-2.5 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none py-1"
                 >
                   {t.readMore} <ArrowRight className="w-4 h-4" />
@@ -487,7 +491,7 @@ function WhyImportant({ lang }: SectionProps) {
       <div className="max-w-[1400px] mx-auto">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] mb-10 lg:mb-14 max-w-2xl">
           {t.title}
-          <span className="italic">{t.titleAccent}</span>
+          <span className="italic text-primary">{t.titleAccent}</span>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
@@ -506,7 +510,7 @@ function WhyImportant({ lang }: SectionProps) {
                 </span>
                 <div>
                   <p className="font-bold text-lg mb-1.5 text-text-dark">{item.title}</p>
-                  <p className="text-text-dark/80 font-medium text-sm sm:text-base leading-relaxed">{item.desc}</p>
+                  <p className="text-text-dark font-medium text-sm sm:text-base leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -566,7 +570,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-function News({ lang }: SectionProps) {
+function News({ lang, navigateAndScroll }: SectionProps) {
   const t = TRANSLATIONS[lang].news;
   const [posts, setPosts] = useState<VKPost[]>(DEFAULT_NEWS);
   const [isLoading, setIsLoading] = useState(true);
@@ -605,14 +609,12 @@ function News({ lang }: SectionProps) {
               {t.title}<span className="italic">{t.titleAccent}</span>
             </h2>
           </div>
-          <a
-            href="https://vk.com/kfh_noble"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group btn-link shrink-0 text-base py-2"
+          <button
+            onClick={() => navigateAndScroll && navigateAndScroll('news')}
+            className="group btn-link shrink-0 text-base py-2 cursor-pointer flex items-center gap-1.5"
           >
             {t.allNews} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -661,7 +663,7 @@ function News({ lang }: SectionProps) {
 }
 
 // ─── Media ────────────────────────────────────────────────────────────────────
-function Media({ lang }: SectionProps) {
+function Media({ lang, navigateAndScroll }: SectionProps) {
   const t = TRANSLATIONS[lang].media;
   const outlets = [
     { name: 'Агроинвестор', image: '/agro.jpg', url: 'https://agroinvestor.ru' },
@@ -673,18 +675,15 @@ function Media({ lang }: SectionProps) {
   return (
     <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light border-t border-border-light scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
-
-        {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center mb-14">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark">
             {t.title}<span className="italic">{t.titleAccent}</span>
           </h2>
-          <p className="text-text-dark/70 font-medium text-base sm:text-lg leading-relaxed max-w-lg">
+          <p className="text-text-dark font-medium text-base sm:text-lg leading-relaxed max-w-lg">
             {t.desc}
           </p>
         </div>
 
-        {/* Logo grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {outlets.map((item) => (
             <a
@@ -701,20 +700,24 @@ function Media({ lang }: SectionProps) {
                   className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <span className="mt-4 text-text-dark/50 group-hover:text-primary text-xs font-bold tracking-widest uppercase transition-colors duration-300">
+              <span className="mt-4 text-text-dark group-hover:text-primary text-xs font-bold tracking-widest uppercase transition-colors duration-300">
                 {item.name}
               </span>
             </a>
           ))}
         </div>
-
       </div>
     </section>
   );
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
-function Footer({ lang }: SectionProps) {
+interface FooterProps {
+  lang: Language;
+  navigateAndScroll: (id: string) => void;
+}
+
+function Footer({ lang, navigateAndScroll }: FooterProps) {
   const t = TRANSLATIONS[lang].footer;
   const menuLinks = [
     { label: TRANSLATIONS[lang].navbar.about, id: 'about' },
@@ -748,7 +751,7 @@ function Footer({ lang }: SectionProps) {
               {menuLinks.map((item) => (
                 <li key={item.label}>
                   <button 
-                    onClick={() => scrollTo(item.id)} 
+                    onClick={() => navigateAndScroll(item.id)} 
                     className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer text-left w-full block"
                   >
                     {item.label}
@@ -816,19 +819,106 @@ function Footer({ lang }: SectionProps) {
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
   const [lang, setLang] = useState<Language>('RU');
+  const [activeTab, setActiveTab] = useState<string>('main');
+
+  // Unified routing sync via URL Hash
+  const navigateAndScroll = (id: string) => {
+    const validTabs = ['genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+    if (validTabs.includes(id)) {
+      window.location.hash = `#${id}`;
+    } else {
+      // Switch to main landing page first and then scroll smoothly to ID
+      if (window.location.hash !== '' && window.location.hash !== '#') {
+        window.location.hash = '';
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      const validTabs = ['genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+      
+      if (validTabs.includes(hash)) {
+        setActiveTab(hash);
+      } else {
+        setActiveTab('main');
+      }
+      
+      // Auto scroll to top of page on tab switches
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('hashchange', handleHash);
+    handleHash(); // Run once on initial load
+
+    return () => {
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, []);
 
   return (
     <main className="min-h-screen selection:bg-primary selection:text-text-light">
-      <div className="bg-secondary relative">
-        <Navbar lang={lang} setLang={setLang} />
-        <Hero lang={lang} />
-      </div>
-      <About lang={lang} />
-      <Directions lang={lang} />
-      <WhyImportant lang={lang} />
-      <News lang={lang} />
-      <Media lang={lang} />
-      <Footer lang={lang} />
+      <Navbar lang={lang} setLang={setLang} navigateAndScroll={navigateAndScroll} activeTab={activeTab} />
+      
+      <AnimatePresence mode="wait">
+        {activeTab === 'main' && (
+          <motion.div
+            key="main"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="bg-secondary relative">
+              <Hero lang={lang} navigateAndScroll={navigateAndScroll} />
+            </div>
+            <About lang={lang} />
+            <Directions lang={lang} navigateAndScroll={navigateAndScroll} />
+            <WhyImportant lang={lang} />
+            <News lang={lang} navigateAndScroll={navigateAndScroll} />
+            <Media lang={lang} navigateAndScroll={navigateAndScroll} />
+          </motion.div>
+        )}
+
+        {/* Dynamic modular page containers */}
+        {activeTab === 'genetics' && (
+          <TabGenetics key="genetics" lang={lang} />
+        )}
+        
+        {activeTab === 'antlers' && (
+          <TabAntlers key="antlers" lang={lang} onSwitchTab={navigateAndScroll} />
+        )}
+        
+        {activeTab === 'importance' && (
+          <TabIndustry key="industry" lang={lang} onSwitchTab={navigateAndScroll} />
+        )}
+        
+        {activeTab === 'reindeer-intro' && (
+          <TabPopularization key="reindeer-intro" lang={lang} onSwitchTab={navigateAndScroll} />
+        )}
+        
+        {activeTab === 'media' && (
+          <TabMedia key="media" lang={lang} onSwitchTab={navigateAndScroll} />
+        )}
+        
+        {activeTab === 'news' && (
+          <TabNews key="news" lang={lang} />
+        )}
+        
+        {activeTab === 'contacts' && (
+          <TabContacts key="contacts" lang={lang} />
+        )}
+      </AnimatePresence>
+
+      <Footer lang={lang} navigateAndScroll={navigateAndScroll} />
     </main>
   );
 }

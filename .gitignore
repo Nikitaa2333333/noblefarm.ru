@@ -10,3 +10,9 @@ coverage/
 !.env.example
 
 DEPLOYMENT.md
+
+# Raw source images (originals not used in the build, kept locally only)
+assets-source/
+
+# Per-user Claude Code settings
+.claude/settings.local.json

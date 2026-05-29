@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const p=process.env.CLAUDE_TOOL_INPUT_file_path||process.env.CLAUDE_TOOL_INPUT_FILE_PATH||'';if(!p)process.exit(0);if(!/[\\\\/]public[\\\\/]/.test(p))process.exit(0);if(!/\\.(png|jpe?g)$/i.test(p))process.exit(0);const{spawnSync}=require('child_process');const r=spawnSync('npm',['run','optimize-images','--',p],{stdio:'inherit',shell:true});process.exit(r.status||0);\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const cmd=process.env.CLAUDE_TOOL_INPUT_command||'';if(!/public[\\\\/].*\\.(png|jpe?g)/i.test(cmd))process.exit(0);if(!/(^|\\s)(cp|mv|copy|move|curl|wget|Invoke-WebRequest)(\\s|$)/i.test(cmd))process.exit(0);const{spawnSync}=require('child_process');const r=spawnSync('npm',['run','optimize-images'],{stdio:'inherit',shell:true});process.exit(r.status||0);\""
+          }
+        ]
+      }
+    ]
+  }
+}

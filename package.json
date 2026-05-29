@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "optimize-images": "node scripts/optimize-images.js",
+    "fetch-news": "node scripts/fetch-vk-posts.js"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",

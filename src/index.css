@@ -8,8 +8,8 @@
   --color-primary: #1B4344;
   --color-secondary: #071717;
   --color-accent: #D0B18A;
-  --color-bg-light: #F2EEE6;
-  --color-bg-card: #FAFAF8;
+  --color-bg-light: #FFFFFF;
+  --color-bg-card: #FFFFFF;
   --color-text-dark: #1A2828;
   --color-text-light: #F2EEE6;
   --color-border-light: #DEDBD3;
@@ -68,29 +68,29 @@
 }
 
 .btn-link {
-  @apply flex items-center gap-2 text-text-dark hover:text-primary font-medium transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none px-2 py-1 rounded-[4px];
+  @apply flex items-center gap-2 text-accent hover:gap-3 font-semibold transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none px-2 py-1 rounded-[4px];
 }
 
 /* ─── Unified Cards ─────────────────────────────────────────────────────────── */
 
 .card-interactive {
-  @apply relative bg-bg-card text-text-dark rounded-none p-8 overflow-hidden border border-border-light hover:bg-primary hover:text-text-light hover:border-primary transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none focus-visible:border-primary;
+  @apply relative bg-bg-card text-text-dark rounded-none p-8 overflow-hidden border border-border-light hover:bg-primary hover:text-text-light hover:border-primary transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none focus-visible:border-primary shadow-none hover:shadow-none;
 }
 
 .card-static {
-  @apply bg-bg-card border border-border-light rounded-none p-7 hover:border-primary hover:shadow-md transition-all duration-300;
+  @apply bg-bg-card border border-border-light rounded-none p-7 hover:border-primary transition-all duration-300 shadow-none hover:shadow-none;
 }
 
 /* ─── Image Placeholders ────────────────────────────────────────────────────── */
 
 /* Dark placeholder (used in Hero) */
 .img-placeholder-dark {
-  @apply relative h-[65vh] rounded-none overflow-hidden border border-border-dark bg-primary/5 flex flex-col items-center justify-center p-8 gap-4 hover:border-accent transition-all duration-500;
+  @apply relative h-[65vh] rounded-none overflow-hidden border border-border-dark bg-primary/5 flex flex-col items-center justify-center p-8 gap-4 hover:border-accent transition-all duration-300 shadow-none hover:shadow-none;
 }
 
 /* Light placeholder (used in About, GuestHouse, News) */
 .img-placeholder-light {
-  @apply relative rounded-none overflow-hidden bg-bg-card border border-border-light flex flex-col items-center justify-center p-6 gap-4 hover:border-accent transition-all duration-500 shadow-sm hover:shadow-md;
+  @apply relative rounded-none overflow-hidden bg-bg-card border border-border-light flex flex-col items-center justify-center p-6 gap-4 hover:border-accent transition-all duration-300 shadow-none hover:shadow-none;
 }
 
 /* Icon containers inside placeholders */
@@ -112,11 +112,11 @@
 
 /* Premium micro-interactions and glow effects */
 .card-glow {
-  transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-glow:hover {
-  box-shadow: 0 0 35px rgba(208, 177, 138, 0.25);
+  box-shadow: none !important;
   border-color: rgba(208, 177, 138, 0.45) !important;
 }
 
@@ -126,7 +126,181 @@
   height: 100vh;
 }
 
-/* Premium feathered gradient overlay for Hero background slideshow */
+/* ─── Section Rhythm ────────────────────────────────────────────────────────
+   Use <section className="section-X"> as the ONLY page-level wrapper.
+   Three semantic backgrounds, chosen by mood. Alternate them — never two
+   adjacent sections with the same class. Each section already provides its
+   own vertical (py-16 md:py-24) and horizontal (px-6) padding. */
+
+/* calm: white, spacious, readable. Default for content. */
+.section-calm {
+  @apply py-16 md:py-24 px-6 bg-bg-light text-text-dark overflow-hidden;
+}
+
+/* accent: brand green, expressive. Use to emphasise / break the rhythm. */
+.section-accent {
+  @apply py-16 md:py-24 px-6 bg-primary text-text-light overflow-hidden;
+}
+
+/* cinematic: almost-black, dramatic. Rare — full-bleed hero treatments only. */
+.section-cinematic {
+  @apply py-16 md:py-24 px-6 bg-secondary text-text-light overflow-hidden;
+}
+
+.section-inner {
+  @apply max-w-[1400px] mx-auto;
+}
+
+/* ─── Shadow System ─────────────────────────────────────────────────────────
+   Two soft shadows, nothing else. Replace shadow-xs/sm/md/lg/2xl with these.
+   Registered as @utility so they work with @apply and `hover:shadow-soft-lg`. */
+
+@utility shadow-soft {
+  box-shadow:
+    0 1px 3px rgba(7, 23, 23, 0.06),
+    0 4px 12px rgba(7, 23, 23, 0.08),
+    0 16px 48px -16px rgba(7, 23, 23, 0.14);
+}
+
+@utility shadow-soft-lg {
+  box-shadow:
+    0 2px 6px rgba(7, 23, 23, 0.08),
+    0 12px 24px rgba(7, 23, 23, 0.10),
+    0 32px 64px -16px rgba(7, 23, 23, 0.20);
+}
+
+/* ─── Card System ───────────────────────────────────────────────────────────
+   THREE card types, never invent a fourth.
+   Default: rounded-none. Soft shadow always. */
+
+/* card-feature: full image on top, text block below. The canonical card.
+   No border — definition comes from soft shadow alone. Add `group` className alongside `card-feature` in JSX so child hovers work. */
+.card-feature {
+  @apply relative bg-bg-card text-text-dark rounded-none overflow-hidden shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none flex flex-col;
+}
+
+/* card-feature__media: aspect ratio MUST be set on the JSX element
+   (e.g. `<div className="card-feature__media aspect-[4/3]">`).
+   Common ratios in this project: aspect-[4/3] for deer/people, aspect-[16/10] for landscapes. */
+.card-feature__media {
+  @apply relative overflow-hidden bg-primary/5;
+}
+
+.card-feature__media img {
+  @apply absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03];
+}
+
+.card-feature__body {
+  @apply p-7 md:p-8 flex flex-col gap-3 flex-1;
+}
+
+.card-feature__eyebrow {
+  @apply text-accent text-xs font-bold tracking-wider;
+}
+
+.card-feature__title {
+  @apply font-serif text-xl md:text-2xl font-bold leading-tight text-text-dark;
+}
+
+.card-feature__desc {
+  @apply text-sm md:text-base font-medium leading-relaxed text-text-dark;
+}
+
+.card-feature__cta {
+  @apply flex items-center gap-1.5 text-accent group-hover:gap-2.5 text-sm font-semibold transition-all duration-300 mt-auto pt-2;
+}
+
+/* card-flat: small content card for media grids, news previews, partner logos.
+   No border — definition comes from soft shadow alone. */
+.card-flat {
+  @apply bg-bg-card text-text-dark rounded-none p-7 shadow-soft transition-all duration-300;
+}
+
+/* card-stat: number-led statistic block, no image.
+   No border — definition comes from soft shadow alone. */
+.card-stat {
+  @apply bg-bg-card text-text-dark rounded-none p-7 shadow-soft flex flex-col gap-2;
+}
+
+.card-stat__value {
+  @apply font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-accent leading-none;
+}
+
+.card-stat__label {
+  @apply text-xs md:text-sm font-bold text-text-dark tracking-wider mt-1;
+}
+
+/* ─── Accent Card (rare) ────────────────────────────────────────────────────
+   ONLY for the home page Directions / hero-promo cards.
+   Do NOT use on inner pages without explicit approval.
+   Add `group` className alongside `card-accent` in JSX. */
+.card-accent {
+  @apply relative min-h-[460px] rounded-[24px] overflow-hidden flex flex-col justify-between p-8 text-text-light border border-white/5 shadow-soft-lg hover:-translate-y-2 transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none;
+}
+
+/* ─── Hero Patterns ─────────────────────────────────────────────────────────
+   Exactly TWO hero patterns. Don't invent more.
+   A. hero-fullbleed — TabMain only (90vh side image + gradient).
+   B. hero-side-image — internal pages. Text left, photo right (aspect 4/3). */
+
+/* hero-side-image: self-contained inner-page hero section.
+   Owns its background, top-padding for the fixed navbar, and bottom padding.
+   Layout: text on the LEFT (col-span-7), photo on the RIGHT (col-span-5, aspect 4:3). */
+.hero-side-image {
+  @apply pt-28 md:pt-36 pb-14 md:pb-20 px-6 bg-bg-light text-text-dark overflow-hidden;
+}
+
+.hero-side-image__grid {
+  @apply max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center;
+}
+
+.hero-side-image__text {
+  @apply lg:col-span-7 flex flex-col gap-5;
+}
+
+.hero-side-image__media {
+  @apply lg:col-span-5 aspect-[4/3] overflow-hidden rounded-none shadow-soft-lg;
+}
+
+.hero-side-image__media img {
+  @apply w-full h-full object-cover;
+}
+
+.hero-eyebrow {
+  @apply text-accent text-sm font-semibold tracking-wider;
+}
+
+.hero-title {
+  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[1.05] tracking-tight text-text-dark;
+}
+
+.hero-title-light {
+  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[1.05] tracking-tight text-text-light;
+}
+
+.hero-desc {
+  @apply text-base sm:text-lg md:text-xl font-medium leading-relaxed text-text-dark max-w-2xl;
+}
+
+.hero-desc-light {
+  @apply text-base sm:text-lg md:text-xl font-medium leading-relaxed text-text-light/95 max-w-2xl;
+}
+
+/* ─── Section Headings ──────────────────────────────────────────────────────
+   Use these for every <h2> in every section. Italic span for the accent word. */
+.h-section {
+  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark;
+}
+
+.h-section-light {
+  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-light;
+}
+
+.h-section__accent {
+  @apply italic text-accent;
+}
+
+/* Premium feathered gradient overlay for the TabMain hero background slideshow. */
 .hero-gradient-overlay {
   background: linear-gradient(to top, #071717 0%, #071717 55%, rgba(7, 23, 23, 0.8) 75%, rgba(7, 23, 23, 0) 100%);
 }
