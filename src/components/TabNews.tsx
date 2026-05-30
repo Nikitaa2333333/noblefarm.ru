@@ -322,31 +322,6 @@ export default function TabNews({ lang }: TabNewsProps) {
           </div>
         </div>
       </section>
-
-      {/* ─── Video Section (High-Impact Highlight on Green) ────────────────── */}
-      <section className="section-accent">
-        <div className="section-inner flex flex-col items-center">
-          <div className="text-center mb-10">
-            <span className="hero-eyebrow text-accent block mb-3 uppercase tracking-wider text-xs font-bold">
-              {isRU ? 'Видеорепортаж' : isCN ? '视频动态' : 'Video Report'}
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.5rem] font-medium tracking-tight leading-none text-text-light">
-              {isRU ? 'Жизнь хозяйства ' : isCN ? '农场生活 ' : 'Farm Life '}
-              <span className="h-section__accent">{isRU ? 'в кадре' : isCN ? '实景视频' : 'in Motion'}</span>
-            </h2>
-          </div>
-          
-          <div className="w-full max-w-[1000px] aspect-[16/9] bg-secondary shadow-soft-lg rounded-[6px] overflow-hidden relative border border-white/5">
-            <iframe 
-              src="https://vk.com/video_ext.php?oid=-236675004&id=456239040&autoplay=0" 
-              className="w-full h-full"
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" 
-              frameBorder="0" 
-              allowFullScreen
-            />
-          </div>
-        </div>
-      </section>
     </motion.div>
   );
 }

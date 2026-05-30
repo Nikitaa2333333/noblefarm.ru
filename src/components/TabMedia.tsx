@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, FileText, Mic } from 'lucide-react';
 import { Language } from '../translations';
@@ -8,6 +9,7 @@ interface TabMediaProps {
 }
 
 export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const isRU = lang === 'RU';
   const isCN = lang === 'CN';
 
@@ -82,15 +84,30 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Feature Video Card using canonical card-feature styling */}
             <div className="card-feature group">
-              <div className="card-feature__media aspect-[16/10]">
-                <img src="/enhanced_about_1.webp" alt="Video Preview" />
-                <div className="absolute inset-0 bg-secondary/20 transition-opacity duration-300 group-hover:bg-secondary/15" />
-                {/* Play Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-bg-card/95 rounded-full flex items-center justify-center shadow-soft-lg group-hover:scale-105 transition-transform duration-300">
-                    <div className="w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[14px] border-l-primary ml-1" />
-                  </div>
-                </div>
+              <div 
+                className="card-feature__media aspect-[16/10] cursor-pointer"
+                onClick={() => !isVideoPlaying && setIsVideoPlaying(true)}
+              >
+                {isVideoPlaying ? (
+                  <iframe 
+                    src="https://vk.com/video_ext.php?oid=-236675004&id=456239040&autoplay=1" 
+                    className="w-full h-full"
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" 
+                    frameBorder="0" 
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img src="/enhanced_about_1.webp" alt="Video Preview" />
+                    <div className="absolute inset-0 bg-secondary/20 transition-opacity duration-300 group-hover:bg-secondary/15" />
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-bg-card/95 rounded-full flex items-center justify-center shadow-soft-lg group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[14px] border-l-primary ml-1" />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
               <div className="card-feature__body">
                 <span className="card-feature__eyebrow">
@@ -106,9 +123,16 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
                       ? '深入探讨莫斯科州欧洲红鹿养殖业的现代化发展。收录于2026年1月24日至25日播出的《商业午餐》节目。'
                       : 'On the development of European Red Deer farming in the Moscow region. Featured on the "Business Lunch" program on Jan 24-25, 2026.'}
                 </p>
-                <a href="https://vkvideo.ru/video-236675004_456239040" target="_blank" rel="noopener noreferrer" className="card-feature__cta">
-                  {isRU ? 'Смотреть интервью' : isCN ? '观看采访视频' : 'Watch Interview'} <ArrowRight className="w-4 h-4" />
-                </a>
+                <button 
+                  onClick={() => setIsVideoPlaying(!isVideoPlaying)} 
+                  className="card-feature__cta cursor-pointer bg-transparent border-none text-left p-0 text-accent font-semibold flex items-center gap-1.5 focus:outline-none focus:ring-0 focus-visible:outline-none"
+                >
+                  {isVideoPlaying 
+                    ? (isRU ? 'Закрыть видеоплеер' : isCN ? '关闭视频播放器' : 'Close Player')
+                    : (isRU ? 'Смотреть интервью' : isCN ? '观看采访视频' : 'Watch Interview')
+                  }
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
