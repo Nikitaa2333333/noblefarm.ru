@@ -121,7 +121,7 @@ The palette has three colors. They divide responsibility between home and inner 
 
 **How to apply**:
 - On inner pages, never use `bg-accent` (gold fill) on large surfaces (sections, full cards, big tags). Reserve gold for: italic accent in `<span className="h-section__accent">`, `.card-feature__eyebrow`, small stat pills, link hover states.
-- The two predominant section backgrounds on inner pages are `.section-calm` (white) and `.section-accent` (green). Adjacent sections must alternate them. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic blocks.
+- The predominant section background on inner pages is `.section-calm` (white), which provides elegant, spacious breathing room. Do **not** alternate backgrounds mechanically (white, green, white, green). Instead, color sections based on their **semantic meaning**—green (`.section-accent`) is reserved **rarely** and **strategically** for high-impact accents (like key summaries or final CTAs). White (`.section-calm`) sections are fully allowed to be consecutive. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic statements.
 
 ### Typography
 - **Headings**: `font-serif` → Century Schoolbook (with fallbacks). `font-medium` (500) for hero/h1/h2. `font-bold` (700) for card titles and h3/h4.
@@ -131,6 +131,7 @@ The palette has three colors. They divide responsibility between home and inner 
 - **NEVER** semi-transparent text on light backgrounds. Body text on white/cream surfaces is **always solid `text-text-dark`** — no `/85`, no `/70`, no opacity. Opacity-faded dark text reads as washed-out on white; the brand tolerates it nowhere.
 - On dark surfaces, light text **may** use opacity for elegance (`text-text-light/85` etc.). Just never on light bg.
 - **NEVER** raw `text-gray-*` anywhere.
+- **Minimum body text size is `text-sm` (14px).** Tailwind `text-xs` (12px) is allowed ONLY as a decorative **eyebrow** label above a heading (e.g. `.card-feature__eyebrow`, `.hero-eyebrow`). Raw arbitrary pixel sizes below 14px — `text-[10px]`, `text-[11px]`, `text-[13px]`, etc. — are **forbidden everywhere, no exceptions**. The brand has no fine-print: captions, disclaimers, footnotes, legal copy, hover hints, badge text, footer copy, pill text — all `text-sm` minimum. If something is important enough to display, it is important enough to read at 14px. Micro-type is the "calculator/dashboard fine-print" tell and an accessibility failure.
 
 ### Spacing rhythm
 - Section vertical: `py-16 md:py-24` (built into `.section-*` classes).
@@ -148,12 +149,15 @@ The palette has three colors. They divide responsibility between home and inner 
 - **Hover / emphasis**: `.shadow-soft-lg`.
 - **NEVER** use `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`, `shadow-none` (except when explicitly cancelling).
 
-### Borders on cards, photo frames, and info plates
+### Borders and divider lines — none. Period.
 - **No borders on any surface element** — cards, plates, photo frames, info tiles.
   - On **light surfaces** (white section, milky containers) — definition via `.shadow-soft` only.
   - On **dark surfaces** (`.section-accent` green, `.section-cinematic` near-black) — definition via a slightly darker bg-fill (e.g. `bg-secondary/40` on a green section). Shadows don't read on dark; bg-contrast does.
-- Borders are allowed only on **dividers** (`border-border-light` between sibling list items).
-- Adding `border border-border-light` (light) or `border border-border-dark` (dark) to a card/plate/tile is an anti-pattern — it reintroduces the "calculator/admin panel" feel.
+- **No divider lines anywhere** — not between list items, not between sections, not under headings, not in footers, not in nav menus. The brand does not use lines as separators. Rhythm comes from **whitespace** (`gap-8`, `gap-10`, `gap-12`, `py-16`, `mt-8`, etc.) and from background-contrast between sections.
+- `border-b border-border-light` between sibling list items is **forbidden**. Use `flex flex-col gap-10` (or `gap-12`) instead.
+- `border-t border-border-dark` between sections is **forbidden**. Sections separate themselves by `py-*` rhythm and (when needed) a background-color change.
+- Adding `border border-border-X` to a card/plate/tile is an anti-pattern — it reintroduces the "calculator/admin panel" feel. So is adding a thin line to "tidy" a list.
+- The `border-border-light` / `border-border-dark` tokens still exist in CSS, but they have no current legitimate use. If you reach for them, you are almost certainly making a mistake.
 
 ### Interactive widget containers (menus, selectors)
 When you have a *container that groups interactive controls* (sticky sub-tab menu, criteria selector, filter bar) and it lives on a `.section-calm` (white) background, that container must be distinguished without a border. Use **milky cream-white** for the surface, anchored by `.shadow-soft`:
@@ -192,8 +196,9 @@ export default function TabX({ lang, onSwitchTab }: TabXProps) {
         <div className="hero-side-image__grid">…</div>
       </section>
 
-      {/* Content sections — ALTERNATE backgrounds. Never two of the same in a row. */}
-      <section className="section-accent">
+      {/* Content sections — predominantly white (.section-calm) to maintain elegant breathing room.
+          Accent sections (.section-accent) are used rarely and strategically to color blocks by semantic meaning. */}
+      <section className="section-calm">
         <div className="section-inner">…</div>
       </section>
 
@@ -232,10 +237,21 @@ There are only **three** section backgrounds — named by mood, not by color:
 | `.section-cinematic` | dramatic, deep | almost-black (`secondary`) | rare, dramatic blocks |
 
 Rules:
-- Adjacent sections must use **different** classes. No two `.section-calm` in a row.
-- Typical inner-page rhythm: `calm → accent → calm → accent → calm`.
+- White backgrounds (`.section-calm`) must dominate the page to provide clean, premium space. Consecutive calm sections are fully allowed.
+- Green backgrounds (`.section-accent`) must be used **sparingly and strategically** based on the semantic weight of the block (e.g., highlights, conclusions, final call-to-actions), never as a forced mechanical alternation.
 - `.section-cinematic` is rare — only for true full-bleed dramatic blocks.
 - The inner-page hero is `.hero-side-image` (self-contained, white bg) — it doesn't need a `.section-*` wrapper.
+
+### Footer adjacency rule — no "flag" stripes
+
+The site footer is dark (almost-black, `bg-secondary`). The last section on every page must transition into the footer **without producing a three-band "flag" effect** (e.g. green section → white band → dark footer reads as a tricolor stripe and is forbidden).
+
+Concretely:
+- The **last section before the footer must be `.section-calm` (white)**. Going white → dark footer is a clean, intentional contrast.
+- Do **not** end a page on `.section-accent` (green) or `.section-cinematic` (dark) when this leaves a visible light gap before the footer. A green block followed immediately by a dark footer with any cream/white sliver between them creates the "flag" anti-pattern shown in audits.
+- If the page semantically needs to end on an accent block (final CTA, key summary), restructure: put the accent earlier, then close with a calm white section (e.g. a quiet contact/anchor row, a quote, a wrap-up paragraph). The page should always "exhale" into white before the footer takes over.
+- Sections own their own `py-16 md:py-24` rhythm — never patch the gap by adding margins or empty divs. Fix it at the section level by choosing the correct closing background.
+- The `<footer>` itself must sit **flush** against the preceding section. No `mt-*` / `mb-*` on the `<footer>` element, no trailing margin on the last section. Any vertical margin on the footer (or its previous sibling) exposes the body / `<main>` background as a light stripe between the section and the footer — the exact "flag" effect this rule exists to prevent. Inner footer breathing room comes from its own `pt-*` (e.g. `pt-14 pb-10`), never from outer margins.
 
 ---
 
@@ -289,8 +305,39 @@ Never invent a new button class. Never style a button inline with `bg-X` / `text
 |---|---|---|
 | `.card-feature` | content card with image-on-top + title/desc/CTA. **The canonical card.** | `rounded-none` |
 | `.card-flat` | small content card, no image. Media grids, news previews. | `rounded-none` |
-| `.card-stat` | number-led stat block (use `.card-stat__value` + `.card-stat__label`) | `rounded-none` |
+| `.card-stat` | number-led stat block (use `.card-stat__value` + `.card-stat__label`) — **use sparingly, see below** | `rounded-none` |
 | `.card-accent` | premium asymmetric, hero-promo cards | `rounded-[24px]` — **home page only** |
+
+### Fewer plashki — naked numbers rule
+
+A "plashka" is any card/tile wrapper that boxes content with background + shadow (`.card-flat`, `.card-stat`, custom `bg-bg-card shadow-soft`). **Plashki are not free decoration.** Each one adds visual weight; over-plating turns a page into a dashboard.
+
+**A stat block (big number + small caption) does NOT get a plashka.** Numbers are typographic content — they earn the eye through size, gold color, and white space, not through a box.
+
+Pattern — vertical stack of stats on a `.section-calm`:
+
+```tsx
+<div className="flex flex-col gap-10 lg:gap-12">
+  {stats.map((s, i) => (
+    <div key={i} className="flex flex-col gap-2">
+      <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">{s.value}</span>
+      <span className="text-sm font-medium text-text-dark">{s.label}</span>
+    </div>
+  ))}
+</div>
+```
+
+Rhythm comes from **whitespace only** (`gap-10` to `gap-12` on the wrapping `flex flex-col`). No divider lines between siblings — see §4 "Borders and divider lines — none."
+
+**When a plashka IS justified** — `.card-feature` (full content card with image), interactive contact tiles (mailto/tel — the box is the hit-target), `.card-flat` for grouped flat content with no image and multiple text lines. **When it is NOT** — a single number + caption, a single icon + label, a one-line quote.
+
+Anti-pattern (forbidden):
+```tsx
+<div className="card-flat flex flex-col gap-2 p-6">
+  <span className="font-serif text-4xl text-accent">100%</span>
+  <span className="text-xs">регенерация</span>
+</div>
+```
 
 Card anatomy for `.card-feature` (use these BEM-style helpers).
 Notes:
@@ -367,13 +414,17 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | Custom hero — text + small thumb / text-only / asymmetric corner | Five different first impressions across pages | `.hero-side-image` |
 | `text-text-dark/XX` (any opacity) for body copy on light bg | Reads washed-out on white, breaks the "weight as a heading" reading flow | Always solid `text-text-dark`. Opacity allowed only on light text over dark bg. |
 | `border border-border-light` or `border border-border-dark` on cards / plates / tiles / photo frames | Adds the "calculator/admin panel" feel — surfaces should breathe via shadow (light bg) or bg-contrast (dark bg), not be boxed | Remove border entirely; rely on `.shadow-soft` (light bg) or a darker `bg-secondary/40` fill (dark bg) |
+| `.card-flat` / `.card-stat` wrapping a single stat (big number + caption) | Plashka steals visual weight from the number — the number should be the figure, not the box | Naked number stack with `flex flex-col gap-10` whitespace rhythm — see §7 "Fewer plashki — naked numbers rule" |
+| `border-b border-border-light` / `border-t border-border-X` as a divider between list items, sections, nav items, footer rows, or under headings | The brand does not use divider lines — they're the "form / dashboard" tell. Lines split content; the design separates by whitespace and background-contrast instead | Remove the border. Use `flex flex-col gap-10` (or `gap-12`) on the parent. For section-to-section separation, rely on `py-16 md:py-24` rhythm + (when needed) a background change. See §4 "Borders and divider lines — none." |
 | Inline `text-gray-500` anywhere | Bypasses tokens, no contrast contract | Use brand tokens only |
+| `text-[10px]`, `text-[11px]`, `text-[13px]`, any arbitrary pixel size below 14px; `text-xs` used outside an eyebrow context | Illegible micro-type — accessibility failure and the "fine-print dashboard" tell. The brand does not use fine print | `text-sm` (14px) minimum for every visible string. `text-xs` allowed only on `.card-feature__eyebrow`-style eyebrow labels above headings |
 | Icon wrapped in a bordered/tinted plate (`<div className="w-9 h-9 bg-primary/5 border ...">`) | Two visual elements (icon + box) competing for attention | Use icon alone, size 7–8, `text-primary`, no wrapper |
 | `bg-bg-light` (now white) used as a chip/pill background on `bg-bg-card` cards | White-on-near-white, invisible | Use `bg-accent/15` (gold-tinted fill, **no border**) for info/stat pills. Inner text: `text-text-dark` for info, `text-accent` for value highlight. |
 | `uppercase` / `tracking-widest` on buttons or section headings | Destroys elegance | Natural case, `tracking-wider` only on small eyebrow labels |
 | Emojis as icons | Inconsistent with Lucide | Use `lucide-react` |
 | New `@keyframes` for scroll reveal | Out of the motion budget | Page-enter only |
 | Hard-coded color hex in JSX (`#1B4344`, `rgba(...)`) | Bypasses tokens | Use `bg-primary` / `text-text-dark` |
+| Page ends on `.section-accent` (green) or `.section-cinematic` (dark) immediately before the dark footer, producing a green/light/dark "flag" stripe | Three-band tricolor at the bottom of the page reads as a flag — visually jarring, breaks the elegant exhale into the footer | Close every page with a `.section-calm` (white) section. If the content semantically wants to end on an accent, restructure: put the accent earlier and add a quiet white closing section (anchor row, quote, wrap-up). See §5 "Footer adjacency rule". |
 
 ---
 

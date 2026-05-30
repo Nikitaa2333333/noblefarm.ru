@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Calendar, Tag } from 'lucide-react';
 import { Language } from '../translations';
@@ -120,46 +120,120 @@ const NEWS_DATA = [
   },
 ];
 
+const resolveField = (field: string | { RU: string; CN: string; EN: string } | undefined, lang: Language): string => {
+  if (!field) return '';
+  if (typeof field === 'string') return field;
+  return field[lang] || field.RU || '';
+};
+
+const CATEGORY_LABELS: Record<string, { RU: string; CN: string; EN: string }> = {
+  Zhizn_fermy: { RU: 'Жизнь фермы', CN: '农场日常', EN: 'Farm Life' },
+  Olenyata: { RU: 'Оленята', CN: '小鹿幼崽', EN: 'Fawns' },
+  Stado: { RU: 'Стадо', CN: '鹿群', EN: 'Herd' },
+  Panty: { RU: 'Панты', CN: '鹿茸', EN: 'Antlers' },
+  Stroitelstvo: { RU: 'Строительство', CN: '牧场基建', EN: 'Infrastructure' },
+  Otrasl: { RU: 'Отрасль', CN: '行业知识', EN: 'Industry Insights' },
+};
+
 export default function TabNews({ lang }: TabNewsProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [posts, setPosts] = useState<any[]>(NEWS_DATA);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const isRU = lang === 'RU';
   const isCN = lang === 'CN';
 
   const categories = [
-    { id: 'all', label: { RU: 'Все', CN: '全部' } },
-    { id: 'Zhizn_fermy', label: { RU: 'Жизнь фермы', CN: '农场日常' } },
-    { id: 'Olenyata', label: { RU: 'Оленята', CN: '小鹿幼崽' } },
-    { id: 'Stado', label: { RU: 'Стадо', CN: '鹿群' } },
-    { id: 'Panty', label: { RU: 'Панты', CN: '鹿茸' } },
-    { id: 'Stroitelstvo', label: { RU: 'Строительство', CN: '牧场基建' } },
-    { id: 'Otrasl', label: { RU: 'Отрасль', CN: '行业知识' } },
+    { id: 'all', label: { RU: 'Все', CN: '全部', EN: 'All' } },
+    { id: 'Zhizn_fermy', label: { RU: 'Жизнь фермы', CN: '农场日常', EN: 'Farm Life' } },
+    { id: 'Olenyata', label: { RU: 'Оленята', CN: '小鹿幼崽', EN: 'Fawns' } },
+    { id: 'Stado', label: { RU: 'Стадо', CN: '鹿群', EN: 'Herd' } },
+    { id: 'Panty', label: { RU: 'Панты', CN: '鹿茸', EN: 'Antlers' } },
+    { id: 'Stroitelstvo', label: { RU: 'Строительство', CN: '牧场基建', EN: 'Infrastructure' } },
+    { id: 'Otrasl', label: { RU: 'Отрасль', CN: '行业知识', EN: 'Industry Insights' } },
   ];
+
+  useEffect(() => {
+    let active = true;
+    const loadNews = async () => {
+      try {
+        const res = await fetch('/vk-news.json');
+        if (res.ok) {
+          const vkData = await res.json();
+          if (Array.isArray(vkData) && vkData.length > 0) {
+            // Find our pinned first calf post in static data
+            const pinnedCalf = NEWS_DATA.find(item => item.id === 'news_calf') || NEWS_DATA[0];
+            
+            // Filter VK posts to exclude the pinned calf news if it exists in dynamic feed
+            const cleanVkPosts = vkData.filter(post => 
+              post.id !== 'news_calf' && 
+              !post.title.includes('оленёнок') && 
+              !post.title.includes('олененок')
+            );
+            
+            // Map VK posts to conform to TabNews data structure (multilingual-ready)
+            const formattedVk = cleanVkPosts.map((post: any) => ({
+              id: post.id,
+              category: post.category || 'Zhizn_fermy',
+              categoryLabel: {
+                RU: CATEGORY_LABELS[post.category || 'Zhizn_fermy']?.RU || 'Новость',
+                CN: CATEGORY_LABELS[post.category || 'Zhizn_fermy']?.CN || '新闻',
+                EN: CATEGORY_LABELS[post.category || 'Zhizn_fermy']?.EN || 'News'
+              },
+              date: post.date,
+              title: post.title,
+              text: post.text,
+              image: post.image,
+              link: post.link
+            }));
+            
+            if (active) {
+              setPosts([pinnedCalf, ...formattedVk]);
+            }
+          } else {
+            if (active) setPosts(NEWS_DATA);
+          }
+        } else {
+          if (active) setPosts(NEWS_DATA);
+        }
+      } catch (err) {
+        console.warn('Failed to load VK news in TabNews, using fallback data.', err);
+        if (active) setPosts(NEWS_DATA);
+      } finally {
+        if (active) setIsLoading(false);
+      }
+    };
+    loadNews();
+    return () => { active = false; };
+  }, []);
 
   // Filter logic
   const filteredNews = selectedCategory === 'all'
-    ? NEWS_DATA
-    : NEWS_DATA.filter(item => item.category === selectedCategory);
+    ? posts
+    : posts.filter(item => item.category === selectedCategory);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-bg-light pt-24 pb-20 text-text-dark"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full"
     >
-      <div className="max-w-[1400px] mx-auto px-6">
-        {/* ─── Hero / Header ────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-          <div className="lg:col-span-8">
-            <span className="text-accent text-sm font-semibold tracking-wider block mb-3">
+      {/* ─── Hero / Header ────────────────────────────────────────────────── */}
+      <section className="hero-side-image">
+        <div className="hero-side-image__grid">
+          <div className="hero-side-image__text">
+            <span className="hero-eyebrow">
               {isRU ? 'События и репортажи' : isCN ? '新闻动态' : 'News & Events'}
             </span>
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-[4.5rem] font-medium leading-none text-text-dark">
-              {isRU ? 'Новости хозяйства' : isCN ? '农场动态' : 'Farm News'}
+            <h1 className="hero-title">
+              {isRU ? 'Новости ' : isCN ? '农场' : 'Farm '}
+              <span className="h-section__accent">
+                {isRU ? 'хозяйства' : isCN ? '动态' : 'News'}
+              </span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl font-medium text-text-dark max-w-3xl leading-relaxed">
+            <p className="hero-desc">
               {isRU
                 ? 'Развитие проекта, жизнь стада, рождение оленят, формирование хозяйства и наблюдения из мира современного оленеводства.'
                 : isCN
@@ -167,99 +241,87 @@ export default function TabNews({ lang }: TabNewsProps) {
                   : 'Project progress, herd life, fawn births, farm development, and observations from the world of modern deer farming.'}
             </p>
           </div>
-          <div className="lg:col-span-4 overflow-hidden rounded-none rounded-br-[40px] lg:rounded-br-[80px] shadow-lg border border-border-light aspect-[4/3] bg-white">
-            <img src="/enhanced_deer_3.webp" className="w-full h-full object-cover" alt="Calf" />
+          <div className="hero-side-image__media">
+            <img src="/enhanced_deer_3.webp" alt="First fawn" />
           </div>
         </div>
+      </section>
 
-        {/* ─── Categories Filter Bar ────────────────────────────────────────── */}
-        <div className="flex justify-center mb-12">
-          <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-bg-card rounded-[8px] border border-border-light shadow-sm w-full">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-5 py-3 rounded-[6px] text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer whitespace-nowrap ${
-                  selectedCategory === cat.id
-                    ? 'bg-primary text-text-light shadow-sm'
-                    : 'text-text-dark hover:text-primary hover:bg-primary/5'
-                }`}
-              >
-                {cat.label[lang as 'RU' | 'CN'] || cat.label.RU}
-              </button>
-            ))}
+      {/* ─── Categories Filter Bar & Grid (Spacious, Fully Calm Layout) ─────── */}
+      <section className="section-calm">
+        <div className="section-inner">
+          <div className="flex justify-center mb-12">
+            <div className="bg-bg-card shadow-soft rounded-[6px] p-2 inline-flex flex-wrap justify-center gap-1 max-w-full">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-4 py-2.5 rounded-[6px] text-sm font-semibold transition-colors duration-300 cursor-pointer whitespace-nowrap ${
+                    selectedCategory === cat.id
+                      ? 'bg-primary text-text-light shadow-sm'
+                      : 'text-text-dark bg-transparent hover:text-primary hover:bg-primary/5'
+                  }`}
+                >
+                  {cat.label[lang as 'RU' | 'CN' | 'EN'] || cat.label.RU}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* ─── News Grid with Layout Transitions ────────────────────────────── */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
+          {/* News Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredNews.map((item) => (
-              <motion.a
+              <a
                 key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                href="https://vk.com/kfh_noble"
+                href={item.link || "https://vk.com/kfh_noble"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-bg-card border border-border-light rounded-none overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-accent hover:-translate-y-1.5 transition-all duration-500"
+                className="card-feature group"
               >
-                <div>
-                  <div className="aspect-[16/10] overflow-hidden bg-white">
-                    <img
-                      src={item.image}
-                      alt={item.title[lang as 'RU' | 'CN'] || item.title.RU}
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-center text-[10px] font-bold text-accent tracking-wider mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{item.date[lang as 'RU' | 'CN'] || item.date.RU}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-primary">
-                        <Tag className="w-3.5 h-3.5" />
-                        <span>{item.categoryLabel[lang as 'RU' | 'CN'] || item.categoryLabel.RU}</span>
-                      </div>
-                    </div>
-                    <h3 className="font-serif text-lg font-medium text-text-dark group-hover:text-primary transition-colors leading-snug line-clamp-2">
-                      {item.title[lang as 'RU' | 'CN'] || item.title.RU}
-                    </h3>
-                    <p className="text-xs sm:text-sm font-semibold text-text-dark leading-relaxed mt-3 line-clamp-3">
-                      {item.text[lang as 'RU' | 'CN'] || item.text.RU}
-                    </p>
-                  </div>
+                <div className="card-feature__media aspect-[16/10]">
+                  <img
+                    src={item.image}
+                    alt={resolveField(item.title, lang)}
+                    loading="lazy"
+                  />
                 </div>
-
-                <div className="px-6 pb-6 pt-3">
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-accent group-hover:gap-2.5 transition-all duration-300 mt-auto">
+                <div className="card-feature__body">
+                  <div className="flex justify-between items-center text-[10px] font-bold text-accent tracking-wider mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{resolveField(item.date, lang)}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-primary">
+                      <Tag className="w-3.5 h-3.5" />
+                      <span>{resolveField(item.categoryLabel, lang)}</span>
+                    </div>
+                  </div>
+                  <h3 className="card-feature__title leading-snug line-clamp-2">
+                    {resolveField(item.title, lang)}
+                  </h3>
+                  <p className="card-feature__desc leading-relaxed mt-2 line-clamp-3">
+                    {resolveField(item.text, lang)}
+                  </p>
+                  <span className="card-feature__cta">
                     {isRU ? 'Читать далее' : isCN ? '阅读详细报道' : 'Read More'} <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
-              </motion.a>
+              </a>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
 
-        {/* ─── Footer CTA ───────────────────────────────────────────────────── */}
-        <div className="mt-16 text-center border-t border-border-light pt-8">
-          <p className="font-serif text-base sm:text-lg font-medium text-text-dark italic">
-            {isRU
-              ? 'Следите за развитием современного оленеводства в России'
-              : isCN
-                ? '关注俄罗斯现代高端养鹿产业的发展动向'
-                : 'Follow the development of modern deer farming in Russia'}
-          </p>
+          {/* Elegant inline divider & footer label directly within calm workspace */}
+          <div className="mt-16 text-center border-t border-border-light pt-8">
+            <p className="font-serif text-base sm:text-lg font-medium text-text-dark italic">
+              {isRU
+                ? 'Следите за развитием современного оленеводства в России'
+                : isCN
+                  ? '关注俄罗斯现代高端养鹿产业的发展动向'
+                  : 'Follow the development of modern deer farming in Russia'}
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
     </motion.div>
   );
 }

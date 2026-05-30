@@ -273,11 +273,11 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
               {t.whyImportant.desc}
             </p>
 
-            <div className="bg-bg-card rounded-[24px] p-8 border border-border-light shadow-sm">
+            <div className="bg-bg-card rounded-[24px] p-8 shadow-soft flex flex-col gap-8">
               {advantages.map((item, i) => (
                 <div
                   key={i}
-                  className={`flex gap-6 items-start ${i === 0 ? 'pb-6' : i < advantages.length - 1 ? 'py-6' : 'pt-6'} ${i < advantages.length - 1 ? 'border-b border-border-light' : ''}`}
+                  className="flex gap-6 items-start"
                 >
                   <span className="font-serif text-2xl md:text-3xl leading-none text-accent font-semibold shrink-0 w-10">
                     {String(i + 1).padStart(2, '0')}

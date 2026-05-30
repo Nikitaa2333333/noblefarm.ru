@@ -8,6 +8,7 @@ import {
   Dna, Leaf, Globe,
   Award, ArrowRight, Check, Phone,
   Menu, X, Sparkles,
+  Calendar, Tag,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Language, TRANSLATIONS } from './translations';
@@ -30,14 +31,7 @@ interface NavbarProps {
 }
 
 function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -58,22 +52,17 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
     { label: t.antlers, id: 'antlers' },
     { label: t.importance, id: 'importance' },
     { label: t.reindeerIntro, id: 'reindeer-intro' },
-    { label: t.news, id: 'news' },
-    { label: t.media, id: 'media' },
     { label: t.contacts, id: 'contacts' },
+    { label: t.media, id: 'media' },
+    { label: t.news, id: 'news' },
   ];
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 px-4 transition-all duration-500 ${scrolled || mobileMenuOpen
-            ? 'h-12 bg-secondary'
-            : 'h-16 bg-secondary/95 backdrop-blur-md'
-          }`}
-      >
-        <div className="max-w-[1400px] mx-auto h-full flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 h-20 bg-secondary">
+        <div className="max-w-[1600px] mx-auto h-full flex items-center justify-between gap-6">
           <div
-            className="flex items-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] transition-all shrink-0"
+            className="flex items-center gap-3 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] shrink-0"
             tabIndex={0}
             onClick={() => {
               navigateAndScroll('about');
@@ -86,18 +75,18 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
               }
             }}
           >
-            <img src="/logo.png" className={`transition-all duration-500 object-contain w-auto ${scrolled ? 'h-6' : 'h-7'}`} alt="Благородный Север" />
-            <span className={`font-serif font-medium text-accent italic tracking-wide leading-none transition-all duration-500 ${scrolled ? 'text-sm md:text-base' : 'text-base md:text-lg'}`}>
+            <img src="/logo.png" className="h-10 w-auto object-contain" alt="Благородный Север" />
+            <span className="font-serif font-medium text-accent italic tracking-wide leading-none text-lg md:text-xl">
               {t.logo}{t.logoItalic}
             </span>
           </div>
 
-          <div className="hidden xl:flex items-center gap-1.5 2xl:gap-3 text-[11px] 2xl:text-[13px] font-medium text-text-light">
+          <div className="hidden xl:flex flex-1 items-center justify-center gap-1 2xl:gap-2 text-[14px] 2xl:text-[15px] font-medium text-text-light">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => navigateAndScroll(link.id)}
-                className={`hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1.5 py-1 rounded-[6px] ${
+                className={`hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1 py-1 rounded-[6px] ${
                   activeTab === link.id ? 'text-accent font-bold' : ''
                 }`}
               >
@@ -106,17 +95,17 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             ))}
           </div>
 
-          <div className="flex items-center gap-3 text-text-light shrink-0">
+          <div className="flex items-center gap-4 text-text-light shrink-0">
             <a
               href="tel:+79258710937"
-              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-3 rounded-[6px] cursor-pointer flex items-center justify-center w-11 h-11"
+              className="hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors p-2 rounded-[6px] cursor-pointer flex items-center justify-center"
               aria-label={t.call}
             >
-              <Phone className="w-4 h-4" strokeWidth={1.8} />
+              <Phone className="w-5 h-5" strokeWidth={1.8} />
             </a>
-            
+
             {/* Interactive language switcher */}
-            <div className="hidden md:flex items-center gap-1.5 text-[11px] font-semibold tracking-wider">
+            <div className="hidden md:flex items-center gap-1.5 text-[13px] font-semibold tracking-wider">
               <button
                 onClick={() => setLang('RU')}
                 className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'RU' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
@@ -156,9 +145,9 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed inset-0 top-[48px] bg-secondary z-40 transition-all duration-500 xl:hidden flex flex-col justify-between p-8 ${mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none'
+        className={`fixed inset-0 top-20 bg-secondary z-40 transition-all duration-500 xl:hidden flex flex-col justify-between p-8 ${mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 pointer-events-none'
           }`}
-        style={{ height: 'calc(100vh - 48px)' }}
+        style={{ height: 'calc(100vh - 5rem)' }}
       >
         <div className="flex flex-col gap-6 mt-8">
           {navLinks.map((link) => (
@@ -168,15 +157,15 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
                 navigateAndScroll(link.id);
                 setMobileMenuOpen(false);
               }}
-              className={`text-left hover:text-accent py-3 text-xl font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors cursor-pointer border-b border-border-dark w-full ${
-                activeTab === link.id ? 'text-accent font-bold border-accent/30' : 'text-text-light'
+              className={`text-left hover:text-accent py-3 text-xl font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors cursor-pointer w-full ${
+                activeTab === link.id ? 'text-accent font-bold' : 'text-text-light'
               }`}
             >
               {link.label}
             </button>
           ))}
         </div>
-        <div className="flex items-center justify-between text-text-light border-t border-border-dark pt-6 pb-12">
+        <div className="flex items-center justify-between text-text-light pt-8 pb-12">
           <a
             href="tel:+79258710937"
             className="flex items-center gap-3 hover:text-accent py-3 text-base font-medium focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] cursor-pointer"
@@ -499,11 +488,11 @@ function WhyImportant({ lang }: SectionProps) {
             {t.desc}
           </p>
 
-          <div>
+          <div className="flex flex-col gap-10">
             {advantages.map((item, i) => (
               <div
                 key={i}
-                className={`flex gap-6 items-start ${i === 0 ? 'pb-7' : i < advantages.length - 1 ? 'py-7' : 'pt-7'} ${i < advantages.length - 1 ? 'border-b border-border-light' : ''}`}
+                className="flex gap-6 items-start"
               >
                 <span className="font-serif text-2xl md:text-[2.5rem] leading-none text-accent font-medium shrink-0 w-10 text-right">
                   {String(i + 1).padStart(2, '0')}
@@ -528,7 +517,23 @@ interface VKPost {
   text: string;
   image: string;
   link: string;
+  category?: string;
 }
+
+const resolveField = (field: string | { RU: string; CN: string; EN: string } | undefined, lang: Language): string => {
+  if (!field) return '';
+  if (typeof field === 'string') return field;
+  return field[lang] || field.RU || '';
+};
+
+const CATEGORY_LABELS: Record<string, { RU: string; CN: string; EN: string }> = {
+  Zhizn_fermy: { RU: 'Жизнь фермы', CN: '农场日常', EN: 'Farm Life' },
+  Olenyata: { RU: 'Оленята', CN: '小鹿幼崽', EN: 'Fawns' },
+  Stado: { RU: 'Стадо', CN: '鹿群', EN: 'Herd' },
+  Panty: { RU: 'Панты', CN: '鹿茸', EN: 'Antlers' },
+  Stroitelstvo: { RU: 'Строительство', CN: '牧场基建', EN: 'Infrastructure' },
+  Otrasl: { RU: 'Отрасль', CN: '行业知识', EN: 'Industry Insights' },
+};
 
 const DEFAULT_NEWS: VKPost[] = [
   {
@@ -537,7 +542,8 @@ const DEFAULT_NEWS: VKPost[] = [
     title: 'Регистрация бренда «Благородный Север»',
     text: 'Официально зарегистрировали товарный знак нашего фермерского хозяйства. Это важный шаг для защиты бренда и будущего развития линейки пантовой продукции!',
     image: '/about-2.webp',
-    link: 'https://vk.com/kfh_noble'
+    link: 'https://vk.com/kfh_noble',
+    category: 'Otrasl'
   },
   {
     id: 'kfh_noble_2',
@@ -545,7 +551,8 @@ const DEFAULT_NEWS: VKPost[] = [
     title: 'Обустройство новых пастбищ',
     text: 'Завершаем монтаж качественного ограждения для просторных вольеров. Безопасность и естественные условия содержания оленей — наш главный приоритет.',
     image: '/about-4.webp',
-    link: 'https://vk.com/kfh_noble'
+    link: 'https://vk.com/kfh_noble',
+    category: 'Stroitelstvo'
   },
   {
     id: 'kfh_noble_3',
@@ -553,19 +560,20 @@ const DEFAULT_NEWS: VKPost[] = [
     title: 'Адаптация и сезон линьки оленей',
     text: 'Наши благородные олени активно меняют шерсть к лету. Ветеринарные специалисты отмечают отличный аппетит и прекрасное здоровье всего стада.',
     image: '/about-6.webp',
-    link: 'https://vk.com/kfh_noble'
+    link: 'https://vk.com/kfh_noble',
+    category: 'Stado'
   }
 ];
 
 const SkeletonCard = () => (
-  <div className="bg-secondary animate-pulse rounded-none overflow-hidden">
-    <div className="bg-primary/20 aspect-[16/10]" />
-    <div className="p-7">
-      <div className="h-3 bg-primary/20 w-1/4 mb-4" />
-      <div className="h-6 bg-primary/20 w-3/4 mb-3" />
-      <div className="h-4 bg-primary/20 w-full mb-2" />
-      <div className="h-4 bg-primary/20 w-5/6 mb-8" />
-      <div className="h-4 bg-primary/20 w-1/3" />
+  <div className="bg-bg-card shadow-soft animate-pulse rounded-none overflow-hidden flex flex-col">
+    <div className="bg-primary/5 aspect-[16/10]" />
+    <div className="p-7 flex-1 flex flex-col gap-3">
+      <div className="h-3.5 bg-primary/10 w-1/4 mb-2" />
+      <div className="h-6 bg-primary/10 w-3/4 mb-1" />
+      <div className="h-4 bg-primary/10 w-full" />
+      <div className="h-4 bg-primary/10 w-5/6 mb-4" />
+      <div className="h-4 bg-primary/10 w-1/3 mt-auto" />
     </div>
   </div>
 );
@@ -631,27 +639,37 @@ function News({ lang, navigateAndScroll }: SectionProps) {
                 href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-secondary flex flex-col overflow-hidden relative rounded-none hover:z-10 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-500 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                className="card-feature group"
               >
-                <div className="overflow-hidden aspect-[16/10]">
+                <div className="card-feature__media aspect-[16/10]">
                   <img
                     src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    alt={resolveField(article.title, lang)}
                     loading="lazy"
                   />
                 </div>
-                <div className="p-7 flex flex-col flex-1">
-                  <div className="text-accent text-xs font-medium mb-3 tracking-wide uppercase">{article.date}</div>
-                  <h3 className="font-serif text-xl font-medium text-text-light mb-3 leading-tight line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-text-light/60 text-sm font-medium leading-relaxed line-clamp-3 mb-6">
-                    {article.text}
-                  </p>
-                  <div className="mt-auto flex items-center gap-2 text-accent text-sm font-medium group-hover:gap-3 transition-all duration-300">
-                    {lang === 'RU' ? 'Читать далее' : lang === 'CN' ? '阅读更多' : 'Read more'} <ArrowRight className="w-4 h-4" />
+                <div className="card-feature__body">
+                  <div className="flex justify-between items-center text-[10px] font-bold text-accent tracking-wider mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{resolveField(article.date, lang)}</span>
+                    </div>
+                    {article.category && CATEGORY_LABELS[article.category] && (
+                      <div className="flex items-center gap-1.5 text-primary">
+                        <Tag className="w-3.5 h-3.5" />
+                        <span>{resolveField(CATEGORY_LABELS[article.category], lang)}</span>
+                      </div>
+                    )}
                   </div>
+                  <h3 className="card-feature__title line-clamp-2">
+                    {resolveField(article.title, lang)}
+                  </h3>
+                  <p className="card-feature__desc line-clamp-3">
+                    {resolveField(article.text, lang)}
+                  </p>
+                  <span className="card-feature__cta">
+                    {lang === 'RU' ? 'Читать далее' : lang === 'CN' ? '阅读更多' : 'Read more'} <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </a>
             ))
@@ -673,7 +691,7 @@ function Media({ lang, navigateAndScroll }: SectionProps) {
   ];
 
   return (
-    <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light border-t border-border-light scroll-mt-24">
+    <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center mb-14">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark">
@@ -684,23 +702,23 @@ function Media({ lang, navigateAndScroll }: SectionProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {outlets.map((item) => (
             <a
               key={item.name}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-bg-card flex flex-col items-center justify-between p-6 sm:p-8 aspect-square rounded-none border border-border-light hover:border-accent hover:shadow-[0_20px_40px_rgba(27,67,68,0.08)] hover:-translate-y-1.5 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+              className="group flex flex-col items-center gap-6 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
             >
-              <div className="w-full flex-1 flex items-center justify-center overflow-hidden rounded-none bg-white p-6 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-border-light/30">
+              <div className="w-full aspect-square flex items-center justify-center p-8 md:p-10">
                 <img
                   src={item.image}
                   alt={item.name}
                   className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <span className="mt-4 text-text-dark group-hover:text-primary text-xs font-bold tracking-widest uppercase transition-colors duration-300">
+              <span className="text-sm font-medium text-text-dark text-center">
                 {item.name}
               </span>
             </a>
@@ -730,9 +748,9 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
   ];
 
   return (
-    <footer id="contacts" className="bg-secondary text-text-light pt-14 pb-10 px-6 mt-8 border-t border-border-dark scroll-mt-24">
+    <footer id="contacts" className="bg-secondary text-text-light pt-14 pb-10 px-6 scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-border-dark">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16">
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <img src="/logo.png" className="h-8 w-auto object-contain" alt="Благородный Север" />
@@ -868,55 +886,47 @@ export default function App() {
     <main className="min-h-screen selection:bg-primary selection:text-text-light">
       <Navbar lang={lang} setLang={setLang} navigateAndScroll={navigateAndScroll} activeTab={activeTab} />
       
-      <AnimatePresence mode="wait">
-        {activeTab === 'main' && (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="bg-secondary relative">
-              <Hero lang={lang} navigateAndScroll={navigateAndScroll} />
-            </div>
-            <About lang={lang} />
-            <Directions lang={lang} navigateAndScroll={navigateAndScroll} />
-            <WhyImportant lang={lang} />
-            <News lang={lang} navigateAndScroll={navigateAndScroll} />
-            <Media lang={lang} navigateAndScroll={navigateAndScroll} />
-          </motion.div>
-        )}
+      {activeTab === 'main' && (
+        <div key="main" className="w-full">
+          <div className="bg-secondary relative">
+            <Hero lang={lang} navigateAndScroll={navigateAndScroll} />
+          </div>
+          <About lang={lang} />
+          <Directions lang={lang} navigateAndScroll={navigateAndScroll} />
+          <WhyImportant lang={lang} />
+          <News lang={lang} navigateAndScroll={navigateAndScroll} />
+          <Media lang={lang} navigateAndScroll={navigateAndScroll} />
+        </div>
+      )}
 
-        {/* Dynamic modular page containers */}
-        {activeTab === 'genetics' && (
-          <TabGenetics key="genetics" lang={lang} />
-        )}
-        
-        {activeTab === 'antlers' && (
-          <TabAntlers key="antlers" lang={lang} onSwitchTab={navigateAndScroll} />
-        )}
-        
-        {activeTab === 'importance' && (
-          <TabIndustry key="industry" lang={lang} onSwitchTab={navigateAndScroll} />
-        )}
-        
-        {activeTab === 'reindeer-intro' && (
-          <TabPopularization key="reindeer-intro" lang={lang} onSwitchTab={navigateAndScroll} />
-        )}
-        
-        {activeTab === 'media' && (
-          <TabMedia key="media" lang={lang} onSwitchTab={navigateAndScroll} />
-        )}
-        
-        {activeTab === 'news' && (
-          <TabNews key="news" lang={lang} />
-        )}
-        
-        {activeTab === 'contacts' && (
-          <TabContacts key="contacts" lang={lang} />
-        )}
-      </AnimatePresence>
+      {/* Dynamic modular page containers */}
+      {activeTab === 'genetics' && (
+        <TabGenetics key="genetics" lang={lang} />
+      )}
+      
+      {activeTab === 'antlers' && (
+        <TabAntlers key="antlers" lang={lang} onSwitchTab={navigateAndScroll} />
+      )}
+      
+      {activeTab === 'importance' && (
+        <TabIndustry key="industry" lang={lang} onSwitchTab={navigateAndScroll} />
+      )}
+      
+      {activeTab === 'reindeer-intro' && (
+        <TabPopularization key="reindeer-intro" lang={lang} onSwitchTab={navigateAndScroll} />
+      )}
+      
+      {activeTab === 'media' && (
+        <TabMedia key="media" lang={lang} onSwitchTab={navigateAndScroll} />
+      )}
+      
+      {activeTab === 'news' && (
+        <TabNews key="news" lang={lang} />
+      )}
+      
+      {activeTab === 'contacts' && (
+        <TabContacts key="contacts" lang={lang} />
+      )}
 
       <Footer lang={lang} navigateAndScroll={navigateAndScroll} />
     </main>

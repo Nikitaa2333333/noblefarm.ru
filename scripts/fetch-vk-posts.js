@@ -24,6 +24,27 @@ function formatDate(timestamp) {
   });
 }
 
+function detectCategory(text) {
+  if (!text) return 'Zhizn_fermy';
+  const t = text.toLowerCase();
+  if (t.includes('#оленята') || t.includes('#олененок') || t.includes('#оленёнок') || t.includes('#малыши')) {
+    return 'Olenyata';
+  }
+  if (t.includes('#панты') || t.includes('#пантовое') || t.includes('#рога')) {
+    return 'Panty';
+  }
+  if (t.includes('#стадо') || t.includes('#выпас') || t.includes('#пастбище')) {
+    return 'Stado';
+  }
+  if (t.includes('#строительство') || t.includes('#загон') || t.includes('#ограждение') || t.includes('#инфраструктура') || t.includes('#вольер') || t.includes('#пастбищ')) {
+    return 'Stroitelstvo';
+  }
+  if (t.includes('#отрасль') || t.includes('#оленеводство') || t.includes('#селекция') || t.includes('#генетика') || t.includes('#бренд') || t.includes('#товарныйзнак')) {
+    return 'Otrasl';
+  }
+  return 'Zhizn_fermy';
+}
+
 async function run() {
   if (!token) {
     console.error('Error: VK_SERVICE_TOKEN environment variable is not defined.');
@@ -89,13 +110,16 @@ async function run() {
         textBody = text;
       }
 
+      const category = detectCategory(text);
+
       posts.push({
         id: `vk_post_${item.id}`,
         date: dateStr,
         title,
         text: textBody,
         image: imageUrl,
-        link
+        link,
+        category
       });
 
       // Нам нужно до 6 последних новостей

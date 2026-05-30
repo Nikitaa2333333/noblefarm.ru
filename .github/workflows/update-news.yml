@@ -1,12 +1,13 @@
-name: Deploy to Reg.ru
+name: Update VK News Feed
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    # Запуск каждые 12 часов (в 00:00 и 12:00 UTC)
+    - cron: '0 */12 * * *'
+  workflow_dispatch: # Позволяет запускать вручную из веб-интерфейса GitHub Actions
 
 jobs:
-  deploy:
+  update-news:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,18 +27,14 @@ jobs:
         env:
           VK_SERVICE_TOKEN: ${{ secrets.VK_SERVICE_TOKEN }}
 
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to hosting via SCP
+      - name: Deploy only vk-news.json to hosting via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: server66.hosting.reg.ru
           username: ${{ secrets.HOSTING_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "dist/*"
+          source: "public/vk-news.json"
           target: "/var/www/${{ secrets.HOSTING_USER }}/data/www/noblefarm.ru"
           strip_components: 1
           overwrite: true
-          rm: true

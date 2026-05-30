@@ -15,69 +15,76 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
   // Timelines & lists word-for-word
   const timelineGrowth = [
-    { season: isRU ? 'Весна' : '春天', phase: isRU ? 'начало роста' : '开始生长' },
-    { season: isRU ? 'Начало лета' : '初夏', phase: isRU ? 'активный рост' : '快速生长' },
-    { season: isRU ? 'Середина лета' : '仲夏', phase: isRU ? 'максимальное развитие' : '最大发育' },
-    { season: isRU ? 'Конец сезона' : '季末', phase: isRU ? 'формирование рогов' : '鹿角成型' },
+    { 
+      season: isRU ? 'Весна' : isCN ? '春天' : 'Spring', 
+      phase: isRU ? 'начало роста' : isCN ? '开始生长' : 'start of growth' 
+    },
+    { 
+      season: isRU ? 'Начало лета' : isCN ? '初夏' : 'Early summer', 
+      phase: isRU ? 'активный рост' : isCN ? '快速生长' : 'active growth' 
+    },
+    { 
+      season: isRU ? 'Середина лета' : isCN ? '仲夏' : 'Mid-summer', 
+      phase: isRU ? 'максимальное развитие' : isCN ? '最大发育' : 'peak development' 
+    },
+    { 
+      season: isRU ? 'Конец сезона' : isCN ? '季末' : 'End of season', 
+      phase: isRU ? 'формирование рогов' : isCN ? '鹿角成型' : 'antler formation' 
+    },
   ];
 
   const historicalTimeline = [
-    { title: isRU ? 'Древний Китай' : '古代中国', desc: '' },
-    { title: isRU ? 'Традиции Восточной Азии' : '东亚传统', desc: '' },
-    { title: isRU ? 'Мараловодство Алтая' : '阿尔泰马鹿养殖', desc: '' },
-    { title: isRU ? 'Современные технологии Новой Зеландии' : '新西兰现代技术', desc: '' },
-    { title: isRU ? 'Современное пантовое направление' : '现代鹿茸产业', desc: '' },
+    { title: isRU ? 'Древний Китай' : isCN ? '古代中国' : 'Ancient China', desc: '' },
+    { title: isRU ? 'Традиции Восточной Азии' : isCN ? '东亚传统' : 'East Asian Traditions', desc: '' },
+    { title: isRU ? 'Мараловодство Алтая' : isCN ? '阿尔泰马鹿养殖' : 'Altai Maral Breeding', desc: '' },
+    { title: isRU ? 'Современные технологии Новой Зеландии' : isCN ? '新西兰现代技术' : 'Modern New Zealand Technologies', desc: '' },
+    { title: isRU ? 'Современное пантовое направление' : isCN ? '现代鹿茸产业' : 'Modern Velvet Antler Industry', desc: '' },
   ];
 
   const whatIsStudied = [
-    isRU ? 'процессы регенерации тканей' : '组织再生过程',
-    isRU ? 'восстановительные механизмы организма' : '身体恢复机制',
-    isRU ? 'иммунные процессы' : '免疫调节过程',
-    isRU ? 'антиоксидантная активность' : '抗氧化活性',
-    isRU ? 'энергообеспечение и адаптация к нагрузкам' : '能量供应与负荷适应',
-    isRU ? 'состояние мышц, суставов и костной ткани' : '肌肉、关节和骨骼组织状态',
-    isRU ? 'косметологические и regenerative-направления' : '美容与再生医学方向',
+    isRU ? 'процессы регенерации тканей' : isCN ? '组织再生过程' : 'tissue regeneration processes',
+    isRU ? 'восстановительные механизмы организма' : isCN ? '身体恢复机制' : 'body recovery mechanisms',
+    isRU ? 'иммунные процессы' : isCN ? '免疫调节过程' : 'immune processes',
+    isRU ? 'антиоксидантная активность' : isCN ? '抗氧化活性' : 'antioxidant activity',
+    isRU ? 'энергообеспечение и адаптация к нагрузкам' : isCN ? '能量供应与负荷适应' : 'energy supply and workload adaptation',
+    isRU ? 'состояние мышц, суставов и костной ткани' : isCN ? '肌肉、关节 и 骨骼组织状态' : 'condition of muscles, joints and bone tissue',
+    isRU ? 'косметологические и regenerative-направления' : isCN ? '美容与再生医学方向' : 'cosmetology and regenerative fields',
   ];
 
   const applications = [
     {
-      title: isRU ? 'Спорт и высокие нагрузки' : '体育与高负荷',
-      desc: isRU ? 'Поддержка восстановительных процессов и выносливости.' : '支持身体恢复过程并提高耐力。',
+      title: isRU ? 'Спорт и высокие нагрузки' : isCN ? '体育与高负荷' : 'Sports & High Loads',
+      desc: isRU ? 'Поддержка восстановительных процессов и выносливости.' : isCN ? '支持身体恢复过程并提高耐力。' : 'Support for recovery processes and endurance.',
     },
     {
-      title: isRU ? 'Реабилитационные направления' : '康复医学方向',
-      desc: isRU ? 'Изучение восстановительных механизмов.' : '研究机体恢复机制。',
+      title: isRU ? 'Реабилитационные направления' : isCN ? '康复医学方向' : 'Rehabilitation Fields',
+      desc: isRU ? 'Изучение восстановительных механизмов.' : isCN ? '研究机体恢复机制。' : 'Study of recovery mechanisms.',
     },
     {
-      title: isRU ? 'Косметология и wellness' : '美容与健康养生',
-      desc: isRU ? 'Экстракты, уходовые продукты, SPA-практики.' : '提取物、护理产品和水疗养生。',
+      title: isRU ? 'Косметология и wellness' : isCN ? '美容与健康养生' : 'Cosmetology & Wellness',
+      desc: isRU ? 'Экстракты, уходовые продукты, SPA-практики.' : isCN ? '提取物、护理产品和水疗养生。' : 'Extracts, skincare products, SPA practices.',
     },
     {
-      title: isRU ? 'Курортология' : '疗养学与温泉疗法',
-      desc: isRU ? 'Традиционные форматы восстановительных программ.' : '传统的机体恢复理疗项目。',
+      title: isRU ? 'Курортология' : isCN ? '疗养学与温泉疗法' : 'Balneology & Health Resort Science',
+      desc: isRU ? 'Традиционные форматы восстановительных программ.' : isCN ? '传统的机体恢复理疗项目。' : 'Traditional formats of recovery programs.',
     },
     {
-      title: isRU ? 'Активный образ жизни' : '积极健康的生活方式',
-      desc: isRU ? 'Поддержание общего ресурса организма.' : '保持身体的整体活力资源。',
+      title: isRU ? 'Активный образ жизни' : isCN ? '积极健康的生活方式' : 'Active Lifestyle',
+      desc: isRU ? 'Поддержание общего ресурса организма.' : isCN ? '保持身体的整体活力资源。' : 'Maintaining the body\'s overall resource.',
     },
   ];
 
   const composition = [
-    isRU ? 'Аминокислоты' : '氨基酸',
-    isRU ? 'Пептиды' : '活性肽',
-    isRU ? 'Коллагеновые соединения' : '胶原蛋白化合物',
-    isRU ? 'Макро- и микроэлементы' : '常量与微量元素',
-    isRU ? 'Липиды' : '脂质类化合物',
-    isRU ? 'Биологически активные вещества' : '生物活性物质',
+    isRU ? 'Аминокислоты' : isCN ? '氨基酸' : 'Amino Acids',
+    isRU ? 'Пептиды' : isCN ? '活性肽' : 'Peptides',
+    isRU ? 'Коллагеновые соединения' : isCN ? '胶原蛋白化合物' : 'Collagen Compounds',
+    isRU ? 'Макро- и микроэлементы' : isCN ? '常量与微量元素' : 'Macro- & Microelements',
+    isRU ? 'Липиды' : isCN ? '脂质类化合物' : 'Lipids',
+    isRU ? 'Биологически активные вещества' : isCN ? '生物活性物质' : 'Biologically Active Substances',
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -15 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-    >
+    <div className="w-full">
       {/* ─── Hero / Header ────────────────────────────────────────────────── */}
       <section className="hero-side-image">
         <div className="hero-side-image__grid">
@@ -114,16 +121,16 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
         </div>
       </section>
 
-      {/* ─── Unique Biological Phenomenon ─────────────────────────────────── */}
-      <section className="section-accent">
+      {/* ─── Unique Biological Phenomenon (Spacious White Background) ───────── */}
+      <section className="section-calm">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-7 flex flex-col gap-6">
-              <h2 className="h-section-light">
+              <h2 className="h-section">
                 {isRU ? 'Уникальность, которой почти ' : isCN ? '自然界几乎独一无二的' : 'Uniqueness Almost Unseen in '}
                 <span className="h-section__accent">{isRU ? 'нет в природе' : isCN ? '独特性' : 'Nature'}</span>
               </h2>
-              <div className="text-text-light text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
+              <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
                 <p>
                   {isRU
                     ? 'Панты — это молодые неокостеневшие рога благородного оленя в фазе активного роста. В этот период они имеют мягкую структуру, интенсивное кровоснабжение и покрыты бархатистой тканью.'
@@ -133,9 +140,9 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 </p>
                 <p>
                   {isRU
-                    ? 'Их уникальность заключается в способности к полной ежегодной регенерации. После естественного сброса рогов олень ежегодно заново формирует новую структуру — процесс, практически не встречающийся среди млекопитающих.'
+                    ? 'Иих уникальность заключается в способности к полной ежегодной регенерации. После естественного сброса рогов олень ежегодно заново формирует новую структуру — процесс, практически не встречающийся среди млекопитающих.'
                     : isCN
-                      ? '其独特之处在于具有每年完全再生的神奇能力。在老角自然脱落后，红鹿每年都会重新生长出完整的全新鹿角结构——这一再生过程在哺乳动物中几乎绝无仅有。'
+                      ? '其独特之处在于具有每年完全再生的神奇能力。在老角自然脱落后，红鹿每年都会重新生长出完整的全新鹿角结构——这一再生过程在哺乳动物中几乎绝无仅о有。'
                       : 'Their uniqueness lies in the ability to undergo complete annual regeneration. After the natural shedding of hard antlers, the deer rebuilds a new structure every year—a process virtually unseen in other mammals.'}
                 </p>
                 <p>
@@ -148,31 +155,31 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               </div>
             </div>
 
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              {/* Stats Grid inside accent section - use bg-secondary/40 tiles for dark bg! */}
-              <div className="grid grid-cols-1 gap-4">
-                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
-                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
-                    1–4 {isRU ? 'см в день' : '厘米/天'}
+            <div className="lg:col-span-5 flex flex-col">
+              {/* Naked stats — no plashki, no dividers. Pure whitespace rhythm. */}
+              <div className="flex flex-col gap-10 lg:gap-12">
+                <div className="flex flex-col gap-2">
+                  <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">
+                    1–4 {isRU ? 'см в день' : isCN ? '厘米/天' : 'cm/day'}
                   </span>
-                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
-                    {isRU ? 'скорость роста' : '生长速度'}
-                  </span>
-                </div>
-                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
-                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
-                    ≈ 4 {isRU ? 'месяца' : '个月'}
-                  </span>
-                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
-                    {isRU ? 'полный цикл формирования' : '完整生长周期'}
+                  <span className="text-sm font-medium text-text-dark mt-1">
+                    {isRU ? 'скорость роста' : isCN ? '生长速度' : 'growth speed'}
                   </span>
                 </div>
-                <div className="bg-secondary/40 p-6 rounded-none flex flex-col gap-2">
-                  <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-accent leading-none">
-                    100% {isRU ? 'регенерация' : '每年完全再生'}
+                <div className="flex flex-col gap-2">
+                  <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">
+                    ≈ 4 {isRU ? 'месяца' : isCN ? '个月' : 'months'}
                   </span>
-                  <span className="text-xs font-bold text-text-light/90 tracking-wider mt-1">
-                    {isRU ? 'уникальная способность среди млекопитающих' : '哺乳动物中罕见的再生机制'}
+                  <span className="text-sm font-medium text-text-dark mt-1">
+                    {isRU ? 'полный цикл формирования' : isCN ? '完整生长周期' : 'full development cycle'}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">
+                    100% {isRU ? 'регенерация' : isCN ? '每年完全再生' : 'regeneration'}
+                  </span>
+                  <span className="text-sm font-medium text-text-dark mt-1">
+                    {isRU ? 'уникальная способность среди млекопитающих' : isCN ? '哺乳动物中罕见的再生机制' : 'unique ability among mammals'}
                   </span>
                 </div>
               </div>
@@ -180,8 +187,8 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
           </div>
 
           {/* Horizontal Growth Timeline */}
-          <div className="mt-16 border-t border-border-dark pt-10">
-            <h3 className="font-serif text-xl font-semibold text-text-light mb-8 text-center md:text-left">
+          <div className="mt-16 pt-10">
+            <h3 className="font-serif text-xl font-semibold text-text-dark mb-8 text-center md:text-left">
               {isRU ? 'Таймлайн роста пантов' : isCN ? '鹿茸生长时间线' : 'Antler Growth Timeline'}
             </h3>
 
@@ -189,9 +196,9 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             <div className="relative flex flex-col gap-10">
               {/* Stepper nodes */}
               <div className="relative flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-0 z-10">
-                {/* Horizontal line underneath nodes */}
-                <div className="absolute top-[16px] left-[10%] right-[10%] h-[2px] bg-border-dark/30 hidden md:block z-0">
-                  <div 
+                {/* Horizontal line underneath nodes — spans from center of first dot to center of last dot */}
+                <div className="absolute top-[15px] left-[12.5%] right-[12.5%] h-[2px] bg-border-light hidden md:block z-0">
+                  <div
                     className="h-full bg-accent transition-all duration-500 ease-out"
                     style={{ width: `${(activePhase / (timelineGrowth.length - 1)) * 100}%` }}
                   />
@@ -204,25 +211,27 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                     <button
                       key={idx}
                       onClick={() => setActivePhase(idx)}
-                      className="relative z-10 flex flex-col items-center md:items-start gap-3 md:gap-0 md:w-1/4 text-center md:text-left group cursor-pointer focus-visible:outline-none"
+                      className="relative z-10 flex flex-col items-center gap-3 md:gap-0 md:w-1/4 text-center group cursor-pointer focus-visible:outline-none"
                     >
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-serif text-sm font-bold shrink-0 md:mb-4 transition-all duration-500 border ${
                         isActive
-                          ? 'bg-accent text-secondary border-accent scale-110 shadow-soft-lg ring-4 ring-accent/30'
+                          ? 'bg-accent text-secondary border-accent scale-110 shadow-soft-lg'
                           : isCompleted
                             ? 'bg-accent/80 text-secondary border-accent'
-                            : 'bg-secondary border-border-dark text-text-light/50 group-hover:border-accent group-hover:text-accent/90'
+                            : 'bg-bg-card border-border-light text-text-dark/50 group-hover:border-accent group-hover:text-accent/90'
                       }`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${isActive || isCompleted ? 'bg-secondary' : 'bg-text-light/40 group-hover:bg-accent'}`} />
+                        <div className={`w-1.5 h-1.5 rounded-full ${isActive || isCompleted ? 'bg-secondary' : 'bg-text-dark/40 group-hover:bg-accent'}`} />
                       </div>
-                      <div className="flex flex-col items-center md:items-start">
+                      <div className="flex flex-col items-center">
                         <h4 className={`font-serif text-lg font-bold mb-1 transition-colors duration-300 ${
-                          isActive ? 'text-accent' : 'text-text-light'
+                          isActive ? 'text-accent' : 'text-text-dark'
                         }`}>
                           {t.season}
                         </h4>
-                        <p className={`text-xs font-semibold px-2.5 py-1 rounded-[6px] w-fit leading-none transition-all duration-300 ${
-                          isActive ? 'bg-accent text-secondary' : 'bg-secondary/40 text-text-light/80'
+                        <p className={`text-sm font-semibold leading-none transition-all duration-300 ${
+                          isActive
+                            ? 'bg-accent text-secondary px-2.5 py-1.5 rounded-[6px] w-fit'
+                            : 'text-text-dark'
                         }`}>
                           {t.phase}
                         </p>
@@ -237,16 +246,16 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="bg-secondary/40 py-5 px-6 md:py-5 md:px-7 rounded-none shadow-soft max-w-3xl"
+                className="bg-bg-card p-6 rounded-[6px] shadow-soft max-w-3xl"
               >
                 <div className="flex-1">
                   <span className="text-accent text-xs font-bold tracking-wider block mb-1">
                     {isRU ? 'Текущая фаза развития' : isCN ? '当前生长阶段' : 'Active Growth Phase'}
                   </span>
-                  <h4 className="font-serif text-xl md:text-2xl font-bold text-text-light mb-2 leading-tight">
+                  <h4 className="font-serif text-xl md:text-2xl font-bold text-text-dark mb-2 leading-tight">
                     {timelineGrowth[activePhase].season} — <span className="text-accent">{timelineGrowth[activePhase].phase}</span>
                   </h4>
-                  <p className="text-sm text-text-light/85 max-w-2xl leading-relaxed">
+                  <p className="text-sm text-text-dark max-w-2xl leading-relaxed font-semibold">
                     {activePhase === 0 && (
                       isRU 
                         ? 'С наступлением весны начинается новый годовой цикл. После сброса старых рогов запускается процесс стремительной регенерации и формирования молодых пантов.' 
@@ -284,102 +293,109 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
       </section>
 
       {/* ─── History & Centuries-Old Value ─────────────────────────────────── */}
-      <section className="section-calm">
+      <section className="section-calm pt-0">
         <div className="section-inner">
-          <div className="max-w-3xl mb-12">
-            <h2 className="h-section mb-4">
-              {isRU ? 'Ценность, известная на протяжении ' : isCN ? '流传数个世纪的' : 'Value Known for '}
-              <span className="h-section__accent">{isRU ? 'столетий' : isCN ? '珍贵价值' : 'Centuries'}</span>
-            </h2>
-            <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
-              <p>
-                {isRU
-                  ? 'Панты оленя ценились на протяжении многих веков и занимали особое место в культурах Азии. Исторические упоминания об их использовании встречаются в традициях Китая, Кореи, Монголии и других регионов, где олень воспринимался как символ силы, жизненной энергии и восстановления.'
-                  : isCN
-                    ? '数世纪以来，鹿茸一直备受推崇，并在亚洲传统文化中占有特殊地位。关于其使用的历史记载广泛见于中国、韩国、蒙古等地区的传统典籍中，在这些文化中，红鹿被视为力量、蓬勃生命力和元气恢复的象征。'
-                    : 'Deer antlers have been valued for many centuries and held a special place in Asian cultures. Historical mentions are found in traditions of China, Korea, Mongolia, and other regions.'}
-              </p>
-              <p>
-                {isRU
-                  ? 'В XX–XXI веках интерес к пантам вышел далеко за рамки традиционных практик. Сегодня они являются объектом исследований и частью индустрии природных биоресурсов в ряде стран мира.'
-                  : isCN
-                    ? '进入20至21世纪，对鹿茸的关注已远远超出了传统习俗的范畴。今天，它们不仅是现代科学深入研究的对象，也已成为全球多个国家自然生物资源开发产业的重要组成部分。'
-                    : 'In the 20th and 21st centuries, interest in velvet antlers went far beyond traditional practices. Today, they are objects of research and part of the natural bioresource industry in several countries.'}
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            {/* Left: heading + body */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <h2 className="h-section">
+                {isRU ? 'Ценность, известная на протяжении ' : isCN ? '流传数个世纪的' : 'Value Known for '}
+                <span className="h-section__accent">{isRU ? 'столетий' : isCN ? '珍贵价值' : 'Centuries'}</span>
+              </h2>
+              <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
+                <p>
+                  {isRU
+                    ? 'Панты оленя ценились на протяжении многих веков и занимали особое место в культурах Азии. Исторические упоминания об их использовании встречаются в традициях Китая, Кореи, Монголии и других регионов, где олень воспринимался как символ силы, жизненной энергии и восстановления.'
+                    : isCN
+                      ? '数世纪以来，鹿茸一直备受推崇，并在亚洲传统文化中占有特殊地位。关于其使用的历史记载广泛见于中国、韩国、蒙古等地区的传统典籍中，在这些文化中，红鹿被视为力量、蓬勃生命力和元气恢复的象征。'
+                      : 'Deer antlers have been valued for many centuries and held a special place in Asian cultures. Historical mentions are found in traditions of China, Korea, Mongolia, and other regions.'}
+                </p>
+                <p>
+                  {isRU
+                    ? 'В XX–XXI веках интерес к пантам вышел далеко за рамки традиционных практик. Сегодня они являются объектом исследований и частью индустрии природных биоресурсов в ряде стран мира.'
+                    : isCN
+                      ? '进入20至21世纪，对鹿茸的关注已远远超出了传统习俗的范畴。今天，它们不仅是现代科学深入研究的对象，也已成为全球多个国家自然生物资源开发产业的重要组成部分。'
+                      : 'In the 20th and 21st centuries, interest in velvet antlers went far beyond traditional practices. Today, they are objects of research and part of the natural bioresource industry in several countries.'}
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Historical timeline cards */}
-          <div className="border-t border-border-light pt-8">
-            <h3 className="font-serif text-sm font-semibold text-accent tracking-wider mb-8">
-              {isRU ? 'Исторический путь' : isCN ? '历史发展轨迹' : 'Historical Path'}
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-              {historicalTimeline.map((item, idx) => (
-                <div key={idx} className="card-flat flex gap-4 items-center group hover:-translate-y-1 hover:shadow-soft-lg transition-all duration-300">
-                  <span className="font-serif text-lg font-bold text-accent shrink-0">
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <div className="font-bold text-xs md:text-sm text-text-dark leading-snug">{item.title}</div>
-                </div>
-              ))}
+            {/* Right: vertical historical timeline — chronological eras connected by a line */}
+            <div className="lg:col-span-5">
+              <div className="relative flex flex-col gap-10">
+                {/* Vertical connecting line — gold tint, centered through node centers */}
+                <div className="absolute left-6 top-6 bottom-6 w-[2px] -translate-x-1/2 bg-accent/30 z-0" />
+
+                {historicalTimeline.map((item, idx) => (
+                  <div key={idx} className="relative z-10 flex items-center gap-5">
+                    <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center shrink-0 shadow-soft">
+                      <span className="font-serif text-sm font-bold text-secondary">
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-sm md:text-base text-text-dark leading-snug">
+                      {item.title}
+                    </h4>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── Scientific Interest ───────────────────────────────────────────── */}
-      <section className="section-accent">
+      {/* ─── Scientific Interest (Spacious White Section) ────────────────────── */}
+      <section className="section-calm pt-0">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* Left: Intro */}
             <div className="lg:col-span-6 flex flex-col gap-6">
-              <h2 className="h-section-light">
+              <h2 className="h-section">
                 {isRU ? 'Почему панты изучают ' : isCN ? '为什么科学家热衷于' : 'Why Scientists Study '}
                 <span className="h-section__accent">{isRU ? 'учёные' : isCN ? '研究鹿茸' : 'Velvet Antlers'}</span>
               </h2>
-              <p className="text-text-light text-base sm:text-lg leading-relaxed font-medium">
+              <p className="text-text-dark text-base sm:text-lg leading-relaxed font-semibold">
                 {isRU
                   ? 'Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма. Исследования посвящены изучению биологического состава пантов, механизмов роста тканей и потенциальной роли отдельных компонентов в процессах восстановления и адаптации организма.'
                   : isCN
                     ? '得益于其定期再生能力 and 极快的生长速度，鹿茸已成为从组织生物学到人体机能恢复等多个科学领域的研究热点。相关学术探索致力于深入揭示鹿茸的复杂生物化学成分、组织生长的细胞分子机制，以及特定活性成分在促进人体损伤修复和环境适应中的潜在效能。'
                     : 'Due to their ability for regular regeneration and rapid growth, velvet antlers have become an object of scientific interest in fields from tissue biology to recovery processes. Research is devoted to analyzing their bio-composition and role in adaptation.'}
               </p>
-              
-              <div className="mt-4 p-6 bg-secondary/40 rounded-none">
-                <h4 className="font-serif text-base sm:text-lg font-bold text-accent mb-4">
+
+              <div className="mt-6 flex flex-col gap-5">
+                <h4 className="font-sans text-lg sm:text-xl font-bold text-text-dark">
                   {isRU ? 'Где применяется в мировой практике' : isCN ? '全球主要应用领域' : 'Global Application Practice'}
                 </h4>
-                <div className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-3 list-none">
                   {applications.map((app, i) => (
-                    <div key={i} className="text-sm font-semibold leading-relaxed text-text-light border-b border-white/5 last:border-0 pb-3 last:pb-0">
-                      <span className="text-accent font-bold block">{app.title}</span>
-                      <span className="text-text-light/95 block mt-0.5">{app.desc}</span>
-                    </div>
+                    <li key={i} className="text-base leading-relaxed text-text-dark">
+                      <span className="font-bold">{app.title}:</span>
+                      <span className="font-medium"> {app.desc}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
 
             {/* Right: Checklist */}
             <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-10">
-              <h3 className="font-serif text-xl sm:text-2xl text-accent font-medium mb-2">
+              <h3 className="font-serif text-xl sm:text-2xl text-accent font-bold mb-2">
                 {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
               </h3>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-4">
                 {whatIsStudied.map((item, idx) => (
-                  <div key={idx} className="flex gap-4 items-center bg-secondary/40 p-4 rounded-none">
-                    <Check className="w-5 h-5 text-accent shrink-0" strokeWidth={2.5} />
-                    <span className="text-xs md:text-sm font-semibold text-text-light">{item}</span>
+                  <div key={idx} className="flex gap-4 items-center">
+                    <Check className="w-5 h-5 text-primary shrink-0" strokeWidth={2.5} />
+                    <span className="text-base font-semibold text-text-dark leading-snug">{item}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-8 border-t border-border-dark pt-6 flex flex-col gap-4">
-                <button className="btn-outline-light cursor-not-allowed opacity-60 text-xs py-3.5 px-7 w-fit leading-none">
+              <div className="mt-8 flex flex-col gap-4">
+                <button className="btn-outline-dark cursor-not-allowed opacity-60">
                   {isRU ? 'Научные исследования (в разработке)' : isCN ? '学术研究论著（开发中）' : 'Scientific Research (In Development)'}
                 </button>
-                <p className="text-[10px] font-semibold text-text-light/70 leading-relaxed max-w-md italic">
+                <p className="text-sm font-medium text-text-dark leading-relaxed max-w-md italic">
                   {isRU
                     ? '*Представленная информация носит ознакомительный характер и не является медицинским утверждением.'
                     : isCN
@@ -393,14 +409,14 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
       </section>
 
       {/* ─── Biological Composition ────────────────────────────────────────── */}
-      <section className="section-calm">
+      <section className="section-calm pt-0">
         <div className="section-inner">
           <div className="max-w-3xl mb-8">
             <h2 className="h-section mb-4">
               {isRU ? 'Биологический состав ' : isCN ? '鹿茸的天然' : 'Biological '}
               <span className="h-section__accent">{isRU ? 'пантов' : isCN ? '生物化学成分' : 'Composition'}</span>
             </h2>
-            <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+            <p className="text-text-dark text-base sm:text-lg leading-relaxed font-semibold">
               {isRU
                 ? 'Исследования показывают наличие в пантах комплекса природных компонентов, включая:'
                 : isCN
@@ -409,17 +425,27 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {composition.map((item, idx) => (
-              <div key={idx} className="card-flat flex items-center justify-between min-h-[90px] group hover:-translate-y-1 hover:shadow-soft-lg transition-all duration-300">
-                <span className="font-serif text-sm sm:text-base font-bold text-text-dark leading-snug">{item}</span>
-                <span className="text-xs font-serif text-accent font-bold ml-2">{(idx+1).toString().padStart(2, '0')}</span>
-              </div>
-            ))}
+          {/* Horizontal scroll-snap carousel — naked numbers + titles, no plashki */}
+          <div className="overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4">
+            <div className="flex gap-10 md:gap-16">
+              {composition.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="snap-start shrink-0 w-[78%] sm:w-[44%] md:w-[28%] flex flex-col gap-4"
+                >
+                  <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
+                    {(idx + 1).toString().padStart(2, '0')}
+                  </span>
+                  <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-8 border-t border-border-light pt-6">
-            <p className="text-[11px] font-semibold text-text-dark/80 italic">
+          <div className="mt-10">
+            <p className="text-sm font-medium text-text-dark italic leading-relaxed max-w-3xl">
               {isRU
                 ? 'Состав зависит от генетики животного, периода роста, условий содержания и технологии переработки.'
                 : isCN
@@ -430,7 +456,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
         </div>
       </section>
 
-      {/* ─── Quality Starts with Genetics ─────────────────────────────────── */}
+      {/* ─── Quality Starts with Genetics (Strategic concluding green block) ────── */}
       <section className="section-accent">
         <div className="section-inner flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-2xl">
@@ -489,6 +515,6 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
           </div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
 }

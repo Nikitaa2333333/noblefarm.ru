@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Heart, Home, Activity, Award, ArrowRight, Dna, Layers, Sparkles } from 'lucide-react';
+import { ShieldCheck, Heart, Home, Activity, Award, ArrowRight, Dna, Layers, Sparkles, ChevronDown } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabGeneticsProps {
@@ -100,12 +100,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -15 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-    >
+    <div className="w-full">
       {/* ─── Hero (side-image — text left, photo right) ──────────────── */}
       <section className="hero-side-image">
         <div className="hero-side-image__grid">
@@ -126,7 +121,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   ? '基于来源、良种血统和系统性选育，构建优质欧洲红鹿种群。'
                   : 'Formation of a high-quality breeding herd of European Red Deer based on pedigree, breeding lines, and systematic selection.'}
             </p>
-            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-primary font-bold text-xs sm:text-sm border-t border-border-light pt-5">
+            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-primary font-bold text-xs sm:text-sm pt-5">
               <span>{isRU ? 'Племенные линии' : isCN ? '优良血统' : 'Breeding Lines'}</span>
               <span className="text-primary/40">•</span>
               <span>{isRU ? 'Родословные' : isCN ? '系谱记录' : 'Pedigrees'}</span>
@@ -177,7 +172,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-6 flex flex-col gap-6 lg:border-l lg:border-border-dark lg:pl-12">
+          <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-12">
             <h3 className="font-serif text-2xl sm:text-3xl font-medium text-accent leading-tight">
               {isRU ? 'Контроль качества стада' : isCN ? '种群质量控制' : 'Herd Quality Control'}
             </h3>
@@ -221,19 +216,61 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   if (idx === 3) icon = <Dna      className="w-4 h-4 shrink-0" />;
 
                   const active = subTab === idx;
+                  const expandable = idx === 2;
+                  const expanded = expandable && active;
                   return (
-                    <button
-                      key={idx}
-                      onClick={() => setSubTab(idx)}
-                      className={`flex items-center gap-3 py-3 px-5 text-sm font-semibold text-left rounded-[6px] border transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
-                        active
-                          ? 'bg-primary text-text-light border-primary'
-                          : 'bg-transparent text-text-dark border-transparent hover:border-primary/40 hover:text-primary'
-                      }`}
-                    >
-                      {icon}
-                      <span className="leading-snug">{title}</span>
-                    </button>
+                    <div key={idx} className="flex flex-col">
+                      <button
+                        onClick={() => setSubTab(idx)}
+                        className={`flex items-center gap-3 py-3 px-5 text-sm font-semibold text-left rounded-[6px] border transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
+                          active
+                            ? 'bg-primary text-text-light border-primary'
+                            : 'bg-transparent text-text-dark border-transparent hover:border-primary/40 hover:text-primary'
+                        }`}
+                      >
+                        {icon}
+                        <span className="leading-snug flex-1">{title}</span>
+                        {expandable && (
+                          <ChevronDown
+                            className={`w-4 h-4 shrink-0 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
+                          />
+                        )}
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {expanded && (
+                          <motion.div
+                            key="criteria-children"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex flex-col gap-1 pt-1 pl-4">
+                              {CRITERIA_DATA.map((item) => {
+                                const childActive = criteriaId === item.id;
+                                return (
+                                  <button
+                                    key={item.id}
+                                    onClick={() => setCriteriaId(item.id)}
+                                    className={`flex items-center gap-3 py-2.5 px-4 text-sm font-semibold text-left rounded-[6px] border transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
+                                      childActive
+                                        ? 'bg-primary/8 text-primary border-transparent'
+                                        : 'bg-transparent text-text-dark border-transparent hover:text-primary'
+                                    }`}
+                                  >
+                                    <span className="leading-snug">
+                                      {item.title[lang as 'RU' | 'CN'] || item.title.RU}
+                                    </span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   );
                 })}
               </div>
@@ -365,47 +402,24 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                         </p>
                       </div>
 
-                      <div className="bg-bg-card shadow-soft grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 md:p-8">
-                        <div className="lg:col-span-5 flex flex-col gap-2">
-                          {CRITERIA_DATA.map((item) => {
-                            const active = criteriaId === item.id;
-                            return (
-                              <button
-                                key={item.id}
-                                onClick={() => setCriteriaId(item.id)}
-                                className={`flex items-center gap-3 py-3 px-5 text-sm font-semibold text-left rounded-[6px] border transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
-                                  active
-                                    ? 'bg-primary text-text-light border-primary'
-                                    : 'bg-transparent text-text-dark border-transparent hover:border-primary/40 hover:text-primary'
-                                }`}
-                              >
-                                <span className="leading-snug">
-                                  {item.title[lang as 'RU' | 'CN'] || item.title.RU}
-                                </span>
-                              </button>
-                            );
-                          })}
-                        </div>
-
-                        <div className="lg:col-span-7 bg-bg-light p-6 md:p-8 flex flex-col justify-center min-h-[260px]">
-                          <AnimatePresence mode="wait">
-                            <motion.div
-                              key={criteriaId}
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              transition={{ duration: 0.15 }}
-                              className="flex flex-col gap-3"
-                            >
-                              <h4 className="font-serif text-xl sm:text-2xl font-bold text-text-dark leading-tight">
-                                {selectedCriteria.title[lang as 'RU' | 'CN'] || selectedCriteria.title.RU}
-                              </h4>
-                              <p className="text-text-dark text-base font-medium leading-relaxed border-l-2 border-accent pl-4">
-                                {selectedCriteria.desc[lang as 'RU' | 'CN'] || selectedCriteria.desc.RU}
-                              </p>
-                            </motion.div>
-                          </AnimatePresence>
-                        </div>
+                      <div className="bg-bg-card shadow-soft p-6 md:p-8 flex flex-col justify-center min-h-[260px]">
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={criteriaId}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.15 }}
+                            className="flex flex-col gap-3"
+                          >
+                            <h4 className="font-serif text-xl sm:text-2xl font-bold text-text-dark leading-tight">
+                              {selectedCriteria.title[lang as 'RU' | 'CN'] || selectedCriteria.title.RU}
+                            </h4>
+                            <p className="text-text-dark text-base font-medium leading-relaxed border-l-2 border-accent pl-4">
+                              {selectedCriteria.desc[lang as 'RU' | 'CN'] || selectedCriteria.desc.RU}
+                            </p>
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
                     </>
                   )}
@@ -504,6 +518,6 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
           </div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
 }
