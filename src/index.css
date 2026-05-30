@@ -31,10 +31,10 @@
   body {
     @apply bg-bg-light text-text-dark font-medium antialiased overflow-x-hidden;
   }
-  
-  h1, h2, h3, h4, h5, h6, button, a, strong, b {
-    font-weight: 500 !important;
-  }
+
+  /* Headings inherit weight from utility classes (.h-hero, .h-section, .h-block).
+     <strong> and <b> get browser default bold (700) — used for bold lead-ins inside paragraphs.
+     Buttons & links inherit weight from .btn-* / link utilities. */
 }
 
 /* Elegant, natural UI utilities - strictly solid colors */
@@ -128,23 +128,22 @@
 
 /* ─── Section Rhythm ────────────────────────────────────────────────────────
    Use <section className="section-X"> as the ONLY page-level wrapper.
-   Three semantic backgrounds, chosen by mood. Alternate them — never two
-   adjacent sections with the same class. Each section already provides its
-   own vertical (py-16 md:py-24) and horizontal (px-6) padding. */
+   Three semantic backgrounds, chosen by mood. Each section provides its own
+   vertical (py-8 md:py-12 — 32/48 px) and horizontal (px-6) padding. */
 
 /* calm: white, spacious, readable. Default for content. */
 .section-calm {
-  @apply py-16 md:py-24 px-6 bg-bg-light text-text-dark overflow-hidden;
+  @apply py-8 md:py-12 px-6 bg-bg-light text-text-dark overflow-hidden;
 }
 
 /* accent: brand green, expressive. Use to emphasise / break the rhythm. */
 .section-accent {
-  @apply py-16 md:py-24 px-6 bg-primary text-text-light overflow-hidden;
+  @apply py-8 md:py-12 px-6 bg-primary text-text-light overflow-hidden;
 }
 
 /* cinematic: almost-black, dramatic. Rare — full-bleed hero treatments only. */
 .section-cinematic {
-  @apply py-16 md:py-24 px-6 bg-secondary text-text-light overflow-hidden;
+  @apply py-8 md:py-12 px-6 bg-secondary text-text-light overflow-hidden;
 }
 
 .section-inner {
@@ -152,8 +151,13 @@
 }
 
 /* ─── Shadow System ─────────────────────────────────────────────────────────
-   Two soft shadows, nothing else. Replace shadow-xs/sm/md/lg/2xl with these.
-   Registered as @utility so they work with @apply and `hover:shadow-soft-lg`. */
+   ONE shadow on the whole site — `.shadow-soft`. Used at rest and on hover —
+   the same. Hover-feedback is delivered through motion (`-translate-y-1`),
+   never through shadow intensification.
+   `.shadow-soft-lg` is kept as an alias of `.shadow-soft` for migration
+   safety — old JSX still using `shadow-soft-lg` renders identically. After
+   the global refactor, every `shadow-soft-lg` reference is removed from JSX.
+   `shadow-sm/md/lg/2xl/xl/none` — forbidden everywhere. */
 
 @utility shadow-soft {
   box-shadow:
@@ -164,9 +168,9 @@
 
 @utility shadow-soft-lg {
   box-shadow:
-    0 2px 6px rgba(7, 23, 23, 0.08),
-    0 12px 24px rgba(7, 23, 23, 0.10),
-    0 32px 64px -16px rgba(7, 23, 23, 0.20);
+    0 1px 3px rgba(7, 23, 23, 0.06),
+    0 4px 12px rgba(7, 23, 23, 0.08),
+    0 16px 48px -16px rgba(7, 23, 23, 0.14);
 }
 
 /* ─── Card System ───────────────────────────────────────────────────────────
@@ -194,16 +198,18 @@
   @apply p-7 md:p-8 flex flex-col gap-3 flex-1;
 }
 
+/* Card eyebrow — gold label above card title. 14 px, no tracking. */
 .card-feature__eyebrow {
-  @apply text-accent text-xs font-bold tracking-wider;
+  @apply text-accent text-sm font-bold;
 }
 
 .card-feature__title {
   @apply font-serif text-xl md:text-2xl font-bold leading-tight text-text-dark;
 }
 
+/* Card description — 16 px body-sm leading. */
 .card-feature__desc {
-  @apply text-sm md:text-base font-medium leading-relaxed text-text-dark;
+  @apply text-base font-medium leading-snug text-text-dark;
 }
 
 .card-feature__cta {
@@ -226,8 +232,9 @@
   @apply font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-accent leading-none;
 }
 
+/* Caption directly under .card-stat__value — 14 px, no tracking. */
 .card-stat__label {
-  @apply text-xs md:text-sm font-bold text-text-dark tracking-wider mt-1;
+  @apply text-sm font-bold text-text-dark mt-1;
 }
 
 /* ─── Accent Card (rare) ────────────────────────────────────────────────────
@@ -266,16 +273,17 @@
   @apply w-full h-full object-cover;
 }
 
+/* Hero eyebrow — gold label above hero H1. 14 px, no tracking. */
 .hero-eyebrow {
-  @apply text-accent text-sm font-semibold tracking-wider;
+  @apply text-accent text-sm font-bold;
 }
 
 .hero-title {
-  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[1.05] tracking-tight text-text-dark;
+  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[0.9] tracking-tight text-text-dark;
 }
 
 .hero-title-light {
-  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[1.05] tracking-tight text-text-light;
+  @apply font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-medium leading-[0.9] tracking-tight text-text-light;
 }
 
 .hero-desc {
@@ -289,15 +297,69 @@
 /* ─── Section Headings ──────────────────────────────────────────────────────
    Use these for every <h2> in every section. Italic span for the accent word. */
 .h-section {
-  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark;
+  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-dark;
 }
 
 .h-section-light {
-  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-light;
+  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-light;
 }
 
 .h-section__accent {
   @apply italic text-accent;
+}
+
+/* Section header block — canonical wrapper for an (eyebrow + h2 + lead paragraph)
+   group. Locks vertical rhythm at gap-6 (24 px). No top/bottom margins on
+   children — the gap is the rhythm. See CLAUDE.md §4. */
+.section-header {
+  @apply flex flex-col gap-6;
+}
+
+/* ─── Block / Sub-section heading ───────────────────────────────────────────
+   H3-level title INSIDE a section (e.g. "Где применяется", "Что изучается").
+   Always serif, always solid dark. Never gold, green, or sans-serif. */
+.h-block {
+  @apply font-serif text-xl sm:text-2xl font-bold leading-tight text-text-dark;
+}
+
+.h-block-light {
+  @apply font-serif text-xl sm:text-2xl font-bold leading-tight text-text-light;
+}
+
+/* ─── Body scale — exactly TWO sizes ────────────────────────────────────────
+   .body-lead — 16 → 18 px, leading-relaxed. Lead paragraph under hero/section.
+   .body-sm — 16 px, leading-snug. Compact descriptions, list items, captions.
+   Default <p> body inherits from <body> base styles (16 px, font-medium).
+   14 px and below as a body level is REMOVED — there is no .body-sm at 14. */
+.body-lead {
+  @apply text-base sm:text-lg font-medium leading-relaxed text-text-dark;
+}
+
+.body-lead-light {
+  @apply text-base sm:text-lg font-medium leading-relaxed text-text-light;
+}
+
+.body-sm {
+  @apply text-base font-medium leading-snug text-text-dark;
+}
+
+.body-sm-light {
+  @apply text-base font-medium leading-snug text-text-light;
+}
+
+/* ─── Small labels — exactly TWO ────────────────────────────────────────────
+   .label-eyebrow — gold uppercase-style label above any heading. 14 px.
+     Canonical name; aliases .hero-eyebrow and .card-feature__eyebrow remain
+     defined and visually identical for backward compatibility during the
+     migration. New code uses .label-eyebrow.
+   .label-meta — dark caption directly under .card-stat__value
+     (e.g. "мирового рынка пантов"). 14 px, bold, no tracking. */
+.label-eyebrow {
+  @apply text-accent text-sm font-bold;
+}
+
+.label-meta {
+  @apply text-sm font-bold text-text-dark;
 }
 
 /* Premium feathered gradient overlay for the TabMain hero background slideshow. */
@@ -307,6 +369,6 @@
 
 @media (min-width: 768px) {
   .hero-gradient-overlay {
-    background: linear-gradient(to right, #071717 0%, #071717 42%, rgba(7, 23, 23, 0.95) 50%, rgba(7, 23, 23, 0.7) 62%, rgba(7, 23, 23, 0) 85%) !important;
+    background: linear-gradient(to right, #071717 0%, #071717 48%, rgba(7, 23, 23, 0) 100%) !important;
   }
 }

@@ -157,7 +157,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
             <div className="lg:col-span-5 flex flex-col">
               {/* Naked stats — no plashki, no dividers. Pure whitespace rhythm. */}
-              <div className="flex flex-col gap-10 lg:gap-12">
+              <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                   <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">
                     1–4 {isRU ? 'см в день' : isCN ? '厘米/天' : 'cm/day'}
@@ -188,7 +188,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
           {/* Horizontal Growth Timeline */}
           <div className="mt-16 pt-10">
-            <h3 className="font-serif text-xl font-semibold text-text-dark mb-8 text-center md:text-left">
+            <h3 className="h-block mb-8 text-center md:text-left">
               {isRU ? 'Таймлайн роста пантов' : isCN ? '鹿茸生长时间线' : 'Antler Growth Timeline'}
             </h3>
 
@@ -252,10 +252,10 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                   <span className="label-eyebrow block mb-1">
                     {isRU ? 'Текущая фаза развития' : isCN ? '当前生长阶段' : 'Active Growth Phase'}
                   </span>
-                  <h4 className="font-serif text-xl md:text-2xl font-bold text-text-dark mb-2 leading-tight">
+                  <h4 className="h-block mb-2">
                     {timelineGrowth[activePhase].season} — <span className="text-accent">{timelineGrowth[activePhase].phase}</span>
                   </h4>
-                  <p className="text-sm text-text-dark max-w-2xl leading-relaxed font-semibold">
+                  <p className="body-sm max-w-2xl">
                     {activePhase === 0 && (
                       isRU 
                         ? 'С наступлением весны начинается новый годовой цикл. После сброса старых рогов запускается процесс стремительной регенерации и формирования молодых пантов.' 
@@ -354,7 +354,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 {isRU ? 'Почему панты изучают ' : isCN ? '为什么科学家热衷于' : 'Why Scientists Study '}
                 <span className="h-section__accent">{isRU ? 'учёные' : isCN ? '研究鹿茸' : 'Velvet Antlers'}</span>
               </h2>
-              <p className="text-text-dark text-base sm:text-lg leading-relaxed font-semibold">
+              <p className="body-lead">
                 {isRU
                   ? 'Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма. Исследования посвящены изучению биологического состава пантов, механизмов роста тканей и потенциальной роли отдельных компонентов в процессах восстановления и адаптации организма.'
                   : isCN
@@ -363,7 +363,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               </p>
 
               <div className="mt-6 flex flex-col gap-5">
-                <h4 className="font-sans text-lg sm:text-xl font-bold text-text-dark">
+                <h4 className="h-block">
                   {isRU ? 'Где применяется в мировой практике' : isCN ? '全球主要应用领域' : 'Global Application Practice'}
                 </h4>
                 <ul className="flex flex-col gap-3 list-none">
@@ -377,15 +377,16 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               </div>
             </div>
 
-            {/* Right: Checklist */}
-            <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-10">
-              <h3 className="font-serif text-xl sm:text-2xl text-accent font-bold mb-2">
+            {/* Right: Checklist — pt-3 lg shifts the column down so x-height of h3
+                aligns with x-height of left H2 (x-height alignment, not cap-top). */}
+            <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-10 lg:pt-3">
+              <h3 className="h-block mb-2">
                 {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
               </h3>
               <div className="flex flex-col gap-4">
                 {whatIsStudied.map((item, idx) => (
                   <div key={idx} className="flex gap-4 items-center">
-                    <Check className="w-5 h-5 text-primary shrink-0" strokeWidth={2.5} />
+                    <Check className="w-5 h-5 text-text-dark shrink-0" strokeWidth={2.5} />
                     <span className="text-base font-semibold text-text-dark leading-snug">{item}</span>
                   </div>
                 ))}
@@ -395,7 +396,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 <button className="btn-outline-dark cursor-not-allowed opacity-60">
                   {isRU ? 'Научные исследования (в разработке)' : isCN ? '学术研究论著（开发中）' : 'Scientific Research (In Development)'}
                 </button>
-                <p className="text-sm font-medium text-text-dark leading-relaxed max-w-md italic">
+                <p className="body-sm max-w-md">
                   {isRU
                     ? '*Представленная информация носит ознакомительный характер и не является медицинским утверждением.'
                     : isCN
@@ -416,7 +417,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
               {isRU ? 'Биологический состав ' : isCN ? '鹿茸的天然' : 'Biological '}
               <span className="h-section__accent">{isRU ? 'пантов' : isCN ? '生物化学成分' : 'Composition'}</span>
             </h2>
-            <p className="text-text-dark text-base sm:text-lg leading-relaxed font-semibold">
+            <p className="body-lead">
               {isRU
                 ? 'Исследования показывают наличие в пантах комплекса природных компонентов, включая:'
                 : isCN
@@ -425,25 +426,17 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </p>
           </div>
 
-          {/* Grid in a single line on desktop — no scroll, all items fully visible */}
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-x-6 md:gap-x-8 lg:gap-x-10 gap-y-10">
-            {composition.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col gap-4"
-              >
-                <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
-                  {(idx + 1).toString().padStart(2, '0')}
-                </span>
-                <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
-                  {item}
-                </span>
-              </div>
-            ))}
-          </div>
+          <p className="body-lead max-w-3xl">
+            {composition
+              .map((item, idx) =>
+                isRU && idx > 0 ? item.charAt(0).toLowerCase() + item.slice(1) : item,
+              )
+              .join(isCN ? '、' : ', ')}
+            {isCN ? '。' : '.'}
+          </p>
 
           <div className="mt-10">
-            <p className="text-sm font-medium text-text-dark italic leading-relaxed max-w-3xl">
+            <p className="body-sm max-w-3xl">
               {isRU
                 ? 'Состав зависит от генетики животного, периода роста, условий содержания и технологии переработки.'
                 : isCN
@@ -456,21 +449,21 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
 
       {/* ─── Quality Starts with Genetics (Strategic concluding green block) ────── */}
       <section className="section-accent">
-        <div className="section-inner flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div className="section-inner flex flex-col items-start gap-8">
           <div className="max-w-2xl">
             <h2 className="h-section-light mb-4">
               {isRU ? 'Качество пантов начинается с ' : isCN ? '高品质鹿茸源于优质种群' : 'Antler Quality Starts with '}
               <span className="h-section__accent">{isRU ? 'качества стада' : isCN ? '优质种群' : 'Herd Quality'}</span>
             </h2>
-            <div className="text-text-light text-base sm:text-lg leading-relaxed flex flex-col gap-3 font-medium">
-              <p>
+            <div className="flex flex-col gap-3">
+              <p className="body-lead-light">
                 {isRU
                   ? 'Потенциал развития пантов напрямую связан с происхождением животных, качеством племенных линий, здоровьем стада и подходом к селекции.'
                   : isCN
                     ? '鹿茸丰产和高品质的长势潜力，与红鹿个体的纯正血统来源、核心种公牛遗传素质、整体健康状况以及长期的科学配种密不可分。'
                     : 'The growth potential of velvet antlers is directly linked to the origin of animals, the quality of breeding lines, herd health, and the selection approach.'}
               </p>
-              <p>
+              <p className="body-lead-light">
                 {isRU
                   ? 'Благородный европейский олень отличается мощным развитием рогов и высоким потенциалом для развития пантового направления. Именно поэтому генетика и племенная работа являются фундаментом качества.'
                   : isCN
@@ -481,7 +474,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
           </div>
           <button
             onClick={() => onSwitchTab('genetics')}
-            className="btn-outline-light shrink-0 self-start md:self-auto flex items-center justify-center gap-2"
+            className="btn-outline-light inline-flex items-center justify-center gap-2"
           >
             {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'} <ArrowRight className="w-4 h-4" />
           </button>
@@ -491,19 +484,19 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
       {/* ─── Our Approach ─────────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner">
-          <h2 className="h-section mb-6">
-            {isRU ? 'Наш взгляд на ' : isCN ? '我们对该领域的' : 'Our Approach to the '}
-            <span className="h-section__accent">{isRU ? 'развитие направления' : isCN ? '长远愿景' : 'Industry'}</span>
-          </h2>
-          <div className="text-text-dark text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium max-w-3xl">
-            <p>
+          <div className="max-w-3xl section-header">
+            <h2 className="h-section">
+              {isRU ? 'Наш взгляд на ' : isCN ? '我们对该领域的' : 'Our Approach to the '}
+              <span className="h-section__accent">{isRU ? 'развитие направления' : isCN ? '长远愿景' : 'Industry'}</span>
+            </h2>
+            <p className="body-lead">
               {isRU
                 ? 'В «Благородном Севере» мы рассматриваем пантовое направление как долгосрочную часть развития хозяйства, основанную на качестве животных, ответственном подходе, ветеринарном сопровождении и системной племенной работе.'
                 : isCN
                   ? '在“高贵北方”，我们将高品质鹿茸产业视为农场长远发展战略的核心一环。这一方向牢固建立在红鹿卓越的种质遗传、极其负责的人道养殖模式、全天候的兽医安全保障和系统化选育工作之上。'
                   : 'At "Noble Sever", we view the velvet antler direction as a long-term part of the farm development, based on animal quality, responsible approach, veterinary support, and systematic pedigree breeding.'}
             </p>
-            <p>
+            <p className="body-lead">
               {isRU
                 ? 'В перспективе мы планируем развитие собственного пантового направления и изучение современных подходов к переработке и созданию качественной продукции.'
                 : isCN

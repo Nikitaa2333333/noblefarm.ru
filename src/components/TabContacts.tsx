@@ -98,12 +98,12 @@ export default function TabContacts({ lang }: TabContactsProps) {
                 <div className="w-8 h-8 text-primary flex items-center justify-center mb-6">
                   <MapPin className="w-6 h-6" />
                 </div>
-                <h4 className="font-serif text-lg font-bold text-text-dark">{isRU ? 'Адрес' : isCN ? '地址' : 'Address'}</h4>
-                <p className="text-xs sm:text-sm font-semibold text-text-dark mt-2 leading-relaxed">
+                <h4 className="h-block">{isRU ? 'Адрес' : isCN ? '地址' : 'Address'}</h4>
+                <p className="body-sm font-semibold mt-2">
                   {isRU ? 'МО, г. Дмитров' : isCN ? '莫斯科州，德米特罗夫市' : 'Moscow region, Dmitrov'}
                 </p>
               </div>
-              <span className="text-[10px] font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
+              <span className="text-sm font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
                 {isRU ? 'Открыть карту' : isCN ? '查看地图位置' : 'Open Map'} <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -117,12 +117,12 @@ export default function TabContacts({ lang }: TabContactsProps) {
                 <div className="w-8 h-8 text-primary flex items-center justify-center mb-6">
                   <Mail className="w-6 h-6" />
                 </div>
-                <h4 className="font-serif text-lg font-bold text-text-dark">{isRU ? 'Общие вопросы' : isCN ? '电子邮箱' : 'General Enquiries'}</h4>
-                <p className="text-xs sm:text-sm font-semibold text-text-dark mt-2 leading-relaxed">
+                <h4 className="h-block">{isRU ? 'Общие вопросы' : isCN ? '电子邮箱' : 'General Enquiries'}</h4>
+                <p className="body-sm font-semibold mt-2">
                   kfh-noble@inbox.ru
                 </p>
               </div>
-              <span className="text-[10px] font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
+              <span className="text-sm font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
                 {isRU ? 'Написать письмо' : isCN ? '发送电子邮件' : 'Write Email'} <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -133,13 +133,13 @@ export default function TabContacts({ lang }: TabContactsProps) {
                 <div className="w-8 h-8 text-primary flex items-center justify-center mb-6">
                   <Share2 className="w-6 h-6" />
                 </div>
-                <h4 className="font-serif text-lg font-bold text-text-dark">{isRU ? 'Социальные сети' : isCN ? '社交媒体' : 'Social Media'}</h4>
+                <h4 className="h-block">{isRU ? 'Социальные сети' : isCN ? '社交媒体' : 'Social Media'}</h4>
                 <div className="flex gap-3 mt-3">
                   <a
                     href="https://vk.ru/kfh_noble?t2fs=cf2fdf36ee78a94985_3"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-bold text-accent hover:underline transition-colors"
+                    className="text-sm font-bold text-accent hover:underline transition-colors"
                   >
                     VK
                   </a>
@@ -148,7 +148,7 @@ export default function TabContacts({ lang }: TabContactsProps) {
                     href="https://t.me/kfhNoble"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-bold text-accent hover:underline transition-colors"
+                    className="text-sm font-bold text-accent hover:underline transition-colors"
                   >
                     Telegram
                   </a>
@@ -165,12 +165,12 @@ export default function TabContacts({ lang }: TabContactsProps) {
                 <div className="w-8 h-8 text-primary flex items-center justify-center mb-6">
                   <Phone className="w-6 h-6" />
                 </div>
-                <h4 className="font-serif text-lg font-bold text-text-dark">{isRU ? 'По вопросам сотрудничества' : isCN ? '合作热线' : 'Cooperation Hotline'}</h4>
-                <p className="text-xs sm:text-sm font-semibold text-text-dark mt-2 leading-relaxed">
+                <h4 className="h-block">{isRU ? 'По вопросам сотрудничества' : isCN ? '合作热线' : 'Cooperation Hotline'}</h4>
+                <p className="body-sm font-semibold mt-2">
                   +7 (925) 871-09-37
                 </p>
               </div>
-              <span className="text-[10px] font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
+              <span className="text-sm font-bold text-accent group-hover:translate-x-1 transition-transform flex items-center gap-1 mt-4">
                 {isRU ? 'Позвонить сейчас' : isCN ? '即刻拨打电话' : 'Call Now'} <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -188,8 +188,8 @@ export default function TabContacts({ lang }: TabContactsProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {directions.map((card, i) => (
               <div key={i} className="card-flat flex flex-col justify-between min-h-[180px] bg-bg-card">
-                <h4 className="font-serif text-sm font-bold text-primary leading-tight">{card.title}</h4>
-                <p className="text-[11px] font-semibold text-text-dark leading-relaxed mt-3">{card.desc}</p>
+                <h4 className="font-serif text-base font-bold text-text-dark leading-tight">{card.title}</h4>
+                <p className="body-sm mt-3">{card.desc}</p>
               </div>
             ))}
           </div>
@@ -204,14 +204,14 @@ export default function TabContacts({ lang }: TabContactsProps) {
               {isRU ? 'Развивая отрасль ' : isCN ? '携手并肩 • 共同开发' : 'Developing the Industry '}
               <span className="h-section__accent">{isRU ? 'вместе' : isCN ? '产业' : 'Together'}</span>
             </h2>
-            <p className="text-text-dark text-base sm:text-lg leading-relaxed font-semibold">
+            <p className="body-lead">
               {isRU
                 ? 'Мы ценим профессиональное взаимодействие и считаем, что развитие современного оленеводства возможно только через обмен опытом, открытый диалог и сотрудничество специалистов разных направлений.'
                 : isCN
                   ? '我们高度重视专业领域的精诚互动，并深信，俄罗斯现代高端养鹿产业的发展，只有通过广泛的经验共享、真诚透明的对话以及跨学科专家团队的深度合作，才能够最终变为现实。'
                   : 'We value professional interaction and believe that the development of modern deer farming is possible only through experience exchange, open dialogue, and cooperation of specialists.'}
             </p>
-            <h3 className="font-serif text-lg font-bold text-primary mt-6">
+            <h3 className="h-block mt-6">
               {isRU ? 'Наши коллеги и профессиональное окружение' : isCN ? '我们的业内同仁与专业生态圈' : 'Our colleagues and professional environment'}
             </h3>
           </div>
@@ -232,7 +232,7 @@ export default function TabContacts({ lang }: TabContactsProps) {
           </div>
 
           <div className="mt-12 pt-6 text-center md:text-left">
-            <p className="text-[11px] font-semibold text-text-dark italic">
+            <p className="body-sm">
               {isRU
                 ? 'Мы считаем важным развитие профессионального сообщества современного оленеводства в России.'
                 : isCN
@@ -245,13 +245,13 @@ export default function TabContacts({ lang }: TabContactsProps) {
 
       {/* ─── 5. Финальный блок (Strategic Concluding Accent Section) ──────────── */}
       <section className="section-accent">
-        <div className="section-inner text-center md:text-left flex flex-col md:flex-row md:items-center justify-between gap-10">
+        <div className="section-inner flex flex-col items-start gap-8">
           <div className="max-w-3xl">
             <h2 className="h-section-light mb-4">
               {isRU ? 'Будем рады ' : isCN ? '诚挚期待与您' : 'We Will Be Glad to '}
               <span className="h-section__accent">{isRU ? 'знакомству' : isCN ? '结识' : 'Connect'}</span>
             </h2>
-            <p className="text-text-light text-base sm:text-lg leading-relaxed font-semibold max-w-3xl">
+            <p className="body-lead-light max-w-3xl">
               {isRU
                 ? 'Если вам близка тема современного оленеводства, развития сельских территорий, генетики или пантового направления — будем рады общению.'
                 : isCN
@@ -259,14 +259,12 @@ export default function TabContacts({ lang }: TabContactsProps) {
                   : 'If you are interested in modern deer farming, rural development, genetics, or velvet antlers, we would be glad to connect.'}
             </p>
           </div>
-          <div className="shrink-0 self-start md:self-auto">
-            <a
-              href="mailto:kfh-noble@inbox.ru"
-              className="btn-outline-light flex items-center justify-center gap-2"
-            >
-              {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'} <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+          <a
+            href="mailto:kfh-noble@inbox.ru"
+            className="btn-outline-light inline-flex items-center justify-center gap-2"
+          >
+            {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'} <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </section>
     </div>

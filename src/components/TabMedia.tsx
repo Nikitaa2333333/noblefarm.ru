@@ -102,7 +102,7 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
                     <div className="absolute inset-0 bg-secondary/20 transition-opacity duration-300 group-hover:bg-secondary/15" />
                     {/* Play Button Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-bg-card/95 rounded-full flex items-center justify-center shadow-soft-lg group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-16 h-16 bg-bg-card/95 rounded-full flex items-center justify-center shadow-soft group-hover:scale-105 transition-transform duration-300">
                         <div className="w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[14px] border-l-primary ml-1" />
                       </div>
                     </div>
@@ -141,10 +141,10 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
               <div className="w-14 h-14 bg-primary/5 rounded-[6px] flex items-center justify-center">
                 <FileText className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-text-dark">
+              <h3 className="h-block">
                 {isRU ? 'Новые публикации ожидаются' : isCN ? '更多报道敬请期待' : 'New Publications Expected'}
               </h3>
-              <p className="text-xs sm:text-sm font-semibold text-text-dark max-w-sm leading-relaxed">
+              <p className="body-sm max-w-sm">
                 {isRU
                   ? 'Здесь появятся другие публикации и репортажи по мере их выхода.'
                   : isCN
@@ -196,7 +196,7 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
                 {isRU ? 'Для СМИ и ' : isCN ? '媒体与' : 'For Media & '}
                 <span className="h-section__accent">{isRU ? 'журналистов' : isCN ? '记者专区' : 'Journalists'}</span>
               </h2>
-              <p className="text-text-light text-base sm:text-lg leading-relaxed font-semibold">
+              <p className="body-lead-light">
                 {isRU
                   ? 'Открыты к профессиональному общению, предоставлению актуальной информации и организации съёмок по темам:'
                   : isCN
@@ -214,10 +214,10 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
             </div>
             
             <div className="lg:col-span-4 flex flex-col gap-6 bg-secondary/40 p-8 rounded-[6px]">
-              <span className="font-serif text-lg font-bold text-accent">
+              <span className="h-block-light">
                 {isRU ? 'Запросы прессы' : isCN ? '采访申请' : 'Press Enquiries'}
               </span>
-              <p className="text-xs font-semibold text-text-light leading-relaxed">
+              <p className="text-base font-medium text-text-light/85 leading-snug">
                 {isRU
                   ? 'Мы рады делиться новостями и организовывать визиты для представителей медиа.'
                   : isCN ? '我们乐于为媒体代表共享新闻资讯并安排农场实地考察。' : 'We are glad to share news and organize farm visits for media representatives.'}

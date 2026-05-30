@@ -65,18 +65,26 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             className="flex items-center gap-3 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] shrink-0"
             tabIndex={0}
             onClick={() => {
-              navigateAndScroll('about');
+              if (window.location.hash && window.location.hash !== '#') {
+                window.location.hash = '';
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
               setMobileMenuOpen(false);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                navigateAndScroll('about');
+                if (window.location.hash && window.location.hash !== '#') {
+                  window.location.hash = '';
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
                 setMobileMenuOpen(false);
               }
             }}
           >
             <img src="/logo.png" className="h-10 w-auto object-contain" alt="Благородный Север" />
-            <span className="font-serif font-medium text-accent italic tracking-wide leading-none text-lg md:text-xl">
+            <span className="font-serif font-medium text-accent italic leading-none text-lg md:text-xl">
               {t.logo}{t.logoItalic}
             </span>
           </div>
@@ -105,7 +113,7 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             </a>
 
             {/* Interactive language switcher */}
-            <div className="hidden md:flex items-center gap-1.5 text-[13px] font-semibold tracking-wider">
+            <div className="hidden md:flex items-center gap-1.5 text-sm font-semibold">
               <button
                 onClick={() => setLang('RU')}
                 className={`transition-colors cursor-pointer focus-visible:outline-none ${lang === 'RU' ? 'text-accent font-bold' : 'text-text-light/60 hover:text-accent'}`}
@@ -174,7 +182,7 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             <span>{t.call}</span>
           </a>
           
-          <div className="flex items-center gap-2 text-sm font-semibold tracking-wider py-3">
+          <div className="flex items-center gap-2 text-sm font-semibold py-3">
             <button
               onClick={() => {
                 setLang('RU');
@@ -294,7 +302,7 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
           transition={{ type: 'tween', ease: 'easeOut', duration: 0.6 }}
           className="max-w-[800px] md:max-w-[550px] lg:max-w-[650px] flex flex-col gap-6"
         >
-          <div className="text-accent text-sm font-semibold tracking-wider">
+          <div className="label-eyebrow">
             {t.subtitle}
           </div>
 
@@ -415,7 +423,7 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
   return (
     <section id="directions" className="py-12 md:py-20 lg:py-24 bg-primary relative z-10 scroll-mt-24">
       <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-light">
+        <h2 className="h-section-light">
           {t.title}<span className="italic text-accent">{t.titleAccent}</span>
         </h2>
       </div>
@@ -444,7 +452,7 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
                 <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
                   {card.title}
                 </h3>
-                <p className="text-text-light/80 font-medium text-xs sm:text-sm leading-relaxed mb-6">
+                <p className="text-text-light/85 font-medium text-base leading-snug mb-6">
                   {card.desc}
                 </p>
                 <button 
@@ -478,9 +486,9 @@ function WhyImportant({ lang }: SectionProps) {
   return (
     <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] mb-10 lg:mb-14 max-w-2xl">
+        <h2 className="h-section mb-10 lg:mb-14 max-w-2xl">
           {t.title}
-          <span className="italic text-primary">{t.titleAccent}</span>
+          <span className="h-section__accent">{t.titleAccent}</span>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
@@ -613,8 +621,8 @@ function News({ lang, navigateAndScroll }: SectionProps) {
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-dark">
-              {t.title}<span className="italic">{t.titleAccent}</span>
+            <h2 className="h-section">
+              {t.title}<span className="h-section__accent">{t.titleAccent}</span>
             </h2>
           </div>
           <button
@@ -649,14 +657,14 @@ function News({ lang, navigateAndScroll }: SectionProps) {
                   />
                 </div>
                 <div className="card-feature__body">
-                  <div className="flex justify-between items-center text-[10px] font-bold text-accent tracking-wider mb-2">
+                  <div className="flex justify-between items-center label-eyebrow mb-2">
                     <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
+                      <Calendar className="w-4 h-4" />
                       <span>{resolveField(article.date, lang)}</span>
                     </div>
                     {article.category && CATEGORY_LABELS[article.category] && (
                       <div className="flex items-center gap-1.5 text-primary">
-                        <Tag className="w-3.5 h-3.5" />
+                        <Tag className="w-4 h-4" />
                         <span>{resolveField(CATEGORY_LABELS[article.category], lang)}</span>
                       </div>
                     )}
@@ -694,8 +702,8 @@ function Media({ lang, navigateAndScroll }: SectionProps) {
     <section id="media" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center mb-14">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.75rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] text-text-dark">
-            {t.title}<span className="italic">{t.titleAccent}</span>
+          <h2 className="h-section">
+            {t.title}<span className="h-section__accent">{t.titleAccent}</span>
           </h2>
           <p className="text-text-dark font-medium text-base sm:text-lg leading-relaxed max-w-lg">
             {t.desc}
@@ -754,22 +762,22 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <img src="/logo.png" className="h-8 w-auto object-contain" alt="Благородный Север" />
-              <span className="font-serif font-medium text-xl text-accent italic tracking-wide leading-none">
+              <span className="font-serif font-medium text-xl text-accent italic leading-none">
                 {t.logo}{t.logoItalic}
               </span>
             </div>
-            <p className="text-text-light/70 font-medium text-sm leading-relaxed max-w-[200px]">
+            <p className="text-text-light font-medium text-base leading-snug max-w-[200px]">
               {t.desc}
             </p>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.nav}</div>
-            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
+            <div className="text-text-light text-sm mb-5 font-bold">{t.nav}</div>
+            <ul className="space-y-1.5 text-text-light font-medium text-base">
               {menuLinks.map((item) => (
                 <li key={item.label}>
-                  <button 
-                    onClick={() => navigateAndScroll(item.id)} 
+                  <button
+                    onClick={() => navigateAndScroll(item.id)}
                     className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer text-left w-full block"
                   >
                     {item.label}
@@ -780,31 +788,31 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.contacts}</div>
-            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
+            <div className="text-text-light text-sm mb-5 font-bold">{t.contacts}</div>
+            <ul className="space-y-1.5 text-text-light font-medium text-base">
               <li>
-                <a 
-                  href="tel:+79258710937" 
+                <a
+                  href="tel:+79258710937"
                   className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                 >
                   +7 (925) 871-09-37
                 </a>
               </li>
               <li>
-                <a 
-                  href="mailto:info@blagorodnysever.ru" 
+                <a
+                  href="mailto:info@blagorodnysever.ru"
                   className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                 >
                   info@blagorodnysever.ru
                 </a>
               </li>
-              <li className="text-text-light/70 font-medium py-2">{t.region}</li>
+              <li className="text-text-light font-medium py-2">{t.region}</li>
             </ul>
           </div>
 
           <div>
-            <div className="text-text-light/70 text-xs mb-5 font-semibold tracking-wider uppercase">{t.socials}</div>
-            <ul className="space-y-1.5 text-text-light/70 font-medium text-base">
+            <div className="text-text-light text-sm mb-5 font-bold">{t.socials}</div>
+            <ul className="space-y-1.5 text-text-light font-medium text-base">
               {[
                 { name: 'ВКонтакте', url: 'https://vk.ru/kfh_noble?t2fs=cf2fdf36ee78a94985_3' },
                 { name: 'Telegram', url: 'https://t.me/kfhNoble' },
@@ -825,7 +833,7 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-text-light/70 text-xs font-medium">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-text-light text-sm font-medium">
           <p>{t.copyright}</p>
           <p>{t.region}</p>
         </div>

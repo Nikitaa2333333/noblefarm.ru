@@ -1,0 +1,2136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Благородный Север — типографика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #1B4344;
+    --secondary: #071717;
+    --accent: #D0B18A;
+    --bg-light: #FFFFFF;
+    --bg-card: #FAFAF8;
+    --text-dark: #1A2828;
+    --text-light: #F2EEE6;
+
+    --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Century Schoolbook", "New Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+
+    --shadow-soft: 0 1px 3px rgba(7,23,23,.06), 0 4px 12px rgba(7,23,23,.08), 0 16px 48px -16px rgba(7,23,23,.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+
+  /* ───── Page header ───── */
+  .page-head {
+    margin-bottom: 80px;
+  }
+  .page-head .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    margin-bottom: 16px;
+  }
+  .page-head h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .page-head h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .page-head p {
+    margin-top: 24px;
+    max-width: 640px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+
+  /* ───── Table of contents ───── */
+  .toc {
+    margin: 56px 0 0;
+    padding: 28px 32px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px 32px;
+  }
+  .toc a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .toc a:hover { text-decoration: underline; }
+  .toc a .num {
+    color: var(--text-dark);
+    margin-right: 8px;
+    opacity: 0.5;
+  }
+
+  /* ───── Section ───── */
+  section {
+    margin-top: 120px;
+    scroll-margin-top: 32px;
+  }
+  section > .sec-head {
+    margin-bottom: 48px;
+  }
+  section > .sec-head .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  section > .sec-head h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  section > .sec-head h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  section > .sec-head p {
+    margin-top: 16px;
+    max-width: 720px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+
+  /* ───── Sample row ───── */
+  .sample {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+    padding: 40px 0;
+    align-items: start;
+  }
+  .sample + .sample {
+    border-top: 1px solid #EEE9DE; /* the ONLY divider in this doc — guide-only, not a brand pattern */
+  }
+  .sample .demo {
+    min-width: 0;
+  }
+  .sample .spec {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 20px 22px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--text-dark);
+  }
+  .sample .spec .role {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+  .sample .spec dl {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 4px 12px;
+  }
+  .sample .spec dt {
+    color: var(--text-dark);
+    opacity: 0.55;
+  }
+  .sample .spec dd {
+    color: var(--text-dark);
+  }
+  .sample .spec .where {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(7,23,23,.12);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .sample .spec .where b { font-weight: 700; }
+
+  /* ───── Headlines ───── */
+  .h-hero {
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .h-section {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .h-block {
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-dark);
+  }
+  .h-card {
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-dark);
+  }
+  .h-stat {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .accent-word {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: inherit;
+  }
+
+  /* ───── Body ───── */
+  .body-lead {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+  .body {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+  /* .body-sm — same size as .body (16px), но с более плотным leading (1.3)
+     для коротких описаний под числами / в плотных списках. */
+  .body-sm {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-dark);
+  }
+  .body strong, .body-lead strong, .body-sm strong {
+    font-weight: 700;
+  }
+
+  /* ───── Labels ───── */
+  .label-eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .label-meta {
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* ───── do / don't ───── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 24px;
+  }
+  .compare > div {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 32px;
+  }
+  .compare .tag {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .compare .ok .tag { background: var(--primary); color: var(--text-light); }
+  .compare .bad .tag { background: #B43F3F; color: #FFF; }
+  .compare .note {
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0.7;
+    margin-top: 16px;
+    line-height: 1.55;
+  }
+
+  /* ───── Rules list ───── */
+  .rules {
+    margin-top: 32px;
+    display: grid;
+    gap: 14px;
+  }
+  .rules li {
+    list-style: none;
+    padding: 18px 24px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .rules li b { font-weight: 700; }
+  .rules .ban { border-left: 4px solid #B43F3F; padding-left: 22px; }
+  .rules .keep { border-left: 4px solid var(--primary); padding-left: 22px; }
+
+  /* ───── Swatches ───── */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+  .swatch {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .swatch .chip {
+    height: 110px;
+  }
+  .swatch .meta {
+    padding: 16px 18px 18px;
+  }
+  .swatch .meta .name {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .swatch .meta .hex {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  .swatch .meta .use {
+    font-size: 13px;
+    color: var(--text-dark);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  /* ───── Etalon showcase ───── */
+  .etalon {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--bg-light);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+  .etalon .block { padding: 64px 56px; }
+  .etalon .block.calm    { background: #FFFFFF; }
+  .etalon .block.tinted  { background: #FAFAF8; }
+  .etalon .block.accent  { background: var(--primary); color: var(--text-light); }
+  .etalon .block.cinematic { background: var(--secondary); color: var(--text-light); }
+
+  /* dark-bg overrides — same classes, different colors */
+  .etalon .block.accent .h-section,
+  .etalon .block.accent .h-block,
+  .etalon .block.accent .h-card,
+  .etalon .block.accent .body,
+  .etalon .block.accent .body-lead,
+  .etalon .block.accent .body-sm,
+  .etalon .block.accent .label-meta,
+  .etalon .block.cinematic .h-section,
+  .etalon .block.cinematic .h-block,
+  .etalon .block.cinematic .body,
+  .etalon .block.cinematic .body-lead,
+  .etalon .block.cinematic .body-sm,
+  .etalon .block.cinematic .label-meta {
+    color: var(--text-light);
+  }
+
+  /* Hero strip */
+  .etalon-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .etalon-hero .text { display: flex; flex-direction: column; gap: 20px; }
+  .etalon-hero .buttons { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+
+  /* Buttons (visual only — for the etalon page) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: default;
+    transition: all .25s;
+  }
+  .btn-primary { background: var(--primary); color: var(--text-light); }
+  .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+
+  /* Image placeholder */
+  .img-stub {
+    aspect-ratio: 4 / 3;
+    background:
+      linear-gradient(135deg, rgba(27,67,68,.12), rgba(208,177,138,.18)),
+      repeating-linear-gradient(45deg, rgba(7,23,23,.04) 0 2px, transparent 2px 14px);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--primary);
+    opacity: .55;
+  }
+
+  /* Stat row — naked numbers */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 32px;
+  }
+  .stat-row .stat { display: flex; flex-direction: column; gap: 6px; }
+  .stat-row .stat .body-sm { margin-top: 4px; max-width: 280px; }
+
+  /* Two-column with lists */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    margin-top: 32px;
+  }
+  .two-col .col { display: flex; flex-direction: column; gap: 16px; }
+  .two-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .two-col ul.bullets li::before {
+    content: "—";
+    display: inline-block;
+    width: 18px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Card grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .doc-card {
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .doc-card .img-stub { aspect-ratio: 4 / 3; border-radius: 0; }
+  .doc-card .body-zone {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .doc-card .cta {
+    margin-top: auto;
+    padding-top: 8px;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Numbered steps */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+  }
+  .steps .step { display: flex; flex-direction: column; gap: 10px; }
+  .steps .step .num {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* Closing CTA — calm white */
+  .etalon-cta {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .etalon-cta .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  .map-stub {
+    aspect-ratio: 5 / 3;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(208,177,138,.35), transparent 40%),
+      radial-gradient(circle at 65% 60%, rgba(27,67,68,.25), transparent 40%),
+      repeating-linear-gradient(45deg, rgba(7,23,23,.04) 0 1px, transparent 1px 12px);
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 16px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--primary);
+    opacity: .6;
+  }
+
+  /* ───── Component catalog ───── */
+  .cat {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .cat .item {
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat .item .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .cat .item .head .name {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .cat .item .head .name code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(7,23,23,.06);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--primary);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .cat .item .desc {
+    font-size: 13.5px;
+    color: var(--text-dark);
+    line-height: 1.55;
+    opacity: .8;
+  }
+  .cat .item .demo {
+    margin-top: 4px;
+    padding: 24px;
+    background: #FAFAF8;
+    border-radius: 4px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .cat .item .demo.dark { background: var(--secondary); }
+  .cat .item .demo.green { background: var(--primary); }
+  .cat .item .note {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    opacity: .65;
+    line-height: 1.5;
+  }
+  .cat .item.wide { grid-column: span 2; }
+
+  /* Status ribbon */
+  .ribbon {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 4px;
+    text-transform: none;
+  }
+  .ribbon.ok     { background: #1B4344; color: #F2EEE6; }
+  .ribbon.review { background: #E0A030; color: #1A2828; }
+
+  /* Demo elements (visual only — don't reuse outside this guide) */
+  .demo-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px;
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    border-radius: 6px;
+    cursor: default; transition: all .25s;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .demo-btn.primary { background: var(--primary); color: var(--text-light); }
+  .demo-btn.primary:hover { background: var(--accent); color: var(--secondary); }
+  .demo-btn.outline-dark { background: transparent; color: var(--primary); border-color: var(--primary); }
+  .demo-btn.outline-light { background: transparent; color: var(--text-light); border-color: rgba(242,238,230,.3); }
+  .demo-btn.outline-light:hover { color: var(--accent); border-color: var(--accent); }
+  .demo-btn.link { background: transparent; color: var(--accent); font-weight: 600; padding: 6px 8px; }
+  .demo-btn.disabled { background: transparent; color: rgba(26,40,40,.4); border-color: rgba(26,40,40,.2); cursor: not-allowed; }
+
+  .demo-pill {
+    display: inline-flex; align-items: center;
+    padding: 6px 14px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  .demo-pill.gold-solid { background: var(--accent); color: var(--secondary); }
+  .demo-pill.gold-tint  { background: rgba(208,177,138,.22); color: var(--text-dark); }
+  .demo-pill.dark-tile  { background: rgba(7,23,23,.4); color: var(--text-light); }
+
+  .demo-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    color: var(--primary);
+  }
+  .demo-icon svg { width: 24px; height: 24px; }
+
+  .demo-card-feature {
+    width: 260px;
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    border-radius: 0;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .demo-card-feature .pic { aspect-ratio: 4/3;
+    background:
+      linear-gradient(135deg, rgba(27,67,68,.12), rgba(208,177,138,.18)),
+      repeating-linear-gradient(45deg, rgba(7,23,23,.04) 0 2px, transparent 2px 14px);
+  }
+  .demo-card-feature .zone { padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .demo-card-feature .eyebrow { color: var(--accent); font-size: 11px; font-weight: 700; }
+  .demo-card-feature .title { font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--text-dark); }
+  .demo-card-feature .desc { font-size: 13px; font-weight: 500; color: var(--text-dark); }
+  .demo-card-feature .cta { margin-top: 4px; color: var(--accent); font-size: 12px; font-weight: 600; }
+
+  .demo-card-flat {
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    padding: 22px;
+    width: 240px;
+    border-radius: 0;
+  }
+  .demo-card-flat .title { font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: var(--text-dark); }
+
+  .demo-card-accent {
+    width: 260px;
+    min-height: 280px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text-light);
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .demo-card-accent .title { font-family: var(--font-serif); font-size: 22px; font-weight: 500; line-height: 1.1; }
+  .demo-card-accent .title em { font-style: italic; color: var(--accent); }
+  .demo-card-accent .desc { font-size: 13px; color: rgba(242,238,230,.85); }
+
+  .demo-widget-bar {
+    background: #FAFAF8;
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 6px;
+    display: inline-flex;
+    gap: 4px;
+  }
+  .demo-widget-bar .pill {
+    padding: 8px 14px; font-size: 13px; font-weight: 600;
+    border-radius: 6px;
+    cursor: default;
+    color: var(--text-dark);
+    background: transparent;
+  }
+  .demo-widget-bar .pill.active { background: var(--primary); color: var(--text-light); }
+
+  .demo-nav {
+    width: 100%;
+    background: var(--secondary);
+    color: var(--text-light);
+    border-radius: 4px;
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .demo-nav .links { display: flex; gap: 16px; font-size: 13px; font-weight: 500; }
+  .demo-nav .links span.active { color: var(--accent); font-weight: 700; }
+  .demo-nav .links span:not(.active) { color: rgba(242,238,230,.75); }
+  .demo-nav .right { display: flex; align-items: center; gap: 14px; font-size: 12px; }
+  .demo-nav .right .lang { display: flex; gap: 6px; }
+  .demo-nav .right .lang .on { color: var(--accent); font-weight: 700; }
+  .demo-nav .right .lang .off { color: rgba(242,238,230,.6); }
+  .demo-nav .right .sep { color: rgba(242,238,230,.4); }
+
+  .demo-footer {
+    width: 100%;
+    background: var(--secondary);
+    color: rgba(242,238,230,.7);
+    border-radius: 4px;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    font-size: 12.5px;
+  }
+  .demo-footer .col-title {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    /* corrected: was uppercase + tracking — both removed per rules */
+  }
+  .demo-footer a { display: block; padding: 3px 0; color: rgba(242,238,230,.85); text-decoration: none; }
+
+  .demo-procon { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
+  .demo-procon .row { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+  .demo-procon .row .ico { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; }
+  .demo-procon .row.pro .ico { color: var(--primary); }
+  .demo-procon .row.con .ico { color: rgba(26,40,40,.5); }
+
+  .demo-marquee {
+    width: 100%;
+    overflow: hidden;
+    background: var(--primary);
+    color: var(--text-light);
+    padding: 14px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    border-radius: 4px;
+  }
+  .demo-marquee .track {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+  .demo-contact-tile {
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    padding: 22px;
+    width: 240px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .demo-contact-tile .label { font-family: var(--font-serif); font-size: 14px; font-weight: 700; color: var(--primary); }
+  .demo-contact-tile .value { font-size: 14px; font-weight: 600; color: var(--accent); }
+
+  .demo-newsmeta {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; max-width: 320px;
+    font-size: 14px; color: var(--accent); font-weight: 700;
+  }
+
+  .demo-logos {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%;
+  }
+  .demo-logos .logo {
+    background: #FFFFFF; box-shadow: var(--shadow-soft);
+    aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-size: 13px; font-style: italic;
+    color: var(--primary); opacity: .65;
+  }
+
+  .demo-mobile-drawer {
+    width: 200px;
+    background: var(--secondary);
+    color: var(--text-light);
+    padding: 22px 18px;
+    border-radius: 4px;
+    display: flex; flex-direction: column; gap: 14px;
+    font-size: 14px;
+  }
+  .demo-mobile-drawer .item { padding: 6px 0; }
+  .demo-mobile-drawer .item.active { color: var(--accent); font-weight: 700; }
+
+  /* ───── Status chips (locked / draft) ───── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 12px 5px;
+    border-radius: 999px;
+    line-height: 1.3;
+  }
+  .chip.locked {
+    background: #1B4344;
+    color: #F2EEE6;
+  }
+  .chip.draft {
+    background: #FFF1D6;
+    color: #8A5A00;
+  }
+  .chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .9;
+  }
+
+  /* Status summary block — list of locked rules */
+  .status-summary {
+    margin-top: 32px;
+    background: linear-gradient(135deg, #F4F1EA 0%, #FFFFFF 60%);
+    box-shadow: var(--shadow-soft);
+    border-radius: 8px;
+    padding: 28px 32px 30px;
+    border-left: 4px solid #1B4344;
+  }
+  .status-summary .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+  .status-summary .head .rev {
+    color: var(--text-dark);
+    opacity: .55;
+    font-weight: 500;
+  }
+  .status-summary ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .status-summary li {
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .status-summary li .mark {
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .status-summary li b { font-weight: 700; }
+
+  /* ───── Proposal card (before / after) ───── */
+  .proposal {
+    background: #FFFFFF;
+    box-shadow: var(--shadow-soft);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    position: relative;
+    border-left: 4px solid var(--primary);
+  }
+  .proposal .head {
+    padding: 22px 28px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .proposal .head .num {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 34px;
+  }
+  .proposal .head .title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+    flex: 1;
+  }
+  .proposal .desc {
+    padding: 0 28px 14px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .proposal .desc code {
+    background: rgba(7,23,23,.06);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+  .proposal .where {
+    padding: 10px 28px 18px;
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0.7;
+  }
+  .proposal .where b {
+    font-weight: 700;
+    opacity: 1;
+  }
+  .proposal .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: #EEE9DE;
+    border-top: 1px solid #EEE9DE;
+  }
+  .proposal .compare > div {
+    padding: 28px 28px 30px;
+    background: #FAFAF8;
+  }
+  .proposal .compare > div + div {
+    border-left: 1px solid #EEE9DE;
+  }
+  .proposal .compare .lbl {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .proposal .compare .lbl.bad  { background: #FBD9D9; color: #8B2929; }
+  .proposal .compare .lbl.good { background: #D7E9D2; color: #2A5A22; }
+  .proposal .compare .render {
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .proposal .decision {
+    padding: 18px 28px;
+    background: #FFF8E6;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--text-dark);
+  }
+  .proposal .decision b { font-weight: 700; }
+
+  @media (max-width: 780px) {
+    .proposal .compare { grid-template-columns: 1fr; }
+    .proposal .compare > div + div { border-left: none; border-top: 1px solid #EEE9DE; }
+  }
+
+  /* Section divider banner (between approved & pending) */
+  .section-banner {
+    margin-top: 24px;
+    background: #FFF8E6;
+    border-left: 4px solid #E0A030;
+    padding: 18px 22px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .section-banner b { font-weight: 700; }
+
+  /* ───── Footer ───── */
+  footer {
+    margin-top: 160px;
+    padding-top: 40px;
+    color: var(--text-dark);
+    opacity: 0.6;
+    font-size: 13px;
+  }
+
+  @media (max-width: 980px) {
+    .etalon-hero,
+    .two-col,
+    .etalon-cta { grid-template-columns: 1fr; gap: 32px; }
+    .stat-row { grid-template-columns: 1fr; gap: 28px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .etalon .block { padding: 40px 28px; }
+    .cat { grid-template-columns: 1fr; }
+    .cat .item.wide { grid-column: span 1; }
+    .demo-footer { grid-template-columns: 1fr; }
+    .demo-logos { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 780px) {
+    .sample { grid-template-columns: 1fr; gap: 24px; }
+    .compare { grid-template-columns: 1fr; }
+    .page { padding: 56px 20px 80px; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <header class="page-head">
+    <div class="eyebrow">Руководство</div>
+    <h1>Типографика <em>Благородного Севера</em></h1>
+    <p>Минимальная шкала: 5 заголовков, 3 размера наборного текста, 2 надстрочные подписи, 2 формы inline-акцента. Никакой отсебятины — только то, что в этом документе.</p>
+
+    <div class="status-summary">
+      <div class="head">
+        <span class="chip locked"><span class="dot"></span>В правилах</span>
+        <span class="rev">— ревизия 02, эта сессия</span>
+      </div>
+      <ul>
+        <li><span class="mark">✓</span><span><b>Наборный текст — два размера.</b> 18 px (<code>.body-lead</code>) и 16 px (<code>.body</code>). 14 px и ниже как уровень — отсутствует.</span></li>
+        <li><span class="mark">✓</span><span><b>Маленькие подписи — 14 px.</b> Eyebrow (<code>.label-eyebrow</code>), meta-подпись (<code>.label-meta</code>), tag, ribbon — все 14 px. 12 px нигде на сайте.</span></li>
+        <li><span class="mark">✓</span><span><b>Положительная разрядка запрещена везде.</b> <code>tracking-wide</code> / <code>tracking-wider</code> / <code>tracking-widest</code> — ни в eyebrow, ни в meta, ни в бейджах. Разрешено только отрицательное сжатие <code>tracking-tight</code> на крупных serif-заголовках (<code>.h-hero</code> / <code>.h-section</code>).</span></li>
+        <li><span class="mark">✓</span><span><b>Одна тень на сайт — <code>.shadow-soft</code>.</b> <code>.shadow-soft-lg</code> отменяется. Любые <code>shadow-sm/md/lg/2xl</code> — запрещены. Ховер-фидбэк даётся движением (<code>-translate-y-1</code>), не усилением тени.</span></li>
+        <li><span class="mark">✓</span><span><b>Пилюли — два варианта.</b> <code>solid-gold</code> (родословные, бейджи) и <code>gold-tint</code> (инфо/числовая на белой карточке). Других пилюль нет. Для тёмных секций — inline-плашка <code>bg-secondary/40</code>.</span></li>
+        <li><span class="mark">✓</span><span><b>Иконки в списках — 24 px (<code>w-6 h-6</code>).</b> Один размер. Lucide-иконка без обёрток-плашек. Размеры w-5/w-7/w-8 в текстовых списках запрещены.</span></li>
+        <li><span class="mark">✓</span><span><b>Pro/con-сравнения — без красного.</b> Галочка <code>text-primary</code>, крест <code>text-text-dark/50</code> (приглушённый нейтрал). Палитра остаётся 4 цвета.</span></li>
+        <li><span class="mark">✓</span><span><b>Футер — по правилам A/B/C.</b> Подписи колонок: 14 px bold, обычный регистр, без разрядки. Ссылки — opacity <code>/85</code> (светлое на тёмном — разрешено). Описание под лого — 14 px.</span></li>
+        <li><span class="mark">✓</span><span><b>Курсив — только внутри <code>.h-section__accent</code>.</b> Цитаты, дисклеймеры, сноски — обычный <code>.body</code>, без italic.</span></li>
+        <li><span class="mark">✓</span><span><b>Цвет заголовка — только text-text-dark (или text-text-light на тёмном фоне).</b> <code>text-accent</code> на целом заголовке, <code>text-primary</code> на заголовке белой секции — запрещены.</span></li>
+        <li><span class="mark">✓</span><span><b>Заголовки — только <code>font-serif</code>.</b> Sans-serif на любом H1–H4 / card-title запрещён.</span></li>
+        <li><span class="mark">✓</span><span><b>Размеры hero и section-headings — только утилиты.</b> Hero = <code>.hero-title</code>. H2 = <code>.h-section</code>. <code>lg:text-7xl</code>, <code>lg:text-[5.5rem]</code>, <code>lg:text-[3.75rem]</code> — нет.</span></li>
+        <li><span class="mark">✓</span><span><b>Naked-number стат-стек — внешний gap <code>gap-6</code> (24 px).</b> <code>gap-10</code> / <code>gap-12</code> между голыми числами запрещены — это разрывает связь «число + подпись» от следующей группы. Группы должны плотно прижиматься: число → подпись → следующее число. Внутренний gap-2 (8 px) между числом и подписью — без изменений.</span></li>
+      </ul>
+    </div>
+
+    <nav class="toc" aria-label="Оглавление">
+      <a href="#palette"><span class="num">01</span>Палитра</a>
+      <a href="#headings"><span class="num">02</span>Заголовки</a>
+      <a href="#body"><span class="num">03</span>Наборный текст</a>
+      <a href="#labels"><span class="num">04</span>Подписи</a>
+      <a href="#inline"><span class="num">05</span>Inline-акценты</a>
+      <a href="#example"><span class="num">06</span>Эталонная страница</a>
+      <a href="#approved"><span class="num">07</span>Компоненты — утверждено</a>
+      <a href="#pending"><span class="num">08</span>Компоненты — на доработку</a>
+      <a href="#proposals"><span class="num">09</span>На отсмотр</a>
+      <a href="#rules"><span class="num">10</span>Запреты</a>
+    </nav>
+  </header>
+
+  <!-- ─────────────────────────── 01 Palette ─────────────────────────── -->
+  <section id="palette">
+    <div class="sec-head">
+      <div class="label-eyebrow">01 — Палитра</div>
+      <h2>Четыре <em>цвета</em></h2>
+      <p>Брэнд использует ровно четыре цвета. Всё остальное — повторное использование этих четырёх в разных контекстах.</p>
+    </div>
+
+    <div class="swatches">
+      <div class="swatch">
+        <div class="chip" style="background:#FFFFFF; border:1px solid #EEE9DE;"></div>
+        <div class="meta">
+          <div class="name">White</div>
+          <div class="hex">#FFFFFF</div>
+          <div class="use">Фон секций, поверхности карточек, светлый текст на тёмном фоне.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#1B4344;"></div>
+        <div class="meta">
+          <div class="name">Green</div>
+          <div class="hex">#1B4344</div>
+          <div class="use">Бренд: акцентные секции, основная кнопка, активное состояние.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#071717;"></div>
+        <div class="meta">
+          <div class="name">Dark</div>
+          <div class="hex">#071717</div>
+          <div class="use">Наборный текст (≈ #1A2828), кинематографические секции, футер.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#D0B18A;"></div>
+        <div class="meta">
+          <div class="name">Gold</div>
+          <div class="hex">#D0B18A</div>
+          <div class="use">Акцент: italic-слово в заголовке, eyebrow, числа, ссылки. Маленькие площади.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 02 Headings ─────────────────────────── -->
+  <section id="headings">
+    <div class="sec-head">
+      <div class="label-eyebrow">02 — Заголовки</div>
+      <h2>Пять <em>ролей</em></h2>
+      <p>Каждый заголовок на сайте принадлежит одной из этих пяти ролей. Inline-комбинации <code>font-serif text-Xxl font-bold text-…</code> запрещены — только через утилиту.</p>
+    </div>
+
+    <!-- H-HERO -->
+    <div class="sample">
+      <div class="demo">
+        <div class="h-hero">Благородные <span class="accent-word">олени</span></div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-hero</div>
+        <dl>
+          <dt>family</dt><dd>serif</dd>
+          <dt>size</dt><dd>40 → 80 px</dd>
+          <dt>weight</dt><dd>500 (medium)</dd>
+          <dt>leading</dt><dd>1.05</dd>
+          <dt>tracking</dt><dd>-0.02em (tight)</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> H1 в hero страницы. На тёмном фоне — <code>.h-hero-light</code>.</div>
+      </div>
+    </div>
+
+    <!-- H-SECTION -->
+    <div class="sample">
+      <div class="demo">
+        <div class="h-section">Почему панты изучают <span class="accent-word">учёные</span></div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-section</div>
+        <dl>
+          <dt>family</dt><dd>serif</dd>
+          <dt>size</dt><dd>32 → 64 px</dd>
+          <dt>weight</dt><dd>500 (medium)</dd>
+          <dt>leading</dt><dd>1.1</dd>
+          <dt>tracking</dt><dd>-0.02em (tight)</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> H2 — заголовок секции. Одно italic-слово максимум через <code>.h-section__accent</code>.</div>
+      </div>
+    </div>
+
+    <!-- H-BLOCK -->
+    <div class="sample">
+      <div class="demo">
+        <div class="h-block">Где применяется в мировой практике</div>
+        <div class="h-block" style="margin-top:18px;">Что изучается</div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-block</div>
+        <dl>
+          <dt>family</dt><dd>serif</dd>
+          <dt>size</dt><dd>20 → 24 px</dd>
+          <dt>weight</dt><dd>700 (bold)</dd>
+          <dt>leading</dt><dd>1.25</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> H3 — подзаголовок внутри секции. Всегда serif, всегда тёмный. <b>Никогда</b> золотой, зелёный или sans-serif.</div>
+      </div>
+    </div>
+
+    <!-- H-CARD -->
+    <div class="sample">
+      <div class="demo">
+        <div class="h-card">Генетика и племенная работа</div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-card</div>
+        <dl>
+          <dt>family</dt><dd>serif</dd>
+          <dt>size</dt><dd>20 → 24 px</dd>
+          <dt>weight</dt><dd>700 (bold)</dd>
+          <dt>leading</dt><dd>1.25</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> заголовок внутри карточки (<code>.card-feature__title</code>). Тот же визуальный вес, что <code>.h-block</code>.</div>
+      </div>
+    </div>
+
+    <!-- H-STAT -->
+    <div class="sample">
+      <div class="demo">
+        <div class="h-stat">80%</div>
+        <div class="label-meta" style="margin-top:8px;">мирового рынка пантов</div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-stat</div>
+        <dl>
+          <dt>family</dt><dd>serif</dd>
+          <dt>size</dt><dd>30 → 48 px</dd>
+          <dt>weight</dt><dd>600 (semibold)</dd>
+          <dt>leading</dt><dd>1</dd>
+          <dt>color</dt><dd>accent (gold)</dd>
+        </dl>
+        <div class="where"><b>Где:</b> большое число — соло (naked stack) или внутри <code>.card-stat</code>. Под числом — <code>.label-meta</code>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 03 Body ─────────────────────────── -->
+  <section id="body">
+    <div class="sec-head">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+        <span class="label-eyebrow" style="margin:0;">03 — Наборный текст</span>
+        <span class="chip locked"><span class="dot"></span>В правилах</span>
+      </div>
+      <h2>Два <em>размера</em></h2>
+      <p>Только два: 18px (лид) и 16px (всё остальное). Цвет всегда <code>text-dark</code> сплошной — без opacity на белом фоне.</p>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <p class="body-lead">Во многих странах мира разведение благородных оленей давно стало частью современного сельского хозяйства, объединяющего генетику, племенную работу и переработку продукции.</p>
+      </div>
+      <div class="spec">
+        <div class="role">.body-lead</div>
+        <dl>
+          <dt>family</dt><dd>sans</dd>
+          <dt>size</dt><dd>16 → 18 px</dd>
+          <dt>weight</dt><dd>500 (medium)</dd>
+          <dt>leading</dt><dd>1.6</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> лид-параграф под заголовком секции / hero, длинное вступление.</div>
+      </div>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <p class="body">Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма.</p>
+      </div>
+      <div class="spec">
+        <div class="role">.body</div>
+        <dl>
+          <dt>family</dt><dd>sans</dd>
+          <dt>size</dt><dd>16 px</dd>
+          <dt>weight</dt><dd>500 (medium)</dd>
+          <dt>leading</dt><dd>1.6</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> обычный абзац <code>&lt;p&gt;</code> — то, что применяется по умолчанию к <code>body</code>.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────── 04 Labels ─────────────────────────── -->
+  <section id="labels">
+    <div class="sec-head">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+        <span class="label-eyebrow" style="margin:0;">04 — Подписи</span>
+        <span class="chip locked"><span class="dot"></span>В правилах</span>
+      </div>
+      <h2>Две <em>маленькие</em> подписи</h2>
+      <p>Eyebrow (золотая надстрочная) и meta (тёмная подпись под числом). Других мелких подписей в дизайне нет. Обе — <b>14 px</b>, без разрядки.</p>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <div class="label-eyebrow">Племенные линии</div>
+        <div class="h-section" style="margin-top:10px; font-size:36px;">Сильная <span class="accent-word">генетика</span></div>
+      </div>
+      <div class="spec">
+        <div class="role">.label-eyebrow</div>
+        <dl>
+          <dt>family</dt><dd>sans</dd>
+          <dt>size</dt><dd>14 px</dd>
+          <dt>weight</dt><dd>700 (bold)</dd>
+          <dt>tracking</dt><dd>0 (normal)</dd>
+          <dt>color</dt><dd>accent (gold)</dd>
+        </dl>
+        <div class="where"><b>Где:</b> над заголовком секции/карточки. Регистр — обычный, без разрядки, не uppercase.</div>
+      </div>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <div class="h-stat">≈80%</div>
+        <div class="label-meta" style="margin-top:8px;">мирового импорта</div>
+        <p class="body-sm" style="margin-top:6px;">приходится на Южную Корею — крупнейший рынок потребления.</p>
+      </div>
+      <div class="spec">
+        <div class="role">.label-meta</div>
+        <dl>
+          <dt>family</dt><dd>sans</dd>
+          <dt>size</dt><dd>14 px</dd>
+          <dt>weight</dt><dd>700 (bold)</dd>
+          <dt>tracking</dt><dd>0 (normal)</dd>
+          <dt>color</dt><dd>text-dark</dd>
+        </dl>
+        <div class="where"><b>Где:</b> подпись непосредственно под <code>.h-stat</code> (что измеряем). Заменяет любой inline <code>text-xs ... tracking-wider</code> на белом фоне.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 05 Inline ─────────────────────────── -->
+  <section id="inline">
+    <div class="sec-head">
+      <div class="label-eyebrow">05 — Inline-акценты</div>
+      <h2>Только <em>две</em> формы</h2>
+      <p>Курсив и bold-лид — больше никаких inline-акцентов. Подчёркивание — только hover на ссылках.</p>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <div class="h-section">Почему панты изучают <span class="accent-word">учёные</span></div>
+      </div>
+      <div class="spec">
+        <div class="role">.h-section__accent → &lt;em&gt;</div>
+        <dl>
+          <dt>style</dt><dd>italic</dd>
+          <dt>color</dt><dd>accent (gold)</dd>
+          <dt>weight</dt><dd>inherit</dd>
+        </dl>
+        <div class="where"><b>Где:</b> ровно одно слово внутри <code>.h-section</code> или <code>.h-hero</code>. <b>Нигде больше</b> курсив не используется.</div>
+      </div>
+    </div>
+
+    <div class="sample">
+      <div class="demo">
+        <p class="body-sm"><strong>Спорт и высокие нагрузки:</strong> поддержка восстановительных процессов и выносливости.</p>
+      </div>
+      <div class="spec">
+        <div class="role">&lt;strong&gt; bold-лид</div>
+        <dl>
+          <dt>weight</dt><dd>700 (bold)</dd>
+          <dt>size</dt><dd>как у обёртки</dd>
+          <dt>color</dt><dd>как у обёртки</dd>
+        </dl>
+        <div class="where"><b>Где:</b> начальная фраза в строке списка — выделяет «название пункта». Никаких размеров/цветов отдельно.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 06 Etalon page ─────────────────────────── -->
+  <section id="example">
+    <div class="sec-head">
+      <div class="label-eyebrow">06 — Эталонная страница</div>
+      <h2>Как это <em>складывается</em></h2>
+      <p>Все типовые паттерны с восьми вкладок сайта, собранные в один лендинг. Каждый элемент — из одной и той же шкалы.</p>
+    </div>
+
+    <div class="etalon">
+
+      <!-- ─ A. Hero (Панты / Генетика / Отрасль / Контакты) ─ -->
+      <div class="block calm">
+        <div class="etalon-hero">
+          <div class="text">
+            <div class="label-eyebrow">Племенные линии</div>
+            <h1 class="h-hero" style="font-size: clamp(36px, 5vw, 64px);">Генетика и <span class="accent-word">племенная работа</span></h1>
+            <p class="body-lead">Сильная генетика и научный подход — основа отрасли. Десятилетия селекции, ветеринария мирового уровня, ориентация на качественные племенные линии.</p>
+            <div class="buttons">
+              <a class="btn btn-primary">Подробнее →</a>
+              <a class="btn btn-outline">Связаться с нами</a>
+            </div>
+          </div>
+          <div class="img-stub">фото 4:3</div>
+        </div>
+      </div>
+
+      <!-- ─ B. Section opener + naked-number stats (Отрасль / Главная) ─ -->
+      <div class="block calm" style="padding-top:16px;">
+        <div class="label-eyebrow">Контекст</div>
+        <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">Оленеводство — <span class="accent-word">глобальная отрасль</span></h2>
+        <p class="body-lead" style="margin-top:18px; max-width:760px;">Разные регионы мира формируют собственные модели развития — от племенной работы до высокомаржинальной переработки.</p>
+
+        <div class="stat-row">
+          <div class="stat">
+            <span class="h-stat">80%</span>
+            <span class="label-meta">мирового рынка пантов</span>
+            <p class="body-sm">контролирует Новая Зеландия как экспортёр сырья.</p>
+          </div>
+          <div class="stat">
+            <span class="h-stat">≈80%</span>
+            <span class="label-meta">мирового импорта</span>
+            <p class="body-sm">приходится на Южную Корею — крупнейший рынок потребления.</p>
+          </div>
+          <div class="stat">
+            <span class="h-stat">20+</span>
+            <span class="label-meta">регионов России</span>
+            <p class="body-sm">занимаются пантовым оленеводством, но отрасль остаётся нишевой.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ C. Two-column with .h-block + bullet list (Панты «Почему изучают») ─ -->
+      <div class="block tinted">
+        <div class="label-eyebrow">Научный интерес</div>
+        <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">Почему панты изучают <span class="accent-word">учёные</span></h2>
+        <p class="body" style="margin-top:20px; max-width:780px;">Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма.</p>
+
+        <div class="two-col">
+          <div class="col">
+            <div class="h-block">Где применяется в мировой практике</div>
+            <ul>
+              <li class="body-sm"><strong>Спорт и высокие нагрузки:</strong> поддержка восстановительных процессов и выносливости.</li>
+              <li class="body-sm"><strong>Реабилитационные направления:</strong> изучение восстановительных механизмов.</li>
+              <li class="body-sm"><strong>Косметология и wellness:</strong> экстракты, уходовые продукты, SPA-практики.</li>
+              <li class="body-sm"><strong>Курортология:</strong> традиционные форматы восстановительных программ.</li>
+              <li class="body-sm"><strong>Активный образ жизни:</strong> поддержание общего ресурса организма.</li>
+            </ul>
+          </div>
+          <div class="col">
+            <div class="h-block">Что изучается</div>
+            <ul class="bullets">
+              <li class="body-sm">процессы регенерации тканей</li>
+              <li class="body-sm">восстановительные механизмы организма</li>
+              <li class="body-sm">иммунные процессы</li>
+              <li class="body-sm">антиоксидантная активность</li>
+              <li class="body-sm">энергообеспечение и адаптация к нагрузкам</li>
+              <li class="body-sm">состояние мышц, суставов и костной ткани</li>
+              <li class="body-sm">косметологические и regenerative-направления</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ D. Card grid (Главная Directions / Генетика / Панты / Познакомиться) ─ -->
+      <div class="block calm">
+        <div class="label-eyebrow">Направления</div>
+        <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">Что мы <span class="accent-word">делаем</span></h2>
+        <p class="body" style="margin-top:18px; max-width:760px;">Племенная работа, пантовое направление и эко-туризм — три направления одного хозяйства.</p>
+
+        <div class="feature-grid">
+          <div class="doc-card">
+            <div class="img-stub">фото</div>
+            <div class="body-zone">
+              <div class="label-eyebrow">Линия Алтай</div>
+              <h3 class="h-card">Племенные линии</h3>
+              <p class="body-sm">Маточное стадо и племенные быки с отслеживаемой родословной — основа репродуктивной программы.</p>
+              <span class="cta">Подробнее →</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="img-stub">фото</div>
+            <div class="body-zone">
+              <div class="label-eyebrow">Сезон 2026</div>
+              <h3 class="h-card">Панты и переработка</h3>
+              <p class="body-sm">Сбор пантов в правильную фазу роста, бережная заморозка и переработка в экстракты.</p>
+              <span class="cta">Подробнее →</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="img-stub">фото</div>
+            <div class="body-zone">
+              <div class="label-eyebrow">Эко-туризм</div>
+              <h3 class="h-card">Гостевой дом и оленеферма</h3>
+              <p class="body-sm">Знакомство со стадом, прогулки, программы восстановления — формат тихого северного отдыха.</p>
+              <span class="cta">Подробнее →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ E. Numbered steps (Генетика «Процесс» / Антлерс «Как делаем») ─ -->
+      <div class="block tinted">
+        <div class="label-eyebrow">Как устроена работа</div>
+        <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">От выбора пары до <span class="accent-word">телёнка</span></h2>
+
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <div class="h-block">Подбор пары</div>
+            <p class="body-sm">Анализ родословной и фенотипа, согласование линии с целями стада.</p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <div class="h-block">Сезон гона</div>
+            <p class="body-sm">Контроль крытия, фиксация дат, ветеринарное сопровождение маток.</p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <div class="h-block">Беременность</div>
+            <p class="body-sm">Регулярный осмотр, корректировка рациона, мониторинг стельности.</p>
+          </div>
+          <div class="step">
+            <span class="num">04</span>
+            <div class="h-block">Отёл и регистрация</div>
+            <p class="body-sm">Сопровождение отёла, фиксация пары родителей, оформление пасспорта телёнка.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ F. Accent green section (Главная «Why important» / финальный смысл) ─ -->
+      <div class="block accent">
+        <div class="label-eyebrow" style="color: var(--accent);">Почему это важно</div>
+        <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">Премиальное оленеводство — <span class="accent-word">медленное</span> хозяйство</h2>
+        <p class="body-lead" style="margin-top:20px; max-width:820px;">Здесь нет сезонной гонки. Стадо растёт годами, генетика выстраивается десятилетиями, а каждое решение измеряется не кварталом, а поколением.</p>
+
+        <div class="stat-row" style="margin-top:40px;">
+          <div class="stat">
+            <span class="h-stat" style="color: var(--accent);">12</span>
+            <span class="label-meta">лет работы со стадом</span>
+            <p class="body-sm">от первой партии до устойчивой племенной программы.</p>
+          </div>
+          <div class="stat">
+            <span class="h-stat" style="color: var(--accent);">5</span>
+            <span class="label-meta">поколений в родословной</span>
+            <p class="body-sm">прослеживаемая глубина по основным маткам.</p>
+          </div>
+          <div class="stat">
+            <span class="h-stat" style="color: var(--accent);">100%</span>
+            <span class="label-meta">прозрачность процесса</span>
+            <p class="body-sm">от отёла до отгрузки — для каждого партнёра.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ G. Closing CTA (Контакты — последняя секция перед футером) ─ -->
+      <div class="block calm">
+        <div class="etalon-cta">
+          <div class="text">
+            <div class="label-eyebrow">Сотрудничество</div>
+            <h2 class="h-section" style="font-size: clamp(28px, 3.5vw, 48px); margin-top:10px;">Поговорим <span class="accent-word">по существу</span></h2>
+            <p class="body-lead" style="margin-top:18px; max-width:560px;">Племенной материал, поставки пантов, проектное партнёрство — напишите, и мы соберём предметное предложение.</p>
+            <div class="buttons">
+              <a class="btn btn-primary">Написать →</a>
+              <a class="btn btn-outline">+7 (000) 000-00-00</a>
+            </div>
+            <p class="body-sm" style="margin-top:18px;"><strong>Адрес:</strong> Республика Карелия, …<br><strong>Email:</strong> info@example.ru</p>
+          </div>
+          <div class="map-stub">карта</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="body-sm" style="margin-top:24px; opacity:.7; max-width:780px;">Все заголовки на этой странице — из набора <code>.h-hero</code> / <code>.h-section</code> / <code>.h-block</code> / <code>.h-card</code> / <code>.h-stat</code>. Все наборные тексты — <code>.body-lead</code> / <code>.body</code> / <code>.body-sm</code>. Все мелкие подписи — <code>.label-eyebrow</code> / <code>.label-meta</code>. Курсив только в одном слове на заголовок. Всё.</p>
+  </section>
+
+  <!-- ─────────────────────────── 07 Components — APPROVED ─────────────────────────── -->
+  <section id="approved">
+    <div class="sec-head">
+      <div class="label-eyebrow">07 — Компоненты (утверждено)</div>
+      <h2>То, что уже <em>закон</em></h2>
+      <p>Эти компоненты зафиксированы в <code>CLAUDE.md</code> и <code>src/index.css</code>. Если встречается отклонение — приводим к этому варианту, новых вариаций не вводим.</p>
+    </div>
+
+    <div class="cat">
+
+      <!-- Buttons -->
+      <div class="item wide">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Кнопки <code>.btn-primary / -sm / -outline-dark / -outline-light / -link</code></div></div>
+        <div class="desc">Пять и только пять. Primary — основное действие, fill зелёным, hover в золото. Outline-dark — вторичное на белом. Outline-light — вторичное на тёмном/зелёном. Link — inline gold-ссылка со стрелкой.</div>
+        <div class="demo">
+          <a class="demo-btn primary">Подробнее →</a>
+          <a class="demo-btn outline-dark">Связаться</a>
+          <a class="demo-btn link">Читать дальше →</a>
+        </div>
+        <div class="demo dark">
+          <a class="demo-btn primary">Написать →</a>
+          <a class="demo-btn outline-light">Узнать больше</a>
+        </div>
+        <div class="note">Радиус — 6px. Hover — поднятие на 0.5px + смена fill. Никогда не задавать <code>bg-X</code> / <code>text-X</code> inline на кнопке.</div>
+      </div>
+
+      <!-- card-feature -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Карточка <code>.card-feature</code></div></div>
+        <div class="desc">Каноническая карточка: фото сверху (4:3) + eyebrow + заголовок + описание + gold-CTA. Только <code>.shadow-soft</code>, без бордера. На ховере — <code>-translate-y-1</code> (тень не усиливается).</div>
+        <div class="demo">
+          <div class="demo-card-feature">
+            <div class="pic"></div>
+            <div class="zone">
+              <span class="eyebrow">Племенные линии</span>
+              <span class="title">Генетика и работа</span>
+              <span class="desc">Десятилетия селекции и племенной работы.</span>
+              <span class="cta">Подробнее →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- card-flat -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Карточка <code>.card-flat</code></div></div>
+        <div class="desc">Плоская карточка без изображения: новостной превью, лого партнёра, сгруппированный текстовый блок. Те же тени, без бордера.</div>
+        <div class="demo">
+          <div class="demo-card-flat">
+            <div class="title">Заголовок карточки</div>
+            <p style="font-size:13px; color:var(--text-dark); margin-top:6px; line-height:1.5;">Короткое описание из 1–2 строк, без CTA-стрелки.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- card-stat — note: under review of "fewer plashki" rule -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Карточка <code>.card-stat</code></div></div>
+        <div class="desc">Число + подпись в плашке. Используется <b>редко</b> — по правилу «fewer plashki» голые числа (без плашки) предпочтительнее.</div>
+        <div class="demo">
+          <div class="demo-card-flat" style="display:flex; flex-direction:column; gap:6px;">
+            <span class="h-stat" style="font-size:36px;">80%</span>
+            <span class="label-meta">мирового рынка</span>
+          </div>
+        </div>
+        <div class="note">Когда сомневаешься — используй <em>naked-number</em> стек (см. §06 эталон, блок B).</div>
+      </div>
+
+      <!-- card-accent -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Карточка <code>.card-accent</code></div></div>
+        <div class="desc">Премиальная асимметричная карточка — <b>только на главной</b> в блоке Directions. Радиус 24px, тёмная заливка, gold-italic в заголовке. На внутренних страницах не используется.</div>
+        <div class="demo">
+          <div class="demo-card-accent">
+            <div>
+              <div style="font-size:11px; color:var(--accent); font-weight:700; margin-bottom:10px;">01</div>
+              <div class="title">Племенные <em>линии</em></div>
+            </div>
+            <div class="desc">Маточное стадо, племенные быки.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sections backgrounds -->
+      <div class="item wide">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Фоны секций <code>.section-calm / -accent / -cinematic</code></div></div>
+        <div class="desc">Три и только три. Calm (белый) — основной для контента, доминирует. Accent (зелёный) — редкий смысловой акцент. Cinematic (почти-чёрный) — очень редко, для драматичных вставок. Соседние секции одного фона разрешены, но чередовать без смысла — нельзя.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+          <div style="background:#FFFFFF; padding:24px 16px; border-radius:4px; text-align:center;">
+            <div style="font-size:11px; font-weight:700; color:var(--text-dark); opacity:.6;">calm</div>
+            <div style="font-family:var(--font-serif); font-size:14px; color:var(--text-dark); margin-top:4px;">белый</div>
+          </div>
+          <div style="background:var(--primary); padding:24px 16px; border-radius:4px; text-align:center;">
+            <div style="font-size:11px; font-weight:700; color:var(--text-light); opacity:.7;">accent</div>
+            <div style="font-family:var(--font-serif); font-size:14px; color:var(--text-light); margin-top:4px;">зелёный</div>
+          </div>
+          <div style="background:var(--secondary); padding:24px 16px; border-radius:4px; text-align:center;">
+            <div style="font-size:11px; font-weight:700; color:var(--text-light); opacity:.7;">cinematic</div>
+            <div style="font-family:var(--font-serif); font-size:14px; color:var(--text-light); margin-top:4px;">почти-чёрный</div>
+          </div>
+        </div>
+        <div class="note">Высота секции: <code>py-16 md:py-24</code> встроено в класс. Контейнер внутри — <code>.section-inner</code> (<code>max-w-[1400px] mx-auto</code>).</div>
+      </div>
+
+      <!-- Shadows -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Тень <code>.shadow-soft</code></div></div>
+        <div class="desc">Одна тень на весь сайт. И в покое, и при ховере — та же. Никаких <code>.shadow-soft-lg</code>, <code>shadow-sm/md/lg/2xl</code>, <code>shadow-none</code>. Ховер-фидбэк даётся движением (<code>-translate-y-1</code>), не усилением тени.</div>
+        <div class="demo" style="gap:24px;">
+          <div style="background:#FFF; box-shadow: 0 1px 3px rgba(7,23,23,.06), 0 4px 12px rgba(7,23,23,.08), 0 16px 48px -16px rgba(7,23,23,.14); padding:18px 22px; font-size:14px; font-weight:600; color:var(--text-dark);">shadow-soft</div>
+        </div>
+      </div>
+
+      <!-- Interactive widget container -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Интерактивный pill-бар</div></div>
+        <div class="desc">Контейнер с группой кнопок (фильтр новостей, селектор региона). Молочно-кремовая плашка <code>bg-bg-card shadow-soft</code> с прозрачными кнопками внутри; активная — <code>bg-primary text-text-light</code>.</div>
+        <div class="demo">
+          <div class="demo-widget-bar">
+            <span class="pill active">Все</span>
+            <span class="pill">Жизнь фермы</span>
+            <span class="pill">Оленята</span>
+            <span class="pill">Стадо</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero patterns -->
+      <div class="item wide">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Hero-паттерны (ровно два)</div></div>
+        <div class="desc"><b>Fullbleed</b> — только на главной: 90vh, фоновое фото справа, gradient feathering в тёмный слева. <b>Side-image</b> — все внутренние: текст слева (col-7), фото справа (col-5, 4:3). Никаких других hero нет.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="background:var(--secondary); color:var(--text-light); border-radius:4px; padding:24px; min-height:160px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--accent); font-weight:700;">fullbleed</div>
+            <div style="font-family:var(--font-serif); font-size:22px; margin-top:8px; font-weight:500;">Главная — <em style="color:var(--accent);">олени</em></div>
+            <div style="position:absolute; right:0; top:0; bottom:0; width:55%; background: linear-gradient(to left, rgba(208,177,138,.4), transparent); border-left:1px dashed rgba(208,177,138,.3);"></div>
+          </div>
+          <div style="background:#FFFFFF; color:var(--text-dark); border-radius:4px; padding:24px; min-height:160px; display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:center;">
+            <div>
+              <div style="font-size:11px; color:var(--accent); font-weight:700;">side-image</div>
+              <div style="font-family:var(--font-serif); font-size:18px; margin-top:8px; font-weight:500;">Заголовок <em style="color:var(--accent);">внутренней</em></div>
+            </div>
+            <div style="aspect-ratio:4/3; background: linear-gradient(135deg, rgba(27,67,68,.12), rgba(208,177,138,.18)); border-radius:2px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer banner moved here -->
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 08 Components — PENDING REVIEW ─────────────────────────── -->
+  <section id="pending">
+    <div class="sec-head">
+      <div class="label-eyebrow">08 — Компоненты (на доработку)</div>
+      <h2>Что <em>проверить</em></h2>
+      <p>Эти паттерны встречаются на сайте, но не зафиксированы в <code>CLAUDE.md</code> или есть подозрение на отклонение от закона. Я их выложил визуально — посмотри и скажи: оставить как есть, изменить или удалить из дизайна.</p>
+    </div>
+
+    <div class="section-banner">
+      <b>Как читать эту секцию.</b> Жёлтая плашка «на доработку» означает «обсуждаем», а не «ошибка». Ни одна из этих штук не уйдёт в код или в CLAUDE.md, пока ты явно не утвердишь её визуал и поведение.
+    </div>
+
+    <div class="cat" style="margin-top:24px;">
+
+      <!-- Top navbar -->
+      <div class="item wide">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Топ-навигация</div></div>
+        <div class="desc">Тёмная плашка с лого + золотым курсивным wordmark, ссылки на 7 вкладок, активный пункт — золотой и bold. Справа — телефон-иконка, языковой переключатель RU/EN/CN.</div>
+        <div class="demo dark">
+          <div class="demo-nav">
+            <div style="font-family:var(--font-serif); font-style:italic; color:var(--accent); font-size:18px;">Благородный Север</div>
+            <div class="links">
+              <span>Генетика</span>
+              <span class="active">Панты</span>
+              <span>Отрасль</span>
+              <span>Познакомиться</span>
+              <span>Контакты</span>
+            </div>
+            <div class="right">
+              <span style="color:var(--accent);">☎</span>
+              <span class="lang">
+                <span class="on">RU</span><span class="sep">/</span><span class="off">EN</span><span class="sep">/</span><span class="off">CN</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="note">⚠ Языковой переключатель — <code>text-[13px] tracking-wider</code>: разрядка противоречит правилу §04. Активный пункт в навигации использует <code>font-bold</code> на 14px — нормально. Вопрос: переключатель RU/EN/CN — оставляем gold-on-dark, делаем pill-bar как у фильтра новостей или это отдельный паттерн?</div>
+      </div>
+
+      <!-- Mobile drawer -->
+      <div class="item">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Мобильная шторка меню</div></div>
+        <div class="desc">Тёмная плашка во весь экран, список вкладок крупным шрифтом, внизу телефон + языковой переключатель.</div>
+        <div class="demo dark" style="align-items: flex-start;">
+          <div class="demo-mobile-drawer">
+            <div class="item">Генетика</div>
+            <div class="item active">Панты</div>
+            <div class="item">Отрасль</div>
+            <div class="item">Контакты</div>
+            <div class="item">В СМИ</div>
+            <div class="item">Новости</div>
+          </div>
+        </div>
+        <div class="note">Сейчас пункты — <code>text-xl font-medium</code>. Вопрос: оставить или унифицировать с font-serif?</div>
+      </div>
+
+      <!-- Footer -->
+      <div class="item wide">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Футер</div></div>
+        <div class="desc">Тёмная плашка, 4 колонки: бренд-блок, навигация, контакты, соцсети. Подписи колонок — обычный регистр, 14 px, bold, без разрядки.</div>
+        <div class="demo dark">
+          <div class="demo-footer">
+            <div>
+              <div style="font-family:var(--font-serif); color:var(--accent); font-style:italic; font-size:18px;">Благородный Север</div>
+              <p style="margin-top:8px; font-size:14px; color:rgba(242,238,230,.85); max-width:200px; line-height:1.5;">Премиальное оленеводство и пантовая продукция.</p>
+            </div>
+            <div>
+              <div class="col-title">Навигация</div>
+              <a>Главная</a><a>Генетика</a><a>Панты</a><a>Контакты</a>
+            </div>
+            <div>
+              <div class="col-title">Контакты</div>
+              <a>+7 (925) 871-09-37</a><a>info@blagorodnysever.ru</a>
+            </div>
+          </div>
+        </div>
+        <div class="note"><b>Применены правила A/B/C:</b> подписи колонок — 14 px bold обычного регистра (не uppercase, без разрядки); ссылки — <code>/85</code> opacity (светлый текст на тёмном — допустимо); описание под лого — обычный 14 px вместо 11 px. Бренд-mark — 18 px serif italic.</div>
+      </div>
+
+      <!-- Marquee -->
+      <div class="item wide">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Бегущая строка (marquee)</div></div>
+        <div class="desc">Декоративная бесконечная полоса с курсивным serif-текстом — используется на главной (если ещё используется). Анимация <code>marquee 45s linear infinite</code>, явно объявлена в @theme.</div>
+        <div class="demo green" style="padding:0;">
+          <div class="demo-marquee">
+            <div class="track">Благородный Север · премиальная генетика · панты сезона 2026 · экспорт в Азию · ферма в Карелии · &nbsp;</div>
+          </div>
+        </div>
+        <div class="note">Вопрос: оставляем как «фирменный жест» главной, или это лишний декоративный элемент? Если оставляем — фиксируем как единственное место с курсивом вне заголовков.</div>
+      </div>
+
+      <!-- Pills variants -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Пилюли — два варианта</div></div>
+        <div class="desc">Solid-gold (родословные, бейджи) и gold-tint (инфо/числовая характеристика на белой карточке). Других пилюль в дизайне нет.</div>
+        <div class="demo" style="flex-direction:column; align-items:flex-start; gap:10px;">
+          <span class="demo-pill gold-solid">Линия Алтай</span>
+          <span class="demo-pill gold-tint">12 поколений</span>
+        </div>
+        <div class="note">Для тёмных секций (<code>.section-accent</code> / <code>.section-cinematic</code>) пилюли не нужны — используется inline-плашка <code>bg-secondary/40</code> (см. CLAUDE.md §4). Любые другие варианты — <code>bg-accent/15</code> с бордером, <code>uppercase</code> мини-бейджи — запрещены.</div>
+      </div>
+
+      <!-- Icon + label list -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Список «иконка + подпись»</div></div>
+        <div class="desc">Lucide-иконка <b>24 px</b> (<code>w-6 h-6</code>) + bold-лейбл рядом. Один размер на весь сайт. Без обёрток-плашек вокруг иконки.</div>
+        <div class="demo" style="flex-direction:column; align-items:flex-start; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span class="demo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></span>
+            <span style="font-size:16px; font-weight:600; color:var(--text-dark);">Сильная генетика</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span class="demo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+            <span style="font-size:16px; font-weight:600; color:var(--text-dark);">Долгий цикл</span>
+          </div>
+        </div>
+        <div class="note">⚠ В коде сейчас разнобой w-5 / w-6 / w-7 / w-8. По правилу — везде <code>w-6 h-6</code>. Иконка крупнее (w-7, w-8) допустима только как декоративный одиночный элемент (например, hero-икона), не в списках.</div>
+      </div>
+
+      <!-- Pro/con compare -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Сравнение pro/con</div></div>
+        <div class="desc">Зелёная галочка (плюс) и нейтральный приглушённый крест (минус). Текст — 16 px, обычный <code>.body</code>. Без красного — палитра остаётся 4 цвета.</div>
+        <div class="demo" style="justify-content:flex-start;">
+          <div class="demo-procon">
+            <div class="row pro"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></span><span>огромный земельный ресурс</span></div>
+            <div class="row pro"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></span><span>подходящий климат</span></div>
+            <div class="row con"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><span>ранняя стадия развития отрасли</span></div>
+          </div>
+        </div>
+        <div class="note">Галочка — <code>text-primary</code> (зелёный бренд). Крест — <code>text-text-dark/50</code> (приглушённый, без эмоциональной окраски). Это сохраняет 4-цветную палитру.</div>
+      </div>
+
+      <!-- Numbered step badge -->
+      <div class="item">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Маркер шага (01, 02, 03)</div></div>
+        <div class="desc">Gold-цифра в serif перед заголовком блока. Используется в Генетике (процесс) и Антлерс (шаги работы).</div>
+        <div class="demo" style="flex-direction:column; align-items:flex-start;">
+          <div style="display:flex; align-items:baseline; gap:14px;">
+            <span style="font-family:var(--font-serif); font-size:36px; font-weight:600; color:var(--accent); line-height:1;">01</span>
+            <span class="h-block">Подбор пары</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:14px; margin-top:8px;">
+            <span style="font-family:var(--font-serif); font-size:36px; font-weight:600; color:var(--accent); line-height:1;">02</span>
+            <span class="h-block">Сезон гона</span>
+          </div>
+        </div>
+        <div class="note">Сейчас в коде есть и крошечный вариант — кружок 32×32px с цифрой <code>text-sm</code>. Унифицируем на этом крупном serif-варианте?</div>
+      </div>
+
+      <!-- Contact tile -->
+      <div class="item">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Контактный тайл (mailto / tel)</div></div>
+        <div class="desc">Карточка с label сверху (например, «Адрес», «Email») и gold-значением — кликабельная. На странице Контактов их 4 в ряд.</div>
+        <div class="demo">
+          <div class="demo-contact-tile">
+            <span class="label">Общие вопросы</span>
+            <span class="value">info@blagorodnysever.ru</span>
+          </div>
+        </div>
+        <div class="note">Сейчас label в коде — <code>font-serif text-lg font-bold</code>. Вопрос: это наша <code>.h-block</code> (slightly меньше) или отдельный паттерн?</div>
+      </div>
+
+      <!-- News date+category row -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Мета-строка новости</div></div>
+        <div class="desc">Дата + категория в строку, gold цвет, <b>14 px</b> bold (= <code>.label-eyebrow</code>). Над заголовком новостной карточки.</div>
+        <div class="demo">
+          <div class="demo-newsmeta">
+            <span>15 мая 2026</span>
+            <span>Жизнь фермы</span>
+          </div>
+        </div>
+        <div class="note">В коде сейчас <code>text-[10px]</code> — нарушение. Меняем на <code>.label-eyebrow</code> (14 px, gold, bold, без разрядки).</div>
+      </div>
+
+      <!-- Media logos grid -->
+      <div class="item">
+        <span class="ribbon ok">утверждено</span>
+        <div class="head"><div class="name">Сетка лого партнёров / СМИ</div></div>
+        <div class="desc">PNG-логотипы СМИ на белой плашке. 4 колонки на десктопе. Реализация как сейчас на главном экране — оставляем без изменений.</div>
+        <div class="demo" style="padding:18px;">
+          <div class="demo-logos">
+            <div class="logo">Sber</div>
+            <div class="logo">Vedomosti</div>
+            <div class="logo">TASS</div>
+            <div class="logo">RBC</div>
+          </div>
+        </div>
+        <div class="note">Источник правды — главная страница сайта (TabMain). Менять не нужно.</div>
+      </div>
+
+      <!-- Disabled button -->
+      <div class="item">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Disabled-кнопка</div></div>
+        <div class="desc">Кнопка в неактивном состоянии (например, «Научные исследования (в разработке)» в TabAntlers).</div>
+        <div class="demo">
+          <a class="demo-btn disabled">Научные исследования (в разработке)</a>
+        </div>
+        <div class="note">Сейчас визуально — outline с приглушённым цветом. Зафиксировать как состояние <code>.btn-outline-dark:disabled</code>?</div>
+      </div>
+
+      <!-- Closing note -->
+      <div class="item wide">
+        <span class="ribbon review">на доработку</span>
+        <div class="head"><div class="name">Картинка с подписью</div></div>
+        <div class="desc">Большое фото внутри секции с короткой подписью под ним. Встречается в TabPopularization, TabMedia.</div>
+        <div class="demo" style="flex-direction:column; align-items:flex-start; gap:8px;">
+          <div style="width:280px; aspect-ratio:16/10; background:linear-gradient(135deg, rgba(27,67,68,.12), rgba(208,177,138,.18)); border-radius:2px;"></div>
+          <span style="font-size:13px; color:var(--text-dark); opacity:.7; max-width:280px;">Утреннее кормление маточного стада, весна 2026.</span>
+        </div>
+        <div class="note">Подпись — какой размер и цвет? Сейчас в коде встречается и <code>text-xs italic</code>, и <code>text-sm</code>, и без подписи вообще.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 09 Proposals (all approved) ─────────────────────────── -->
+  <section id="proposals">
+    <div class="sec-head">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+        <span class="label-eyebrow" style="margin:0;">09 — На отсмотр</span>
+        <span class="chip locked"><span class="dot"></span>Все 5 приняты</span>
+      </div>
+      <h2>Что было на <em>обсуждении</em></h2>
+      <p>Эти 5 правил были предложены и приняты за один проход. Применены в коде (8 Tab-файлов + App.tsx), задокументированы в <code>CLAUDE.md</code>, занесены в §10 Запретов как locked. Карточки «До / После» оставляю для истории и аргументации, чтобы было видно <em>почему</em> каждое стало правилом.</p>
+    </div>
+
+    <!-- ─ Proposal 1: italic outside h-section__accent ─ -->
+    <div class="proposal">
+      <div class="head">
+        <div class="num">01</div>
+        <div class="title">Убрать курсив везде, кроме <code>.h-section__accent</code></div>
+      </div>
+      <div class="desc">Сейчас italic используется для четырёх разных смыслов: акцентное слово в заголовке (правильно), цитата, мед-дисклеймер, мелкая сноска. Это размывает функцию курсива. Предлагаю: italic — только акцентное слово в `.h-section` / `.h-hero`. Цитата, дисклеймер, сноска — обычный <code>.body</code> или <code>.body-sm</code>, без italic.</div>
+      <div class="where"><b>Где встречается:</b> TabAntlers:398 (мед-дисклеймер), TabAntlers:446 (примечание про состав), TabNews:315 (italic-цитата).</div>
+      <div class="compare">
+        <div>
+          <span class="lbl bad">Сейчас</span>
+          <div class="render">
+            <p style="font-family:var(--font-sans); font-size:16px; font-style:italic; color:var(--text-dark); line-height:1.4; max-width:380px;">*Представленная информация носит ознакомительный характер и не является медицинским утверждением.</p>
+          </div>
+        </div>
+        <div>
+          <span class="lbl good">После</span>
+          <div class="render">
+            <p style="font-family:var(--font-sans); font-size:16px; color:var(--text-dark); line-height:1.4; max-width:380px;">*Представленная информация носит ознакомительный характер и не является медицинским утверждением.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ Proposal 2: text-accent on entire heading ─ -->
+    <div class="proposal">
+      <div class="head">
+        <div class="num">02</div>
+        <div class="title">Заголовок целиком в gold — нельзя</div>
+      </div>
+      <div class="desc">Сейчас <code>h3</code> «Что изучается» (TabAntlers, правый столбец под пантами) — целиком золотой. Это конкурирует с italic-акцентом-словом в основных заголовках и обесценивает gold как «выделение». Предлагаю: gold — только italic-слово в заголовке, eyebrow, числа, ссылки. Целый заголовок — всегда <code>text-text-dark</code>.</div>
+      <div class="where"><b>Где встречается:</b> TabAntlers:382 — h3 «Что изучается» в text-accent (это та самая асимметрия из самого первого скриншота с двумя колонками).</div>
+      <div class="compare">
+        <div>
+          <span class="lbl bad">Сейчас</span>
+          <div class="render">
+            <h3 style="font-family:var(--font-serif); font-size:24px; font-weight:700; color:var(--accent); line-height:1.2;">Что изучается</h3>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">золотой serif-bold</p>
+          </div>
+        </div>
+        <div>
+          <span class="lbl good">После</span>
+          <div class="render">
+            <h3 style="font-family:var(--font-serif); font-size:24px; font-weight:700; color:var(--text-dark); line-height:1.2;">Что изучается</h3>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">тёмный serif-bold (= <code>.h-block</code>)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ Proposal 3: text-primary on heading over white ─ -->
+    <div class="proposal">
+      <div class="head">
+        <div class="num">03</div>
+        <div class="title">Заголовок в зелёном (<code>text-primary</code>) на белом фоне — нельзя</div>
+      </div>
+      <div class="desc">Сейчас <code>h3</code> «Открыты к сотрудничеству» (TabContacts) написан в брэнд-зелёном на белой плашке. По принципу 4-цветной палитры: зелёный — это фон акцентных секций и заливка primary-кнопки, а не текст заголовка. На белом фоне заголовок всегда <code>text-text-dark</code>.</div>
+      <div class="where"><b>Где встречается:</b> TabContacts:214 — h3 «Открыты к сотрудничеству» в green.</div>
+      <div class="compare">
+        <div>
+          <span class="lbl bad">Сейчас</span>
+          <div class="render">
+            <h3 style="font-family:var(--font-serif); font-size:22px; font-weight:700; color:var(--primary); line-height:1.2;">Открыты к сотрудничеству</h3>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">зелёный serif-bold</p>
+          </div>
+        </div>
+        <div>
+          <span class="lbl good">После</span>
+          <div class="render">
+            <h3 style="font-family:var(--font-serif); font-size:22px; font-weight:700; color:var(--text-dark); line-height:1.2;">Открыты к сотрудничеству</h3>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">тёмный serif-bold</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ Proposal 4: font-sans on heading ─ -->
+    <div class="proposal">
+      <div class="head">
+        <div class="num">04</div>
+        <div class="title">Sans-serif на заголовке — нельзя</div>
+      </div>
+      <div class="desc">Сейчас <code>h4</code> «Где применяется в мировой практике» (TabAntlers) написан Manrope-sans. Все заголовки сайта — serif (Century Schoolbook). Без исключений. Это вторая часть проблемы из первого скриншота — асимметрия с правым столбцом.</div>
+      <div class="where"><b>Где встречается:</b> TabAntlers:366 — h4 «Где применяется в мировой практике» в font-sans.</div>
+      <div class="compare">
+        <div>
+          <span class="lbl bad">Сейчас</span>
+          <div class="render">
+            <h4 style="font-family:var(--font-sans); font-size:20px; font-weight:700; color:var(--text-dark); line-height:1.25;">Где применяется в мировой практике</h4>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">sans-bold</p>
+          </div>
+        </div>
+        <div>
+          <span class="lbl good">После</span>
+          <div class="render">
+            <h4 style="font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--text-dark); line-height:1.25;">Где применяется в мировой практике</h4>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:8px; opacity:.6;">serif-bold (= <code>.h-block</code>)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ Proposal 5: arbitrary hero sizes ─ -->
+    <div class="proposal">
+      <div class="head">
+        <div class="num">05</div>
+        <div class="title">Произвольные размеры hero — нельзя</div>
+      </div>
+      <div class="desc">Сейчас в коде hero-заголовки имеют разные крупные размеры: <code>lg:text-7xl</code> (72 px) на TabMain Directions и Why Important, <code>lg:text-[5.5rem]</code> (88 px) на главном hero. Утилита <code>.hero-title</code> уже определена как <code>lg:text-[5rem]</code> (80 px). Предлагаю: каждый hero/H2 = строго одна из утилит (<code>.hero-title</code> 80 px, <code>.h-section</code> 64 px), без отдельных размеров.</div>
+      <div class="where"><b>Где встречается:</b> TabMain:129 (hero, 88 px), TabMain:210 (Directions h2, 72 px), App.tsx:418 (Directions Home, 72 px), App.tsx:616 (Why Important Home, 72 px).</div>
+      <div class="compare">
+        <div>
+          <span class="lbl bad">Сейчас</span>
+          <div class="render">
+            <h2 style="font-family:var(--font-serif); font-size:48px; font-weight:500; color:var(--text-dark); line-height:1.05; letter-spacing:-0.02em;">Заголовок 72 px</h2>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:10px; opacity:.6;"><code>lg:text-7xl</code> — нестандарт</p>
+          </div>
+        </div>
+        <div>
+          <span class="lbl good">После</span>
+          <div class="render">
+            <h2 style="font-family:var(--font-serif); font-size:42px; font-weight:500; color:var(--text-dark); line-height:1.1; letter-spacing:-0.02em;">Заголовок 64 px</h2>
+            <p style="font-family:var(--font-sans); font-size:14px; color:var(--text-dark); margin-top:10px; opacity:.6;"><code>.h-section</code> — единая утилита</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-banner" style="margin-top:32px; background:#E8F2E5; border-left-color:var(--primary);">
+      <b>Применено.</b> Все 5 правил утверждены в одну сессию. Код прошит, <code>CLAUDE.md §4</code> + <code>§9</code> обновлены, design-audit скилл знает про эти проверки. См. §10 — там они теперь как <span class="chip locked" style="vertical-align:middle;"><span class="dot"></span>В правилах</span>.
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 10 Rules ─────────────────────────── -->
+  <section id="rules">
+    <div class="sec-head">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+        <span class="label-eyebrow" style="margin:0;">10 — Запреты</span>
+      </div>
+      <h2>Чего <em>не делаем</em></h2>
+      <p>Все пункты ниже — <span class="chip locked" style="vertical-align:middle;"><span class="dot"></span>В правилах</span>: зафиксированы в <code>CLAUDE.md</code>, применены в коде. Предложения, которые ждут твоего решения — в §09 «На отсмотр» выше.</p>
+    </div>
+
+    <ul class="rules">
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Любой размер текста ниже 14 px — нигде.</b> Eyebrow, meta-подпись, дата, пилюля, footer-копи — минимум <b>14 px</b>. <code>text-xs</code>, <code>text-[10px]</code>, <code>text-[11px]</code>, <code>text-[13px]</code> — нельзя.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Наборный текст — только два размера.</b> 16 px (<code>.body</code>) и 18 px (<code>.body-lead</code>). Промежуточных или меньших уровней нет.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Любая положительная разрядка</b> (<code>tracking-wide</code>, <code>tracking-wider</code>, <code>tracking-widest</code>) — нигде. Eyebrow, meta, бейдж, badge — без разрядки. Разрешено только отрицательное сжатие <code>tracking-tight</code> на крупных serif-заголовках (<code>.h-hero</code> / <code>.h-section</code>).</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Opacity на <code>text-dark</code></b> поверх белого фона: <code>/85</code>, <code>/70</code> и т.д. Сплошной цвет всегда.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b><code>uppercase</code> на кнопках или заголовках.</b> Регистр всегда обычный.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Любые тени кроме <code>.shadow-soft</code>.</b> <code>.shadow-soft-lg</code> отменена. <code>shadow-sm</code>, <code>shadow-md</code>, <code>shadow-lg</code>, <code>shadow-2xl</code>, <code>shadow-xl</code> — нельзя. Одна мягкая тень и всё.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Пятый цвет (красный, серый, бежевый) — нигде.</b> Палитра ровно 4: white, green, dark, gold. Pro/con-крест — приглушённый dark (<code>text-text-dark/50</code>), не красный.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Иконки в текстовых списках — только 24 px (<code>w-6 h-6</code>).</b> <code>w-5</code>, <code>w-7</code>, <code>w-8</code> — нельзя. Декоративная одиночная иконка может быть крупнее, но только когда она самостоятельный элемент (hero-икона), не часть строки текста.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Пилюль кроме <code>solid-gold</code> и <code>gold-tint</code> — нет.</b> <code>bg-accent/15 border</code>, <code>text-[10px] uppercase</code> мини-бейджи, любые другие варианты — запрещены.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Курсив вне <code>.h-section__accent</code>.</b> Цитаты, дисклеймеры, пометки — обычный <code>.body</code> или <code>.body-sm</code>. Звёздочка <code>*</code> достаточно маркирует сноску.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b><code>text-accent</code> как цвет целого заголовка.</b> Gold — только акцентное слово в заголовке, eyebrow, числа, ссылки.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b><code>text-primary</code> как цвет заголовка</b> на белом фоне. Заголовки на светлом — всегда <code>text-text-dark</code>, на тёмном — <code>text-text-light</code>.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Sans-serif на любом заголовке.</b> Все заголовки — <code>font-serif</code> (Century Schoolbook). Hero, H2, H3, H4, card-title.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b>Произвольные размеры hero и section-headings.</b> <code>lg:text-7xl</code>, <code>lg:text-[5.5rem]</code>, <code>lg:text-[3.75rem]</code> — все запрещены. Hero — ровно <code>.hero-title</code>. H2 — ровно <code>.h-section</code>.</li>
+      <li class="ban"><span class="chip locked" style="vertical-align:middle; margin-right:10px;"><span class="dot"></span>В правилах</span><b><code>gap-10</code> / <code>gap-12</code> между naked-number стат-блоками.</b> Внешний gap стат-стека — <code>gap-6</code> (24 px), не больше. Иначе теряется визуальная связь между группами «число + подпись». Внутренний gap-2 между числом и подписью не трогаем.</li>
+
+      <li class="keep"><b>Можно:</b> опускать opacity на светлом тексте поверх <em>тёмного</em> фона (<code>text-text-light/85</code>) — для воздуха в кинематографических секциях.</li>
+      <li class="keep"><b>Можно:</b> заголовки <code>.h-block</code> и <code>.h-card</code> одинаковые по визуалу — это нормально. Разница только семантическая (внутри секции vs внутри карточки).</li>
+    </ul>
+  </section>
+
+  <footer>
+    Благородный Север — типографика, ревизия 01. Этот документ — единственный источник правды; всё, что не описано здесь, не существует.
+  </footer>
+
+</main>
+
+</body>
+</html>

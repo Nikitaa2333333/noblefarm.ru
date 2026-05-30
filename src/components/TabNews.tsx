@@ -286,13 +286,13 @@ export default function TabNews({ lang }: TabNewsProps) {
                   />
                 </div>
                 <div className="card-feature__body">
-                  <div className="flex justify-between items-center text-[10px] font-bold text-accent tracking-wider mb-2">
+                  <div className="flex justify-between items-center label-eyebrow mb-2">
                     <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
+                      <Calendar className="w-4 h-4" />
                       <span>{resolveField(item.date, lang)}</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-primary">
-                      <Tag className="w-3.5 h-3.5" />
+                      <Tag className="w-4 h-4" />
                       <span>{resolveField(item.categoryLabel, lang)}</span>
                     </div>
                   </div>
@@ -311,8 +311,8 @@ export default function TabNews({ lang }: TabNewsProps) {
           </div>
 
           {/* Elegant inline divider & footer label directly within calm workspace */}
-          <div className="mt-16 text-center border-t border-border-light pt-8">
-            <p className="font-serif text-base sm:text-lg font-medium text-text-dark italic">
+          <div className="mt-16 text-center pt-8">
+            <p className="body-lead text-center">
               {isRU
                 ? 'Следите за развитием современного оленеводства в России'
                 : isCN

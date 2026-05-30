@@ -122,11 +122,11 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 pt-[42vh] md:pt-28 pb-20">
           <div className="max-w-[800px] md:max-w-[550px] lg:max-w-[650px] flex flex-col gap-6">
-            <div className="text-accent text-sm font-semibold tracking-wider">
+            <div className="label-eyebrow">
               {t.hero.subtitle}
             </div>
 
-            <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light mt-2">
+            <h1 className="hero-title-light mt-2">
               {t.hero.titleLine1} <br className="hidden md:inline" />
               <span className="italic text-accent">{t.hero.titleLine2}</span> <br className="hidden md:inline" />
               {t.hero.titleLine3}
@@ -207,7 +207,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       {/* ─── Directions Section ────────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 bg-primary relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-7xl font-medium tracking-tight text-text-light">
+          <h2 className="h-section-light">
             {t.directions.title}<span className="italic text-accent">{t.directions.titleAccent}</span>
           </h2>
         </div>
@@ -241,7 +241,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
                   <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
                     {card.title}
                   </h3>
-                  <p className="text-text-light font-medium text-xs sm:text-sm leading-relaxed mb-6">
+                  <p className="text-text-light/85 font-medium text-base leading-snug mb-6">
                     {card.desc}
                   </p>
                   <button
@@ -263,9 +263,9 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       {/* ─── Why Important Section ────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[1.15] md:leading-[1.1] mb-10 lg:mb-14 max-w-2xl text-text-dark">
+          <h2 className="h-section mb-10 lg:mb-14 max-w-2xl">
             {t.whyImportant.title}
-            <span className="italic text-primary">{t.whyImportant.titleAccent}</span>
+            <span className="h-section__accent">{t.whyImportant.titleAccent}</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">

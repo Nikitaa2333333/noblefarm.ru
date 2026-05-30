@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Благородный Север — палитра (предложение)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* фиксированные цвета бренда — не меняются */
+    --secondary: #071717;
+    --accent:    #D0B18A;
+    --bg-light:  #FFFFFF;
+    --bg-card:   #FAFAF8;
+    --text-dark: #1A2828;
+    --text-light:#F2EEE6;
+
+    /* текущий + три кандидата на замену primary */
+    --primary-current:    #1B4344;  /* deep forest teal (сейчас) */
+    --primary-midnight:   #0F2A47;  /* midnight navy */
+    --primary-ultramarine:#1E3A6E;  /* ультрамарин (что просит клиент) */
+    --primary-nordic:     #1F3C57;  /* nordic steel */
+
+    /* активный primary в демо-блоке задаётся переменной --primary на .demo-theme */
+    --primary: var(--primary-current);
+
+    --font-sans:  "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Century Schoolbook", "New Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+
+    --shadow-soft: 0 1px 3px rgba(7,23,23,.06), 0 4px 12px rgba(7,23,23,.08), 0 16px 48px -16px rgba(7,23,23,.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img { max-width: 100%; display: block; }
+
+  .page {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+
+  /* ───── Page head ───── */
+  .page-head { margin-bottom: 64px; }
+  .page-head .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .page-head h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .page-head h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .page-head .lead {
+    margin-top: 24px;
+    max-width: 740px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+  .page-head .lead + .lead { margin-top: 12px; }
+
+  /* ───── Section heads ───── */
+  section { margin-top: 96px; scroll-margin-top: 32px; }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .sec-head h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.4vw, 48px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .sec-head h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .sec-head p {
+    margin-top: 16px;
+    max-width: 760px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+
+  /* ───── Swatch grids ───── */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+  .swatch {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .swatch .chip {
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px 18px;
+    color: #fff;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .swatch .meta {
+    padding: 14px 18px 18px;
+  }
+  .swatch .meta .name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .swatch .meta .hex {
+    margin-top: 4px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0.7;
+  }
+  .swatch .meta .note {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--text-dark);
+  }
+
+  /* candidate strong-card: tilted accent */
+  .candidates {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .candidates { grid-template-columns: 1fr; } }
+  .candidate {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .candidate .chip {
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    padding: 22px 24px;
+    color: #fff;
+  }
+  .candidate .chip .accent-line {
+    display: inline-block;
+    width: 56px;
+    height: 4px;
+    background: var(--accent);
+    margin-bottom: 14px;
+  }
+  .candidate .chip h3 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .candidate .body {
+    padding: 22px 24px 26px;
+  }
+  .candidate .hex {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    color: var(--text-dark);
+  }
+  .candidate .reason {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .candidate .pros {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .candidate .pros b { font-weight: 700; }
+
+  /* ───── Demo theme block ───── */
+  .demo-theme { margin-top: 64px; }
+  .demo-theme .label {
+    display: inline-block;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+  .demo-theme .label .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    vertical-align: middle;
+    margin-right: 8px;
+    transform: translateY(-1px);
+  }
+  .demo-theme .label .hex {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-weight: 500;
+    color: var(--text-dark);
+    opacity: 0.6;
+    margin-left: 8px;
+  }
+
+  /* a single demo "page" — calm section + accent section + card */
+  .mock {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background: var(--bg-light);
+  }
+  .mock .calm {
+    background: var(--bg-light);
+    padding: 56px 48px;
+  }
+  .mock .calm .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .mock .calm h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+    max-width: 720px;
+  }
+  .mock .calm h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .mock .calm p {
+    margin-top: 20px;
+    max-width: 640px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+  .mock .calm .ctas {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: var(--text-light);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    transition: all .3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--secondary);
+    transform: translateY(-2px);
+  }
+  .btn-outline-dark {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 13px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline-dark:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* card-feature inside the mock */
+  .mock .grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 800px) { .mock .grid { grid-template-columns: 1fr; } }
+  .card-feature {
+    background: var(--bg-light);
+    box-shadow: var(--shadow-soft);
+    border-radius: 0;
+    overflow: hidden;
+    transition: transform .3s ease;
+  }
+  .card-feature:hover { transform: translateY(-4px); }
+  .card-feature .media {
+    aspect-ratio: 4 / 3;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--primary) 85%, #000 0%), color-mix(in srgb, var(--primary) 65%, #000 30%));
+    position: relative;
+  }
+  .card-feature .media::after {
+    content: "фото";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(255,255,255,.3);
+    font-size: 14px;
+    font-family: var(--font-sans);
+    letter-spacing: 0.02em;
+  }
+  .card-feature .cbody {
+    padding: 24px 26px 26px;
+  }
+  .card-feature .cbody .ceyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .card-feature .cbody h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-dark);
+  }
+  .card-feature .cbody p {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+  }
+  .card-feature .cbody .cta {
+    margin-top: 16px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: gap .3s ease;
+  }
+  .card-feature .cbody .cta:hover { gap: 12px; }
+  .card-feature .cbody .cta::after { content: "→"; font-size: 16px; }
+
+  /* accent section inside the mock */
+  .mock .accent-band {
+    background: var(--primary);
+    padding: 56px 48px;
+    color: var(--text-light);
+  }
+  .mock .accent-band .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .mock .accent-band h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    max-width: 720px;
+  }
+  .mock .accent-band h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .mock .accent-band p {
+    margin-top: 18px;
+    max-width: 640px;
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  .mock .accent-band a.inline-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .mock .accent-band a.inline-link:hover { text-decoration: underline; }
+  .mock .accent-band .btns {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-outline-light {
+    border: 1px solid rgba(242,238,230,.4);
+    color: var(--text-light);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 13px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline-light:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* THEME variants */
+  .theme-current     { --primary: var(--primary-current); }
+  .theme-midnight    { --primary: var(--primary-midnight); }
+  .theme-ultramarine { --primary: var(--primary-ultramarine); }
+  .theme-nordic      { --primary: var(--primary-nordic); }
+
+  /* recommendation block */
+  .reco {
+    margin-top: 48px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
+    border-radius: 6px;
+    padding: 32px 36px;
+  }
+  .reco h3 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+  .reco p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+  }
+  .reco p + p { margin-top: 12px; }
+  .reco ul {
+    margin-top: 14px;
+    padding-left: 20px;
+  }
+  .reco li {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-dark);
+  }
+  .reco li + li { margin-top: 6px; }
+
+  /* token block — what changes in CSS */
+  .token-diff {
+    margin-top: 32px;
+    background: var(--secondary);
+    color: var(--text-light);
+    border-radius: 6px;
+    padding: 26px 28px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.7;
+    overflow-x: auto;
+  }
+  .token-diff .add { color: #9BD5A0; }
+  .token-diff .del { color: #E89999; text-decoration: line-through; }
+  .token-diff .cm  { color: rgba(242,238,230,.5); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="page-head">
+    <div class="eyebrow">Палитра / предложение</div>
+    <h1>От зелёного <em>к синему</em></h1>
+    <p class="lead">
+      Замечание клиента: уходим от тёмно-зелёного. Клиент назвал ориентир — ультрамарин (но не яркий).
+      В этом документе три кандидата на замену <code>primary</code>, каждый показан на реальных компонентах сайта: hero-блок, primary-кнопка, card-feature, акцентная секция, гиперссылка.
+    </p>
+    <p class="lead">
+      Меняем <b>только</b> <code>primary</code>. Золото <code>#D0B18A</code>, дарк <code>#071717</code>, белый и тёмный текст — остаются как есть. Гиперссылки остаются золотыми. Это значит: ни одна страница не «поедет», правится один токен в <code>src/index.css</code> + парный <code>border-dark</code>.
+    </p>
+  </header>
+
+  <!-- ──────────── 1. Сейчас ──────────── -->
+  <section id="current">
+    <div class="sec-head">
+      <div class="eyebrow">Шаг 1 · что есть сейчас</div>
+      <h2>Текущая <em>палитра</em></h2>
+      <p>Четыре цвета бренда. Меняется только первый — <b>primary</b>. Три остальных зафиксированы и не обсуждаются.</p>
+    </div>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="chip" style="background: #1B4344">primary</div>
+        <div class="meta">
+          <div class="name">Forest Teal · текущий</div>
+          <div class="hex">#1B4344</div>
+          <div class="note">Этот цвет уходит. Дальше — кандидаты на замену.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #071717">secondary</div>
+        <div class="meta">
+          <div class="name">Дарк (almost-black)</div>
+          <div class="hex">#071717</div>
+          <div class="note">Остаётся. Cinematic-секции, footer, текст на белом.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #D0B18A; color: #1A2828">accent</div>
+        <div class="meta">
+          <div class="name">Золото (matte gold)</div>
+          <div class="hex">#D0B18A</div>
+          <div class="note">Остаётся. Курсивные акценты, eyebrow, ссылки, hover.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: #FFFFFF; color: #1A2828; box-shadow: inset 0 0 0 1px #EAE6DD">bg-light</div>
+        <div class="meta">
+          <div class="name">Белый</div>
+          <div class="hex">#FFFFFF</div>
+          <div class="note">Остаётся. Основной фон, карточки, текст на тёмном.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────── 2. Кандидаты ──────────── -->
+  <section id="candidates">
+    <div class="sec-head">
+      <div class="eyebrow">Шаг 2 · три кандидата</div>
+      <h2>На замену <em>primary</em></h2>
+      <p>Подобраны так, чтобы каждый: (а) хорошо пел в дуэте с золотом #D0B18A, (б) держал контраст с белым фоном и тёмным текстом, (в) попадал в регистр «премиум-север», а не «корпоративный технологичный синий».</p>
+    </div>
+
+    <div class="candidates">
+      <div class="candidate">
+        <div class="chip" style="background: #0F2A47">
+          <div>
+            <span class="accent-line"></span>
+            <h3>Midnight Navy</h3>
+          </div>
+        </div>
+        <div class="body">
+          <div class="hex">#0F2A47</div>
+          <p class="reason">Почти-чёрный синий. По светлоте близок к текущему #1B4344, поэтому это самый безопасный drop-in: ни одна композиция, тень, контраст не поедет.</p>
+          <p class="pros"><b>Когда выбрать:</b> если задача — заменить зелёный «технически», без визуального шока. Самый сдержанный вариант, читается как «глубокая вода / северная ночь».</p>
+        </div>
+      </div>
+
+      <div class="candidate">
+        <div class="chip" style="background: #1E3A6E">
+          <div>
+            <span class="accent-line"></span>
+            <h3>Ultramarine</h3>
+          </div>
+        </div>
+        <div class="body">
+          <div class="hex">#1E3A6E</div>
+          <p class="reason">Тот самый ультрамарин, что просил клиент — но в приглушённой, не «яркой» версии. Классическая пара с золотом (морская / яхтенная роскошь).</p>
+          <p class="pros"><b>Когда выбрать:</b> если хочется громкого, узнаваемого бренд-заявления. Самый «громкий» из трёх, но всё ещё в пределах премиум-регистра.</p>
+        </div>
+      </div>
+
+      <div class="candidate">
+        <div class="chip" style="background: #1F3C57">
+          <div>
+            <span class="accent-line"></span>
+            <h3>Nordic Steel</h3>
+          </div>
+        </div>
+        <div class="body">
+          <div class="hex">#1F3C57</div>
+          <p class="reason">Пыльный северный синий. Чуть менее насыщенный, чем ультрамарин, читается как «зимнее небо / сталь». Самый «брендовый» под «север / панты / wellness».</p>
+          <p class="pros"><b>Когда выбрать:</b> если хочется сдержанности и редакторского настроения. Не кричит, отлично работает с золотом и фотографией природы.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────── 3. До — текущий ──────────── -->
+  <section id="before">
+    <div class="sec-head">
+      <div class="eyebrow">Шаг 3 · до</div>
+      <h2>Как сайт выглядит <em>сейчас</em></h2>
+      <p>Тот же шаблон секции мы дальше повторим с каждым из трёх синих — чтобы было честное «до / после».</p>
+    </div>
+
+    <div class="demo-theme theme-current">
+      <div class="label"><span class="dot"></span>До · Forest Teal <span class="hex">#1B4344</span></div>
+      <div class="mock">
+        <div class="calm">
+          <div class="eyebrow">Племенные линии</div>
+          <h2>Генетика и <em>племенная работа</em></h2>
+          <p>Племенное стадо формируется по строгим протоколам отбора. Каждая линия задокументирована, родословные хранятся в едином реестре.</p>
+          <div class="ctas">
+            <a class="btn-primary" href="#">Подробнее о программе</a>
+            <a class="btn-outline-dark" href="#">Скачать брошюру</a>
+          </div>
+          <div class="grid">
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №1</div>
+                <h3>Северный благородный</h3>
+                <p>Адаптированная под северный климат линия с высоким выходом пантов.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №2</div>
+                <h3>Алтайская селекция</h3>
+                <p>Крепкая конституция, повышенная регенерация, проверенные родословные.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accent-band">
+          <div class="eyebrow">Контроль качества</div>
+          <h2>Ветеринарный <em>надзор</em> на каждом этапе</h2>
+          <p>Полный цикл — от рождения до сертификации продукции. <a class="inline-link" href="#">Подробнее о протоколах →</a></p>
+          <div class="btns">
+            <a class="btn-outline-light" href="#">Связаться с зоотехником</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────── 4. После — три варианта ──────────── -->
+  <section id="after">
+    <div class="sec-head">
+      <div class="eyebrow">Шаг 4 · после</div>
+      <h2>Тот же блок <em>с каждым из синих</em></h2>
+      <p>Ниже — три варианта одной и той же страницы. Меняется один токен. Всё остальное (золото, текст, отступы, тени, шрифт) — то же самое.</p>
+    </div>
+
+    <!-- Variant A: Midnight -->
+    <div class="demo-theme theme-midnight">
+      <div class="label"><span class="dot"></span>Вариант A · Midnight Navy <span class="hex">#0F2A47</span></div>
+      <div class="mock">
+        <div class="calm">
+          <div class="eyebrow">Племенные линии</div>
+          <h2>Генетика и <em>племенная работа</em></h2>
+          <p>Племенное стадо формируется по строгим протоколам отбора. Каждая линия задокументирована, родословные хранятся в едином реестре.</p>
+          <div class="ctas">
+            <a class="btn-primary" href="#">Подробнее о программе</a>
+            <a class="btn-outline-dark" href="#">Скачать брошюру</a>
+          </div>
+          <div class="grid">
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №1</div>
+                <h3>Северный благородный</h3>
+                <p>Адаптированная под северный климат линия с высоким выходом пантов.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №2</div>
+                <h3>Алтайская селекция</h3>
+                <p>Крепкая конституция, повышенная регенерация, проверенные родословные.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accent-band">
+          <div class="eyebrow">Контроль качества</div>
+          <h2>Ветеринарный <em>надзор</em> на каждом этапе</h2>
+          <p>Полный цикл — от рождения до сертификации продукции. <a class="inline-link" href="#">Подробнее о протоколах →</a></p>
+          <div class="btns">
+            <a class="btn-outline-light" href="#">Связаться с зоотехником</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant B: Ultramarine -->
+    <div class="demo-theme theme-ultramarine">
+      <div class="label"><span class="dot"></span>Вариант B · Ultramarine <span class="hex">#1E3A6E</span></div>
+      <div class="mock">
+        <div class="calm">
+          <div class="eyebrow">Племенные линии</div>
+          <h2>Генетика и <em>племенная работа</em></h2>
+          <p>Племенное стадо формируется по строгим протоколам отбора. Каждая линия задокументирована, родословные хранятся в едином реестре.</p>
+          <div class="ctas">
+            <a class="btn-primary" href="#">Подробнее о программе</a>
+            <a class="btn-outline-dark" href="#">Скачать брошюру</a>
+          </div>
+          <div class="grid">
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №1</div>
+                <h3>Северный благородный</h3>
+                <p>Адаптированная под северный климат линия с высоким выходом пантов.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №2</div>
+                <h3>Алтайская селекция</h3>
+                <p>Крепкая конституция, повышенная регенерация, проверенные родословные.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accent-band">
+          <div class="eyebrow">Контроль качества</div>
+          <h2>Ветеринарный <em>надзор</em> на каждом этапе</h2>
+          <p>Полный цикл — от рождения до сертификации продукции. <a class="inline-link" href="#">Подробнее о протоколах →</a></p>
+          <div class="btns">
+            <a class="btn-outline-light" href="#">Связаться с зоотехником</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant C: Nordic Steel -->
+    <div class="demo-theme theme-nordic">
+      <div class="label"><span class="dot"></span>Вариант C · Nordic Steel <span class="hex">#1F3C57</span></div>
+      <div class="mock">
+        <div class="calm">
+          <div class="eyebrow">Племенные линии</div>
+          <h2>Генетика и <em>племенная работа</em></h2>
+          <p>Племенное стадо формируется по строгим протоколам отбора. Каждая линия задокументирована, родословные хранятся в едином реестре.</p>
+          <div class="ctas">
+            <a class="btn-primary" href="#">Подробнее о программе</a>
+            <a class="btn-outline-dark" href="#">Скачать брошюру</a>
+          </div>
+          <div class="grid">
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №1</div>
+                <h3>Северный благородный</h3>
+                <p>Адаптированная под северный климат линия с высоким выходом пантов.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+            <div class="card-feature">
+              <div class="media"></div>
+              <div class="cbody">
+                <div class="ceyebrow">Линия №2</div>
+                <h3>Алтайская селекция</h3>
+                <p>Крепкая конституция, повышенная регенерация, проверенные родословные.</p>
+                <a class="cta" href="#">Карточка линии</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accent-band">
+          <div class="eyebrow">Контроль качества</div>
+          <h2>Ветеринарный <em>надзор</em> на каждом этапе</h2>
+          <p>Полный цикл — от рождения до сертификации продукции. <a class="inline-link" href="#">Подробнее о протоколах →</a></p>
+          <div class="btns">
+            <a class="btn-outline-light" href="#">Связаться с зоотехником</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────── 5. Рекомендация ──────────── -->
+  <section id="recommendation">
+    <div class="sec-head">
+      <div class="eyebrow">Шаг 5 · рекомендация</div>
+      <h2>Что бы выбрал <em>я</em></h2>
+      <p>Все три варианта рабочие. Разница — в характере.</p>
+    </div>
+
+    <div class="reco">
+      <h3>Мой выбор — Nordic Steel (#1F3C57)</h3>
+      <p>
+        Клиент назвал ориентир «ультрамарин» — это вариант B. Но прямой ультрамарин звучит ярче, чем регистр бренда «премиум-север / wellness / пантовая медицина». Он скорее «морской», чем «северный».
+      </p>
+      <p>
+        <b>Nordic Steel</b> — это компромисс: он читается как синий (а не как сине-серый и не как зелёный), но сохраняет ту же сдержанность, что у текущего forest teal. С золотом #D0B18A и серифом он работает в регистре редакторского журнала, а не корпоративного сайта.
+      </p>
+      <p>
+        Если клиент скажет «нет, я хотел именно ультрамарин» — берём вариант B. Midnight (A) — запасной, если клиент захочет «ещё темнее, ещё спокойнее».
+      </p>
+      <ul>
+        <li><b>A · Midnight Navy</b> — самый безопасный, минимум визуального шока, риск — «недостаточно синий».</li>
+        <li><b>B · Ultramarine</b> — буквальное прочтение брифа клиента, риск — «слишком яхтенно».</li>
+        <li><b>C · Nordic Steel</b> — баланс, моя рекомендация. Северный, премиальный, не кричит.</li>
+      </ul>
+    </div>
+
+    <div class="token-diff">
+      <span class="cm">/* что меняется в src/index.css — один токен + парный border-dark */</span><br>
+      <br>
+      @theme {<br>
+      &nbsp;&nbsp;<span class="del">--color-primary:     #1B4344;</span><br>
+      &nbsp;&nbsp;<span class="add">--color-primary:     #1F3C57;</span> <span class="cm">/* Nordic Steel */</span><br>
+      <br>
+      &nbsp;&nbsp;<span class="del">--color-border-dark: #255556;</span> <span class="cm">/* greenish, парный к старому primary */</span><br>
+      &nbsp;&nbsp;<span class="add">--color-border-dark: #2A4A66;</span> <span class="cm">/* подсветлённый Nordic Steel */</span><br>
+      }<br>
+      <br>
+      <span class="cm">/* остальное (secondary / accent / bg-light / text-dark / text-light) — не трогаем */</span>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

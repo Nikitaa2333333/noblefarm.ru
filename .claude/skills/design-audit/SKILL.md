@@ -45,20 +45,36 @@ For each tab file, walk the checklist top to bottom and record every violation a
 - [ ] No `rounded-[24px]` outside `.card-accent`
 - [ ] No inline card-like `<div className="rounded-none p-8 border border-border-light">` — these should use a card class
 
-### E. Headings
+### E. Headings — strict scale
 - [ ] All `<h2>` use `.h-section` or `.h-section-light`
-- [ ] Italic accents use `<span className="h-section__accent">`
-- [ ] No `uppercase` or `all-caps` on headings or buttons
-- [ ] No semi-transparent gray (`text-gray-*`, `text-text-dark/50`) on body copy — minimum `/85`
+- [ ] All in-section sub-headings (`<h3>`, `<h4>`) use `.h-block` / `.h-block-light` or `.card-feature__title`. **Never** inline `font-serif text-Xxl font-bold text-X`.
+- [ ] Italic accents use `<span className="h-section__accent">`. **One per heading max.** No italic anywhere else.
+- [ ] No `text-accent` (gold) as the color of an entire heading. Gold is only italic-accent-word, eyebrow, stat-value, links.
+- [ ] No `text-primary` (green) as heading color on light bg. Headings on light → `text-text-dark`, on dark → `text-text-light`.
+- [ ] No `font-sans` on any heading. Every heading is `font-serif`.
+- [ ] No `uppercase` on headings, buttons, eyebrows, or footer column titles.
+- [ ] No `text-text-dark/X` (any opacity) on light bg. Solid color always. Opacity only allowed on light text over dark bg.
+- [ ] No raw `text-gray-*`.
+
+### E2. Body & labels — locked scale
+- [ ] Body paragraphs use `.body-lead` (18 px lead) or default `<p>` / `.body-sm` (16 px). **No `text-sm` or `text-xs` for body** — those are no longer valid as body sizes.
+- [ ] Small labels (eyebrows, meta-captions): `.label-eyebrow` (14 px gold) or `.label-meta` (14 px dark). No `text-xs` (12 px) anywhere.
+- [ ] Stat values use `.card-stat__value` (also for naked-number stacks). Caption under stat = `.label-meta` / `.card-stat__label`.
+- [ ] No `text-[10px]`, `text-[11px]`, `text-[12px]`, `text-[13px]` — anywhere.
+
+### E3. Letter-spacing & weight
+- [ ] No positive tracking anywhere: `tracking-wide`, `tracking-wider`, `tracking-widest` — all forbidden (eyebrows, meta, badges, footer columns, news meta).
+- [ ] Only `tracking-tight` (negative) on `.hero-title` / `.h-section` is allowed.
+- [ ] No `font-semibold` (600) on headings — headings are `font-medium` (h1/h2) or `font-bold` (h3/h4).
 
 ### F. Buttons
 - [ ] All buttons use `.btn-primary`, `.btn-primary-sm`, `.btn-outline-light`, `.btn-outline-dark`, or `.btn-link`
 - [ ] No `<button className="px-X py-X bg-Y rounded-[Z]">` inline construction
 
 ### G. Shadows & radii
-- [ ] No `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`
-- [ ] Only `.shadow-soft` / `.shadow-soft-lg` (or shadow inherited from card class)
-- [ ] No custom `rounded-[Npx]` other than the documented `[6px]`, `[24px]`
+- [ ] **One shadow only**: `.shadow-soft`. No `.shadow-soft-lg` (deprecated alias), no `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`, `shadow-none`.
+- [ ] Hover-feedback is `-translate-y-1`, not a stronger shadow.
+- [ ] No custom `rounded-[Npx]` other than the documented `[6px]`, `[24px]` (latter only in `.card-accent`).
 
 ### H. Motion (extra)
 - [ ] No `layoutId` morphs
@@ -85,16 +101,28 @@ For long files, scan in this order:
 4. Skim for the anti-pattern grep targets below
 
 ### Quick-grep helpers
-Use `Grep` for these inside the target file:
-- `bg-bg-light pt-`  → wrapper anti-pattern
-- `mb-16|mb-20`  → spacing-as-rhythm anti-pattern
-- `rounded-br-\[`  → asymmetric corner usage
-- `shadow-(xs|sm|md|lg|xl|2xl)`  → forbidden shadows
-- `initial=\{\{ opacity: 0 \}\}`  → flat fade (likely missing y)
-- `text-gray-`  → forbidden gray
-- `uppercase`  → forbidden caps
-- `#[0-9a-fA-F]{3,6}`  → hex literals in JSX
-- `rounded-\[`  → audit each radius
+Use `Grep` for these inside the target file(s). Each is a one-line check that catches a locked-rule violation:
+
+| Pattern | What it catches |
+|---|---|
+| `text-\[(10\|11\|12\|13)px\]` | Forbidden tiny font sizes (rule: minimum 14 px) |
+| `text-xs` | Forbidden 12 px size anywhere (rule: minimum 14 px) |
+| `tracking-(wide\|wider\|widest)` | Forbidden positive letter-spacing (rule: no разрядка) |
+| `shadow-(soft-lg\|xs\|sm\|md\|lg\|xl\|2xl)` | Forbidden shadows (rule: only `.shadow-soft`) |
+| `uppercase` | Forbidden case (rule: natural case always) |
+| `text-accent.*font-bold.*text-(xl\|2xl\|3xl)` | Likely a heading colored gold (forbidden) |
+| `text-primary.*font-bold.*text-(lg\|xl\|2xl)` | Likely a heading colored green on light bg (forbidden) |
+| `font-sans.*text-(lg\|xl).*font-bold` | Sans-serif heading (forbidden — headings are serif) |
+| `italic` (outside `h-section__accent`) | Italic outside the one allowed pattern |
+| `text-text-dark/\d` | Opacity on dark text over light bg (forbidden) |
+| `text-gray-` | Forbidden gray |
+| `#[0-9a-fA-F]{3,6}` | Hex literal in JSX |
+| `bg-bg-light pt-` | Calculator-wrapper anti-pattern |
+| `mb-16\|mb-20` | Spacing-as-rhythm anti-pattern |
+| `rounded-br-\[` | Asymmetric corner usage |
+| `initial=\{\{ opacity: 0 \}\}` | Flat fade (missing y) |
+| `w-(5\|7\|8) h-(5\|7\|8).*lucide\|<(Check\|X\|ArrowRight)` | Lucide icon in non-standard size (should be `w-6 h-6` in lists) |
+| `text-red-\|#B43F3F` | Red color (forbidden — palette is 4 colors) |
 
 ## Output format
 

@@ -121,7 +121,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   ? '基于来源、良种血统和系统性选育，构建优质欧洲红鹿种群。'
                   : 'Formation of a high-quality breeding herd of European Red Deer based on pedigree, breeding lines, and systematic selection.'}
             </p>
-            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-primary font-bold text-xs sm:text-sm pt-5">
+            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-primary font-bold text-sm pt-5">
               <span>{isRU ? 'Племенные линии' : isCN ? '优良血统' : 'Breeding Lines'}</span>
               <span className="text-primary/40">•</span>
               <span>{isRU ? 'Родословные' : isCN ? '系谱记录' : 'Pedigrees'}</span>
@@ -147,22 +147,22 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                 {isRU ? 'генетика имеет значение' : isCN ? '遗传基因如此重要' : 'genetics matters'}
               </span>
             </h2>
-            <div className="text-text-light text-base sm:text-lg leading-relaxed flex flex-col gap-4 font-medium">
-              <p>
+            <div className="flex flex-col gap-4">
+              <p className="body-lead-light">
                 {isRU
                   ? 'Качество стада формируется годами и напрямую зависит от происхождения животных, племенных линий и подхода к отбору.'
                   : isCN
                     ? '群体的品质非一日之功，而是直接取决于动物的来源、优良血统以及系统科学的选育方法。'
                     : 'Herd quality is shaped over years and directly depends on the animal origin, breeding lines, and the systematic approach to selection.'}
               </p>
-              <p>
+              <p className="body-lead-light">
                 {isRU
                   ? 'В формировании нашего стада используются сильные племенные линии благородных европейских оленей (Англия) Woburn Farm, Warnham Farm, оказавшие влияние на развитие современного оленеводства.'
                   : isCN
                     ? '在构建我们农场群体时, 引进了英国著名牧场 Woburn Farm 和 Warnham Farm 的强壮欧洲红鹿血统, 这对现代世界驯鹿业的发展起到了关键作用。'
                     : 'In forming our herd, we utilize strong breeding lines of European Red Deer from England (Woburn Farm, Warnham Farm), which have influenced the development of modern deer farming.'}
               </p>
-              <p>
+              <p className="body-lead-light">
                 {isRU
                   ? 'Благородный европейский олень считается одним из наиболее перспективных видов для развития пантового направления благодаря качеству, структуре и потенциалу роста рогов.'
                   : isCN
@@ -172,11 +172,11 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-12">
-            <h3 className="font-serif text-2xl sm:text-3xl font-medium text-accent leading-tight">
+          <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-12 lg:pt-3">
+            <h3 className="h-block-light">
               {isRU ? 'Контроль качества стада' : isCN ? '种群质量控制' : 'Herd Quality Control'}
             </h3>
-            <p className="text-text-light text-base sm:text-lg leading-relaxed font-medium">
+            <p className="body-lead-light">
               {isRU
                 ? 'Развитие качественного поголовья невозможно без постоянного контроля. Мы уделяем внимание ветеринарному сопровождению, условиям содержания, мониторингу состояния животных и долгосрочному развитию стада.'
                 : isCN
@@ -291,17 +291,17 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   {subTab === 0 && (
                     <>
                       <div className="max-w-3xl flex flex-col gap-4">
-                        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-text-dark leading-tight">
+                        <h3 className="h-block">
                           {isRU ? 'Родословные и происхождение стада' : isCN ? '种群系谱与非凡来源' : 'Pedigrees & Origin of the Herd'}
                         </h3>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Каждое животное в хозяйстве имеет документированное происхождение. Вместе с животными были переданы родословные, позволяющие проследить линии происхождения, ключевых предков и особенности племенного потенциала.'
                             : isCN
                               ? '我们农场的每一只红鹿都拥有清晰记录的文件来源。这些正式系谱证明可追溯其血统源流、核心先祖特征及巨大的种质改良潜力。'
                               : 'Every animal on the farm has a documented origin. Along with the animals, official pedigrees were transferred, allowing us to trace lineage lines, key ancestors, and breeding potential features.'}
                         </p>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Для части животных доступны фотографии наиболее выдающихся представителей линий, что позволяет оценивать развитие породных качеств и перспективы дальнейшей селекционной работы.'
                             : isCN
@@ -319,7 +319,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                             <div className="card-feature__body">
                               <span className="card-feature__eyebrow">{deer.line}</span>
                               <h4 className="card-feature__title">{deer.name}</h4>
-                              <div className="text-xs font-bold text-secondary bg-accent px-3 py-1.5 rounded-[6px] w-fit">
+                              <div className="text-sm font-bold text-secondary bg-accent px-3 py-1.5 rounded-[6px] w-fit">
                                 {isRU ? 'Родословная: ' : isCN ? '系谱编号: ' : 'Pedigree ID: '}{deer.pedigree}
                               </div>
                               <p className="card-feature__desc">
@@ -336,24 +336,24 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   {subTab === 1 && (
                     <>
                       <div className="max-w-3xl flex flex-col gap-4">
-                        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-text-dark leading-tight">
+                        <h3 className="h-block">
                           {isRU ? 'Трофейный тип и качество рогов' : isCN ? '展示品级与精美鹿角' : 'Trophy Type & Antler Quality'}
                         </h3>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Наше стадо формируется на основе животных трофейного типа — направления, где особое внимание уделяется качеству, симметрии и развитию рогов.'
                             : isCN
                               ? '我们致力于培育展示品级（Trophy Type）的红鹿群体，在这一繁育方向上，鹿角的高品质、对称美和多向分叉是最核心的衡量标准。'
                               : 'Our herd is formed based on trophy-type animals — a direction where special attention is paid to the quality, symmetry, and development of antlers.'}
                         </p>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Для благородного европейского оленя высоко ценятся мощные, гармонично развитые рога с правильной архитектурой и равномерными отростками. Такие характеристики являются важным показателем качества линий и многолетней племенной работы.'
                             : isCN
                               ? '对于欧洲红鹿，强壮、对称美观且结构完整的鹿角具有极高价值。这些特质是优秀品系和长期繁育选择的重要体现。'
                               : 'For European Red Deer, powerful, harmoniously developed antlers with correct architecture and even tines are highly valued. These characteristics are key indicators of line quality and years of breeding work.'}
                         </p>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Именно развитие качественных рогов также напрямую связано с потенциалом пантового направления, поскольку сильная генетика и качество животных отражаются на развитии пантов.'
                             : isCN
@@ -367,10 +367,10 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                           <div key={i} className="card-flat flex flex-col justify-between min-h-[220px]">
                             <div>
                               <Award className="w-7 h-7 text-primary mb-5" strokeWidth={1.5} />
-                              <h4 className="font-serif text-xl font-bold text-text-dark mb-2 leading-tight">{spec.title}</h4>
+                              <h4 className="h-block mb-2">{spec.title}</h4>
                               <p className="text-sm font-medium text-text-dark leading-relaxed">{spec.desc}</p>
                             </div>
-                            <div className="mt-5 text-secondary font-bold text-xs bg-accent px-3 py-1.5 rounded-[6px] w-fit">
+                            <div className="mt-5 text-secondary font-bold text-sm bg-accent px-3 py-1.5 rounded-[6px] w-fit">
                               {spec.stat}
                             </div>
                           </div>
@@ -383,17 +383,17 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   {subTab === 2 && (
                     <>
                       <div className="max-w-3xl flex flex-col gap-4">
-                        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-text-dark leading-tight">
+                        <h3 className="h-block">
                           {isRU ? 'Как формируется стадо' : isCN ? '优质种群培育体系' : 'How the Herd is Formed'}
                         </h3>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Племенная работа — это долгосрочный процесс, где каждое решение влияет на развитие будущих поколений животных.'
                             : isCN
                               ? '选育配种工作是一项长期复杂的工程，每一次繁育配种的选择，都将深刻影响并决定下一代红鹿的质量。'
                               : 'Breeding work is a long-term process where each selection decision directly affects the development of future animal generations.'}
                         </p>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'При формировании стада учитываются происхождение, характеристики родительских линий, состояние здоровья, экстерьер, развитие рогов, показатели веса и общее качество животных.'
                             : isCN
@@ -412,7 +412,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                             transition={{ duration: 0.15 }}
                             className="flex flex-col gap-3"
                           >
-                            <h4 className="font-serif text-xl sm:text-2xl font-bold text-text-dark leading-tight">
+                            <h4 className="h-block">
                               {selectedCriteria.title[lang as 'RU' | 'CN'] || selectedCriteria.title.RU}
                             </h4>
                             <p className="text-text-dark text-base font-medium leading-relaxed border-l-2 border-accent pl-4">
@@ -428,10 +428,10 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                   {subTab === 3 && (
                     <>
                       <div className="max-w-3xl flex flex-col gap-4">
-                        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-text-dark leading-tight">
+                        <h3 className="h-block">
                           {isRU ? 'Племенные линии стада' : isCN ? '红鹿的传奇家族血统' : 'Breeding Lines of the Herd'}
                         </h3>
-                        <p className="text-text-dark text-base sm:text-lg leading-relaxed font-medium">
+                        <p className="body-lead">
                           {isRU
                             ? 'Для благородного европейского оленя особенно важны породные характеристики, здоровье, развитие рогов и потенциал животного. Именно генетическая база во многом определяет качество будущего стада и перспективы пантового направления.'
                             : isCN

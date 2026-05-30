@@ -123,18 +123,92 @@ The palette has three colors. They divide responsibility between home and inner 
 - On inner pages, never use `bg-accent` (gold fill) on large surfaces (sections, full cards, big tags). Reserve gold for: italic accent in `<span className="h-section__accent">`, `.card-feature__eyebrow`, small stat pills, link hover states.
 - The predominant section background on inner pages is `.section-calm` (white), which provides elegant, spacious breathing room. Do **not** alternate backgrounds mechanically (white, green, white, green). Instead, color sections based on their **semantic meaning**—green (`.section-accent`) is reserved **rarely** and **strategically** for high-impact accents (like key summaries or final CTAs). White (`.section-calm`) sections are fully allowed to be consecutive. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic statements.
 
-### Typography
-- **Headings**: `font-serif` → Century Schoolbook (with fallbacks). `font-medium` (500) for hero/h1/h2. `font-bold` (700) for card titles and h3/h4.
-- **Body**: `font-sans` → Manrope. `font-medium` (500) default. `font-semibold` (600) for emphasis. `font-bold` (700) for stat labels.
-- **Italic accent**: one word per heading max, wrapped in `<span className="h-section__accent">`.
-- **NEVER** `uppercase` outside very rare logo treatments.
-- **NEVER** semi-transparent text on light backgrounds. Body text on white/cream surfaces is **always solid `text-text-dark`** — no `/85`, no `/70`, no opacity. Opacity-faded dark text reads as washed-out on white; the brand tolerates it nowhere.
-- On dark surfaces, light text **may** use opacity for elegance (`text-text-light/85` etc.). Just never on light bg.
-- **NEVER** raw `text-gray-*` anywhere.
-- **Minimum body text size is `text-sm` (14px).** Tailwind `text-xs` (12px) is allowed ONLY as a decorative **eyebrow** label above a heading (e.g. `.card-feature__eyebrow`, `.hero-eyebrow`). Raw arbitrary pixel sizes below 14px — `text-[10px]`, `text-[11px]`, `text-[13px]`, etc. — are **forbidden everywhere, no exceptions**. The brand has no fine-print: captions, disclaimers, footnotes, legal copy, hover hints, badge text, footer copy, pill text — all `text-sm` minimum. If something is important enough to display, it is important enough to read at 14px. Micro-type is the "calculator/dashboard fine-print" tell and an accessibility failure.
+### Typography — the locked scale
+
+> Visual reference: `docs/typography.html`. Open it in a browser — that document is the single source of truth for every text element on the site.
+
+**Every text element belongs to one of these utilities. Inline ad-hoc combinations (`font-serif text-Xxl font-bold text-X`) are forbidden.**
+
+#### Headings — 5 utilities
+
+| Class | Spec | Where |
+|---|---|---|
+| `.hero-title` / `.hero-title-light` | serif, 40 → 80 px, medium (500), `tracking-tight`, `leading-[0.9]` | H1 in `.hero-side-image`. |
+| `.h-section` / `.h-section-light` | serif, 30 → 64 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener. One italic gold word via `<span className="h-section__accent">`. |
+| `.h-block` / `.h-block-light` | serif, 20 → 24 px, bold (700), leading tight, `text-text-dark` | H3 — subsection title (e.g. "Где применяется", "Что изучается"). **Always serif, always dark.** Never gold, never green, never sans-serif. |
+| `.card-feature__title` | serif, 20 → 24 px, bold (700), `text-text-dark` | Card title inside `.card-feature`. Same visual weight as `.h-block`. |
+| `.card-stat__value` | serif, 30 → 48 px, semibold (600), leading-none, `text-accent` | Big number. Use also for **naked-number stacks**. |
+
+#### Body — exactly 2 sizes
+
+| Class | Spec | Where |
+|---|---|---|
+| `.body-lead` | 16 → 18 px, medium (500), leading-relaxed (1.6), `text-text-dark` | Lead paragraph under hero / section opener. |
+| `.body-sm` | 16 px, medium (500), leading-snug (~1.3), `text-text-dark` | Compact descriptions, card descs, list items, captions. |
+| default `<p>` | 16 px, medium (500) — inherits from `<body>` | Regular paragraph. |
+
+**14 px and below as a body level — does not exist.** No `.body-xs`. No `text-sm` paragraphs.
+
+#### Small labels — exactly 2
+
+| Class | Spec | Where |
+|---|---|---|
+| `.label-eyebrow` (canonical) — aliases: `.hero-eyebrow`, `.card-feature__eyebrow` | 14 px, bold (700), **no tracking**, `text-accent` (gold) | Gold label above any heading. The only 14 px label colored gold. |
+| `.label-meta` (canonical) — alias: `.card-stat__label` | 14 px, bold (700), **no tracking**, `text-text-dark` | Dark caption under `.card-stat__value`. |
+
+#### Inline accents — only 2 forms
+
+| What | How |
+|---|---|
+| Italic accent word in heading | `<span className="h-section__accent">` (italic + gold). **One per heading max.** Only inside `.hero-title` / `.h-section`. |
+| Bold lead-in inside a list/paragraph ("Спорт и высокие нагрузки:") | `<strong>` or `font-bold` — same size and color as wrapping text. |
+
+#### Locked typographic bans
+
+1. **Italic outside `.h-section__accent`** — forbidden. Quotes, disclaimers, captions, footnotes → plain body utility.
+2. **`text-accent` as the color of an entire heading** — forbidden. Gold = italic accent word, eyebrow, stat value, links/CTAs only.
+3. **`text-primary` as heading color** on white background — forbidden. Headings on light bg are always `text-text-dark`; on dark bg `text-text-light`.
+4. **`font-sans` on any heading** — forbidden. Every heading is `font-serif`.
+5. **Any `text-[Npx]` below 14 px** — forbidden (`text-[10px]`, `text-[11px]`, `text-[13px]`).
+6. **`text-xs` (12 px) anywhere** — forbidden. No exception for eyebrows: eyebrows are 14 px (`.label-eyebrow`).
+7. **Positive letter-spacing** (`tracking-wide`, `tracking-wider`, `tracking-widest`) — forbidden everywhere. Eyebrows, meta-labels, badges, footer column titles — no разрядка. Allowed only: negative `tracking-tight` on big serif headlines (`.hero-title`, `.h-section`).
+8. **Arbitrary hero sizes** (`lg:text-7xl`, `lg:text-[5.5rem]`) — forbidden. Hero is exactly `.hero-title`.
+9. **Opacity on `text-text-dark` over light bg** (`/85`, `/70`, etc.) — forbidden. Solid color always. Opacity allowed only on light text over dark bg.
+10. **`uppercase` on headings, buttons, eyebrows, footer column titles** — forbidden. Natural case everywhere.
+11. **Raw `text-gray-*`** — forbidden anywhere.
+
+#### Workflow
+
+When writing or refactoring text in a `.tsx` file, the only correct markup is one of the utilities above. If you reach for `font-serif text-Xxl font-bold text-X` inline — you're making a mistake. Pick the right utility. If nothing fits, stop and ask before inventing.
+
+### Section header block — locked vertical rhythm
+
+Every (eyebrow + H2 + lead paragraph[s]) group MUST be wrapped in `.section-header`. The class is defined in `src/index.css` as `flex flex-col gap-6` — that is the **only** legal vertical rhythm between an eyebrow, an H2, and the lead paragraph(s) below it.
+
+```tsx
+<div className="max-w-3xl section-header">
+  <span className="card-feature__eyebrow">Eyebrow</span>
+  <h2 className="h-section">
+    Title with <span className="h-section__accent">accent</span>
+  </h2>
+  <p className="body-lead">First lead paragraph.</p>
+  <p className="body-lead">Second lead paragraph.</p>
+</div>
+```
+
+Locked bans:
+- **No `mt-*` / `mb-*` on any child** inside `.section-header` (`h2 mt-4 mb-6`, `p mt-4`, `p mt-2` — all forbidden). The `gap-6` is the rhythm.
+- **No alternative gap values** (`gap-2`, `gap-3`, `gap-4`, `gap-8`, `gap-10`) on this block. If `gap-6` feels wrong, the content is wrong — not the gap.
+- **No splitting** an H2 and its lead paragraph into two sibling `<div>`s with `mb-10` between them. The H2 + lead belong to one block.
+- The wrapper itself MAY take an outer margin (e.g. `mb-10`) when the next block is a grid of cards — the outer margin separates the header from the grid, not the H2 from its lead.
+
+### Two-column blocks — x-height alignment
+When a section uses a 2-column grid (`lg:grid-cols-12` with two `lg:col-span-6`) and **left** column is led by `.h-section` / `.hero-title` while **right** column is led by `.h-block` / smaller heading or list — the right column gets `lg:pt-3` (12 px top padding) so the **x-height** (top of lowercase letters) of the right heading aligns with the **x-height** of the left H2. Cap-top alignment looks broken because the H2 is much larger and its lowercase letters sit visually below the smaller heading's cap-top.
+
+Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`, not `text-primary` (the green is reserved for emphasis surfaces, not for tick icons next to body text). On dark sections the tick uses `text-accent`.
 
 ### Spacing rhythm
-- Section vertical: `py-16 md:py-24` (built into `.section-*` classes).
+- Section vertical: `py-8 md:py-12` (built into `.section-*` classes) — 32 px mobile, 48 px desktop. Two adjacent sections separate by 64 / 96 px total. **Не использовать `py-12` / `py-16` / `py-24`** на секциях — это раздувает вертикальный ритм и страница «расползается».
 - Container: `max-w-[1400px] mx-auto px-6` (built into `.section-inner`).
 - Gap between elements inside a block: `gap-3` (tight), `gap-6` (default), `gap-10 lg:gap-20` (between grid columns).
 - Card padding: `p-7 md:p-8` (built into card classes).
@@ -144,10 +218,11 @@ The palette has three colors. They divide responsibility between home and inner 
 - **Buttons / inputs / tags**: `rounded-[6px]` (built into `.btn-*`).
 - **Rare accent**: `rounded-[24px]` — ONLY for home-page Directions cards via `.card-accent`. Never used on inner pages.
 
-### Shadows
-- **Default for cards**: `.shadow-soft` (always, on every card).
-- **Hover / emphasis**: `.shadow-soft-lg`.
-- **NEVER** use `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`, `shadow-none` (except when explicitly cancelling).
+### Shadows — one shadow only
+- **One shadow on the whole site**: `.shadow-soft`. At rest and on hover — the same.
+- Hover-feedback is delivered through **motion** (`-translate-y-1`), never through shadow intensification.
+- `.shadow-soft-lg` is now an alias of `.shadow-soft` (same definition) — kept for migration safety only. New code uses `.shadow-soft`.
+- **NEVER** use `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`, `shadow-none`.
 
 ### Borders and divider lines — none. Period.
 - **No borders on any surface element** — cards, plates, photo frames, info tiles.
@@ -250,7 +325,7 @@ Concretely:
 - The **last section before the footer must be `.section-calm` (white)**. Going white → dark footer is a clean, intentional contrast.
 - Do **not** end a page on `.section-accent` (green) or `.section-cinematic` (dark) when this leaves a visible light gap before the footer. A green block followed immediately by a dark footer with any cream/white sliver between them creates the "flag" anti-pattern shown in audits.
 - If the page semantically needs to end on an accent block (final CTA, key summary), restructure: put the accent earlier, then close with a calm white section (e.g. a quiet contact/anchor row, a quote, a wrap-up paragraph). The page should always "exhale" into white before the footer takes over.
-- Sections own their own `py-16 md:py-24` rhythm — never patch the gap by adding margins or empty divs. Fix it at the section level by choosing the correct closing background.
+- Sections own their own `py-8 md:py-12` rhythm — never patch the gap by adding margins or empty divs. Fix it at the section level by choosing the correct closing background.
 - The `<footer>` itself must sit **flush** against the preceding section. No `mt-*` / `mb-*` on the `<footer>` element, no trailing margin on the last section. Any vertical margin on the footer (or its previous sibling) exposes the body / `<main>` background as a light stripe between the section and the footer — the exact "flag" effect this rule exists to prevent. Inner footer breathing room comes from its own `pt-*` (e.g. `pt-14 pb-10`), never from outer margins.
 
 ---
@@ -317,17 +392,17 @@ A "plashka" is any card/tile wrapper that boxes content with background + shadow
 Pattern — vertical stack of stats on a `.section-calm`:
 
 ```tsx
-<div className="flex flex-col gap-10 lg:gap-12">
+<div className="flex flex-col gap-6">
   {stats.map((s, i) => (
     <div key={i} className="flex flex-col gap-2">
-      <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-accent leading-none">{s.value}</span>
-      <span className="text-sm font-medium text-text-dark">{s.label}</span>
+      <span className="card-stat__value">{s.value}</span>
+      <span className="label-meta">{s.label}</span>
     </div>
   ))}
 </div>
 ```
 
-Rhythm comes from **whitespace only** (`gap-10` to `gap-12` on the wrapping `flex flex-col`). No divider lines between siblings — see §4 "Borders and divider lines — none."
+Rhythm comes from **whitespace only** — outer `gap-6` (24 px) between stat groups, inner `gap-2` (8 px) between value and label. **Не использовать `gap-10` / `gap-12` между голыми числами** — это разрывает связь «число + подпись» с следующей группой, информация читается как набор разрозненных карточек. Группы должны прижиматься плотно: число → подпись → следующее число. Без divider-линий — см. §4 "Borders and divider lines — none."
 
 **When a plashka IS justified** — `.card-feature` (full content card with image), interactive contact tiles (mailto/tel — the box is the hit-target), `.card-flat` for grouped flat content with no image and multiple text lines. **When it is NOT** — a single number + caption, a single icon + label, a one-line quote.
 
@@ -409,7 +484,7 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | `<motion.div className="bg-bg-light pt-24 pb-20"><div className="max-w-[1400px]...">` wrapping the whole tab | The "calculator" — single bg, no rhythm | Replace with `motion.div` (skeleton) + alternating `<section>`s |
 | `mb-16` / `mb-20` between sibling blocks inside one bg | Visual separator without rhythm change | Make each block its own `<section className="section-*">` |
 | `rounded-none rounded-br-[80px]` on inner-page elements | Decorative motif reserved for home Directions | `rounded-none`, full stop |
-| `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl` | Inconsistent shadow weights | `.shadow-soft` or `.shadow-soft-lg` |
+| Any shadow other than `.shadow-soft` — including `.shadow-soft-lg`, `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`, `shadow-xl`, `shadow-none` | One shadow only. Hover-feedback comes from motion (`-translate-y-1`), not from shadow intensification | `.shadow-soft` (only). For existing `shadow-soft-lg` usages — collapse to `.shadow-soft`. |
 | `initial={{ opacity: 0 }} animate={{ opacity: 1 }}` (no `y`) | Flat fade, doesn't match etalon | `initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}` |
 | Custom hero — text + small thumb / text-only / asymmetric corner | Five different first impressions across pages | `.hero-side-image` |
 | `text-text-dark/XX` (any opacity) for body copy on light bg | Reads washed-out on white, breaks the "weight as a heading" reading flow | Always solid `text-text-dark`. Opacity allowed only on light text over dark bg. |
@@ -417,10 +492,15 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | `.card-flat` / `.card-stat` wrapping a single stat (big number + caption) | Plashka steals visual weight from the number — the number should be the figure, not the box | Naked number stack with `flex flex-col gap-10` whitespace rhythm — see §7 "Fewer plashki — naked numbers rule" |
 | `border-b border-border-light` / `border-t border-border-X` as a divider between list items, sections, nav items, footer rows, or under headings | The brand does not use divider lines — they're the "form / dashboard" tell. Lines split content; the design separates by whitespace and background-contrast instead | Remove the border. Use `flex flex-col gap-10` (or `gap-12`) on the parent. For section-to-section separation, rely on `py-16 md:py-24` rhythm + (when needed) a background change. See §4 "Borders and divider lines — none." |
 | Inline `text-gray-500` anywhere | Bypasses tokens, no contrast contract | Use brand tokens only |
-| `text-[10px]`, `text-[11px]`, `text-[13px]`, any arbitrary pixel size below 14px; `text-xs` used outside an eyebrow context | Illegible micro-type — accessibility failure and the "fine-print dashboard" tell. The brand does not use fine print | `text-sm` (14px) minimum for every visible string. `text-xs` allowed only on `.card-feature__eyebrow`-style eyebrow labels above headings |
-| Icon wrapped in a bordered/tinted plate (`<div className="w-9 h-9 bg-primary/5 border ...">`) | Two visual elements (icon + box) competing for attention | Use icon alone, size 7–8, `text-primary`, no wrapper |
-| `bg-bg-light` (now white) used as a chip/pill background on `bg-bg-card` cards | White-on-near-white, invisible | Use `bg-accent/15` (gold-tinted fill, **no border**) for info/stat pills. Inner text: `text-text-dark` for info, `text-accent` for value highlight. |
-| `uppercase` / `tracking-widest` on buttons or section headings | Destroys elegance | Natural case, `tracking-wider` only on small eyebrow labels |
+| `<h2 className="h-section mt-4 mb-6">` + `<p mt-4>` between an eyebrow, H2, and lead paragraph(s) — or wrapping them in separate `<div>`s with `mb-10` between them, or any `flex flex-col gap-X` with X ≠ 6 | Every section ends up with a different vertical rhythm between heading and body — the page reads as six different layouts stitched together | Wrap the (eyebrow + H2 + lead) group in a single `.section-header` div (defined in `index.css` as `flex flex-col gap-6`). No `mt-*`/`mb-*` on children. See §4 "Section header block — locked vertical rhythm" |
+| `text-[10px]`, `text-[11px]`, `text-[13px]`, `text-xs` — anywhere | Below 14 px is forbidden everywhere, no exceptions (eyebrow is 14 px via `.label-eyebrow`) | `text-sm` (14 px) or one of `.body-lead` / `.body-sm` (16 px). Eyebrow → `.label-eyebrow` |
+| Any positive letter-spacing: `tracking-wide`, `tracking-wider`, `tracking-widest` | No разрядка anywhere on the site. Eyebrows, meta-labels, footer columns, news meta — all without разрядка | Remove the class. Allowed only: `tracking-tight` (negative, sjatie) on `.hero-title` / `.h-section` |
+| Lucide icon in a text list sized other than `w-6 h-6` (i.e. `w-5`, `w-7`, `w-8`) | Inconsistent icon stacks; only one icon size in lists | `w-6 h-6` (24 px). Decorative single icons may be larger but not inside list rows |
+| Icon wrapped in a bordered/tinted plate (`<div className="w-9 h-9 bg-primary/5 border ...">`) | Two visual elements (icon + box) competing for attention | Use icon alone, `w-6 h-6`, `text-primary`, no wrapper |
+| Pro/con cross icon in red (`text-red-*`, `#B43F3F`, any red) | Introduces a 5th color, breaks 4-color palette | Use `text-text-dark/50` (neutral muted dark) for the cross. Tick stays `text-primary` |
+| Pill / chip variant other than `solid-gold` (`bg-accent text-secondary`) or `gold-tint` (`bg-accent/15 text-text-dark`) — e.g. `bg-accent/15 border`, `text-[10px] uppercase` mini-badges, `bg-bg-light` on white | Only two pill styles exist on light surfaces | `bg-accent text-secondary px-3 py-1.5 rounded-[6px]` (solid) OR `bg-accent/15 text-text-dark px-3 py-1.5 rounded-[6px]` (tint). On dark sections → inline tile `bg-secondary/40` |
+| `uppercase` on buttons, section headings, eyebrows, footer column titles | Destroys elegance, doesn't match brand register | Natural case everywhere |
+| Footer column titles styled `text-xs uppercase tracking-wider text-text-light/70` | Three violations in one (12 px, uppercase, tracking, opacity that reads as gray) | 14 px bold, natural case, no tracking, `text-text-light` (solid) |
 | Emojis as icons | Inconsistent with Lucide | Use `lucide-react` |
 | New `@keyframes` for scroll reveal | Out of the motion budget | Page-enter only |
 | Hard-coded color hex in JSX (`#1B4344`, `rgba(...)`) | Bypasses tokens | Use `bg-primary` / `text-text-dark` |
