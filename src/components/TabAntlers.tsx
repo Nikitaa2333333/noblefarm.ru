@@ -215,7 +215,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                     >
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-serif text-sm font-bold shrink-0 md:mb-4 transition-all duration-500 border ${
                         isActive
-                          ? 'bg-accent text-secondary border-accent scale-110 shadow-soft-lg'
+                          ? 'bg-accent text-secondary border-accent scale-110 shadow-soft'
                           : isCompleted
                             ? 'bg-accent/80 text-secondary border-accent'
                             : 'bg-bg-card border-border-light text-text-dark/50 group-hover:border-accent group-hover:text-accent/90'
@@ -249,7 +249,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 className="bg-bg-card p-6 rounded-[6px] shadow-soft max-w-3xl"
               >
                 <div className="flex-1">
-                  <span className="text-accent text-xs font-bold tracking-wider block mb-1">
+                  <span className="label-eyebrow block mb-1">
                     {isRU ? 'Текущая фаза развития' : isCN ? '当前生长阶段' : 'Active Growth Phase'}
                   </span>
                   <h4 className="font-serif text-xl md:text-2xl font-bold text-text-dark mb-2 leading-tight">
@@ -425,23 +425,21 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </p>
           </div>
 
-          {/* Horizontal scroll-snap carousel — naked numbers + titles, no plashki */}
-          <div className="overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4">
-            <div className="flex gap-10 md:gap-16">
-              {composition.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="snap-start shrink-0 w-[78%] sm:w-[44%] md:w-[28%] flex flex-col gap-4"
-                >
-                  <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
-                    {(idx + 1).toString().padStart(2, '0')}
-                  </span>
-                  <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
+          {/* Tight responsive grid — naked numbers + titles, no plashki */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-10 max-w-4xl">
+            {composition.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col gap-4"
+              >
+                <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
+                  {(idx + 1).toString().padStart(2, '0')}
+                </span>
+                <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
+                  {item}
+                </span>
+              </div>
+            ))}
           </div>
 
           <div className="mt-10">
