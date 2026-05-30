@@ -156,25 +156,29 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
         </div>
       </section>
 
-      {/* ─── Outlets Logos Section (Elegant White background, milky card-flat tiles) ─ */}
+      {/* ─── Outlets Logos Section ─── */}
       <section className="section-calm pt-0">
         <div className="section-inner">
           <h2 className="h-section mb-12 text-center">
             {isRU ? 'В партнёрстве с профессиональными изданиями' : isCN ? '与专业行业媒体紧密合作' : 'In Partnership with Professional Publications'}
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {outlets.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.url} 
-                target="_blank" 
+              <a
+                key={item.name}
+                href={item.url}
+                target="_blank"
                 rel="noopener noreferrer"
-                className="group card-flat flex flex-col items-center justify-between p-6 sm:p-8 aspect-square rounded-[6px]"
+                className="group flex flex-col items-center gap-6 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
-                <div className="w-full flex-1 flex items-center justify-center overflow-hidden rounded-[6px] bg-white p-4 border border-border-light/30">
-                  <img src={item.image} alt={item.name} className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                <div className="w-full aspect-square flex items-center justify-center p-8 md:p-10">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <span className="mt-4 text-text-dark group-hover:text-primary text-xs font-bold tracking-widest transition-colors duration-300">
+                <span className="text-sm font-medium text-text-dark text-center">
                   {isRU ? item.name : isCN ? item.nameCN : item.nameEN}
                 </span>
               </a>
