@@ -134,7 +134,8 @@ async function run() {
 
   } catch (err) {
     console.error('Error fetching VK posts:', err.message);
-    process.exit(1);
+    console.warn('WARNING: VK news fetch failed. Continuing deployment using existing/fallback news data.');
+    process.exit(0);
   }
 }
 
