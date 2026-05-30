@@ -425,21 +425,23 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </p>
           </div>
 
-          {/* Tight responsive grid — naked numbers + titles, no plashki */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-10 max-w-4xl">
-            {composition.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col gap-4"
-              >
-                <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
-                  {(idx + 1).toString().padStart(2, '0')}
-                </span>
-                <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
-                  {item}
-                </span>
-              </div>
-            ))}
+          {/* Horizontal scroll-snap carousel — naked numbers + titles, no plashki */}
+          <div className="overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4">
+            <div className="flex gap-6 md:gap-8 lg:gap-10">
+              {composition.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="snap-start shrink-0 w-[70%] sm:w-[35%] md:w-[22%] lg:w-[15%] flex flex-col gap-4"
+                >
+                  <span className="font-serif text-5xl md:text-6xl font-semibold text-accent leading-none">
+                    {(idx + 1).toString().padStart(2, '0')}
+                  </span>
+                  <span className="font-serif text-xl md:text-2xl font-bold text-text-dark leading-tight">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-10">
