@@ -5,15 +5,15 @@
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Century Schoolbook", "Century", "New Century Schoolbook", "Century Schoolbook L", Georgia, serif;
   
-  --color-primary: #1B4344;
-  --color-secondary: #071717;
+  --color-primary: #0F2A47;
+  --color-secondary: #06111E;
   --color-accent: #D0B18A;
   --color-bg-light: #FFFFFF;
   --color-bg-card: #FFFFFF;
-  --color-text-dark: #1A2828;
+  --color-text-dark: #1A2333;
   --color-text-light: #F2EEE6;
   --color-border-light: #DEDBD3;
-  --color-border-dark: #255556;
+  --color-border-dark: #1E3F5E;
 
   --animate-marquee: marquee 45s linear infinite;
 
@@ -364,11 +364,11 @@
 
 /* Premium feathered gradient overlay for the TabMain hero background slideshow. */
 .hero-gradient-overlay {
-  background: linear-gradient(to top, #071717 0%, #071717 55%, rgba(7, 23, 23, 0.8) 75%, rgba(7, 23, 23, 0) 100%);
+  background: linear-gradient(to top, #06111E 0%, #06111E 55%, rgba(6, 17, 30, 0.8) 75%, rgba(6, 17, 30, 0) 100%);
 }
 
 @media (min-width: 768px) {
   .hero-gradient-overlay {
-    background: linear-gradient(to right, #071717 0%, #071717 48%, rgba(7, 23, 23, 0) 100%) !important;
+    background: linear-gradient(to right, #06111E 0%, #06111E 48%, rgba(6, 17, 30, 0) 100%) !important;
   }
 }

@@ -59,14 +59,14 @@ All tokens live in `src/index.css` under `@theme`. Never hard-code colors, never
 ### Colors
 | Role | Hex | Tailwind | Usage |
 |---|---|---|---|
-| Primary | `#1B4344` | `bg-primary`, `text-primary` | deep forest teal — main brand color |
-| Secondary | `#071717` | `bg-secondary`, `text-secondary` | almost-black — hero, dark sections |
+| Primary | `#0F2A47` | `bg-primary`, `text-primary` | midnight navy — main brand color |
+| Secondary | `#06111E` | `bg-secondary`, `text-secondary` | almost-black — hero, dark sections |
 | Accent | `#D0B18A` | `bg-accent`, `text-accent` | matte gold — eyebrows, italic accents, hover |
 | BG Light | `#F2EEE6` | `bg-bg-light`, `text-text-light` | main body background, light text on dark |
 | BG Card | `#FFFFFF` | `bg-bg-card` | same as bg-light — cards & widget containers differentiate via shadow, not bg-color |
-| Text Dark | `#1A2828` | `text-text-dark` | body text on light bg |
+| Text Dark | `#1A2333` | `text-text-dark` | body text on light bg |
 | Border Light | `#DEDBD3` | `border-border-light` | dividers on light bg |
-| Border Dark | `#255556` | `border-border-dark` | dividers on dark bg |
+| Border Dark | `#1E3F5E` | `border-border-dark` | dividers on dark bg |
 
 ### Brand palette: 3 main + 1 accent
 
@@ -75,23 +75,23 @@ The brand has **exactly four** colors. Everything else (text-text-light, border-
 | # | Role | Hex | Token | Used for |
 |---|---|---|---|---|
 | 1 | **WHITE** | `#FFFFFF` | `bg-bg-light`, `bg-bg-card`, `text-text-light` | every light surface — sections, cards, widgets, text on dark bg |
-| 2 | **GREEN** | `#1B4344` | `bg-primary`, `text-primary` | brand — accent sections, primary buttons, active states, hover targets |
-| 3 | **DARK** | `#071717` | `bg-secondary`, `text-secondary`, ≈`text-text-dark` (#1A2828, teal-graphite) | body text, cinematic sections, anchor tile bg on dark sections |
+| 2 | **NAVY** | `#0F2A47` | `bg-primary`, `text-primary` | brand — accent sections, primary buttons, active states, hover targets |
+| 3 | **DARK** | `#06111E` | `bg-secondary`, `text-secondary`, ≈`text-text-dark` (#1A2333, navy-graphite) | body text, cinematic sections, anchor tile bg on dark sections |
 | 4 | **GOLD** | `#D0B18A` | `bg-accent`, `text-accent` | accent ONLY — italic word in headings, eyebrows, gold pills, hover hint |
 
-Border tokens (`border-border-light` #DEDBD3, `border-border-dark` #255556) are utility shades for **dividers between siblings** — they're not part of the brand palette. They never wrap a surface.
+Border tokens (`border-border-light` #DEDBD3, `border-border-dark` #1E3F5E) are utility shades for **dividers between siblings** — they're not part of the brand palette. They never wrap a surface.
 
 ### Color combinations cheat sheet
 
 On **WHITE surface** (most inner content):
 - Body text & headings: solid DARK (`text-text-dark`)
-- Primary button: GREEN fill, WHITE text → on hover: GOLD fill, DARK text
+- Primary button: NAVY fill, WHITE text → on hover: GOLD fill, DARK text
 - Italic accent in heading: GOLD (`h-section__accent`)
 - Card eyebrow: GOLD (`card-feature__eyebrow`)
 - Pills (pedigree/stat): full **GOLD fill** + DARK text — `bg-accent text-secondary px-3 py-1.5 rounded-[6px]`
 - Card surface: same WHITE as section — differentiated by `.shadow-soft` only
 
-On **GREEN surface** (`.section-accent`):
+On **NAVY surface** (`.section-accent`):
 - Body text & headings: solid WHITE (`text-text-light`)
 - Italic accent in heading: GOLD
 - Inline tile bg (for info plates like "Ветеринарный контроль"): `bg-secondary/40` (no border)
@@ -114,14 +114,14 @@ The palette has three colors. They divide responsibility between home and inner 
 
 | Page | Dominant | Secondary | Accent (rare) |
 |---|---|---|---|
-| `TabMain` (Главная) | **Gold** (`accent` #D0B18A) + dark (`secondary` #071717) — cinematic, brand-led | green (`primary`) | light bg |
-| All inner tabs | **Light bg** (`bg-light` #F2EEE6) + **green** (`primary` #1B4344) | dark (`secondary`) for heroes | **gold (`accent`) — small only**: italic word in headings, eyebrows, stat pills, link hover |
+| `TabMain` (Главная) | **Gold** (`accent` #D0B18A) + dark (`secondary` #06111E) — cinematic, brand-led | navy (`primary`) | light bg |
+| All inner tabs | **Light bg** (`bg-light` #F2EEE6) + **navy** (`primary` #0F2A47) | dark (`secondary`) for heroes | **gold (`accent`) — small only**: italic word in headings, eyebrows, stat pills, link hover |
 
-**Why this split**: the home page is the brand statement — gold is the signature and is allowed to dominate. Inner pages are content surfaces — they breathe with white and green, and gold appears as a small accent that catches the eye, never as a block color.
+**Why this split**: the home page is the brand statement — gold is the signature and is allowed to dominate. Inner pages are content surfaces — they breathe with white and navy, and gold appears as a small accent that catches the eye, never as a block color.
 
 **How to apply**:
 - On inner pages, never use `bg-accent` (gold fill) on large surfaces (sections, full cards, big tags). Reserve gold for: italic accent in `<span className="h-section__accent">`, `.card-feature__eyebrow`, small stat pills, link hover states.
-- The predominant section background on inner pages is `.section-calm` (white), which provides elegant, spacious breathing room. Do **not** alternate backgrounds mechanically (white, green, white, green). Instead, color sections based on their **semantic meaning**—green (`.section-accent`) is reserved **rarely** and **strategically** for high-impact accents (like key summaries or final CTAs). White (`.section-calm`) sections are fully allowed to be consecutive. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic statements.
+- The predominant section background on inner pages is `.section-calm` (white), which provides elegant, spacious breathing room. Do **not** alternate backgrounds mechanically (white, navy, white, navy). Instead, color sections based on their **semantic meaning**—navy (`.section-accent`) is reserved **rarely** and **strategically** for high-impact accents (like key summaries or final CTAs). White (`.section-calm`) sections are fully allowed to be consecutive. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic statements.
 
 ### Typography — the locked scale
 
@@ -135,7 +135,7 @@ The palette has three colors. They divide responsibility between home and inner 
 |---|---|---|
 | `.hero-title` / `.hero-title-light` | serif, 40 → 80 px, medium (500), `tracking-tight`, `leading-[0.9]` | H1 in `.hero-side-image`. |
 | `.h-section` / `.h-section-light` | serif, 30 → 64 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener. One italic gold word via `<span className="h-section__accent">`. |
-| `.h-block` / `.h-block-light` | serif, 20 → 24 px, bold (700), leading tight, `text-text-dark` | H3 — subsection title (e.g. "Где применяется", "Что изучается"). **Always serif, always dark.** Never gold, never green, never sans-serif. |
+| `.h-block` / `.h-block-light` | serif, 20 → 24 px, bold (700), leading tight, `text-text-dark` | H3 — subsection title (e.g. "Где применяется", "Что изучается"). **Always serif, always dark.** Never gold, never navy, never sans-serif. |
 | `.card-feature__title` | serif, 20 → 24 px, bold (700), `text-text-dark` | Card title inside `.card-feature`. Same visual weight as `.h-block`. |
 | `.card-stat__value` | serif, 30 → 48 px, semibold (600), leading-none, `text-accent` | Big number. Use also for **naked-number stacks**. |
 
@@ -205,7 +205,7 @@ Locked bans:
 ### Two-column blocks — x-height alignment
 When a section uses a 2-column grid (`lg:grid-cols-12` with two `lg:col-span-6`) and **left** column is led by `.h-section` / `.hero-title` while **right** column is led by `.h-block` / smaller heading or list — the right column gets `lg:pt-3` (12 px top padding) so the **x-height** (top of lowercase letters) of the right heading aligns with the **x-height** of the left H2. Cap-top alignment looks broken because the H2 is much larger and its lowercase letters sit visually below the smaller heading's cap-top.
 
-Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`, not `text-primary` (the green is reserved for emphasis surfaces, not for tick icons next to body text). On dark sections the tick uses `text-accent`.
+Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`, not `text-primary` (the navy is reserved for emphasis surfaces, not for tick icons next to body text). On dark sections the tick uses `text-accent`.
 
 ### Spacing rhythm
 - Section vertical: `py-8 md:py-12` (built into `.section-*` classes) — 32 px mobile, 48 px desktop. Two adjacent sections separate by 64 / 96 px total. **Не использовать `py-12` / `py-16` / `py-24`** на секциях — это раздувает вертикальный ритм и страница «расползается».
@@ -227,7 +227,7 @@ Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`
 ### Borders and divider lines — none. Period.
 - **No borders on any surface element** — cards, plates, photo frames, info tiles.
   - On **light surfaces** (white section, milky containers) — definition via `.shadow-soft` only.
-  - On **dark surfaces** (`.section-accent` green, `.section-cinematic` near-black) — definition via a slightly darker bg-fill (e.g. `bg-secondary/40` on a green section). Shadows don't read on dark; bg-contrast does.
+  - On **dark surfaces** (`.section-accent` navy, `.section-cinematic` near-black) — definition via a slightly darker bg-fill (e.g. `bg-secondary/40` on a navy section). Shadows don't read on dark; bg-contrast does.
 - **No divider lines anywhere** — not between list items, not between sections, not under headings, not in footers, not in nav menus. The brand does not use lines as separators. Rhythm comes from **whitespace** (`gap-8`, `gap-10`, `gap-12`, `py-16`, `mt-8`, etc.) and from background-contrast between sections.
 - `border-b border-border-light` between sibling list items is **forbidden**. Use `flex flex-col gap-10` (or `gap-12`) instead.
 - `border-t border-border-dark` between sections is **forbidden**. Sections separate themselves by `py-*` rhythm and (when needed) a background-color change.
@@ -244,10 +244,10 @@ When you have a *container that groups interactive controls* (sticky sub-tab men
 Surface hierarchy inside such a container:
 - **outer container surface**: `bg-bg-card` (#FAFAF8 milky cream) + `shadow-soft` — distinguished from the white section by warmth + drop shadow
 - **inactive buttons inside**: `bg-transparent` — let the cream show through
-- **active button**: `bg-primary` (100% green) + `text-text-light` — strong contrast against milky
+- **active button**: `bg-primary` (100% navy) + `text-text-light` — strong contrast against milky
 - **content-display panel inside** (e.g. selector preview): `bg-bg-light` (pure white) — pops as a "fresh page" surface against the milky outer
 
-Why no green tint here: green is reserved for **emphasis** (active button, accent sections), not for ambient surface tinting. Container surfaces stay neutral (cream); brand color is earned by interactive state.
+Why no navy tint here: navy is reserved for **emphasis** (active button, accent sections), not for ambient surface tinting. Container surfaces stay neutral (cream); brand color is earned by interactive state.
 
 ---
 
@@ -308,7 +308,7 @@ There are only **three** section backgrounds — named by mood, not by color:
 | Class | Mood | Color | Use |
 |---|---|---|---|
 | `.section-calm` | spacious, readable | white (`bg-light`) | default for most content |
-| `.section-accent` | expressive, brand-led | green (`primary`) | emphasis, breaks the rhythm |
+| `.section-accent` | expressive, brand-led | navy (`primary`) | emphasis, breaks the rhythm |
 | `.section-cinematic` | dramatic, deep | almost-black (`secondary`) | rare, dramatic blocks |
 
 Rules:
@@ -319,11 +319,11 @@ Rules:
 
 ### Footer adjacency rule — no "flag" stripes
 
-The site footer is dark (almost-black, `bg-secondary`). The last section on every page must transition into the footer **without producing a three-band "flag" effect** (e.g. green section → white band → dark footer reads as a tricolor stripe and is forbidden).
+The site footer is dark (almost-black, `bg-secondary`). The last section on every page must transition into the footer **without producing a three-band "flag" effect** (e.g. navy section → white band → dark footer reads as a tricolor stripe and is forbidden).
 
 Concretely:
 - The **last section before the footer must be `.section-calm` (white)**. Going white → dark footer is a clean, intentional contrast.
-- Do **not** end a page on `.section-accent` (green) or `.section-cinematic` (dark) when this leaves a visible light gap before the footer. A green block followed immediately by a dark footer with any cream/white sliver between them creates the "flag" anti-pattern shown in audits.
+- Do **not** end a page on `.section-accent` (navy) or `.section-cinematic` (dark) when this leaves a visible light gap before the footer. A navy block followed immediately by a dark footer with any cream/white sliver between them creates the "flag" anti-pattern shown in audits.
 - If the page semantically needs to end on an accent block (final CTA, key summary), restructure: put the accent earlier, then close with a calm white section (e.g. a quiet contact/anchor row, a quote, a wrap-up paragraph). The page should always "exhale" into white before the footer takes over.
 - Sections own their own `py-8 md:py-12` rhythm — never patch the gap by adding margins or empty divs. Fix it at the section level by choosing the correct closing background.
 - The `<footer>` itself must sit **flush** against the preceding section. No `mt-*` / `mb-*` on the `<footer>` element, no trailing margin on the last section. Any vertical margin on the footer (or its previous sibling) exposes the body / `<main>` background as a light stripe between the section and the footer — the exact "flag" effect this rule exists to prevent. Inner footer breathing room comes from its own `pt-*` (e.g. `pt-14 pb-10`), never from outer margins.
@@ -370,7 +370,7 @@ Never invent a new button class. Never style a button inline with `bg-X` / `text
 **Every hyperlink is GOLD (`text-accent`) by default — on every background.** It is the signature brand link color.
 
 - **No color change on hover.** Gold stays gold. Hover feedback comes from motion (`gap-2.5` arrow slide) or underline (`hover:underline` for plain inline links).
-- Do **not** use `hover:text-primary` on links. Going gold→green on hover was the legacy pattern — forbidden now.
+- Do **not** use `hover:text-primary` on links. Going gold→navy on hover was the legacy pattern — forbidden now.
 - Two link patterns:
   - **CTA-style with arrow** — use `.card-feature__cta` (for cards) or `.btn-link` (standalone). Both gold, arrow slides on hover.
   - **Plain inline link** — `text-accent hover:underline font-semibold`. Used for footer links, social handles, in-text references.
@@ -503,7 +503,7 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | Footer column titles styled `text-xs uppercase tracking-wider text-text-light/70` | Three violations in one (12 px, uppercase, tracking, opacity that reads as gray) | 14 px bold, natural case, no tracking, `text-text-light` (solid) |
 | Emojis as icons | Inconsistent with Lucide | Use `lucide-react` |
 | New `@keyframes` for scroll reveal | Out of the motion budget | Page-enter only |
-| Hard-coded color hex in JSX (`#1B4344`, `rgba(...)`) | Bypasses tokens | Use `bg-primary` / `text-text-dark` |
+| Hard-coded color hex in JSX (`#0F2A47`, `#06111E`, `rgba(...)`) | Bypasses tokens | Use `bg-primary` / `text-secondary` / `text-text-dark` |
 | Page ends on `.section-accent` (green) or `.section-cinematic` (dark) immediately before the dark footer, producing a green/light/dark "flag" stripe | Three-band tricolor at the bottom of the page reads as a flag — visually jarring, breaks the elegant exhale into the footer | Close every page with a `.section-calm` (white) section. If the content semantically wants to end on an accent, restructure: put the accent earlier and add a quiet white closing section (anchor row, quote, wrap-up). See §5 "Footer adjacency rule". |
 
 ---

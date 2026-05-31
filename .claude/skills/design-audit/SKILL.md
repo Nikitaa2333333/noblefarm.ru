@@ -83,7 +83,7 @@ For each tab file, walk the checklist top to bottom and record every violation a
 - [ ] No custom `@keyframes` in the file (or imported from a new CSS file)
 
 ### I. Colors
-- [ ] No raw hex (`#1B4344`, `rgba(7,23,23,0.4)`) in JSX — use Tailwind tokens
+- [ ] No raw hex (`#0F2A47`, `rgba(6,17,30,0.4)`) in JSX — use Tailwind tokens
 - [ ] Color choices respect light-bg vs dark-bg context (text-text-dark on light, text-text-light on dark)
 
 ### J. Content (lighter touch)

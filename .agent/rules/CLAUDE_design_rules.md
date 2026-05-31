@@ -4,8 +4,8 @@ This document is the persistent guideline for building and styling any page in t
 
 ## 1. Brand Palette & Color Dominic
 - **White (bg-light / bg-card / text-text-light)**: `#FFFFFF`. Differentiates cards via `.shadow-soft` only, not background color.
-- **Green (primary)**: `#1B4344`. Main brand color. Used for emphasis sections, active states, and hover targets.
-- **Dark (secondary / text-text-dark)**: `#071717` (cinematic bg) and `#1A2828` (body text on light bg).
+- **Navy (primary)**: `#0F2A47`. Main brand color (midnight navy). Used for emphasis sections, active states, and hover targets.
+- **Dark (secondary / text-text-dark)**: `#06111E` (cinematic bg) and `#1A2333` (body text on light bg).
 - **Gold (accent)**: `#D0B18A`. Gold is strictly for **small accents** (italic words in headings, eyebrows, gold pills, hover hints, hyperlinks). Never use it as a large background.
 
 ## 2. Strict Design Rules

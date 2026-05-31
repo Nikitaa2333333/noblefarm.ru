@@ -176,7 +176,7 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── Premium Widescreen Interactive Map Hero (Cinematic Section) ────────────────── */}
       <section className="section-cinematic relative min-h-screen h-auto flex flex-col justify-between pt-28 md:pt-32 pb-16 !overflow-visible select-none">
         
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#071717] via-[#071717]/95 to-[#1B4344]/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-secondary via-secondary/95 to-primary/60 pointer-events-none" />
 
         {/* CSS Animations and Map styling embedded locally */}
         <style dangerouslySetInnerHTML={{ __html: `

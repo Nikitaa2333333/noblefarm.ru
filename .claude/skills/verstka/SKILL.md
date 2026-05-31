@@ -85,7 +85,7 @@ Before reporting done, grep your work for these and fix any you find:
 - `rounded-br-[80px]` (asymmetric corner outside home)
 - `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-2xl`
 - `initial={{ opacity: 0 }}` without `y:` (flat fade)
-- Hex colors in JSX (`#1B4344`, etc.)
+- Hex colors in JSX (`#0F2A47`, etc.)
 - `text-gray-*` or low-contrast `text-text-dark/60` for body copy
 - `uppercase` on buttons or h2/h3
 
