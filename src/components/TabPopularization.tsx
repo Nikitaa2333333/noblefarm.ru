@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowRight, ExternalLink, GraduationCap, Send } from 'lucide-react';
+import { ExternalLink, GraduationCap } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabPopularizationProps {
@@ -130,9 +130,9 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
             <div className="mt-2">
               <button
                 onClick={() => onSwitchTab('contacts')}
-                className="btn-primary flex items-center gap-2"
+                className="btn-primary"
               >
-                {t.hero.cta} <ArrowRight className="w-4 h-4" />
+                {t.hero.cta}
               </button>
             </div>
           </div>
@@ -275,17 +275,17 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               href={t.open.tg}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary flex items-center gap-2"
+              className="btn-primary"
             >
-              <Send className="w-4 h-4" /> {t.open.tgLabel}
+              {t.open.tgLabel}
             </a>
             <a
               href={t.open.vk}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline-dark flex items-center gap-2"
+              className="btn-outline-dark"
             >
-              {t.open.vkLabel} <ArrowRight className="w-4 h-4" />
+              {t.open.vkLabel}
             </a>
           </div>
         </div>
@@ -305,9 +305,9 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
           <div className="flex">
             <button
               onClick={() => onSwitchTab('news')}
-              className="btn-outline-light flex items-center gap-2"
+              className="btn-outline-light"
             >
-              {t.finalCta.cta} <ArrowRight className="w-4 h-4" />
+              {t.finalCta.cta}
             </button>
           </div>
         </div>

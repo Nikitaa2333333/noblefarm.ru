@@ -417,6 +417,8 @@ The marquee animation in `index.css` is exempt — it's a single decorative elem
 
 Never invent a new button class. Never style a button inline with `bg-X` / `text-X`.
 
+**Buttons never carry icons or arrows.** `.btn-primary`, `.btn-primary-sm`, `.btn-outline-light`, `.btn-outline-dark` contain text only — no `<ArrowRight />`, no `<Send />`, no leading or trailing lucide icon, no chevron. The text is the affordance. Arrows belong **only** to link patterns: `.btn-link`, `.card-feature__cta`, and the small contact-tile "Open Map / Call Now" links — all of which are gold (`text-accent`) inline links, not buttons. If you're tempted to put an icon in a button to "make it clearer", the label is wrong — fix the label, not the button.
+
 ### Hyperlinks (universal rule)
 
 **Every hyperlink is GOLD (`text-accent`) by default — on every background.** It is the signature brand link color.
@@ -555,6 +557,7 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | Pill / chip variant other than `solid-gold` (`bg-accent text-secondary`) or `gold-tint` (`bg-accent/15 text-text-dark`) — e.g. `bg-accent/15 border`, `text-[10px] uppercase` mini-badges, `bg-bg-light` on white | Only two pill styles exist on light surfaces | `bg-accent text-secondary px-3 py-1.5 rounded-[6px]` (solid) OR `bg-accent/15 text-text-dark px-3 py-1.5 rounded-[6px]` (tint). On dark sections → inline tile `bg-secondary/40` |
 | `uppercase` on buttons, section headings, eyebrows, footer column titles | Destroys elegance, doesn't match brand register | Natural case everywhere |
 | Footer column titles styled `text-xs uppercase tracking-wider text-text-light/70` | Three violations in one (12 px, uppercase, tracking, opacity that reads as gray) | 14 px bold, natural case, no tracking, `text-text-light` (solid) |
+| `<button className="btn-primary">…text… <ArrowRight /></button>` or any icon (`<Send />`, chevron, lucide glyph) inside a `.btn-*` class | Buttons are text-only affordances on this site. Arrows belong to link patterns (`.btn-link`, `.card-feature__cta`), not to filled or outlined buttons. The arrow on a button makes it read as a half-link / half-button hybrid | Remove the icon and the `flex items-center gap-2` wrapper class. Keep only the label. If the button needs more clarity, fix the **label**, not the chrome. See §7 "Buttons never carry icons or arrows" |
 | Emojis as icons | Inconsistent with Lucide | Use `lucide-react` |
 | New `@keyframes` for scroll reveal | Out of the motion budget | Page-enter only |
 | Hard-coded color hex in JSX (`#0F2A47`, `#06111E`, `rgba(...)`) | Bypasses tokens | Use `bg-primary` / `text-secondary` / `text-text-dark` |

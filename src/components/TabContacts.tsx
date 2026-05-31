@@ -261,9 +261,9 @@ export default function TabContacts({ lang }: TabContactsProps) {
           </div>
           <a
             href="mailto:kfh-noble@inbox.ru"
-            className="btn-outline-light inline-flex items-center justify-center gap-2"
+            className="btn-outline-light"
           >
-            {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'} <ArrowRight className="w-4 h-4" />
+            {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'}
           </a>
         </div>
       </section>

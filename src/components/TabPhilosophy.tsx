@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabPhilosophyProps {
@@ -248,15 +248,15 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <button
               onClick={() => onSwitchTab('genetics')}
-              className="btn-outline-light flex items-center gap-2"
+              className="btn-outline-light"
             >
-              {t.open.ctaPrimary} <ArrowRight className="w-4 h-4" />
+              {t.open.ctaPrimary}
             </button>
             <button
               onClick={() => onSwitchTab('reindeer-intro')}
-              className="btn-outline-light flex items-center gap-2"
+              className="btn-outline-light"
             >
-              {t.open.ctaSecondary} <ArrowRight className="w-4 h-4" />
+              {t.open.ctaSecondary}
             </button>
           </div>
         </div>

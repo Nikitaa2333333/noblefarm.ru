@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabAntlersProps {
@@ -474,9 +474,9 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
           </div>
           <button
             onClick={() => onSwitchTab('genetics')}
-            className="btn-outline-light inline-flex items-center justify-center gap-2"
+            className="btn-outline-light"
           >
-            {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'} <ArrowRight className="w-4 h-4" />
+            {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'}
           </button>
         </div>
       </section>

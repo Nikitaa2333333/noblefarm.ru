@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
 import { Language } from '../translations';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 
@@ -567,9 +566,9 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
           </div>
           <button
             onClick={() => onSwitchTab('contacts')}
-            className="btn-outline-light inline-flex items-center justify-center gap-2"
+            className="btn-outline-light"
           >
-            {isRU ? 'Связаться с нами' : isCN ? '联系我们' : 'Contact Us'} <ArrowRight className="w-4 h-4" />
+            {isRU ? 'Связаться с нами' : isCN ? '联系我们' : 'Contact Us'}
           </button>
         </div>
       </section>

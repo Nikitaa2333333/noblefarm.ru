@@ -222,8 +222,8 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
                   ? 'Мы рады делиться новостями и организовывать визиты для представителей медиа.'
                   : isCN ? '我们乐于为媒体代表共享新闻资讯并安排农场实地考察。' : 'We are glad to share news and organize farm visits for media representatives.'}
               </p>
-              <button onClick={() => onSwitchTab('contacts')} className="btn-outline-light w-full flex items-center justify-center gap-2">
-                {isRU ? 'Связаться с нами' : isCN ? '与我们联系' : 'Contact Us'} <ArrowRight className="w-4 h-4" />
+              <button onClick={() => onSwitchTab('contacts')} className="btn-outline-light w-full">
+                {isRU ? 'Связаться с нами' : isCN ? '与我们联系' : 'Contact Us'}
               </button>
             </div>
           </div>
