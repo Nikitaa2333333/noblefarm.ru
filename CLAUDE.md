@@ -134,7 +134,8 @@ The palette has three colors. They divide responsibility between home and inner 
 | Class | Spec | Where |
 |---|---|---|
 | `.hero-title` / `.hero-title-light` | serif, 40 → 80 px, medium (500), `tracking-tight`, `leading-[0.9]` | H1 in `.hero-side-image`. |
-| `.h-section` / `.h-section-light` | serif, 30 → 64 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener. One italic gold word via `<span className="h-section__accent">`. |
+| `.h-section` / `.h-section-light` | serif, 30 → 46 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener on **inner pages**. One italic gold word via `<span className="h-section__accent">`. |
+| `.h-section-xl` / `.h-section-xl-light` | serif, 30 → 64 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener on **TabMain (etalon) only**. Larger display variant for the home brand statement. |
 | `.h-block` / `.h-block-light` | serif, 20 → 24 px, bold (700), leading tight, `text-text-dark` | H3 — subsection title (e.g. "Где применяется", "Что изучается"). **Always serif, always dark.** Never gold, never navy, never sans-serif. |
 | `.card-feature__title` | serif, 20 → 24 px, bold (700), `text-text-dark` | Card title inside `.card-feature`. Same visual weight as `.h-block`. |
 | `.card-stat__value` | serif, 30 → 48 px, semibold (600), leading-none, `text-accent` | Big number. Use also for **naked-number stacks**. |
@@ -203,7 +204,25 @@ Locked bans:
 - The wrapper itself MAY take an outer margin (e.g. `mb-10`) when the next block is a grid of cards — the outer margin separates the header from the grid, not the H2 from its lead.
 
 ### Two-column blocks — x-height alignment
-When a section uses a 2-column grid (`lg:grid-cols-12` with two `lg:col-span-6`) and **left** column is led by `.h-section` / `.hero-title` while **right** column is led by `.h-block` / smaller heading or list — the right column gets `lg:pt-3` (12 px top padding) so the **x-height** (top of lowercase letters) of the right heading aligns with the **x-height** of the left H2. Cap-top alignment looks broken because the H2 is much larger and its lowercase letters sit visually below the smaller heading's cap-top.
+
+**The universal rule**: whenever a 2-column grid (`lg:grid-cols-12` with `items-start`) puts a big `.h-section` / `.hero-title` on the **left** and any content on the **right**, the right column's first line must sit on the **x-height** of the left H2 (top of its lowercase letters), not at the cap-top and not at the grid-cell top. Cap-top / cell-top alignment looks broken — the big serif H2 is much taller than the right content and the right text reads as floating above the heading.
+
+**The offset depends on the LEFT column's structure, not the right one.** This is the critical insight: the eyebrow above the H2 pushes the H2 down by ~45 px (eyebrow line ~17 px + `section-header` `gap-6` 24 px). The right column must travel that same distance plus a small fine-tune to land on the H2's x-height.
+
+| Left column leads with… | Right column gets… |
+|---|---|
+| Bare `.h-section` directly at cell-top (no eyebrow above it) | `lg:pt-3` (12 px) — only fine-tune needed; the right content is naturally close to the H2 |
+| `.section-header` (eyebrow + H2, with or without lead/body below) | `lg:pt-14` (56 px) — must clear the eyebrow + gap-6 + reach down to the H2's x-height |
+
+**This applies regardless of what's on the right** — `.h-block` heading, `body-lead` paragraph, `<ul>` body list, buttons, image. As soon as the left has an eyebrow, the right needs the big push.
+
+The only exception is when the right column's content type makes alignment irrelevant or undesirable:
+
+| Right column content | When to skip `lg:pt-*` |
+|---|---|
+| Image / card / icon-tile grid | When the visual block reads better against cell-top (visual decision per case) |
+
+**Heuristic to apply blindly**: open the left column. If you see `<span className="label-eyebrow">` / `<span className="hero-eyebrow">` above the H2 — the right gets `lg:pt-14`. If you see `<h2>` directly as the first child — the right gets `lg:pt-3`. Don't think about what's on the right; the left tells you.
 
 Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`, not `text-primary` (the navy is reserved for emphasis surfaces, not for tick icons next to body text). On dark sections the tick uses `text-accent`.
 
@@ -321,12 +340,45 @@ Rules:
 
 The site footer is dark (almost-black, `bg-secondary`). The last section on every page must transition into the footer **without producing a three-band "flag" effect** (e.g. navy section → white band → dark footer reads as a tricolor stripe and is forbidden).
 
-Concretely:
-- The **last section before the footer must be `.section-calm` (white)**. Going white → dark footer is a clean, intentional contrast.
-- Do **not** end a page on `.section-accent` (navy) or `.section-cinematic` (dark) when this leaves a visible light gap before the footer. A navy block followed immediately by a dark footer with any cream/white sliver between them creates the "flag" anti-pattern shown in audits.
-- If the page semantically needs to end on an accent block (final CTA, key summary), restructure: put the accent earlier, then close with a calm white section (e.g. a quiet contact/anchor row, a quote, a wrap-up paragraph). The page should always "exhale" into white before the footer takes over.
+Concretely, the last section before the footer may be EITHER:
+- **`.section-calm` (white)** — clean, intentional white-to-dark contrast. Use when the page exhales into the footer (quiet contact row, quote, wrap-up paragraph).
+- **`.section-accent` (navy)** flush against the footer — smooth navy → dark gradient with no light gap between. Use when the page closes on a brand-led CTA / final emphasis (e.g. "Открытое хозяйство" with CTA buttons under the heading). This is the preferred pattern when the closing block is a true semantic CTA.
+
+What is forbidden:
+- Do **not** sandwich a `.section-calm` (white) between a `.section-accent` (navy) and the footer — that produces the navy → light sliver → dark tricolor "flag". If you want a navy close, the navy must be the LAST section, flush against the footer.
+- Do **not** add `mt-*` / `mb-*` on the `<footer>` or on its preceding section. Any margin exposes the body background as a light strip — recreating the flag.
+- `.section-cinematic` (almost-black) directly before the dark footer reads as one continuous dark mass — avoid unless the design genuinely calls for a long dark close.
 - Sections own their own `py-8 md:py-12` rhythm — never patch the gap by adding margins or empty divs. Fix it at the section level by choosing the correct closing background.
 - The `<footer>` itself must sit **flush** against the preceding section. No `mt-*` / `mb-*` on the `<footer>` element, no trailing margin on the last section. Any vertical margin on the footer (or its previous sibling) exposes the body / `<main>` background as a light stripe between the section and the footer — the exact "flag" effect this rule exists to prevent. Inner footer breathing room comes from its own `pt-*` (e.g. `pt-14 pb-10`), never from outer margins.
+
+### CTA layout — buttons always under the text
+
+In any section whose primary purpose is "text + call-to-action" (closing CTA, sign-up block, social subscription, in-flow handoff between tabs), the CTA buttons MUST live in a **single column below the heading + body**, not in a 2-col grid with the text on the left and buttons on the right.
+
+The canonical CTA structure:
+
+```tsx
+<section className="section-accent">  {/* or .section-calm for non-closing CTAs */}
+  <div className="section-inner flex flex-col gap-10">
+    <div className="max-w-3xl section-header">
+      <span className="label-eyebrow">…</span>
+      <h2 className="h-section-light">…</h2>
+      <p className="body-lead-light">…</p>
+    </div>
+    <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+      <button className="btn-primary">…</button>
+      <button className="btn-outline-light">…</button>  {/* or btn-outline-dark on calm bg */}
+    </div>
+  </div>
+</section>
+```
+
+Why: side-by-side `lg:col-span-X` placement makes buttons float at H2-level on desktop while body text takes the full width — they read as detached and arbitrary, and they collapse weirdly on mobile. A single-column flow (heading → body → CTA row) reads as a focused, intentional ask. The `gap-10` (40 px) between the section-header and the button row keeps the visual rhythm consistent with `.section-header`'s own `gap-6`.
+
+Locked bans:
+- **No `<div className="lg:col-span-5">` / `lg:col-span-4` wrapping CTA buttons** alongside a sibling text column. CTAs are not "right-rail content"; they are the section's conclusion.
+- **No `lg:pt-14` / `lg:pt-3` on CTA columns** — CTAs don't participate in the x-height alignment rule because they don't sit beside the H2; they sit below it.
+- The button row itself stacks `flex-col` on mobile and `sm:flex-row` on desktop — never put each button in its own row at sm+ (looks like a list, not a CTA).
 
 ---
 
@@ -493,6 +545,8 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | `border-b border-border-light` / `border-t border-border-X` as a divider between list items, sections, nav items, footer rows, or under headings | The brand does not use divider lines — they're the "form / dashboard" tell. Lines split content; the design separates by whitespace and background-contrast instead | Remove the border. Use `flex flex-col gap-10` (or `gap-12`) on the parent. For section-to-section separation, rely on `py-16 md:py-24` rhythm + (when needed) a background change. See §4 "Borders and divider lines — none." |
 | Inline `text-gray-500` anywhere | Bypasses tokens, no contrast contract | Use brand tokens only |
 | `<h2 className="h-section mt-4 mb-6">` + `<p mt-4>` between an eyebrow, H2, and lead paragraph(s) — or wrapping them in separate `<div>`s with `mb-10` between them, or any `flex flex-col gap-X` with X ≠ 6 | Every section ends up with a different vertical rhythm between heading and body — the page reads as six different layouts stitched together | Wrap the (eyebrow + H2 + lead) group in a single `.section-header` div (defined in `index.css` as `flex flex-col gap-6`). No `mt-*`/`mb-*` on children. See §4 "Section header block — locked vertical rhythm" |
+| 2-col grid where the LEFT starts with `.section-header` (eyebrow + H2) and the RIGHT column uses `lg:pt-3` (or no pt at all) — the right content sits at cell-top, lined up with the LEFT'S EYEBROW, not with the H2's x-height. `lg:pt-3` is the value for the OTHER case (bare H2 on left, no eyebrow) and is too small once an eyebrow is present | The right column reads as one row higher than the heading — body / h-block / button all float at eyebrow-level instead of locking onto the H2's lowercase letters | Use `lg:pt-14` whenever the left has `.section-header` with an eyebrow above the H2, regardless of what the right contains (h-block, body, list, button — all get pt-14). Reserve `lg:pt-3` for the bare-H2-on-left case only. See §4 "Two-column blocks — x-height alignment" |
+| CTA section laid out as 2-col `lg:grid-cols-12` with text on `lg:col-span-7` and the CTA button(s) on `lg:col-span-5` (or any side-by-side arrangement) — buttons float at H2 level on desktop while body text wraps around them, and the layout collapses awkwardly on mobile | Buttons read as detached right-rail content, not as the section's conclusion. CTAs are not a parallel piece of information; they are the closing ask | Stack vertically: `<section><div className="section-inner flex flex-col gap-10"><div className="max-w-3xl section-header">…</div><div className="flex flex-col sm:flex-row flex-wrap gap-4">…buttons…</div></div></section>`. See §5 "CTA layout — buttons always under the text" |
 | `text-[10px]`, `text-[11px]`, `text-[13px]`, `text-xs` — anywhere | Below 14 px is forbidden everywhere, no exceptions (eyebrow is 14 px via `.label-eyebrow`) | `text-sm` (14 px) or one of `.body-lead` / `.body-sm` (16 px). Eyebrow → `.label-eyebrow` |
 | Any positive letter-spacing: `tracking-wide`, `tracking-wider`, `tracking-widest` | No разрядка anywhere on the site. Eyebrows, meta-labels, footer columns, news meta — all without разрядка | Remove the class. Allowed only: `tracking-tight` (negative, sjatie) on `.hero-title` / `.h-section` |
 | Lucide icon in a text list sized other than `w-6 h-6` (i.e. `w-5`, `w-7`, `w-8`) | Inconsistent icon stacks; only one icon size in lists | `w-6 h-6` (24 px). Decorative single icons may be larger but not inside list rows |

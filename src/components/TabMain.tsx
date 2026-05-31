@@ -207,7 +207,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       {/* ─── Directions Section ────────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 bg-primary relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
-          <h2 className="h-section-light">
+          <h2 className="h-section-xl-light">
             {t.directions.title}<span className="italic text-accent">{t.directions.titleAccent}</span>
           </h2>
         </div>
@@ -263,7 +263,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       {/* ─── Why Important Section ────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <h2 className="h-section mb-10 lg:mb-14 max-w-2xl">
+          <h2 className="h-section-xl mb-10 lg:mb-14 max-w-2xl">
             {t.whyImportant.title}
             <span className="h-section__accent">{t.whyImportant.titleAccent}</span>
           </h2>

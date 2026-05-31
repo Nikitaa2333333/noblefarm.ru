@@ -8,7 +8,7 @@ import {
   Dna, Leaf, Globe,
   Award, ArrowRight, Check, Phone,
   Menu, X, Sparkles,
-  Calendar, Tag,
+  Calendar, Tag, ChevronDown,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Language, TRANSLATIONS } from './translations';
@@ -18,6 +18,7 @@ import TabGenetics from './components/TabGenetics';
 import TabAntlers from './components/TabAntlers';
 import TabIndustry from './components/TabIndustry';
 import TabPopularization from './components/TabPopularization';
+import TabPhilosophy from './components/TabPhilosophy';
 import TabMedia from './components/TabMedia';
 import TabNews from './components/TabNews';
 import TabContacts from './components/TabContacts';
@@ -32,6 +33,7 @@ interface NavbarProps {
 
 function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -45,17 +47,43 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
     };
   }, [mobileMenuOpen]);
 
+  // Close dropdown on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenGroup(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const t = TRANSLATIONS[lang].navbar;
 
-  const navLinks = [
-    { label: t.genetics, id: 'genetics' },
-    { label: t.antlers, id: 'antlers' },
-    { label: t.importance, id: 'importance' },
-    { label: t.reindeerIntro, id: 'reindeer-intro' },
-    { label: t.contacts, id: 'contacts' },
-    { label: t.media, id: 'media' },
-    { label: t.news, id: 'news' },
+  const navGroups = [
+    {
+      label: t.groupAbout,
+      items: [
+        { label: t.philosophy, id: 'philosophy' },
+        { label: t.importance, id: 'importance' },
+      ],
+    },
+    {
+      label: t.groupProduction,
+      items: [
+        { label: t.genetics, id: 'genetics' },
+        { label: t.antlers, id: 'antlers' },
+      ],
+    },
+    {
+      label: t.groupOpenness,
+      items: [
+        { label: t.reindeerIntro, id: 'reindeer-intro' },
+        { label: t.media, id: 'media' },
+        { label: t.news, id: 'news' },
+      ],
+    },
   ];
+
+  const contactsLink = { label: t.contactsShort, id: 'contacts' };
 
   return (
     <>
@@ -89,18 +117,71 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             </span>
           </div>
 
-          <div className="hidden xl:flex flex-1 items-center justify-center gap-1 2xl:gap-2 text-[14px] 2xl:text-[15px] font-medium text-text-light">
-            {navLinks.map((link) => (
-              <button
-                key={link.label}
-                onClick={() => navigateAndScroll(link.id)}
-                className={`hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-1 py-1 rounded-[6px] ${
-                  activeTab === link.id ? 'text-accent font-bold' : ''
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
+          <div className="hidden xl:flex flex-1 items-center justify-center gap-2 2xl:gap-4 text-[14px] 2xl:text-[15px] font-medium text-text-light">
+            {navGroups.map((group) => {
+              const isActive = group.items.some((it) => it.id === activeTab);
+              const isOpen = openGroup === group.label;
+              return (
+                <div
+                  key={group.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenGroup(group.label)}
+                  onMouseLeave={() => setOpenGroup(null)}
+                >
+                  <button
+                    onClick={() => setOpenGroup(isOpen ? null : group.label)}
+                    aria-haspopup="true"
+                    aria-expanded={isOpen}
+                    className={`flex items-center gap-1.5 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-2 py-1 rounded-[6px] ${
+                      isActive ? 'text-accent font-bold' : ''
+                    }`}
+                  >
+                    <span>{group.label}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                      strokeWidth={2}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.15, ease: 'easeOut' }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
+                      >
+                        <div className="min-w-[260px] bg-secondary shadow-soft rounded-[6px] py-2 flex flex-col">
+                          {group.items.map((item) => (
+                            <button
+                              key={item.id}
+                              onClick={() => {
+                                navigateAndScroll(item.id);
+                                setOpenGroup(null);
+                              }}
+                              className={`text-left px-5 py-2.5 text-[15px] hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 cursor-pointer whitespace-nowrap ${
+                                activeTab === item.id ? 'text-accent font-bold' : 'text-text-light'
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+
+            <button
+              onClick={() => navigateAndScroll(contactsLink.id)}
+              className={`hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-colors duration-300 whitespace-nowrap cursor-pointer px-2 py-1 rounded-[6px] ${
+                activeTab === contactsLink.id ? 'text-accent font-bold' : ''
+              }`}
+            >
+              {contactsLink.label}
+            </button>
           </div>
 
           <div className="flex items-center gap-4 text-text-light shrink-0">
@@ -157,10 +238,10 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
           }`}
         style={{ height: 'calc(100vh - 5rem)' }}
       >
-        <div className="flex flex-col gap-6 mt-8">
-          {navLinks.map((link) => (
+        <div className="flex flex-col gap-6 mt-8 overflow-y-auto pr-2">
+          {[...navGroups.flatMap((g) => g.items), contactsLink].map((link) => (
             <button
-              key={link.label}
+              key={link.id}
               onClick={() => {
                 navigateAndScroll(link.id);
                 setMobileMenuOpen(false);
@@ -747,6 +828,7 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
   const t = TRANSLATIONS[lang].footer;
   const menuLinks = [
     { label: TRANSLATIONS[lang].navbar.about, id: 'about' },
+    { label: TRANSLATIONS[lang].navbar.philosophy, id: 'philosophy' },
     { label: TRANSLATIONS[lang].navbar.genetics, id: 'genetics' },
     { label: TRANSLATIONS[lang].navbar.antlers, id: 'antlers' },
     { label: TRANSLATIONS[lang].navbar.importance, id: 'importance' },
@@ -849,7 +931,7 @@ export default function App() {
 
   // Unified routing sync via URL Hash
   const navigateAndScroll = (id: string) => {
-    const validTabs = ['genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+    const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
     if (validTabs.includes(id)) {
       window.location.hash = `#${id}`;
     } else {
@@ -870,7 +952,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '');
-      const validTabs = ['genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+      const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
       
       if (validTabs.includes(hash)) {
         setActiveTab(hash);
@@ -908,6 +990,10 @@ export default function App() {
       )}
 
       {/* Dynamic modular page containers */}
+      {activeTab === 'philosophy' && (
+        <TabPhilosophy key="philosophy" lang={lang} onSwitchTab={navigateAndScroll} />
+      )}
+
       {activeTab === 'genetics' && (
         <TabGenetics key="genetics" lang={lang} />
       )}

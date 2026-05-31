@@ -295,12 +295,22 @@
 }
 
 /* ─── Section Headings ──────────────────────────────────────────────────────
-   Use these for every <h2> in every section. Italic span for the accent word. */
+   Use these for every <h2> in every section. Italic span for the accent word.
+   .h-section / .h-section-light — default, used on every inner page (28 → 40px).
+   .h-section-xl / .h-section-xl-light — larger variant (30 → 64px), reserved for TabMain (etalon). */
 .h-section {
-  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-dark;
+  @apply font-serif text-3xl sm:text-4xl lg:text-[46px] font-medium tracking-tight leading-[0.9] text-text-dark;
 }
 
 .h-section-light {
+  @apply font-serif text-3xl sm:text-4xl lg:text-[46px] font-medium tracking-tight leading-[0.9] text-text-light;
+}
+
+.h-section-xl {
+  @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-dark;
+}
+
+.h-section-xl-light {
   @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-light;
 }
 
