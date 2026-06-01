@@ -1,7 +1,6 @@
 # CLAUDE.md — Blagorodny Sever Design Law
 
 > **This file is the single source of truth for how this site is built.**
-> If anything in `design-system/_legacy/` contradicts this file — this file wins.
 > If you (Claude) find a pattern in the codebase that contradicts this file — fix the codebase, do not invent a new rule.
 
 ---
@@ -609,8 +608,6 @@ Project skills live in `.claude/skills/`:
 | `verstka` | "свёрстай вкладку X", "сделай страницу", "приведи к эталону", "перенеси из ТЗ" | Build / katok-refactor a page following §10 |
 | `design-audit` | "проверь вкладку X", "аудит дизайна", "сравни с эталоном" | Compare a tab against this file, list violations with file:line refs |
 
-External skills under `ui_ux_pro_max/` are a general UI/UX library — not project-specific. Refer to it for general guidance, but `CLAUDE.md` always wins on project rules.
-
 ---
 
 ## 13. Folder layout
@@ -632,7 +629,6 @@ oooo_template/
 │       └── Tab*.tsx
 ├── public/                         ← built-in assets (webp images, json data)
 ├── docs/specs/                     ← content briefs (word-for-word source of truth)
-├── design-system/_legacy/          ← old conflicting docs — NOT THE LAW
 ├── assets-source/                  ← source images (jpg/png originals), not used in build
 ├── scripts/
 │   ├── optimize-images.js          ← png/jpg → webp
