@@ -180,11 +180,16 @@ export default function TabContacts({ lang }: TabContactsProps) {
 
       {/* ─── 3. Направления сотрудничества (Calm spacious White Section) ───────── */}
       <section className="section-calm pt-0">
-        <div className="section-inner">
-          <h2 className="h-section mb-10">
-            {isRU ? 'Открыты к ' : isCN ? '诚邀全方位深度' : 'Open to '}
-            <span className="h-section__accent">{isRU ? 'сотрудничеству' : isCN ? '合作' : 'Cooperation'}</span>
-          </h2>
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Открыты к ' : isCN ? '诚邀全方位深度' : 'Open to '}
+                <span className="h-section__accent">{isRU ? 'сотрудничеству' : isCN ? '合作' : 'Cooperation'}</span>
+              </h2>
+            </div>
+            <div className="lg:col-span-5" />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {directions.map((card, i) => (
               <div key={i} className="card-flat flex flex-col justify-between min-h-[180px] bg-bg-card">
@@ -198,22 +203,26 @@ export default function TabContacts({ lang }: TabContactsProps) {
 
       {/* ─── 4. Профессиональное сообщество (BEM card-feature, aspect-16/10) ──── */}
       <section className="section-calm pt-0">
-        <div className="section-inner">
-          <div className="max-w-3xl mb-10">
-            <h2 className="h-section mb-4">
-              {isRU ? 'Развивая отрасль ' : isCN ? '携手并肩 • 共同开发' : 'Developing the Industry '}
-              <span className="h-section__accent">{isRU ? 'вместе' : isCN ? '产业' : 'Together'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'Мы ценим профессиональное взаимодействие и считаем, что развитие современного оленеводства возможно только через обмен опытом, открытый диалог и сотрудничество специалистов разных направлений.'
-                : isCN
-                  ? '我们高度重视专业领域的精诚互动，并深信，俄罗斯现代高端养鹿产业的发展，只有通过广泛的经验共享、真诚透明的对话以及跨学科专家团队的深度合作，才能够最终变为现实。'
-                  : 'We value professional interaction and believe that the development of modern deer farming is possible only through experience exchange, open dialogue, and cooperation of specialists.'}
-            </p>
-            <h3 className="h-block mt-6">
-              {isRU ? 'Наши коллеги и профессиональное окружение' : isCN ? '我们的业内同仁与专业生态圈' : 'Our colleagues and professional environment'}
-            </h3>
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Развивая отрасль ' : isCN ? '携手并肩 • 共同开发' : 'Developing the Industry '}
+                <span className="h-section__accent">{isRU ? 'вместе' : isCN ? '产业' : 'Together'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Мы ценим профессиональное взаимодействие и считаем, что развитие современного оленеводства возможно только через обмен опытом, открытый диалог и сотрудничество специалистов разных направлений.'
+                  : isCN
+                    ? '我们高度重视专业领域的精诚互动，并深信，俄罗斯现代高端养鹿产业的发展，只有通过广泛的经验共享、真诚透明的对话以及跨学科专家团队的深度合作，才能够最终变为现实。'
+                    : 'We value professional interaction and believe that the development of modern deer farming is possible only through experience exchange, open dialogue, and cooperation of specialists.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5 lg:pt-14">
+              <h3 className="h-block">
+                {isRU ? 'Наши коллеги и профессиональное окружение' : isCN ? '我们的业内同仁与专业生态圈' : 'Our colleagues and professional environment'}
+              </h3>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -231,7 +240,7 @@ export default function TabContacts({ lang }: TabContactsProps) {
             ))}
           </div>
 
-          <div className="mt-12 pt-6 text-center md:text-left">
+          <div className="mt-4 text-center md:text-left">
             <p className="body-sm">
               {isRU
                 ? 'Мы считаем важным развитие профессионального сообщества современного оленеводства в России.'
@@ -243,15 +252,15 @@ export default function TabContacts({ lang }: TabContactsProps) {
         </div>
       </section>
 
-      {/* ─── 5. Финальный блок (Strategic Concluding Accent Section) ──────────── */}
+      {/* ─── 5. Финальный блок (Strategic Concluding Accent Section / CTA) ──────────── */}
       <section className="section-accent">
-        <div className="section-inner flex flex-col items-start gap-8">
-          <div className="max-w-3xl">
-            <h2 className="h-section-light mb-4">
+        <div className="section-inner flex flex-col gap-10">
+          <div className="max-w-3xl section-header">
+            <h2 className="h-section-light">
               {isRU ? 'Будем рады ' : isCN ? '诚挚期待与您' : 'We Will Be Glad to '}
               <span className="h-section__accent">{isRU ? 'знакомству' : isCN ? '结识' : 'Connect'}</span>
             </h2>
-            <p className="body-lead-light max-w-3xl">
+            <p className="body-lead-light">
               {isRU
                 ? 'Если вам близка тема современного оленеводства, развития сельских территорий, генетики или пантового направления — будем рады общению.'
                 : isCN
@@ -259,12 +268,14 @@ export default function TabContacts({ lang }: TabContactsProps) {
                   : 'If you are interested in modern deer farming, rural development, genetics, or velvet antlers, we would be glad to connect.'}
             </p>
           </div>
-          <a
-            href="mailto:kfh-noble@inbox.ru"
-            className="btn-outline-light"
-          >
-            {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'}
-          </a>
+          <div className="flex">
+            <a
+              href="mailto:kfh-noble@inbox.ru"
+              className="btn-outline-light"
+            >
+              {isRU ? 'Связаться с нами' : isCN ? '即刻建立联系' : 'Contact Us'}
+            </a>
+          </div>
         </div>
       </section>
     </div>

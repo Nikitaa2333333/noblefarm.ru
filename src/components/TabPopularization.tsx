@@ -145,15 +145,16 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
       {/* ─── Mission ──────────────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-5 section-header">
-            <span className="label-eyebrow">{t.mission.eyebrow}</span>
-            <h2 className="h-section">
-              {t.mission.title}{' '}
-              <span className="h-section__accent">{t.mission.titleAccent}</span>
-            </h2>
-          </div>
-          <div className="lg:col-span-7 lg:pt-14 flex flex-col gap-6">
-            <p className="body-lead">{t.mission.p1}</p>
+          <div className="lg:col-span-7 flex flex-col gap-8">
+            <div className="section-header">
+              <span className="label-eyebrow">{t.mission.eyebrow}</span>
+              <h2 className="h-section">
+                {t.mission.title}{' '}
+                <span className="h-section__accent">{t.mission.titleAccent}</span>
+              </h2>
+              <p className="body-lead">{t.mission.p1}</p>
+              <p className="body-lead">{t.mission.p2}</p>
+            </div>
             <ul className="flex flex-col gap-3 pl-1">
               {t.mission.items.map((item) => (
                 <li key={item} className="flex items-start gap-3">
@@ -162,22 +163,25 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
                 </li>
               ))}
             </ul>
-            <p className="body-lead">{t.mission.p2}</p>
           </div>
+          <div className="lg:col-span-5"></div>
         </div>
       </section>
 
       {/* ─── Excursions ───────────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner flex flex-col gap-10">
-          <div className="max-w-3xl section-header">
-            <span className="label-eyebrow">{t.excursions.eyebrow}</span>
-            <h2 className="h-section">
-              {t.excursions.title}{' '}
-              <span className="h-section__accent">{t.excursions.titleAccent}</span>
-            </h2>
-            <p className="body-lead">{t.excursions.p1}</p>
-            <p className="body-lead">{t.excursions.p2}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="label-eyebrow">{t.excursions.eyebrow}</span>
+              <h2 className="h-section">
+                {t.excursions.title}{' '}
+                <span className="h-section__accent">{t.excursions.titleAccent}</span>
+              </h2>
+              <p className="body-lead">{t.excursions.p1}</p>
+              <p className="body-lead">{t.excursions.p2}</p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
 
           <div className="flex flex-col gap-6">
@@ -201,7 +205,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
 
       {/* ─── Preparation / diploma (accent — trust-building) ──────────────── */}
       <section className="section-accent">
-        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
           <div className="lg:col-span-7 section-header">
             <span className="label-eyebrow">{t.preparation.eyebrow}</span>
             <h2 className="h-section-light">
@@ -215,7 +219,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               {t.preparation.p3}
             </p>
           </div>
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 lg:pt-14">
             <div className="aspect-[3/4] bg-secondary/40 flex flex-col items-center justify-center p-8 gap-4 text-center">
               <GraduationCap className="w-12 h-12 text-accent" strokeWidth={1.6} />
               <p className="body-sm-light max-w-xs">{t.preparation.diplomaCaption}</p>
@@ -227,13 +231,11 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
       {/* ─── Park Sever ───────────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-5 section-header">
+          <div className="lg:col-span-7 section-header">
             <span className="label-eyebrow">{t.park.eyebrow}</span>
             <h2 className="h-section">
               {t.park.title} <span className="h-section__accent">{t.park.titleAccent}</span>
             </h2>
-          </div>
-          <div className="lg:col-span-7 lg:pt-14 flex flex-col gap-6">
             <p className="body-lead">
               {t.park.p1Before}
               <a
@@ -247,6 +249,8 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               {t.park.p1After}
             </p>
             <p className="body-lead">{t.park.p2}</p>
+          </div>
+          <div className="lg:col-span-5 lg:pt-14">
             <a
               href={t.park.link}
               target="_blank"

@@ -429,28 +429,31 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── 3. Европа ─────────────────────────────────────────────────────── */}
       <section id="eu" className="section-calm scroll-mt-24">
         <div className="section-inner">
-          <div className="max-w-3xl section-header">
-            <span className="card-feature__eyebrow">
-              {isRU ? 'Историческая колыбель' : isCN ? '历史的发源地' : 'Historical Cradle'}
-            </span>
-            <h2 className="h-section">
-              {isRU ? 'Европа: историческая база ' : isCN ? '欧洲：红鹿选育的' : 'Europe: Historical Base of '}
-              <span className="h-section__accent">{isRU ? 'благородного оленя' : isCN ? '历史基底' : 'Red Deer'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'Именно Европа сформировала многие известные линии благородного европейского оленя. Здесь развивались племенные хозяйства и подходы к качеству стада. Woburn и Warnham — признанные во всем мире генетические стандарты.'
-                : isCN
-                  ? '正是欧洲成功培育出了许多世界闻名的欧洲红鹿优良血统品系。在这里，凝聚着历史悠久的良种繁育技术 and 对品质控制的严谨态度。其中最具代表性的血统即是 Woburn 和 Warnham。'
-                  : 'It is Europe that formed many famous lines of European Red Deer. Here, breeding farms and systematic approaches to quality were developed, including Woburn and Warnham lines.'}
-            </p>
-            <p className="body-lead">
-              {isRU
-                ? 'Сильная сторона Европы — её генетика; слабая — ограниченность пастбищ и высокая стоимость сельскохозяйственных земель. У России, напротив, огромный земельный ресурс и подходящий климат, но отрасль пока находится на ранней стадии развития.'
-                : isCN
-                  ? '欧洲的优势在于其雄厚的遗传基因储备，但其劣势同样明显——牧场空间受限，农业用地成本高昂。俄罗斯则恰恰相反：拥有极为辽阔的土地资源和适宜的自然气候，但产业整体仍处于发展的最早期阶段。'
-                  : 'Europe’s strength lies in its genetics; its weakness — limited pastures and the high cost of agricultural land. Russia, by contrast, has vast land resources and a suitable climate, but the industry is still at an early stage of development.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="card-feature__eyebrow">
+                {isRU ? 'Историческая колыбель' : isCN ? '历史的发源地' : 'Historical Cradle'}
+              </span>
+              <h2 className="h-section">
+                {isRU ? 'Европа: историческая база ' : isCN ? '欧洲：红鹿选育的' : 'Europe: Historical Base of '}
+                <span className="h-section__accent">{isRU ? 'благородного оленя' : isCN ? '历史基底' : 'Red Deer'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Именно Европа сформировала многие известные линии благородного европейского оленя. Здесь развивались племенные хозяйства и подходы к качеству стада. Woburn и Warnham — признанные во всем мире генетические стандарты.'
+                  : isCN
+                    ? '正是欧洲成功培育出了许多世界闻名的欧洲红鹿优良血统品系。在这里，凝聚着历史悠久的良种繁育技术 and 对品质控制的严谨态度。其中最具代表性的血统即是 Woburn 和 Warnham。'
+                    : 'It is Europe that formed many famous lines of European Red Deer. Here, breeding farms and systematic approaches to quality were developed, including Woburn and Warnham lines.'}
+              </p>
+              <p className="body-lead">
+                {isRU
+                  ? 'Сильная сторона Европы — её генетика; слабая — ограниченность пастбищ и высокая стоимость сельскохозяйственных земель. У России, напротив, огромный земельный ресурс и подходящий климат, но отрасль пока находится на ранней стадии развития.'
+                  : isCN
+                    ? '欧洲的优势在于其雄厚的遗传基因储备，但其劣势同样明显——牧场空间受限，农业用地成本高昂。俄罗斯则恰恰相反：拥有极为辽阔的土地资源和适宜的自然气候，但产业整体仍处于发展的最早期阶段。'
+                    : 'Europe’s strength lies in its genetics; its weakness — limited pastures and the high cost of agricultural land. Russia, by contrast, has vast land resources and a suitable climate, but the industry is still at an early stage of development.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
@@ -458,34 +461,37 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── 4. Азия ─────────────────────────────────────────────────────── */}
       <section id="asia" className="section-calm scroll-mt-24">
         <div className="section-inner">
-          <div className="max-w-3xl section-header">
-            <span className="card-feature__eyebrow">
-              {isRU ? 'Потребительский спрос' : isCN ? '最大的消费市场' : 'Consumer Demand'}
-            </span>
-            <h2 className="h-section">
-              {isRU ? 'Азия: крупнейший рынок ' : isCN ? '亚洲：全球最大的鹿茸' : 'Asia: The Largest Consumer '}
-              <span className="h-section__accent">{isRU ? 'потребления' : isCN ? '消费驱动力' : 'Market'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'Исторически именно Азия сформировала спрос на продукцию пантового направления. В Китае использование пантов насчитывает более 2000 лет, а Южная Корея сегодня остаётся крупнейшим мировым импортёром.'
-                : isCN
-                  ? '从历史渊源来看，正是亚洲源源不断地驱动并创造了对鹿茸制品和传统理疗的巨大市场需求。在中国，鹿茸防病强身和传统调理的使用历史已超过2000年，而韩国至今仍是全球最核心的天然鹿茸进口国。'
-                  : 'Historically, it is Asia that shaped the demand for velvet antler products. In China, the use of antlers dates back over 2000 years, while South Korea remains the largest global importer.'}
-            </p>
-            <p className="body-lead">
-              {isRU
-                ? 'Южная Корея отличается предпочтением крупным высококачественным пантам и обеспечивает примерно 80% мирового импорта. Китай не только потребляет, но и активно развивает внутреннюю переработку — капсулы, экстракты и functional-продукты.'
-                : isCN
-                  ? '韩国的市场特征是极度偏爱并追求饱满、肥大、高品质的特级精选鹿茸，约占全球鹿茸进口份额的80%。中国不仅是终极原料消费者，更在积极构建领先的精细深加工产业，主导鹿茸粉、精细胶囊、高纯度提取液和现代功能性健康调理食品。'
-                  : 'South Korea stands out for its preference for large, high-quality antlers and accounts for around 80% of global imports. China not only consumes but also actively develops domestic deep processing — capsules, extracts, and functional products.'}
-            </p>
-            <p className="body-lead">
-              <strong>{isRU ? 'Тренд: ' : isCN ? '全球趋势：' : 'Trend: '}</strong>
-              {isRU
-                ? 'рынок постепенно смещается от сырья к продуктам глубокой переработки с высокой добавленной стоимостью.'
-                : isCN ? '鹿茸原料贸易市场正在稳步、大跨步地从初级原料粗加工，向高利润、高附加值的现代精细深加工成品转型。' : 'the market is gradually shifting from raw materials to deep processing products with high added value.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="card-feature__eyebrow">
+                {isRU ? 'Потребительский спрос' : isCN ? '最大的消费市场' : 'Consumer Demand'}
+              </span>
+              <h2 className="h-section">
+                {isRU ? 'Азия: крупнейший рынок ' : isCN ? '亚洲：全球最大的鹿茸' : 'Asia: The Largest Consumer '}
+                <span className="h-section__accent">{isRU ? 'потребления' : isCN ? '消费驱动力' : 'Market'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Исторически именно Азия сформировала спрос на продукцию пантового направления. В Китае использование пантов насчитывает более 2000 лет, а Южная Корея сегодня остаётся крупнейшим мировым импортёром.'
+                  : isCN
+                    ? '从历史渊源来看，正是亚洲源源不断地驱动并创造了对鹿茸制品和传统理疗的巨大市场需求。在中国，鹿茸防病强身和传统调理的使用历史已超过2000年，而韩国至今仍是全球最核心的天然鹿茸进口国。'
+                    : 'Historically, it is Asia that shaped the demand for velvet antler products. In China, the use of antlers dates back over 2000 years, while South Korea remains the largest global importer.'}
+              </p>
+              <p className="body-lead">
+                {isRU
+                  ? 'Южная Корея отличается предпочтением крупным высококачественным пантам и обеспечивает примерно 80% мирового импорта. Китай не только потребляет, но и активно развивает внутреннюю переработку — капсулы, экстракты и functional-продукты.'
+                  : isCN
+                    ? '韩国的市场特征是极度偏爱并追求饱满、肥大、高品质的特级精选鹿茸，约占全球鹿茸进口份额的80%。中国不仅是终极原料消费者，更在积极构建领先的精细深加工产业，主导鹿茸粉、精细胶囊、高纯度提取液和现代功能性健康调理食品。'
+                    : 'South Korea stands out for its preference for large, high-quality antlers and accounts for around 80% of global imports. China not only consumes but also actively develops domestic deep processing — capsules, extracts, and functional products.'}
+              </p>
+              <p className="body-lead">
+                <strong>{isRU ? 'Тренд: ' : isCN ? '全球趋势：' : 'Trend: '}</strong>
+                {isRU
+                  ? 'рынок постепенно смещается от сырья к продуктам глубокой переработки с высокой добавленной стоимостью.'
+                  : isCN ? '鹿茸原料贸易市场正在稳步、大跨步地从初级原料粗加工，向高利润、高附加值的现代精细深加工成品转型。' : 'the market is gradually shifting from raw materials to deep processing products with high added value.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
@@ -493,28 +499,31 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── 5. Северная Америка (Clean Calm White Section) ────────────────────── */}
       <section id="na" className="section-calm scroll-mt-24 pt-0">
         <div className="section-inner">
-          <div className="max-w-3xl section-header">
-            <span className="card-feature__eyebrow">
-              {isRU ? 'Североамериканская модель' : isCN ? '北美育种管理模式' : 'North American Model'}
-            </span>
-            <h2 className="h-section">
-              {isRU ? 'США и Канада: развитие ' : isCN ? '美国与加拿大：专业' : 'USA & Canada: Development of '}
-              <span className="h-section__accent">{isRU ? 'фермерского оленеводства' : isCN ? '红鹿养殖场' : 'Specialized Farming'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'В Северной Америке активно развивается разведение благородных оленей и wapiti (вапити), где большое внимание уделяется качеству генетики, репродуктивным технологиям и развитию животных с выдающимися характеристиками рогов.'
-                : isCN
-                  ? '在北美大陆，欧洲红鹿以及马鹿（Wapiti）的科学繁育正呈现蓬勃发展之势。这套体系将核心精力倾注于基因品质改良、前沿辅助生殖繁育技术（如人工授精与胚胎移植）以及培养具有非凡观赏与商业价值的角骨个体。'
-                  : 'In North America, Red Deer and wapiti breeding is actively developing, focusing on genetic quality, reproductive technologies, and the growth of animals with outstanding antler characteristics.'}
-            </p>
-            <p className="body-lead">
-              {isRU
-                ? 'США и Канада также входят в число производителей пантов и постепенно увеличивают долю переработанной продукции.'
-                : isCN
-                  ? '美国与加拿大也是全球高品质鹿茸和鹿角的重要产地之一，并正在稳步提升高端精深加工产品的市场占比。'
-                  : 'USA and Canada are also among key velvet producers and are gradually increasing the share of processed high-value products.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="card-feature__eyebrow">
+                {isRU ? 'Североамериканская модель' : isCN ? '北美育种管理模式' : 'North American Model'}
+              </span>
+              <h2 className="h-section">
+                {isRU ? 'США и Канада: развитие ' : isCN ? '美国与加拿大：专业' : 'USA & Canada: Development of '}
+                <span className="h-section__accent">{isRU ? 'фермерского оленеводства' : isCN ? '红鹿养殖场' : 'Specialized Farming'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'В Северной Америке активно развивается разведение благородных оленей и wapiti (вапити), где большое внимание уделяется качеству генетики, репродуктивным технологиям и развитию животных с выдающимися характеристиками рогов.'
+                  : isCN
+                    ? '在北美大陆，欧洲红鹿以及马鹿（Wapiti）的科学繁育正呈现蓬勃发展之势。这套体系将核心精力倾注于基因品质改良、前沿辅助生殖繁育技术（如人工授精与胚胎移植）以及培养具有非凡观赏与商业价值的角骨个体。'
+                    : 'In North America, Red Deer and wapiti breeding is actively developing, focusing on genetic quality, reproductive technologies, and the growth of animals with outstanding antler characteristics.'}
+              </p>
+              <p className="body-lead">
+                {isRU
+                  ? 'США и Канада также входят в число производителей пантов и постепенно увеличивают долю переработанной продукции.'
+                  : isCN
+                    ? '美国与加拿大也是全球高品质鹿茸和鹿角的重要产地之一，并正在稳步提升高端精深加工产品的市场占比。'
+                    : 'USA and Canada are also among key velvet producers and are gradually increasing the share of processed high-value products.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
@@ -522,30 +531,33 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── 6. Экономика отрасли (5 моделей дохода) ────────────────────── */}
       <section className="section-calm">
         <div className="section-inner">
-          <div className="max-w-3xl section-header">
-            <h2 className="h-section">
-              {isRU ? 'Современное оленеводство — это не ' : isCN ? '现代养鹿业：' : 'Modern Deer Farming: '}
-              <span className="h-section__accent">{isRU ? 'модель одного дохода' : isCN ? '多元化创收模型' : 'Multiple Income Streams'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'Современное оленеводство опирается сразу на несколько источников дохода: генетику и племенное направление с высокой стоимостью качественных линий; пантовое направление — сырьё и переработку; репродуктивные технологии — ЭКО и улучшение стада; агротуризм с экскурсиями и открытыми форматами; и глубокую переработку — капсулы, экстракты, wellness.'
-                : isCN
-                  ? '现代养鹿业同时依托多元化的创收模型：遗传基因与良种选育（优质繁育亲本血统具有极高的单头商业价值）、鹿茸科学开发（初级鹿茸原材料与高端深加工成品的研发生产）、现代辅助生殖技术（通过人工授精与胚胎移植等科技快速改良升级）、农业生态旅游开发（红鹿生态科普旅行项目和自然观光游览服务），以及高价值深加工链条（高精纯胶囊、生物多肽提取液与健康理疗）。'
-                  : 'Modern deer farming draws on multiple income streams: genetics and pedigree breeding with the high commercial value of quality lines; the velvet antler direction — raw materials and processed wellness products; reproductive technologies — IVF and rapid herd improvement; agrotourism with excursions and open farm formats; and deep processing — capsules, extracts, and wellness.'}
-            </p>
-            <p className="body-lead">
-              {isRU
-                ? 'Во многих странах наибольшую добавленную стоимость создаёт не сырьё, а переработка и готовая продукция.'
-                : isCN ? '核心经济逻辑：纵观全球，创造最大化经济附加值和利润收益的不是初级初加工原材料，而是深度加工与高品质精制成品。' : 'Core economic logic: globally, the highest added value is created by deep processing and finished products, not raw materials.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Современное оленеводство — это не ' : isCN ? '现代养鹿业：' : 'Modern Deer Farming: '}
+                <span className="h-section__accent">{isRU ? 'модель одного дохода' : isCN ? '多元化创收模型' : 'Multiple Income Streams'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Современное оленеводство опирается сразу на несколько источников дохода: генетику и племенное направление с высокой стоимостью качественных линий; пантовое направление — сырьё и переработку; репродуктивные технологии — ЭКО и улучшение стада; агротуризм с экскурсиями и открытыми форматами; и глубокую переработку — капсулы, экстракты, wellness.'
+                  : isCN
+                    ? '现代养鹿业同时依托多元化的创收模型：遗传基因与良种选育（优质繁育亲本血统具有极高的单头商业价值）、鹿茸科学开发（初级鹿茸原材料与高端深加工成品的研发生产）、现代辅助生殖技术（通过人工授精与胚胎移植等科技快速改良升级）、农业生态旅游开发（红鹿生态科普旅行项目和自然观光游览服务），以及高价值深加工链条（高精纯胶囊、生物多肽提取液与健康理疗）。'
+                    : 'Modern deer farming draws on multiple income streams: genetics and pedigree breeding with the high commercial value of quality lines; the velvet antler direction — raw materials and processed wellness products; reproductive technologies — IVF and rapid herd improvement; agrotourism with excursions and open farm formats; and deep processing — capsules, extracts, and wellness.'}
+              </p>
+              <p className="body-lead">
+                {isRU
+                  ? 'Во многих странах наибольшую добавленную стоимость создаёт не сырьё, а переработка и готовая продукция.'
+                  : isCN ? '核心经济逻辑：纵观全球，创造最大化经济附加值和利润收益的不是初级初加工原材料，而是深度加工与高品质精制成品。' : 'Core economic logic: globally, the highest added value is created by deep processing and finished products, not raw materials.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
 
-      {/* ─── 7. Почему Россия имеет потенциал (High-impact summary - strategic green section) ─── */}
+      {/* ─── 7. Почему Россия имеет потенциал (High-impact summary - strategic green CTA section) ─── */}
       <section id="ru-section" className="section-accent scroll-mt-24">
-        <div className="section-inner flex flex-col items-start gap-8">
+        <div className="section-inner flex flex-col gap-10">
           <div className="max-w-3xl section-header">
             <h2 className="h-section-light">
               {isRU ? 'Почему Россия может стать ' : isCN ? '为什么俄罗斯具备成为全球' : 'Why Russia Can Become a '}
@@ -564,12 +576,14 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                 : isCN ? '俄罗斯尽管在产业配套和成熟度上暂时落后于欧洲，但在牧场面积、空间纵深和规模化扩展潜力上，拥有极其巨大的不对称领先优势。' : 'Russia lags Europe in industry maturity but has significantly larger scaling potential.'}
             </p>
           </div>
-          <button
-            onClick={() => onSwitchTab('contacts')}
-            className="btn-outline-light"
-          >
-            {isRU ? 'Связаться с нами' : isCN ? '联系我们' : 'Contact Us'}
-          </button>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <button
+              onClick={() => onSwitchTab('contacts')}
+              className="btn-outline-light"
+            >
+              {isRU ? 'Связаться с нами' : isCN ? '联系我们' : 'Contact Us'}
+            </button>
+          </div>
         </div>
       </section>
     </div>

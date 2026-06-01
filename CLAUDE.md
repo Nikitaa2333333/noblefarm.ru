@@ -202,6 +202,47 @@ Locked bans:
 - **No splitting** an H2 and its lead paragraph into two sibling `<div>`s with `mb-10` between them. The H2 + lead belong to one block.
 - The wrapper itself MAY take an outer margin (e.g. `mb-10`) when the next block is a grid of cards — the outer margin separates the header from the grid, not the H2 from its lead.
 
+### Two-column blocks — text left, decoration right (universal split)
+
+**The universal rule for every 2-column section on inner pages**: calm reading content (eyebrow + H2 + body paragraphs) lives in the **LEFT** column. Everything decorative or structural (bullets, numbered lists, stat callouts, gold accents, image, illustration tile) lives in the **RIGHT** column.
+
+The split is locked at **`lg:grid-cols-12`** with **`lg:col-span-7`** (left, text) + **`lg:col-span-5`** (right, decoration). No other ratios are allowed (no 6/6, no 8/4, no 5/7 — column widths must be the same on every section so the page reads as one consistent grid, not a series of mismatched layouts).
+
+```tsx
+<section className="section-calm">
+  <div className="section-inner">
+    <div className="grid lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+      <div className="lg:col-span-7">
+        <div className="section-header">
+          <span className="label-eyebrow">…</span>
+          <h2 className="h-section">…</h2>
+          <p className="body-lead">…</p>
+          <p className="body-lead">…</p>
+        </div>
+      </div>
+      <div className="lg:col-span-5 lg:pt-14">
+        {/* bullets, numbers, image, accents — whatever the section needs */}
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+Variants:
+- **Only prose, no decoration** → use the same 7/5 grid with the right column empty. Right-side air is intentional — do **not** stretch text to full width and do **not** fill the right column with a decorative plate "to balance".
+- **Only decoration, no prose body** → still keep the eyebrow + H2 in the left column (col-7), put the visual stack in the right column (col-5).
+
+Locked bans:
+- **Text on the right, decoration on the left** — flipped variant is forbidden, even for "rhythm". The split is one-way: text LEFT, decoration RIGHT, on every section, on every inner tab.
+- **Other column ratios** (`lg:col-span-6 lg:col-span-6`, `lg:col-span-8 lg:col-span-4`, etc.) — forbidden. 7/5 is the only legal split.
+- **Full-width body text** (single column spanning all 12 cols) for a section with H2 + body — forbidden. Even a "text only" section uses the 7/5 grid; the right 5 cols are air.
+- **Decoration stuffed into the left column alongside the text** (bullets right under the body paragraphs) — forbidden. Decoration moves to the right column.
+
+Exceptions (sections where this rule does NOT apply):
+- `.hero-side-image` — already locked to its own grid (col-7 text + col-5 photo).
+- CTA sections — text + buttons stack vertically per the "CTA below text" rule (§5).
+- Card grids (3-col or 4-col rows of `.card-feature` / `.card-flat`) — independent grid pattern, not the text/decoration split.
+
 ### Two-column blocks — x-height alignment
 
 **The universal rule**: whenever a 2-column grid (`lg:grid-cols-12` with `items-start`) puts a big `.h-section` / `.hero-title` on the **left** and any content on the **right**, the right column's first line must sit on the **x-height** of the left H2 (top of its lowercase letters), not at the cap-top and not at the grid-cell top. Cap-top / cell-top alignment looks broken — the big serif H2 is much taller than the right content and the right text reads as floating above the heading.

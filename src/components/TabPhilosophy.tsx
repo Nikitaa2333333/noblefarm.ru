@@ -131,23 +131,22 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
       {/* ─── Why we do this ───────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-5 section-header">
+          <div className="lg:col-span-7 section-header">
             <span className="label-eyebrow">{t.why.eyebrow}</span>
             <h2 className="h-section">
               {t.why.title} <span className="h-section__accent">{t.why.titleAccent}</span>
             </h2>
-          </div>
-          <div className="lg:col-span-7 lg:pt-14 flex flex-col gap-6">
             <p className="body-lead">{t.why.p1}</p>
             <p className="body-lead">{t.why.p2}</p>
             <p className="body-lead">{t.why.p3}</p>
           </div>
+          <div className="lg:col-span-5" />
         </div>
       </section>
 
       {/* ─── Family project ──────────────────────────────────────────────── */}
       <section className="section-calm">
-        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
           <div className="lg:col-span-7 flex flex-col gap-10">
             <div className="section-header">
               <span className="label-eyebrow">{t.family.eyebrow}</span>
@@ -158,6 +157,19 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
               <p className="body-lead">{t.family.p2}</p>
               <p className="body-lead">{t.family.p3}</p>
             </div>
+            <div className="flex flex-col gap-6">
+              <h3 className="h-block">{t.family.principlesTitle}</h3>
+              <ul className="flex flex-col gap-4">
+                {t.family.principles.map((principle) => (
+                  <li key={principle} className="flex items-start gap-3">
+                    <Check className="w-6 h-6 text-text-dark shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="body-sm">{principle}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="lg:col-span-5 lg:pt-14">
             <div className="aspect-[16/10] overflow-hidden shadow-soft">
               <img
                 src="/enhanced_about_7.webp"
@@ -166,31 +178,23 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
               />
             </div>
           </div>
-          <div className="lg:col-span-5 lg:pt-14 flex flex-col gap-6">
-            <h3 className="h-block">{t.family.principlesTitle}</h3>
-            <ul className="flex flex-col gap-4">
-              {t.family.principles.map((principle) => (
-                <li key={principle} className="flex items-start gap-3">
-                  <Check className="w-6 h-6 text-text-dark shrink-0 mt-0.5" strokeWidth={2.5} />
-                  <span className="body-sm">{principle}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
       {/* ─── Why European Red Deer ───────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner flex flex-col gap-10">
-          <div className="max-w-3xl section-header">
-            <span className="label-eyebrow">{t.species.eyebrow}</span>
-            <h2 className="h-section">
-              {t.species.title}{' '}
-              <span className="h-section__accent">{t.species.titleAccent}</span>
-            </h2>
-            <p className="body-lead">{t.species.p1}</p>
-            <p className="body-lead">{t.species.p2}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="label-eyebrow">{t.species.eyebrow}</span>
+              <h2 className="h-section">
+                {t.species.title}{' '}
+                <span className="h-section__accent">{t.species.titleAccent}</span>
+              </h2>
+              <p className="body-lead">{t.species.p1}</p>
+              <p className="body-lead">{t.species.p2}</p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {t.species.cards.map((card) => (
@@ -220,17 +224,16 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
       {/* ─── Russia potential ─────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-5 section-header">
+          <div className="lg:col-span-7 section-header">
             <span className="label-eyebrow">{t.russia.eyebrow}</span>
             <h2 className="h-section">
               {t.russia.title}
               <span className="h-section__accent">{t.russia.titleAccent}</span>
             </h2>
-          </div>
-          <div className="lg:col-span-7 lg:pt-14 flex flex-col gap-6">
             <p className="body-lead">{t.russia.p1}</p>
             <p className="body-lead">{t.russia.p2}</p>
           </div>
+          <div className="lg:col-span-5" />
         </div>
       </section>
 

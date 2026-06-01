@@ -347,22 +347,41 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
       {/* ─── Scientific Interest (Spacious White Section) ────────────────────── */}
       <section className="section-calm pt-0">
         <div className="section-inner">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* Left: Intro */}
-            <div className="lg:col-span-6 flex flex-col gap-6">
-              <h2 className="h-section">
-                {isRU ? 'Почему панты изучают ' : isCN ? '为什么科学家热衷于' : 'Why Scientists Study '}
-                <span className="h-section__accent">{isRU ? 'учёные' : isCN ? '研究鹿茸' : 'Velvet Antlers'}</span>
-              </h2>
-              <p className="body-lead">
-                {isRU
-                  ? 'Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма. Исследования посвящены изучению биологического состава пантов, механизмов роста тканей и потенциальной роли отдельных компонентов в процессах восстановления и адаптации организма.'
-                  : isCN
-                    ? '得益于其定期再生能力 and 极快的生长速度，鹿茸已成为从组织生物学到人体机能恢复等多个科学领域的研究热点。相关学术探索致力于深入揭示鹿茸的复杂生物化学成分、组织生长的细胞分子机制，以及特定活性成分在促进人体损伤修复和环境适应中的潜在效能。'
-                    : 'Due to their ability for regular regeneration and rapid growth, velvet antlers have become an object of scientific interest in fields from tissue biology to recovery processes. Research is devoted to analyzing their bio-composition and role in adaptation.'}
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            {/* Left: heading + body + "What is Studied" checklist */}
+            <div className="lg:col-span-7 flex flex-col gap-10">
+              <div className="section-header">
+                <h2 className="h-section">
+                  {isRU ? 'Почему панты изучают ' : isCN ? '为什么科学家热衷于' : 'Why Scientists Study '}
+                  <span className="h-section__accent">{isRU ? 'учёные' : isCN ? '研究鹿茸' : 'Velvet Antlers'}</span>
+                </h2>
+                <p className="body-lead">
+                  {isRU
+                    ? 'Благодаря способности к регулярной регенерации и высокой скорости роста панты стали объектом научного интереса в различных областях — от биологии тканей до восстановительных процессов организма. Исследования посвящены изучению биологического состава пантов, механизмов роста тканей и потенциальной роли отдельных компонентов в процессах восстановления и адаптации организма.'
+                    : isCN
+                      ? '得益于其定期再生能力 and 极快的生长速度，鹿茸已成为从组织生物学到人体机能恢复等多个科学领域的研究热点。相关学术探索致力于深入揭示鹿茸的复杂生物化学成分、组织生长的细胞分子机制，以及特定活性成分在促进人体损伤修复和环境适应中的潜在效能。'
+                      : 'Due to their ability for regular regeneration and rapid growth, velvet antlers have become an object of scientific interest in fields from tissue biology to recovery processes. Research is devoted to analyzing their bio-composition and role in adaptation.'}
+                </p>
+              </div>
 
-              <div className="mt-6 flex flex-col gap-5">
+              <div className="flex flex-col gap-6">
+                <h3 className="h-block">
+                  {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {whatIsStudied.map((item, idx) => (
+                    <div key={idx} className="flex gap-4 items-center">
+                      <Check className="w-5 h-5 text-text-dark shrink-0" strokeWidth={2.5} />
+                      <span className="text-base font-semibold text-text-dark leading-snug">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: "Where applied" list + button */}
+            <div className="lg:col-span-5 lg:pt-3 flex flex-col gap-8">
+              <div className="flex flex-col gap-5">
                 <h4 className="h-block">
                   {isRU ? 'Где применяется в мировой практике' : isCN ? '全球主要应用领域' : 'Global Application Practice'}
                 </h4>
@@ -375,24 +394,8 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                   ))}
                 </ul>
               </div>
-            </div>
 
-            {/* Right: Checklist — pt-3 lg shifts the column down so x-height of h3
-                aligns with x-height of left H2 (x-height alignment, not cap-top). */}
-            <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-10 lg:pt-3">
-              <h3 className="h-block mb-2">
-                {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
-              </h3>
               <div className="flex flex-col gap-4">
-                {whatIsStudied.map((item, idx) => (
-                  <div key={idx} className="flex gap-4 items-center">
-                    <Check className="w-5 h-5 text-text-dark shrink-0" strokeWidth={2.5} />
-                    <span className="text-base font-semibold text-text-dark leading-snug">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-col gap-4">
                 <button className="btn-outline-dark cursor-not-allowed opacity-60">
                   {isRU ? 'Научные исследования (в разработке)' : isCN ? '学术研究论著（开发中）' : 'Scientific Research (In Development)'}
                 </button>
@@ -412,97 +415,99 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
       {/* ─── Biological Composition ────────────────────────────────────────── */}
       <section className="section-calm pt-0">
         <div className="section-inner">
-          <div className="max-w-3xl mb-8">
-            <h2 className="h-section mb-4">
-              {isRU ? 'Биологический состав ' : isCN ? '鹿茸的天然' : 'Biological '}
-              <span className="h-section__accent">{isRU ? 'пантов' : isCN ? '生物化学成分' : 'Composition'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'Исследования показывают наличие в пантах комплекса природных компонентов, включая:'
-                : isCN
-                  ? '多项现代科学检测表明，鹿茸中蕴含着极为丰富的天然营养活性复合物，主要包括：'
-                  : 'Studies reveal a rich complex of natural compounds in velvet antlers, including:'}
-            </p>
-          </div>
-
-          <p className="body-lead max-w-3xl">
-            {composition
-              .map((item, idx) =>
-                isRU && idx > 0 ? item.charAt(0).toLowerCase() + item.slice(1) : item,
-              )
-              .join(isCN ? '、' : ', ')}
-            {isCN ? '。' : '.'}
-          </p>
-
-          <div className="mt-10">
-            <p className="body-sm max-w-3xl">
-              {isRU
-                ? 'Состав зависит от генетики животного, периода роста, условий содержания и технологии переработки.'
-                : isCN
-                  ? '其具体的化学组成比例与动物品系基因、生长期阶段、自然放牧环境以及科学精细的加工收茸技术密切相关。'
-                  : 'The specific composition depends on animal genetics, growth period, keeping conditions, and processing technology.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Биологический состав ' : isCN ? '鹿茸的天然' : 'Biological '}
+                <span className="h-section__accent">{isRU ? 'пантов' : isCN ? '生物化学成分' : 'Composition'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Исследования показывают наличие в пантах комплекса природных компонентов, включая:'
+                  : isCN
+                    ? '多项现代科学检测表明，鹿茸中蕴含着极为丰富的天然营养活性复合物，主要包括：'
+                    : 'Studies reveal a rich complex of natural compounds in velvet antlers, including:'}
+              </p>
+              <p className="body-lead">
+                {composition
+                  .map((item, idx) =>
+                    isRU && idx > 0 ? item.charAt(0).toLowerCase() + item.slice(1) : item,
+                  )
+                  .join(isCN ? '、' : ', ')}
+                {isCN ? '。' : '.'}
+              </p>
+              <p className="body-sm">
+                {isRU
+                  ? 'Состав зависит от генетики животного, периода роста, условий содержания и технологии переработки.'
+                  : isCN
+                    ? '其具体的化学组成比例与动物品系基因、生长期阶段、自然放牧环境以及科学精细的加工收茸技术密切相关。'
+                    : 'The specific composition depends on animal genetics, growth period, keeping conditions, and processing technology.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
 
-      {/* ─── Quality Starts with Genetics (Strategic concluding green block) ────── */}
+      {/* ─── Quality Starts with Genetics (Strategic concluding green CTA block) ────── */}
       <section className="section-accent">
-        <div className="section-inner flex flex-col items-start gap-8">
-          <div className="max-w-2xl">
-            <h2 className="h-section-light mb-4">
+        <div className="section-inner flex flex-col gap-10">
+          <div className="max-w-3xl section-header">
+            <h2 className="h-section-light">
               {isRU ? 'Качество пантов начинается с ' : isCN ? '高品质鹿茸源于优质种群' : 'Antler Quality Starts with '}
               <span className="h-section__accent">{isRU ? 'качества стада' : isCN ? '优质种群' : 'Herd Quality'}</span>
             </h2>
-            <div className="flex flex-col gap-3">
-              <p className="body-lead-light">
-                {isRU
-                  ? 'Потенциал развития пантов напрямую связан с происхождением животных, качеством племенных линий, здоровьем стада и подходом к селекции.'
-                  : isCN
-                    ? '鹿茸丰产和高品质的长势潜力，与红鹿个体的纯正血统来源、核心种公牛遗传素质、整体健康状况以及长期的科学配种密不可分。'
-                    : 'The growth potential of velvet antlers is directly linked to the origin of animals, the quality of breeding lines, herd health, and the selection approach.'}
-              </p>
-              <p className="body-lead-light">
-                {isRU
-                  ? 'Благородный европейский олень отличается мощным развитием рогов и высоким потенциалом для развития пантового направления. Именно поэтому генетика и племенная работа являются фундаментом качества.'
-                  : isCN
-                    ? '欧洲红鹿以其角骨生长极为粗壮和巨大的鹿茸开发前景著称。因此，长期的遗传改良和纯血选育是我们无可动摇的品质基石。'
-                    : 'European Red Deer is characterized by powerful antler development and a high potential for the industry. That is why genetics is the foundation of quality.'}
-              </p>
-            </div>
+            <p className="body-lead-light">
+              {isRU
+                ? 'Потенциал развития пантов напрямую связан с происхождением животных, качеством племенных линий, здоровьем стада и подходом к селекции.'
+                : isCN
+                  ? '鹿茸丰产和高品质的长势潜力，与红鹿个体的纯正血统来源、核心种公牛遗传素质、整体健康状况以及长期的科学配种密不可分。'
+                  : 'The growth potential of velvet antlers is directly linked to the origin of animals, the quality of breeding lines, herd health, and the selection approach.'}
+            </p>
+            <p className="body-lead-light">
+              {isRU
+                ? 'Благородный европейский олень отличается мощным развитием рогов и высоким потенциалом для развития пантового направления. Именно поэтому генетика и племенная работа являются фундаментом качества.'
+                : isCN
+                  ? '欧洲红鹿以其角骨生长极为粗壮和巨大的鹿茸开发前景著称。因此，长期的遗传改良和纯血选育是我们无可动摇的品质基石。'
+                  : 'European Red Deer is characterized by powerful antler development and a high potential for the industry. That is why genetics is the foundation of quality.'}
+            </p>
           </div>
-          <button
-            onClick={() => onSwitchTab('genetics')}
-            className="btn-outline-light"
-          >
-            {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'}
-          </button>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <button
+              onClick={() => onSwitchTab('genetics')}
+              className="btn-outline-light"
+            >
+              {isRU ? 'Генетика и племенная работа' : isCN ? '遗传学与良种繁育' : 'Genetics & Pedigree'}
+            </button>
+          </div>
         </div>
       </section>
 
       {/* ─── Our Approach ─────────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner">
-          <div className="max-w-3xl section-header">
-            <h2 className="h-section">
-              {isRU ? 'Наш взгляд на ' : isCN ? '我们对该领域的' : 'Our Approach to the '}
-              <span className="h-section__accent">{isRU ? 'развитие направления' : isCN ? '长远愿景' : 'Industry'}</span>
-            </h2>
-            <p className="body-lead">
-              {isRU
-                ? 'В «Благородном Севере» мы рассматриваем пантовое направление как долгосрочную часть развития хозяйства, основанную на качестве животных, ответственном подходе, ветеринарном сопровождении и системной племенной работе.'
-                : isCN
-                  ? '在“高贵北方”，我们将高品质鹿茸产业视为农场长远发展战略的核心一环。这一方向牢固建立在红鹿卓越的种质遗传、极其负责的人道养殖模式、全天候的兽医安全保障和系统化选育工作之上。'
-                  : 'At "Noble Sever", we view the velvet antler direction as a long-term part of the farm development, based on animal quality, responsible approach, veterinary support, and systematic pedigree breeding.'}
-            </p>
-            <p className="body-lead">
-              {isRU
-                ? 'В перспективе мы планируем развитие собственного пантового направления и изучение современных подходов к переработке и созданию качественной продукции.'
-                : isCN
-                  ? '展望未来，我们计划逐步开发自身的鹿茸深加工提取模块，深入探究国际领先的高附加值深加工提取技术，力求为市场奉献高纯度、高品质的精制深加工产品。'
-                  : 'In the future, we plan to develop our own velvet harvesting capacities and study modern approaches to deep processing and high-value product creation.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Наш взгляд на ' : isCN ? '我们对该领域的' : 'Our Approach to the '}
+                <span className="h-section__accent">{isRU ? 'развитие направления' : isCN ? '长远愿景' : 'Industry'}</span>
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'В «Благородном Севере» мы рассматриваем пантовое направление как долгосрочную часть развития хозяйства, основанную на качестве животных, ответственном подходе, ветеринарном сопровождении и системной племенной работе.'
+                  : isCN
+                    ? '在“高贵北方”，我们将高品质鹿茸产业视为农场长远发展战略的核心一环。这一方向牢固建立在红鹿卓越的种质遗传、极其负责的人道养殖模式、全天候的兽医安全保障和系统化选育工作之上。'
+                    : 'At "Noble Sever", we view the velvet antler direction as a long-term part of the farm development, based on animal quality, responsible approach, veterinary support, and systematic pedigree breeding.'}
+              </p>
+              <p className="body-lead">
+                {isRU
+                  ? 'В перспективе мы планируем развитие собственного пантового направления и изучение современных подходов к переработке и созданию качественной продукции.'
+                  : isCN
+                    ? '展望未来，我们计划逐步开发自身的鹿茸深加工提取模块，深入探究国际领先的高附加值深加工提取技术，力求为市场奉献高纯度、高品质的精制深加工产品。'
+                    : 'In the future, we plan to develop our own velvet harvesting capacities and study modern approaches to deep processing and high-value product creation.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>

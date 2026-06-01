@@ -75,11 +75,16 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
 
       {/* ─── Publications Section ─────────────────────────────────────────── */}
       <section className="section-calm">
-        <div className="section-inner">
-          <h2 className="h-section mb-10">
-            {isRU ? 'Главные ' : isCN ? '重点' : 'Key '}
-            <span className="h-section__accent">{isRU ? 'публикации' : isCN ? '报道' : 'Publications'}</span>
-          </h2>
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Главные ' : isCN ? '重点' : 'Key '}
+                <span className="h-section__accent">{isRU ? 'публикации' : isCN ? '报道' : 'Publications'}</span>
+              </h2>
+            </div>
+            <div className="lg:col-span-5" />
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Feature Video Card using canonical card-feature styling */}
@@ -158,10 +163,15 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
 
       {/* ─── Outlets Logos Section ─── */}
       <section className="section-calm pt-0">
-        <div className="section-inner">
-          <h2 className="h-section mb-12 text-center">
-            {isRU ? 'В партнёрстве с профессиональными изданиями' : isCN ? '与专业行业媒体紧密合作' : 'In Partnership with Professional Publications'}
-          </h2>
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'В партнёрстве с профессиональными изданиями' : isCN ? '与专业行业媒体紧密合作' : 'In Partnership with Professional Publications'}
+              </h2>
+            </div>
+            <div className="lg:col-span-5" />
+          </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {outlets.map((item) => (
               <a
@@ -190,20 +200,22 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
       {/* ─── For Journalists Section (High-impact concluding green block) ─────── */}
       <section className="section-accent">
         <div className="section-inner">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-8 flex flex-col gap-5">
-              <h2 className="h-section-light">
-                {isRU ? 'Для СМИ и ' : isCN ? '媒体与' : 'For Media & '}
-                <span className="h-section__accent">{isRU ? 'журналистов' : isCN ? '记者专区' : 'Journalists'}</span>
-              </h2>
-              <p className="body-lead-light">
-                {isRU
-                  ? 'Открыты к профессиональному общению, предоставлению актуальной информации и организации съёмок по темам:'
-                  : isCN
-                    ? '我们对专业交流、提供最新行业资讯以及围绕以下主题组织媒体拍摄持全面开放态度：'
-                    : 'We are open to professional communication, providing up-to-date information, and organizing shoots on the following topics:'}
-              </p>
-              <ul className="flex flex-col gap-3 mt-2 pl-2">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 flex flex-col gap-8">
+              <div className="section-header">
+                <h2 className="h-section-light">
+                  {isRU ? 'Для СМИ и ' : isCN ? '媒体与' : 'For Media & '}
+                  <span className="h-section__accent">{isRU ? 'журналистов' : isCN ? '记者专区' : 'Journalists'}</span>
+                </h2>
+                <p className="body-lead-light">
+                  {isRU
+                    ? 'Открыты к профессиональному общению, предоставлению актуальной информации и организации съёмок по темам:'
+                    : isCN
+                      ? '我们对专业交流、提供最新行业资讯以及围绕以下主题组织媒体拍摄持全面开放态度：'
+                      : 'We are open to professional communication, providing up-to-date information, and organizing shoots on the following topics:'}
+                </p>
+              </div>
+              <ul className="flex flex-col gap-3 pl-2">
                 {topics.map((t, idx) => (
                   <li key={idx} className="flex gap-3 items-center text-sm font-semibold text-text-light">
                     <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
@@ -212,19 +224,21 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
                 ))}
               </ul>
             </div>
-            
-            <div className="lg:col-span-4 flex flex-col gap-6 bg-secondary/40 p-8 rounded-[6px]">
-              <span className="h-block-light">
-                {isRU ? 'Запросы прессы' : isCN ? '采访申请' : 'Press Enquiries'}
-              </span>
-              <p className="text-base font-medium text-text-light/85 leading-snug">
-                {isRU
-                  ? 'Мы рады делиться новостями и организовывать визиты для представителей медиа.'
-                  : isCN ? '我们乐于为媒体代表共享新闻资讯并安排农场实地考察。' : 'We are glad to share news and organize farm visits for media representatives.'}
-              </p>
-              <button onClick={() => onSwitchTab('contacts')} className="btn-outline-light w-full">
-                {isRU ? 'Связаться с нами' : isCN ? '与我们联系' : 'Contact Us'}
-              </button>
+
+            <div className="lg:col-span-5 lg:pt-14">
+              <div className="flex flex-col gap-6 bg-secondary/40 p-8 rounded-[6px]">
+                <span className="h-block-light">
+                  {isRU ? 'Запросы прессы' : isCN ? '采访申请' : 'Press Enquiries'}
+                </span>
+                <p className="text-base font-medium text-text-light/85 leading-snug">
+                  {isRU
+                    ? 'Мы рады делиться новостями и организовывать визиты для представителей медиа.'
+                    : isCN ? '我们乐于为媒体代表共享新闻资讯并安排农场实地考察。' : 'We are glad to share news and organize farm visits for media representatives.'}
+                </p>
+                <button onClick={() => onSwitchTab('contacts')} className="btn-outline-light w-full">
+                  {isRU ? 'Связаться с нами' : isCN ? '与我们联系' : 'Contact Us'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

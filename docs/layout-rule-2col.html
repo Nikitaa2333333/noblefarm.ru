@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Правило двухколоночных секций — Благородный Север</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #0F2A47;
+    --secondary: #06111E;
+    --accent: #D0B18A;
+    --bg-light: #FFFFFF;
+    --bg-card: #FAFAF8;
+    --text-dark: #1A2333;
+    --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Century Schoolbook", "Century", "New Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-weight: 500;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .section { padding: 48px 24px; }
+  .section-inner { max-width: 1400px; margin: 0 auto; }
+  .grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 1024px) { .grid-12 { grid-template-columns: 1fr; gap: 24px; } }
+  .col-7 { grid-column: span 7; }
+  .col-5 { grid-column: span 5; }
+  @media (max-width: 1024px) { .col-7, .col-5 { grid-column: span 1; } }
+
+  .section-header { display: flex; flex-direction: column; gap: 24px; }
+  .label-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0;
+  }
+  .h-section {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+    margin: 0;
+  }
+  @media (min-width: 640px) { .h-section { font-size: 36px; } }
+  @media (min-width: 1024px) { .h-section { font-size: 46px; } }
+  .h-section__accent { font-style: italic; color: var(--accent); }
+
+  .body-lead { font-size: 18px; line-height: 1.6; color: var(--text-dark); margin: 0; font-weight: 500; }
+  .body-sm { font-size: 16px; line-height: 1.3; color: var(--text-dark); margin: 0; font-weight: 500; }
+  .pt-14 { padding-top: 56px; }
+  @media (max-width: 1024px) { .pt-14 { padding-top: 0; } }
+
+  .stack-paragraphs { display: flex; flex-direction: column; gap: 20px; }
+  .stack-bullets { display: flex; flex-direction: column; gap: 18px; }
+  .bullet-row { display: flex; gap: 14px; align-items: flex-start; }
+  .bullet-row svg { flex: none; margin-top: 4px; color: var(--text-dark); }
+  .stat-stack { display: flex; flex-direction: column; gap: 24px; }
+  .stat-group { display: flex; flex-direction: column; gap: 8px; }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .stat-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+
+  /* page chrome */
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    margin: 48px 24px 8px;
+    color: var(--text-dark);
+  }
+  .page-sub { font-size: 14px; color: var(--text-dark); opacity: 0.7; margin: 0 24px 32px; }
+  .pattern-label {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    margin-bottom: 24px;
+  }
+  .pattern-note {
+    font-size: 14px;
+    color: var(--text-dark);
+    opacity: 0.85;
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+  }
+  .divider { height: 1px; background: #eee; margin: 0 24px; }
+</style>
+</head>
+<body>
+
+  <h1 class="page-title">Правило двухколоночных секций</h1>
+  <p class="page-sub">Inner pages (не TabMain). СЛЕВА — заголовок + наборный текст (одна линия). СПРАВА — буллиты, цифры, акценты, выноски.</p>
+
+  <!-- PATTERN A: only prose — single left column, right empty -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="pattern-label">A · Только заголовок + наборный текст</span>
+      <div class="grid-12">
+        <div class="col-7">
+          <div class="section-header">
+            <span class="label-eyebrow">Зачем мы это делаем</span>
+            <h2 class="h-section">
+              Почему мы <span class="h-section__accent">этим занимаемся</span>
+            </h2>
+            <div class="stack-paragraphs" style="margin-top: 8px;">
+              <p class="body-lead">
+                Мы видим большой потенциал развития культуры современного оленеводства в России — особенно в регионах с подходящим климатом и земельными ресурсами.
+              </p>
+              <p class="body-lead">
+                Московская область обладает хорошими условиями для содержания благородного европейского оленя и при этом находится рядом с крупнейшим потребительским рынком страны.
+              </p>
+              <p class="body-lead">
+                При наличии сильной генетики, системного подхода и долгосрочного планирования это направление может стать полноценной частью современного сельского хозяйства.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-5"><!-- intentionally empty: воздух --></div>
+      </div>
+      <p class="pattern-note">
+        Эюбро + H2 + параграфы — всё в ОДНОЙ левой колонке, по одной линии. Правая колонка пустая — это воздух, а не место под декор.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PATTERN B: prose left + bullets right -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="pattern-label">B · Текст слева + буллиты справа</span>
+      <div class="grid-12">
+        <div class="col-7">
+          <div class="section-header">
+            <span class="label-eyebrow">Преимущества подхода</span>
+            <h2 class="h-section">
+              Почему наша <span class="h-section__accent">генетика работает</span>
+            </h2>
+            <div class="stack-paragraphs" style="margin-top: 8px;">
+              <p class="body-lead">
+                Племенная работа — это не разовая закупка животных, а методичный процесс отбора и проверки на протяжении поколений.
+              </p>
+              <p class="body-lead">
+                Каждое решение по разведению принимается на основе данных о происхождении, продуктивности и здоровье предков.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-5 pt-14">
+          <div class="stack-bullets">
+            <div class="bullet-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="body-sm">Племенные линии из европейских питомников с подтверждённой родословной</span>
+            </div>
+            <div class="bullet-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="body-sm">Системная работа с генетическим разнообразием стада</span>
+            </div>
+            <div class="bullet-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="body-sm">Долгосрочный план развития на 10+ лет</span>
+            </div>
+            <div class="bullet-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span class="body-sm">Открытое хозяйство — экскурсии и доступ к данным</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pattern-note">
+        Слева — заголовок + наборный текст (одна линия). Справа — буллиты как «оформление». Правая колонка получает <code>lg:pt-14</code> — её x-height садится на x-height H2.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PATTERN C: prose left + naked numbers right -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="pattern-label">C · Текст слева + цифры справа</span>
+      <div class="grid-12">
+        <div class="col-7">
+          <div class="section-header">
+            <span class="label-eyebrow">Хозяйство в цифрах</span>
+            <h2 class="h-section">
+              Масштаб <span class="h-section__accent">проекта</span>
+            </h2>
+            <div class="stack-paragraphs" style="margin-top: 8px;">
+              <p class="body-lead">
+                Хозяйство разворачивалось поэтапно с 2019 года: сначала земельный участок и первичная инфраструктура, затем завоз племенного поголовья из Европы, и параллельно — собственная племенная программа.
+              </p>
+              <p class="body-lead">
+                Все цифры — на конец 2026 года. План на ближайшие 5 лет — удвоение поголовья без потери качества родословных.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-5 pt-14">
+          <div class="stat-stack">
+            <div class="stat-group">
+              <span class="stat-value">1 200 га</span>
+              <span class="stat-label">Площадь участка</span>
+            </div>
+            <div class="stat-group">
+              <span class="stat-value">800+</span>
+              <span class="stat-label">Голов в стаде</span>
+            </div>
+            <div class="stat-group">
+              <span class="stat-value">12</span>
+              <span class="stat-label">Племенных линий</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pattern-note">
+        Слева — проза. Справа — голые цифры (без plashek), стопкой. Подписи под цифрами — <code>.label-meta</code> 14px bold.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PATTERN D: prose left + decorative image right -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="pattern-label">D · Текст слева + картинка справа</span>
+      <div class="grid-12">
+        <div class="col-7">
+          <div class="section-header">
+            <span class="label-eyebrow">Открытое хозяйство</span>
+            <h2 class="h-section">
+              Знакомство с <span class="h-section__accent">хозяйством</span>
+            </h2>
+            <div class="stack-paragraphs" style="margin-top: 8px;">
+              <p class="body-lead">
+                Мы открыты для гостей и партнёров — это часть нашей философии. Экскурсии проходят круглый год, программа адаптируется под аудиторию.
+              </p>
+              <p class="body-lead">
+                Можно увидеть стадо, поговорить с зоотехником, узнать про племенную программу и ветеринарный контроль из первых рук.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <div style="aspect-ratio: 4/3; background: linear-gradient(135deg, #1E3F5E, #06111E); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:center; color:#D0B18A; font-family: var(--font-serif); font-size:20px;">
+            [ Фото хозяйства ]
+          </div>
+        </div>
+      </div>
+      <p class="pattern-note">
+        Картинка тоже «оформление» — справа, аспект 4:3, без рамок. На неё распространяется то же правило: декор справа, текст слева.
+      </p>
+    </div>
+  </section>
+
+</body>
+</html>

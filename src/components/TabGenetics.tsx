@@ -139,40 +139,38 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
 
       {/* ─── Why Genetics + Quality Control (accent green section, two columns) ──── */}
       <section className="section-accent">
-        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-          <div className="lg:col-span-6 flex flex-col gap-6">
+        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+          <div className="lg:col-span-7 section-header">
             <h2 className="h-section-light">
               {isRU ? 'Почему ' : isCN ? '为什么' : 'Why '}
               <span className="h-section__accent">
                 {isRU ? 'генетика имеет значение' : isCN ? '遗传基因如此重要' : 'genetics matters'}
               </span>
             </h2>
-            <div className="flex flex-col gap-4">
-              <p className="body-lead-light">
-                {isRU
-                  ? 'Качество стада формируется годами и напрямую зависит от происхождения животных, племенных линий и подхода к отбору.'
-                  : isCN
-                    ? '群体的品质非一日之功，而是直接取决于动物的来源、优良血统以及系统科学的选育方法。'
-                    : 'Herd quality is shaped over years and directly depends on the animal origin, breeding lines, and the systematic approach to selection.'}
-              </p>
-              <p className="body-lead-light">
-                {isRU
-                  ? 'В формировании нашего стада используются сильные племенные линии благородных европейских оленей (Англия) Woburn Farm, Warnham Farm, оказавшие влияние на развитие современного оленеводства.'
-                  : isCN
-                    ? '在构建我们农场群体时, 引进了英国著名牧场 Woburn Farm 和 Warnham Farm 的强壮欧洲红鹿血统, 这对现代世界驯鹿业的发展起到了关键作用。'
-                    : 'In forming our herd, we utilize strong breeding lines of European Red Deer from England (Woburn Farm, Warnham Farm), which have influenced the development of modern deer farming.'}
-              </p>
-              <p className="body-lead-light">
-                {isRU
-                  ? 'Благородный европейский олень считается одним из наиболее перспективных видов для развития пантового направления благодаря качеству, структуре и потенциалу роста рогов.'
-                  : isCN
-                    ? '欧洲红鹿因其鹿茸和鹿角的高质量、卓越结构及巨大生长潜力, 被认为是发展高端鹿茸制品产业最具前景的品种。'
-                    : 'European Red Deer is considered one of the most promising species for the velvet antler industry due to the superb quality, structure, and growth potential of their antlers.'}
-              </p>
-            </div>
+            <p className="body-lead-light">
+              {isRU
+                ? 'Качество стада формируется годами и напрямую зависит от происхождения животных, племенных линий и подхода к отбору.'
+                : isCN
+                  ? '群体的品质非一日之功，而是直接取决于动物的来源、优良血统以及系统科学的选育方法。'
+                  : 'Herd quality is shaped over years and directly depends on the animal origin, breeding lines, and the systematic approach to selection.'}
+            </p>
+            <p className="body-lead-light">
+              {isRU
+                ? 'В формировании нашего стада используются сильные племенные линии благородных европейских оленей (Англия) Woburn Farm, Warnham Farm, оказавшие влияние на развитие современного оленеводства.'
+                : isCN
+                  ? '在构建我们农场群体时, 引进了英国著名牧场 Woburn Farm 和 Warnham Farm 的强壮欧洲红鹿血统, 这对现代世界驯鹿业的发展起到了关键作用。'
+                  : 'In forming our herd, we utilize strong breeding lines of European Red Deer from England (Woburn Farm, Warnham Farm), which have influenced the development of modern deer farming.'}
+            </p>
+            <p className="body-lead-light">
+              {isRU
+                ? 'Благородный европейский олень считается одним из наиболее перспективных видов для развития пантового направления благодаря качеству, структуре и потенциалу роста рогов.'
+                : isCN
+                  ? '欧洲红鹿因其鹿茸和鹿角的高质量、卓越结构及巨大生长潜力, 被认为是发展高端鹿茸制品产业最具前景的品种。'
+                  : 'European Red Deer is considered one of the most promising species for the velvet antler industry due to the superb quality, structure, and growth potential of their antlers.'}
+            </p>
           </div>
 
-          <div className="lg:col-span-6 flex flex-col gap-6 lg:pl-12 lg:pt-3">
+          <div className="lg:col-span-5 lg:pt-14 flex flex-col gap-6">
             <h3 className="h-block-light">
               {isRU ? 'Контроль качества стада' : isCN ? '种群质量控制' : 'Herd Quality Control'}
             </h3>
@@ -197,13 +195,18 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
 
       {/* ─── Sub-tabs Section (calm white) ──────────────────────────────── */}
       <section className="section-calm">
-        <div className="section-inner">
-          <h2 className="h-section mb-10 lg:mb-14 max-w-3xl">
-            {isRU ? 'Системный ' : isCN ? '系统化的' : 'Systematic '}
-            <span className="h-section__accent">
-              {isRU ? 'подход к селекции' : isCN ? '育种方法' : 'breeding approach'}
-            </span>
-          </h2>
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section">
+                {isRU ? 'Системный ' : isCN ? '系统化的' : 'Systematic '}
+                <span className="h-section__accent">
+                  {isRU ? 'подход к селекции' : isCN ? '育种方法' : 'breeding approach'}
+                </span>
+              </h2>
+            </div>
+            <div className="lg:col-span-5" />
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Left: Sticky Sub-tab Menu */}
