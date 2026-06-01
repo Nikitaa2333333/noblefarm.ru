@@ -71,12 +71,12 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
       items: [
         { label: t.genetics, id: 'genetics' },
         { label: t.antlers, id: 'antlers' },
+        { label: t.reindeerIntro, id: 'reindeer-intro' },
       ],
     },
     {
       label: t.groupOpenness,
       items: [
-        { label: t.reindeerIntro, id: 'reindeer-intro' },
         { label: t.media, id: 'media' },
         { label: t.news, id: 'news' },
       ],

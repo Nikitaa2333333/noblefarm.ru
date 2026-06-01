@@ -17,7 +17,7 @@ export const TRANSLATIONS = {
       contactsShort: 'Контакты',
       groupAbout: 'О проекте',
       groupProduction: 'Что мы делаем',
-      groupOpenness: 'Открытость',
+      groupOpenness: 'Публикации',
       call: 'Позвонить',
     },
     hero: {
@@ -122,7 +122,7 @@ export const TRANSLATIONS = {
       contactsShort: 'Contacts',
       groupAbout: 'About',
       groupProduction: 'What we do',
-      groupOpenness: 'Openness',
+      groupOpenness: 'Publications',
       call: 'Call Us',
     },
     hero: {
@@ -227,7 +227,7 @@ export const TRANSLATIONS = {
       contactsShort: '联系',
       groupAbout: '关于项目',
       groupProduction: '我们的工作',
-      groupOpenness: '公开透明',
+      groupOpenness: '出版物',
       call: '拨打电话',
     },
     hero: {
