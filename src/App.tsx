@@ -605,12 +605,12 @@ function WhyImportant({ lang }: SectionProps) {
 
           <div className="relative">
             <img
-              src="/russia-map.svg"
-              alt={lang === 'RU' ? 'Карта России с отмеченной Московской областью' : lang === 'CN' ? '俄罗斯地图，标注莫斯科州' : 'Map of Russia with Moscow Region highlighted'}
-              className="w-full h-auto"
+              src="/moscow-region.svg"
+              alt={lang === 'RU' ? 'Силуэт Московской области с отметкой Москвы' : lang === 'CN' ? '莫斯科州轮廓与莫斯科标记' : 'Moscow Region silhouette with Moscow marked'}
+              className="w-full h-auto max-w-[520px] mx-auto"
               loading="lazy"
             />
-            <span className="block mt-4 text-sm font-bold text-accent">
+            <span className="block mt-4 text-sm font-bold text-accent text-center">
               {lang === 'RU' ? 'Московская область' : lang === 'CN' ? '莫斯科州' : 'Moscow Region'}
             </span>
           </div>
