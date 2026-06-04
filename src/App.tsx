@@ -387,14 +387,22 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
             {t.subtitle}
           </div>
 
-          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light mt-2">
-            {t.titleLine1} <br className="hidden md:inline" />
-            <span className="italic text-accent">{t.titleLine2}</span> <br className="hidden md:inline" />
-            {t.titleLine3}
+          <img
+            src="/logo.webp"
+            alt={`${t.brandName} ${t.brandNameAccent}`}
+            className="h-20 md:h-24 w-auto object-contain"
+            loading="eager"
+          />
+
+          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light">
+            {t.brandName}{' '}
+            <span className="italic text-accent">{t.brandNameAccent}</span>
           </h1>
 
           <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
-            {t.desc}
+            {t.descBefore}
+            <span className="text-accent font-semibold">{t.descAccent}</span>
+            {t.descAfter}
           </p>
 
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
@@ -432,6 +440,13 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
 // ─── About ("Кто мы") ─────────────────────────────────────────────────────────
 function About({ lang }: SectionProps) {
   const t = TRANSLATIONS[lang].about;
+  const tw = TRANSLATIONS[lang].whyImportant;
+  const advantages = [
+    { title: tw.adv1.title, desc: tw.adv1.desc },
+    { title: tw.adv2.title, desc: tw.adv2.desc },
+    { title: tw.adv3.title, desc: tw.adv3.desc },
+    { title: tw.adv4.title, desc: tw.adv4.desc },
+  ];
   return (
     <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -445,7 +460,8 @@ function About({ lang }: SectionProps) {
 
           <div className="lg:col-span-6 lg:pl-10 text-text-light">
             <p className="text-text-light text-lg sm:text-xl lg:text-[24px] font-medium leading-relaxed max-w-lg mb-8">
-              {t.desc}
+              <strong className="font-bold text-accent">{t.descBrand}</strong>
+              {t.descRest}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4.5 text-text-light/80 max-w-lg">
               {[
@@ -461,6 +477,23 @@ function About({ lang }: SectionProps) {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Advantages row — moved from "Новая отрасль". Separates this block from "Направления проекта" below. */}
+        <div className="mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {advantages.map((item, i) => (
+            <div key={i} className="flex flex-col gap-3">
+              <span className="font-serif text-3xl md:text-4xl leading-none text-accent font-semibold">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h4 className="font-serif font-bold text-lg md:text-xl text-text-light leading-tight">
+                {item.title}
+              </h4>
+              <p className="text-text-light/85 font-medium text-sm sm:text-base leading-snug">
+                {item.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -557,12 +590,6 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
 // ─── Why Important ────────────────────────────────────────────────────────────
 function WhyImportant({ lang }: SectionProps) {
   const t = TRANSLATIONS[lang].whyImportant;
-  const advantages = [
-    { title: t.adv1.title, desc: t.adv1.desc },
-    { title: t.adv2.title, desc: t.adv2.desc },
-    { title: t.adv3.title, desc: t.adv3.desc },
-    { title: t.adv4.title, desc: t.adv4.desc },
-  ];
 
   return (
     <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden scroll-mt-24">
@@ -572,26 +599,21 @@ function WhyImportant({ lang }: SectionProps) {
           <span className="h-section__accent">{t.titleAccent}</span>
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start lg:self-center">
             {t.desc}
           </p>
 
-          <div className="flex flex-col gap-10">
-            {advantages.map((item, i) => (
-              <div
-                key={i}
-                className="flex gap-6 items-start"
-              >
-                <span className="font-serif text-2xl md:text-[2.5rem] leading-none text-accent font-medium shrink-0 w-10 text-right">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <p className="font-bold text-lg mb-1.5 text-text-dark">{item.title}</p>
-                  <p className="text-text-dark font-medium text-sm sm:text-base leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <img
+              src="/russia-map.svg"
+              alt={lang === 'RU' ? 'Карта России с отмеченной Московской областью' : lang === 'CN' ? '俄罗斯地图，标注莫斯科州' : 'Map of Russia with Moscow Region highlighted'}
+              className="w-full h-auto"
+              loading="lazy"
+            />
+            <span className="block mt-4 text-sm font-bold text-accent">
+              {lang === 'RU' ? 'Московская область' : lang === 'CN' ? '莫斯科州' : 'Moscow Region'}
+            </span>
           </div>
         </div>
       </div>
