@@ -27,14 +27,38 @@ jobs:
         env:
           VK_SERVICE_TOKEN: ${{ secrets.VK_SERVICE_TOKEN }}
 
-      - name: Deploy only vk-news.json to hosting via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: server66.hosting.reg.ru
-          username: ${{ secrets.HOSTING_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          source: "public/vk-news.json"
-          target: "/var/www/${{ secrets.HOSTING_USER }}/data/www/noblefarm.ru"
-          strip_components: 1
-          overwrite: true
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+
+      - name: Deploy vk-news.json to hosting (scp with retry)
+        env:
+          HOST: server66.hosting.reg.ru
+          USER: ${{ secrets.HOSTING_USER }}
+        run: |
+          TARGET="/var/www/${USER}/data/www/noblefarm.ru/vk-news.json"
+          for attempt in 1 2 3; do
+            echo "::group::SCP attempt ${attempt}/3"
+            if scp \
+                -i ~/.ssh/id_deploy \
+                -P 22 \
+                -o StrictHostKeyChecking=accept-new \
+                -o ConnectTimeout=30 \
+                -o ServerAliveInterval=10 \
+                -o ServerAliveCountMax=3 \
+                public/vk-news.json \
+                "${USER}@${HOST}:${TARGET}"; then
+              echo "::endgroup::"
+              echo "SCP succeeded on attempt ${attempt}"
+              exit 0
+            fi
+            echo "::endgroup::"
+            if [ "${attempt}" -lt 3 ]; then
+              echo "SCP attempt ${attempt} failed — retrying in 30s"
+              sleep 30
+            fi
+          done
+          echo "All 3 SCP attempts failed"
+          exit 1
