@@ -126,14 +126,22 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
               {t.hero.subtitle}
             </div>
 
-            <h1 className="hero-title-light mt-2">
-              {t.hero.titleLine1} <br className="hidden md:inline" />
-              <span className="italic text-accent">{t.hero.titleLine2}</span> <br className="hidden md:inline" />
-              {t.hero.titleLine3}
+            <img
+              src="/logo.webp"
+              alt={`${t.hero.brandName} ${t.hero.brandNameAccent}`}
+              className="h-20 md:h-24 w-auto object-contain"
+              loading="eager"
+            />
+
+            <h1 className="hero-title-light">
+              {t.hero.brandName}{' '}
+              <span className="italic text-accent">{t.hero.brandNameAccent}</span>
             </h1>
 
             <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
-              {t.hero.desc}
+              {t.hero.descBefore}
+              <span className="text-accent font-semibold">{t.hero.descAccent}</span>
+              {t.hero.descAfter}
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
@@ -184,7 +192,8 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
 
             <div className="lg:col-span-6 lg:pl-10 text-text-light">
               <p className="text-text-light text-lg sm:text-xl lg:text-[22px] font-medium leading-relaxed max-w-lg mb-8">
-                {t.about.desc}
+                <strong className="font-bold text-accent">{t.about.descBrand}</strong>
+                {t.about.descRest}
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-text-light max-w-lg">
                 {[
@@ -200,6 +209,24 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
                 ))}
               </ul>
             </div>
+          </div>
+
+          {/* Advantages row — moved from "Новая отрасль" section.
+              Visually separates this block from "Направления проекта" below. */}
+          <div className="mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+            {advantages.map((item, i) => (
+              <div key={i} className="flex flex-col gap-3">
+                <span className="font-serif text-3xl md:text-4xl leading-none text-accent font-semibold">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h4 className="font-serif font-bold text-lg md:text-xl text-text-light leading-tight">
+                  {item.title}
+                </h4>
+                <p className="text-text-light/85 font-medium text-sm sm:text-base leading-snug">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -268,26 +295,21 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
             <span className="h-section__accent">{t.whyImportant.titleAccent}</span>
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-            <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start lg:self-center">
               {t.whyImportant.desc}
             </p>
 
-            <div className="bg-bg-card rounded-[24px] p-8 shadow-soft flex flex-col gap-8">
-              {advantages.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex gap-6 items-start"
-                >
-                  <span className="font-serif text-2xl md:text-3xl leading-none text-accent font-semibold shrink-0 w-10">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <div>
-                    <h4 className="font-bold text-lg mb-1.5 text-text-dark">{item.title}</h4>
-                    <p className="text-text-dark font-medium text-sm sm:text-base leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="relative">
+              <img
+                src="/russia-map.svg"
+                alt={lang === 'RU' ? 'Карта России с отмеченной Московской областью' : lang === 'CN' ? '俄罗斯地图，标注莫斯科州' : 'Map of Russia with Moscow Region highlighted'}
+                className="w-full h-auto"
+                loading="lazy"
+              />
+              <span className="block mt-4 text-sm font-bold text-accent">
+                {lang === 'RU' ? 'Московская область' : lang === 'CN' ? '莫斯科州' : 'Moscow Region'}
+              </span>
             </div>
           </div>
         </div>
