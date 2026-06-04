@@ -387,15 +387,14 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
             {t.subtitle}
           </div>
 
-          <img
-            src="/logo.webp"
-            alt={`${t.brandName} ${t.brandNameAccent}`}
-            className="h-20 md:h-24 w-auto object-contain"
-            loading="eager"
-          />
-
-          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light">
-            {t.brandName}{' '}
+          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light flex flex-wrap items-center gap-x-3 gap-y-2">
+            <img
+              src="/logo.webp"
+              alt={`${t.brandName} ${t.brandNameAccent}`}
+              className="inline-block h-[0.9em] w-auto object-contain align-middle shrink-0"
+              loading="eager"
+            />
+            <span>{t.brandName}</span>
             <span className="italic text-accent">{t.brandNameAccent}</span>
           </h1>
 
@@ -599,8 +598,8 @@ function WhyImportant({ lang }: SectionProps) {
           <span className="h-section__accent">{t.titleAccent}</span>
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed self-start lg:self-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed">
             {t.desc}
           </p>
 
