@@ -593,20 +593,21 @@ function WhyImportant({ lang }: SectionProps) {
   return (
     <section id="importance" className="py-12 md:py-20 lg:py-24 px-6 bg-bg-light text-text-dark relative overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="h-section mb-10 lg:mb-14 max-w-2xl">
-          {t.title}
-          <span className="h-section__accent">{t.titleAccent}</span>
-        </h2>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-          <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed">
-            {t.desc}
-          </p>
+          <div className="flex flex-col gap-6">
+            <h2 className="h-section max-w-2xl">
+              {t.title}
+              <span className="h-section__accent">{t.titleAccent}</span>
+            </h2>
+            <p className="text-text-dark font-medium text-base sm:text-lg lg:text-[22px] leading-relaxed">
+              {t.desc}
+            </p>
+          </div>
 
           <div className="relative">
             <img
               src="/moscow-region.svg"
-              alt={lang === 'RU' ? 'Силуэт Московской области с отметкой Москвы' : lang === 'CN' ? '莫斯科州轮廓与莫斯科标记' : 'Moscow Region silhouette with Moscow marked'}
+              alt={lang === 'RU' ? 'Силуэт Московской области' : lang === 'CN' ? '莫斯科州轮廓' : 'Moscow Region silhouette'}
               className="w-full h-auto max-w-[520px] mx-auto"
               loading="lazy"
             />
