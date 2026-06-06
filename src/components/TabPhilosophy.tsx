@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Check, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Language } from '../translations';
 
 interface TabPhilosophyProps {
@@ -58,16 +59,39 @@ const CONTENT = {
       cards: [
         {
           name: 'Северный олень',
+          latin: 'Rangifer tarandus',
           desc: 'Север России',
+          image: '/Reindeer.jpg',
+          modal: [
+            '**Северный олень (лат. Rangifer tarandus)** в Северной Америке — кари́бу. Обитает в тундре и тайге Евразии и Северной Америки, на ряде островов Северного Ледовитого океана. Существует как в диком, так и в домашнем состоянии. Северный олень в далёком прошлом дал возможность человеку освоить Север, в настоящее время остаётся важнейшим биологическим ресурсом более двадцати народов Евразии и Северной Америки.',
+            'В результате приручения и одомашнивания северного оленя возникло северное оленеводство, то есть разведение северных оленей для получения мяса, шкур, молока и использования в качестве ездового и вьючного транспорта.',
+            'Отличен от других оленей тем, что рога имеют как самцы, так и самки.',
+            'Именно девять Северных оленей тянут повозку Санта-Клауса, развозящего рождественские подарки.',
+          ],
         },
         {
           name: 'Марал',
+          latin: 'Cervus elaphus sibiricus',
           desc: 'Алтай',
+          image: '/Maral.jpg',
+          modal: [
+            '**Марал (лат. Cervus elaphus sibiricus)** — подвид благородного оленя, крупный. В зимнее время самцы имеют серовато-буровато-желтоватый окрас, причём шея, плечи и брюхо темнее. Самки — серовато-бурые. Летний окрас у обоих полов — буровато-коричневый. Зеркало (светлое пятно шерсти вокруг хвоста) широкое, от тускло-рыжеватого до соломенно-жёлтого цвета, часто имеет чёрную границу.',
+            'Рога большие — длина основных стволов может достигать 150 см, на каждом по 6—7 отростков; венца или короны не образуют. Размах рогов часто превосходит 100 см. Высота в холке до 160 см. Масса до 350 кг.',
+            'Распространились маралы на территории от Азии до Алтая. Обитают в горных регионах Сибири, Забайкалья, Монголии. Встречаются в Северной Америке недалеко от севера Калифорнии и юга Аризоны. В качестве среды обитания предпочитают населять горные лесные массивы.',
+          ],
         },
         {
           name: 'Благородный европейский олень',
+          latin: 'Cervus elaphus',
           desc: 'Современное фермерское направление',
+          image: '/enhanced_deer_1.webp',
           highlight: true,
+          modal: [
+            '**Европейский благородный олень (лат. Cervus elaphus)** — подвид благородного оленя, обитает в большей части Европы, на Кавказе, в Малой Азии, Иране, в некоторых частях Западной и Центральной Азии. Также его можно встретить в регионе Атласских гор между Марокко и Тунисом на северо-запада Африки, являясь единственным видом оленей, обитающих в Африке. Благородные олени были завезены в другие районы, включая Австралию, Новую Зеландию, США, Канаду, Перу, Уругвай, Чили и Аргентину.',
+            'Это один из самых крупных подвидов благородного оленя.',
+            'Окрас у взрослых животных чаще всего однотонный, летом он более яркий — от коричневого с сероватым или рыжеватым оттенком до ярко-рыжего. Зимой же общий тон окраса — сероватый или песчано-серый.',
+            'В средневековье в некоторых Европейских регионах охота на оленя была привилегией знати и членов королевских семей.',
+          ],
         },
       ],
     },
@@ -90,10 +114,35 @@ const CONTENT = {
   },
 };
 
+function renderBold(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') ? (
+      <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
+  );
+}
+
 export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps) {
   // RU first; EN/CN inherit RU content as placeholder until translation pass.
   void lang;
   const t = CONTENT.RU;
+  const [openSpecies, setOpenSpecies] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (openSpecies === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenSpecies(null);
+    };
+    document.body.classList.add('body-lock');
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.classList.remove('body-lock');
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [openSpecies]);
 
   return (
     <motion.div
@@ -197,27 +246,108 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             <div className="lg:col-span-5" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {t.species.cards.map((card) => (
-              <div
+            {t.species.cards.map((card, idx) => (
+              <button
                 key={card.name}
-                className={
-                  card.highlight
-                    ? 'bg-primary rounded-none p-7 md:p-8 shadow-soft min-h-[280px] flex flex-col justify-end gap-3'
-                    : 'card-flat min-h-[280px] flex flex-col justify-end gap-3'
-                }
+                type="button"
+                onClick={() => setOpenSpecies(idx)}
+                className="card-feature group text-left cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                {card.highlight && (
-                  <span className="label-eyebrow">Наше направление</span>
-                )}
-                <h3 className={card.highlight ? 'h-block-light' : 'h-block'}>
-                  {card.name}
-                </h3>
-                <p className={card.highlight ? 'body-sm-light' : 'body-sm'}>
-                  {card.desc}
-                </p>
-              </div>
+                <div className="card-feature__media aspect-[4/3]">
+                  <img src={card.image} alt={card.name} loading="lazy" />
+                </div>
+                <div
+                  className={
+                    card.highlight
+                      ? 'card-feature__body bg-primary'
+                      : 'card-feature__body'
+                  }
+                >
+                  {card.highlight && (
+                    <span className="card-feature__eyebrow">Наше направление</span>
+                  )}
+                  <h3
+                    className={
+                      card.highlight ? 'card-feature__title text-text-light' : 'card-feature__title'
+                    }
+                  >
+                    {card.name}{' '}
+                    <span
+                      className={
+                        card.highlight
+                          ? 'italic font-medium text-accent'
+                          : 'italic font-medium text-text-dark/70'
+                      }
+                    >
+                      (лат. {card.latin})
+                    </span>
+                  </h3>
+                  <p
+                    className={
+                      card.highlight
+                        ? 'card-feature__desc text-text-light/85'
+                        : 'card-feature__desc'
+                    }
+                  >
+                    {card.desc}
+                  </p>
+                  <span className="card-feature__cta">Подробнее</span>
+                </div>
+              </button>
             ))}
           </div>
+
+          <AnimatePresence>
+            {openSpecies !== null && (
+              <motion.div
+                key="species-modal"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="fixed inset-0 z-[100] bg-secondary/80 flex items-center justify-center p-4 md:p-8"
+                onClick={() => setOpenSpecies(null)}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="bg-bg-light shadow-soft max-w-3xl w-full max-h-[85vh] overflow-y-auto relative"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenSpecies(null)}
+                    aria-label="Закрыть"
+                    className="absolute top-4 right-4 z-10 p-2 text-text-dark hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] cursor-pointer bg-bg-light/90"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                  <div className="aspect-[16/9] overflow-hidden">
+                    <img
+                      src={t.species.cards[openSpecies].image}
+                      alt={t.species.cards[openSpecies].name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-7 md:p-10 flex flex-col gap-4">
+                    <h3 className="h-block">
+                      {t.species.cards[openSpecies].name}{' '}
+                      <span className="italic font-medium text-text-dark/70">
+                        (лат. {t.species.cards[openSpecies].latin})
+                      </span>
+                    </h3>
+                    {t.species.cards[openSpecies].modal.map((paragraph, i) => (
+                      <p key={i} className="body-sm">
+                        {renderBold(paragraph)}
+                      </p>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 

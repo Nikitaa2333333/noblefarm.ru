@@ -112,7 +112,7 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
             }}
           >
             <img src="/logo.png" className="h-10 w-auto object-contain" alt="Благородный Север" />
-            <span className="font-serif font-medium text-accent italic leading-none text-lg md:text-xl">
+            <span className="font-serif font-medium text-accent leading-none text-lg md:text-xl">
               {t.logo}{t.logoItalic}
             </span>
           </div>
@@ -383,19 +383,21 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
           transition={{ type: 'tween', ease: 'easeOut', duration: 0.6 }}
           className="max-w-[800px] md:max-w-[550px] lg:max-w-[650px] flex flex-col gap-6"
         >
-          <div className="label-eyebrow">
+          <div className="text-sm font-bold text-text-light">
             {t.subtitle}
           </div>
 
-          <h1 className="font-serif font-medium text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.1] md:leading-[1.0] tracking-tight text-text-light flex flex-wrap items-center gap-x-3 gap-y-2">
+          <h1 className="font-serif font-medium tracking-tight text-accent flex items-center gap-5 md:gap-8">
             <img
               src="/logo.webp"
               alt={`${t.brandName} ${t.brandNameAccent}`}
-              className="inline-block h-[0.9em] w-auto object-contain align-middle shrink-0"
+              className="h-24 sm:h-32 md:h-44 lg:h-52 w-auto object-contain shrink-0"
               loading="eager"
             />
-            <span>{t.brandName}</span>
-            <span className="italic text-accent">{t.brandNameAccent}</span>
+            <span className="flex flex-col leading-[0.95] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+              <span>{t.brandName}</span>
+              <span>{t.brandNameAccent}</span>
+            </span>
           </h1>
 
           <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
@@ -479,18 +481,15 @@ function About({ lang }: SectionProps) {
         </div>
 
         {/* Advantages row — moved from "Новая отрасль". Separates this block from "Направления проекта" below. */}
-        <div className="mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div className="mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {advantages.map((item, i) => (
-            <div key={i} className="flex flex-col gap-3">
-              <span className="font-serif text-3xl md:text-4xl leading-none text-accent font-semibold">
+            <div key={i} className="bg-accent text-secondary px-5 py-4 rounded-[6px] flex flex-col gap-1.5">
+              <span className="font-serif text-2xl md:text-3xl leading-none font-semibold">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <h4 className="font-serif font-bold text-lg md:text-xl text-text-light leading-tight">
+              <h4 className="font-serif font-bold text-base md:text-lg leading-tight">
                 {item.title}
               </h4>
-              <p className="text-text-light/85 font-medium text-sm sm:text-base leading-snug">
-                {item.desc}
-              </p>
             </div>
           ))}
         </div>
@@ -549,7 +548,7 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
               id={card.id}
               tabIndex={0}
               onClick={() => navigateAndScroll && navigateAndScroll(card.id)}
-              className="group relative min-h-[460px] rounded-none rounded-br-[80px] overflow-hidden flex flex-col justify-between p-7 lg:p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border border-white/5 scroll-mt-24"
+              className="group relative min-h-[460px] rounded-none rounded-br-[80px] overflow-hidden flex flex-col justify-between p-7 lg:p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border-2 border-accent scroll-mt-24"
             >
               <div className="absolute inset-0 z-0">
                 <img
@@ -605,15 +604,47 @@ function WhyImportant({ lang }: SectionProps) {
           </div>
 
           <div className="relative">
-            <img
-              src="/moscow-region.svg"
-              alt={lang === 'RU' ? 'Силуэт Московской области' : lang === 'CN' ? '莫斯科州轮廓' : 'Moscow Region silhouette'}
-              className="w-full h-auto max-w-[520px] mx-auto"
-              loading="lazy"
-            />
-            <span className="block mt-4 text-sm font-bold text-accent text-center">
-              {lang === 'RU' ? 'Московская область' : lang === 'CN' ? '莫斯科州' : 'Moscow Region'}
-            </span>
+            <div className="relative w-full max-w-[520px] mx-auto">
+              <img
+                src="/dmitrov-map.webp"
+                alt={lang === 'RU' ? 'Силуэт Московской области' : lang === 'CN' ? '莫斯科州轮廓' : 'Moscow Region silhouette'}
+                className="w-full h-auto"
+                loading="lazy"
+                width={900}
+                height={849}
+              />
+              {/* Метка Дмитров: точка на городе + подпись на плашке поверх района */}
+              <span
+                className="absolute block w-3 h-3 rounded-full bg-secondary ring-2 ring-bg-light shadow-soft"
+                style={{ left: '49%', top: '23%', transform: 'translate(-50%, -50%)' }}
+              />
+              <div
+                className="absolute bg-bg-light shadow-soft px-2.5 py-1.5 flex flex-col items-center leading-tight"
+                style={{ left: '49%', top: '23%', transform: 'translate(-50%, 14px)' }}
+              >
+                <span className="font-serif font-bold text-sm md:text-base text-text-dark">
+                  {lang === 'RU' ? 'Дмитров' : lang === 'CN' ? '德米特罗夫' : 'Dmitrov'}
+                </span>
+                <span className="font-serif text-xs md:text-sm text-accent font-semibold whitespace-nowrap">
+                  {lang === 'RU' ? 'Благородный Север' : lang === 'CN' ? '高贵北方' : 'Noble Sever'}
+                </span>
+              </div>
+            </div>
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <img
+                src="/moscow-region-coat.png"
+                alt={lang === 'RU' ? 'Герб Московской области' : lang === 'CN' ? '莫斯科州徽章' : 'Moscow Region coat of arms'}
+                className="h-10 w-auto object-contain shrink-0"
+                loading="lazy"
+              />
+              <span className="text-lg md:text-xl font-bold text-text-dark">
+                {lang === 'RU'
+                  ? 'Московская область, Дмитровский район'
+                  : lang === 'CN'
+                  ? '莫斯科州，德米特罗夫区'
+                  : 'Moscow Region, Dmitrov District'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -866,7 +897,7 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <img src="/logo.png" className="h-8 w-auto object-contain" alt="Благородный Север" />
-              <span className="font-serif font-medium text-xl text-accent italic leading-none">
+              <span className="font-serif font-medium text-xl text-accent leading-none">
                 {t.logo}{t.logoItalic}
               </span>
             </div>
