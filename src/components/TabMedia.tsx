@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, FileText, Mic } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Language } from '../translations';
 
 interface TabMediaProps {
@@ -8,10 +7,69 @@ interface TabMediaProps {
   onSwitchTab: (tabId: string) => void;
 }
 
+interface Publication {
+  id: string;
+  title: string;
+  outlet: string;
+  date: string;
+  desc: string;
+  image: string;
+  url: string;
+}
+
+const PUBLICATIONS: Publication[] = [
+  {
+    id: 'minselhoz-vk',
+    title: 'В Подмосковье впервые начали разводить оленей новой породы',
+    outlet: 'Минсельхоз МО',
+    date: '25 декабря 2025',
+    desc: 'В Дмитровском округе открылась первая ферма по разведению благородных оленей. Ветеринарный осмотр прошли 16 животных, в планах — пантовое направление.',
+    image: '/enhanced_about_5.webp',
+    url: 'https://vk.com/wall-217122567_4534',
+  },
+  {
+    id: 'regions-dmitrov',
+    title: 'Пантовая продукция и личные экскурсии: почему «Благородный Север» станет новым трендом Подмосковья',
+    outlet: 'Regions.ru — Дмитров',
+    date: '28 мая 2026',
+    desc: 'Семейное хозяйство Павла Дерюгина и Екатерины Валовой в Дмитровском округе — необычный для региона проект: ферма благородных европейских оленей.',
+    image: '/pub-regions-dmitrov.jpg',
+    url: 'https://regions.ru/dmitrov/obschestvo/pantovaja-produktsija-i-lichnye-ekskursii-pochemu-blagorodnyj-sever-stanet-novym-trendom-podmoskovja',
+  },
+  {
+    id: 'mosreg-fawn',
+    title: 'Первый оленёнок благородного оленя родился на ферме в Подмосковье',
+    outlet: 'Правительство Московской области',
+    date: '',
+    desc: 'Новость о рождении первого оленёнка на ферме «Благородный Север» в Дмитровском округе.',
+    image: '/enhanced_deer_2.webp',
+    url: 'https://mosreg.ru/sobytiya/novosti/news-submoscow/pervyi-olenenok-blagorodnogo-olenya-rodilsya-na-ferme-v-podmoskove',
+  },
+  {
+    id: 'invest-mosreg',
+    title: 'Инвестпортал Подмосковья — о ферме «Благородный Север»',
+    outlet: 'Инвестпортал Подмосковья',
+    date: '',
+    desc: 'Публикация о развитии проекта и инвестиционном потенциале современного оленеводства в Дмитровском округе.',
+    image: '/enhanced_about_8.webp',
+    url: 'https://invest.mosreg.ru/press/news/6439',
+  },
+  {
+    id: 'radio1-vk',
+    title: 'Интервью на «Радио 1» с основателем «Благородный Север»',
+    outlet: 'Радио 1',
+    date: '',
+    desc: 'Беседа с основателем фермы о запуске разведения благородных европейских оленей в Подмосковье.',
+    image: '/enhanced_about_3.webp',
+    url: 'https://vk.com/wall-50051746_57748',
+  },
+];
+
 export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const isRU = lang === 'RU';
   const isCN = lang === 'CN';
+  const ctaSource = isRU ? 'Читать на источнике' : isCN ? '查看原文' : 'Read at source';
 
   const topics = isRU
     ? [
@@ -141,22 +199,56 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
               </div>
             </div>
 
-            {/* Expected Publications Placeholder styled as a clean card-flat */}
-            <div className="card-flat flex flex-col justify-center items-center text-center p-8 gap-5">
-              <div className="w-14 h-14 bg-primary/5 rounded-[6px] flex items-center justify-center">
-                <FileText className="w-6 h-6 text-primary" />
+            {/* First publication — Минсельхоз — sits next to video as second feature */}
+            <a
+              href={PUBLICATIONS[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-feature group"
+            >
+              <div className="card-feature__media aspect-[16/10]">
+                <img src={PUBLICATIONS[0].image} alt={PUBLICATIONS[0].title} loading="lazy" />
               </div>
-              <h3 className="h-block">
-                {isRU ? 'Новые публикации ожидаются' : isCN ? '更多报道敬请期待' : 'New Publications Expected'}
-              </h3>
-              <p className="body-sm max-w-sm">
-                {isRU
-                  ? 'Здесь появятся другие публикации и репортажи по мере их выхода.'
-                  : isCN
-                    ? '随着项目的推进，其他媒体出版物和专题报道将在此陆续呈现。'
-                    : 'Other publications and reports will appear here as they are released.'}
-              </p>
-            </div>
+              <div className="card-feature__body">
+                <span className="card-feature__eyebrow">
+                  {PUBLICATIONS[0].outlet}
+                  {PUBLICATIONS[0].date ? ` • ${PUBLICATIONS[0].date}` : ''}
+                </span>
+                <h3 className="card-feature__title line-clamp-3">{PUBLICATIONS[0].title}</h3>
+                <p className="card-feature__desc line-clamp-3">{PUBLICATIONS[0].desc}</p>
+                <span className="card-feature__cta">
+                  {ctaSource} <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </a>
+          </div>
+
+          {/* Остальные публикации — 3-column grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PUBLICATIONS.slice(1).map((pub) => (
+              <a
+                key={pub.id}
+                href={pub.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-feature group"
+              >
+                <div className="card-feature__media aspect-[16/10]">
+                  <img src={pub.image} alt={pub.title} loading="lazy" />
+                </div>
+                <div className="card-feature__body">
+                  <span className="card-feature__eyebrow">
+                    {pub.outlet}
+                    {pub.date ? ` • ${pub.date}` : ''}
+                  </span>
+                  <h3 className="card-feature__title line-clamp-3">{pub.title}</h3>
+                  <p className="card-feature__desc line-clamp-3">{pub.desc}</p>
+                  <span className="card-feature__cta">
+                    {ctaSource} <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
