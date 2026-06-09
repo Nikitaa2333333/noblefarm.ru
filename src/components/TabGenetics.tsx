@@ -77,6 +77,116 @@ const ANTLER_SPECS = [
   },
 ];
 
+// ─── Pedigree tree (placeholder data — sample chart, 4 generations) ──────────
+type PedigreeRole = 'subject' | 'sire' | 'dam' | 'gsire' | 'gdam' | 'ggs' | 'ggd';
+
+interface PedigreeNode {
+  role: PedigreeRole;
+  name: string;
+  meta?: string[];
+  photo?: string;
+  children?: PedigreeNode[];
+}
+
+// Pedigree role labels — kept in English on every locale, matching the
+// standard pedigree-chart terminology from the source document.
+const ROLE_LABELS: Record<PedigreeRole, string> = {
+  subject: 'Subject',
+  sire:    'Sire',
+  dam:     'Dam',
+  gsire:   'Grand Sire',
+  gdam:    'Grand Dam',
+  ggs:     'GGS',
+  ggd:     'GGD',
+};
+
+const PEDIGREE_TREE: PedigreeNode = {
+  role: 'subject',
+  name: '2234',
+  meta: ['Ear Tag #: RD2234', 'DOB: 01.06.2022', 'Breed: Благородный олень', 'Sex: Buck'],
+  photo: '/enhanced_deer_1.webp',
+  children: [
+    {
+      role: 'sire',
+      name: '1406',
+      meta: ['A.S.: 270 5/8'],
+      photo: '/enhanced_about_2.webp',
+      children: [
+        {
+          role: 'gsire',
+          name: 'Charles 4 Warnham Farm',
+          photo: '/enhanced_about_4.webp',
+          children: [
+            { role: 'ggs', name: 'GGS' },
+            { role: 'ggd', name: 'GGD' },
+          ],
+        },
+        {
+          role: 'gdam',
+          name: 'Y1247 Warnham Farm',
+          photo: '/enhanced_about_5.webp',
+          children: [
+            { role: 'ggs', name: 'Bartholemu' },
+            { role: 'ggd', name: 'Y419' },
+          ],
+        },
+      ],
+    },
+    {
+      role: 'dam',
+      name: '1719',
+      photo: '/enhanced_about_3.webp',
+      children: [
+        {
+          role: 'gsire',
+          name: '011/10 Woburn Farm',
+          photo: '/enhanced_about_6.webp',
+          children: [
+            { role: 'ggs', name: 'Sackville' },
+            { role: 'ggd', name: 'R35' },
+          ],
+        },
+        {
+          role: 'gdam',
+          name: '1525',
+          photo: '/enhanced_about_7.webp',
+          children: [
+            { role: 'ggs', name: '011/09 Woburn Farm' },
+            { role: 'ggd', name: 'Y1282 Warnham Park' },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+function PedigreeBranch({ node, lang, root = false }: { node: PedigreeNode; lang: Language; root?: boolean }) {
+  const roleLabel = ROLE_LABELS[node.role];
+  return (
+    <div className="pedigree-branch">
+      <div className={`pedigree-card${root ? ' pedigree-card--root' : ''}`}>
+        <div className="pedigree-card__media">
+          {node.photo ? <img src={node.photo} alt={node.name} loading="lazy" /> : <Dna className="w-6 h-6" />}
+        </div>
+        <div className="flex flex-col gap-1 min-w-0">
+          <span className="pedigree-card__role">{roleLabel}</span>
+          <span className="pedigree-card__name">{node.name}</span>
+          {node.meta?.map((line, i) => (
+            <span key={i} className="pedigree-card__meta">{line}</span>
+          ))}
+        </div>
+      </div>
+      {node.children && node.children.length > 0 && (
+        <div className="pedigree-children">
+          {node.children.map((child, i) => (
+            <PedigreeBranch key={i} node={child} lang={lang} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function TabGenetics({ lang }: TabGeneticsProps) {
   const [subTab, setSubTab] = useState<number>(0);
   const [criteriaId, setCriteriaId] = useState<string>('mothers');
@@ -170,7 +280,7 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
             </p>
           </div>
 
-          <div className="lg:col-span-5 lg:pt-14 flex flex-col gap-6">
+          <div className="lg:col-span-5 lg:pt-3 flex flex-col gap-6">
             <h3 className="h-block-light">
               {isRU ? 'Контроль качества стада' : isCN ? '种群质量控制' : 'Herd Quality Control'}
             </h3>
@@ -518,6 +628,34 @@ export default function TabGenetics({ lang }: TabGeneticsProps) {
                 </motion.div>
               </AnimatePresence>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Pedigree tree (4 generations) ──────────────────────────────── */}
+      <section className="section-calm">
+        <div className="section-inner flex flex-col gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <span className="label-eyebrow">
+                {isRU ? 'Документ происхождения' : isCN ? '血统证明文件' : 'Document of Origin'}
+              </span>
+              <h2 className="h-section">
+                {isRU ? 'Родословная животного' : isCN ? '动物系谱' : 'Animal Pedigree'}
+              </h2>
+              <p className="body-lead">
+                {isRU
+                  ? 'Каждое племенное животное сопровождается родословной на четыре поколения — от прямых родителей до прапрапредков, с указанием племенных ферм-источников.'
+                  : isCN
+                    ? '每一只种用动物都附有四代系谱——从直系父母到曾祖辈，并注明其来源的种鹿牧场。'
+                    : 'Every breeding animal is accompanied by a four-generation pedigree — from direct parents to great-great-grandparents, with the source breeding farms specified.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5" />
+          </div>
+
+          <div className="pedigree">
+            <PedigreeBranch node={PEDIGREE_TREE} lang={lang} root />
           </div>
         </div>
       </section>

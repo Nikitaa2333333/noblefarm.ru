@@ -1,0 +1,10 @@
+=== PARAGRAPHS ===
+P0: Заезд оленей на ферму: | LINKS: 
+P1: Минсельхоз : https://vk.com/wall-217122567_4534 | LINKS: 
+P5: Первый выход стада на пастбища был освещен на многих площадках: | LINKS: 
+P7: https://regions.ru/dmitrov/obschestvo/pantovaja-produktsija-i-lichnye-ekskursii-pochemu-blagorodnyj-sever-stanet-novym-trendom-podmoskovja | LINKS: 
+P9: https://invest.mosreg.ru/press/news/6439 | LINKS: [https://invest.mosreg.ru/press/news/6439](https://invest.mosreg.ru/press/news/6439)
+P11: https://mosreg.ru/sobytiya/novosti/news-submoscow/pervyi-olenenok-blagorodnogo-olenya-rodilsya-na-ferme-v-podmoskove | LINKS: [https://mosreg.ru/sobytiya/novosti/news-submoscow/pervyi-olenenok-blagorodnogo-olenya-rodilsya-na-ferme-v-podmoskove](https://mosreg.ru/sobytiya/novosti/news-submoscow/pervyi-olenenok-blagorodnogo-olenya-rodilsya-na-ferme-v-podmoskove)
+P13: На Радио 1 со мной было интервью https://vk.com/wall-50051746_57748 | LINKS: 
+
+=== TABLES ===

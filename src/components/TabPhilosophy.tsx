@@ -26,14 +26,6 @@ const CONTENT = {
         'Пантовое направление',
       ],
     },
-    why: {
-      eyebrow: 'Зачем мы это делаем',
-      title: 'Почему мы',
-      titleAccent: 'этим занимаемся',
-      p1: 'Мы видим большой потенциал развития культуры современного оленеводства в России — особенно в регионах с подходящим климатом и земельными ресурсами.',
-      p2: 'Московская область обладает хорошими условиями для содержания благородного европейского оленя и при этом находится рядом с крупнейшим потребительским рынком страны.',
-      p3: 'При наличии сильной генетики, системного подхода и долгосрочного планирования это направление может стать полноценной частью современного сельского хозяйства.',
-    },
     family: {
       eyebrow: 'Семья',
       title: 'Семейный',
@@ -98,9 +90,10 @@ const CONTENT = {
     russia: {
       eyebrow: 'Регион и страна',
       title: 'Почему мы верим в ',
-      titleAccent: 'потенциал России',
-      p1: 'В отличие от многих европейских стран, ограниченных земельными ресурсами, Россия обладает значительными возможностями для развития современных оленьих хозяйств.',
-      p2: 'Центральная часть страны сочетает подходящий климат, земельный потенциал и близость крупных рынков сбыта, что создаёт условия для формирования нового направления в сельском хозяйстве.',
+      titleAccent: 'будущее оленеводства в России',
+      p1: 'Россия имеет более чем 800-летнюю историю оленеводства и уникальный опыт взаимодействия с этими животными. Немногие страны мира обладают столь глубоким пониманием оленя как части культуры, хозяйства и образа жизни.',
+      p2: 'В то же время Европа и Новая Зеландия создали современную модель оленеводства, где развитие отрасли строится на генетике, селекции, ветеринарии и технологиях управления стадом.',
+      p3: 'Мы верим, что объединение многовекового российского опыта и современных мировых подходов способно дать новый импульс развитию оленеводства в России. Именно на этом принципе строится проект «Благородный Север».',
     },
     open: {
       eyebrow: 'Открытость',
@@ -177,22 +170,6 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
         </div>
       </section>
 
-      {/* ─── Why we do this ───────────────────────────────────────────────── */}
-      <section className="section-calm">
-        <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-7 section-header">
-            <span className="label-eyebrow">{t.why.eyebrow}</span>
-            <h2 className="h-section">
-              {t.why.title} <span className="h-section__accent">{t.why.titleAccent}</span>
-            </h2>
-            <p className="body-lead">{t.why.p1}</p>
-            <p className="body-lead">{t.why.p2}</p>
-            <p className="body-lead">{t.why.p3}</p>
-          </div>
-          <div className="lg:col-span-5" />
-        </div>
-      </section>
-
       {/* ─── Family project ──────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
@@ -208,10 +185,10 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             </div>
             <div className="flex flex-col gap-6">
               <h3 className="h-block">{t.family.principlesTitle}</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-2.5">
                 {t.family.principles.map((principle) => (
-                  <li key={principle} className="flex items-start gap-3">
-                    <Check className="w-6 h-6 text-text-dark shrink-0 mt-0.5" strokeWidth={2.5} />
+                  <li key={principle} className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-text-dark shrink-0" strokeWidth={2.5} />
                     <span className="body-sm">{principle}</span>
                   </li>
                 ))}
@@ -256,41 +233,17 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
                 <div className="card-feature__media aspect-[4/3]">
                   <img src={card.image} alt={card.name} loading="lazy" />
                 </div>
-                <div
-                  className={
-                    card.highlight
-                      ? 'card-feature__body bg-primary'
-                      : 'card-feature__body'
-                  }
-                >
+                <div className="card-feature__body">
                   {card.highlight && (
                     <span className="card-feature__eyebrow">Наше направление</span>
                   )}
-                  <h3
-                    className={
-                      card.highlight ? 'card-feature__title text-text-light' : 'card-feature__title'
-                    }
-                  >
+                  <h3 className="card-feature__title">
                     {card.name}{' '}
-                    <span
-                      className={
-                        card.highlight
-                          ? 'italic font-medium text-accent'
-                          : 'italic font-medium text-text-dark/70'
-                      }
-                    >
+                    <span className="font-medium text-text-dark">
                       (лат. {card.latin})
                     </span>
                   </h3>
-                  <p
-                    className={
-                      card.highlight
-                        ? 'card-feature__desc text-text-light/85'
-                        : 'card-feature__desc'
-                    }
-                  >
-                    {card.desc}
-                  </p>
+                  <p className="card-feature__desc">{card.desc}</p>
                   <span className="card-feature__cta">Подробнее</span>
                 </div>
               </button>
@@ -334,7 +287,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
                   <div className="p-7 md:p-10 flex flex-col gap-4">
                     <h3 className="h-block">
                       {t.species.cards[openSpecies].name}{' '}
-                      <span className="italic font-medium text-text-dark/70">
+                      <span className="font-medium text-text-dark">
                         (лат. {t.species.cards[openSpecies].latin})
                       </span>
                     </h3>
@@ -362,6 +315,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             </h2>
             <p className="body-lead">{t.russia.p1}</p>
             <p className="body-lead">{t.russia.p2}</p>
+            <p className="body-lead">{t.russia.p3}</p>
           </div>
           <div className="lg:col-span-5" />
         </div>

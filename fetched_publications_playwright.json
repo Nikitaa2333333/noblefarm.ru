@@ -1,0 +1,39 @@
+{
+  "vk_wall_agriculture": {
+    "url": "https://vk.com/wall-217122567_4534",
+    "title": "Проверяем, что вы не робот",
+    "description": "",
+    "image": "",
+    "vk_text": "",
+    "mosreg_text": ""
+  },
+  "regions_dmitrov": {
+    "url": "https://regions.ru/dmitrov/obschestvo/pantovaja-produktsija-i-lichnye-ekskursii-pochemu-blagorodnyj-sever-stanet-novym-trendom-podmoskovja",
+    "title": "Пантовая продукция и личные экскурсии: почему «Благородный север» станет новым трендом Подмосковья",
+    "description": "В Дмитровском округе, где сельское хозяйство традиционно ассоциируется с пшеницей и картошкой, появился необычный проект: ферма благородных европейских оленей. Семейное хозяйство «Благородный север», созданное Павлом Дерюгиным и Екатериной Валовой, уже привлекает внимание не только фермеров, но и мечтателей, которые видят в оленях не просто животных, а ключ к новым бизнес-возможностям.",
+    "image": "https://media.multiadminka.ru/get_resized/sRwr4vN_59Ehw6R4uyDE61EpCUk=/1200x630/filters:rs(fill-down):format(jpg)/YXJ0aWNsZXMvaW1hZ2UvMjAyNi81L2ltZy0yMDI2MDUyOC0xMzA3MTZfak56dlJNby5wbmc.jpg",
+    "vk_text": "",
+    "mosreg_text": ""
+  },
+  "invest_mosreg": {
+    "url": "https://invest.mosreg.ru/press/news/6439",
+    "title": "invest_mosreg",
+    "error": "Page.goto: Timeout 12000ms exceeded.\nCall log:\n  - navigating to \"https://invest.mosreg.ru/press/news/6439\", waiting until \"domcontentloaded\"\n"
+  },
+  "mosreg_fawn": {
+    "url": "https://mosreg.ru/sobytiya/novosti/news-submoscow/pervyi-olenenok-blagorodnogo-olenya-rodilsya-na-ferme-v-podmoskove",
+    "title": "",
+    "description": "",
+    "image": "",
+    "vk_text": "",
+    "mosreg_text": ""
+  },
+  "vk_radio1_interview": {
+    "url": "https://vk.com/wall-50051746_57748",
+    "title": "",
+    "description": "",
+    "image": "",
+    "vk_text": "",
+    "mosreg_text": ""
+  }
+}

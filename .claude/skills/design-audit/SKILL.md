@@ -48,8 +48,8 @@ For each tab file, walk the checklist top to bottom and record every violation a
 ### E. Headings — strict scale
 - [ ] All `<h2>` use `.h-section` or `.h-section-light`
 - [ ] All in-section sub-headings (`<h3>`, `<h4>`) use `.h-block` / `.h-block-light` or `.card-feature__title`. **Never** inline `font-serif text-Xxl font-bold text-X`.
-- [ ] Italic accents use `<span className="h-section__accent">`. **One per heading max.** No italic anywhere else.
-- [ ] No `text-accent` (gold) as the color of an entire heading. Gold is only italic-accent-word, eyebrow, stat-value, links.
+- [ ] Headings are one solid color, one font — **no italic, no gold word**. The two-tone heading is retired; `.h-section__accent` is a no-op. No italic anywhere on the site.
+- [ ] No `text-accent` (gold) anywhere inside a heading (whole heading or single word). Gold is only eyebrow, stat-value, links.
 - [ ] No `text-primary` (green) as heading color on light bg. Headings on light → `text-text-dark`, on dark → `text-text-light`.
 - [ ] No `font-sans` on any heading. Every heading is `font-serif`.
 - [ ] No `uppercase` on headings, buttons, eyebrows, or footer column titles.
@@ -113,7 +113,7 @@ Use `Grep` for these inside the target file(s). Each is a one-line check that ca
 | `text-accent.*font-bold.*text-(xl\|2xl\|3xl)` | Likely a heading colored gold (forbidden) |
 | `text-primary.*font-bold.*text-(lg\|xl\|2xl)` | Likely a heading colored green on light bg (forbidden) |
 | `font-sans.*text-(lg\|xl).*font-bold` | Sans-serif heading (forbidden — headings are serif) |
-| `italic` (outside `h-section__accent`) | Italic outside the one allowed pattern |
+| `italic` | Italic anywhere — forbidden (the two-tone heading is retired) |
 | `text-text-dark/\d` | Opacity on dark text over light bg (forbidden) |
 | `text-gray-` | Forbidden gray |
 | `#[0-9a-fA-F]{3,6}` | Hex literal in JSX |

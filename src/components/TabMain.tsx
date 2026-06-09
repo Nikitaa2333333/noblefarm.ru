@@ -135,7 +135,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
 
             <h1 className="hero-title-light">
               {t.hero.brandName}{' '}
-              <span className="italic text-accent">{t.hero.brandNameAccent}</span>
+              {t.hero.brandNameAccent}
             </h1>
 
             <p className="mt-4 text-base sm:text-lg md:text-xl font-medium text-text-light max-w-2xl leading-relaxed">
@@ -186,7 +186,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
             <div className="lg:col-span-6">
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
                 {t.about.titlePart1}
-                <span className="italic block mt-2 text-accent">{t.about.titlePart2}</span>
+                <span className="block mt-2">{t.about.titlePart2}</span>
               </h2>
             </div>
 
@@ -195,15 +195,15 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
                 <strong className="font-bold text-accent">{t.about.descBrand}</strong>
                 {t.about.descRest}
               </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-text-light max-w-lg">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 text-text-light max-w-lg">
                 {[
                   t.about.item1,
                   t.about.item2,
                   t.about.item3,
                   t.about.item4,
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-accent shrink-0" strokeWidth={2.5} />
+                  <li key={i} className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-accent shrink-0" strokeWidth={2.5} />
                     <span className="text-base font-semibold text-text-light leading-none">{item}</span>
                   </li>
                 ))}
@@ -235,7 +235,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       <section className="py-16 md:py-24 bg-primary relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
           <h2 className="h-section-xl-light">
-            {t.directions.title}<span className="italic text-accent">{t.directions.titleAccent}</span>
+            {t.directions.title}{t.directions.titleAccent}
           </h2>
         </div>
 

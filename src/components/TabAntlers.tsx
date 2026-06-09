@@ -368,11 +368,11 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
                 <h3 className="h-block">
                   {isRU ? 'Что изучается' : isCN ? '核心科研探索方向' : 'What is Studied'}
                 </h3>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2.5">
                   {whatIsStudied.map((item, idx) => (
-                    <div key={idx} className="flex gap-4 items-center">
-                      <Check className="w-5 h-5 text-text-dark shrink-0" strokeWidth={2.5} />
-                      <span className="text-base font-semibold text-text-dark leading-snug">{item}</span>
+                    <div key={idx} className="flex items-center gap-2.5">
+                      <Check className="w-4 h-4 text-text-dark shrink-0" strokeWidth={2.5} />
+                      <span className="body-sm">{item}</span>
                     </div>
                   ))}
                 </div>

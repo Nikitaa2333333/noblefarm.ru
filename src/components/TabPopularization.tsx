@@ -157,9 +157,9 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
             </div>
             <ul className="flex flex-col gap-3 pl-1">
               {t.mission.items.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="text-accent shrink-0 leading-none pt-1">●</span>
-                  <span className="body-sm">{item}</span>
+                <li key={item} className="flex items-start gap-3 body-sm">
+                  <span className="w-2 h-2 rounded-full bg-accent shrink-0 mt-2" />
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

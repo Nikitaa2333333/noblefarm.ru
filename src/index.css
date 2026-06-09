@@ -314,8 +314,13 @@
   @apply font-serif text-3xl sm:text-4xl lg:text-[4rem] font-medium tracking-tight leading-[0.9] text-text-light;
 }
 
+/* Headings are single-color, single-font, no italic. The former two-tone
+   pattern (light text + one gold italic word) is retired. This utility now
+   inherits the heading's own color and style so existing markup keeps working
+   while every heading renders uniform. See CLAUDE.md §4 "Inline accents". */
 .h-section__accent {
-  @apply italic text-accent;
+  font-style: normal;
+  color: inherit;
 }
 
 /* Section header block — canonical wrapper for an (eyebrow + h2 + lead paragraph)
@@ -370,6 +375,95 @@
 
 .label-meta {
   @apply text-sm font-bold text-text-dark;
+}
+
+/* ─── Pedigree tree ─────────────────────────────────────────────────────────
+   Vertical genealogy tree (file-tree style) for the Genetics tab.
+   The connector lines here are a SEMANTIC diagram element — they encode the
+   lineage between ancestors. They are NOT decorative dividers, and are the one
+   sanctioned exception to the "no lines" rule (CLAUDE.md §4). Approved pattern,
+   documented in CLAUDE.md §8.5. Lives on .section-calm (white); connectors use
+   the neutral `border-light` shade. Each node card is defined by .shadow-soft. */
+
+.pedigree {
+  @apply flex flex-col;
+}
+
+/* a subtree: node card + (optionally) its descendants */
+.pedigree-branch {
+  @apply relative;
+}
+
+/* children container — indented, carries the vertical lineage rail */
+.pedigree-children {
+  @apply relative flex flex-col gap-4 mt-4;
+  padding-left: 2rem;
+}
+
+/* vertical rail: reaches up toward the parent card and down through siblings */
+.pedigree-children > .pedigree-branch::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: -1.75rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-light);
+}
+
+/* horizontal elbow into the card — aligned to the card header's vertical center */
+.pedigree-children > .pedigree-branch::after {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 2.75rem;
+  width: 1.25rem;
+  height: 1px;
+  background: var(--color-border-light);
+}
+
+/* last child: trim the rail so it stops at the elbow (no overhang) */
+.pedigree-children > .pedigree-branch:last-child::before {
+  bottom: auto;
+  height: 4.5rem;
+}
+
+/* node card — horizontal: photo thumbnail + role/name/meta */
+.pedigree-card {
+  @apply relative flex items-center gap-4 bg-bg-card rounded-none shadow-soft p-3 pr-5;
+}
+
+/* subject (root) card — slightly larger, the page's anchor */
+.pedigree-card--root {
+  @apply gap-5 p-4 pr-6;
+}
+
+.pedigree-card__media {
+  @apply shrink-0 w-16 h-16 overflow-hidden bg-primary/5 flex items-center justify-center text-primary/40;
+}
+
+.pedigree-card--root .pedigree-card__media {
+  @apply w-24 h-24;
+}
+
+.pedigree-card__media img {
+  @apply w-full h-full object-cover;
+}
+
+.pedigree-card__role {
+  @apply text-accent text-sm font-bold;
+}
+
+.pedigree-card__name {
+  @apply font-serif text-xl font-bold leading-tight text-text-dark;
+}
+
+.pedigree-card--root .pedigree-card__name {
+  @apply text-2xl;
+}
+
+.pedigree-card__meta {
+  @apply text-sm font-medium text-text-dark leading-snug;
 }
 
 /* Premium feathered gradient overlay for the TabMain hero background slideshow. */

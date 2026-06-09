@@ -60,7 +60,7 @@ All tokens live in `src/index.css` under `@theme`. Never hard-code colors, never
 |---|---|---|---|
 | Primary | `#0F2A47` | `bg-primary`, `text-primary` | midnight navy — main brand color |
 | Secondary | `#06111E` | `bg-secondary`, `text-secondary` | almost-black — hero, dark sections |
-| Accent | `#D0B18A` | `bg-accent`, `text-accent` | matte gold — eyebrows, italic accents, hover |
+| Accent | `#D0B18A` | `bg-accent`, `text-accent` | matte gold — eyebrows, gold pills, links/hover |
 | BG Light | `#F2EEE6` | `bg-bg-light`, `text-text-light` | main body background, light text on dark |
 | BG Card | `#FFFFFF` | `bg-bg-card` | same as bg-light — cards & widget containers differentiate via shadow, not bg-color |
 | Text Dark | `#1A2333` | `text-text-dark` | body text on light bg |
@@ -76,29 +76,26 @@ The brand has **exactly four** colors. Everything else (text-text-light, border-
 | 1 | **WHITE** | `#FFFFFF` | `bg-bg-light`, `bg-bg-card`, `text-text-light` | every light surface — sections, cards, widgets, text on dark bg |
 | 2 | **NAVY** | `#0F2A47` | `bg-primary`, `text-primary` | brand — accent sections, primary buttons, active states, hover targets |
 | 3 | **DARK** | `#06111E` | `bg-secondary`, `text-secondary`, ≈`text-text-dark` (#1A2333, navy-graphite) | body text, cinematic sections, anchor tile bg on dark sections |
-| 4 | **GOLD** | `#D0B18A` | `bg-accent`, `text-accent` | accent ONLY — italic word in headings, eyebrows, gold pills, hover hint |
+| 4 | **GOLD** | `#D0B18A` | `bg-accent`, `text-accent` | accent ONLY — eyebrows, gold pills, hover hint, stat values. **Never inside a heading.** |
 
 Border tokens (`border-border-light` #DEDBD3, `border-border-dark` #1E3F5E) are utility shades for **dividers between siblings** — they're not part of the brand palette. They never wrap a surface.
 
 ### Color combinations cheat sheet
 
 On **WHITE surface** (most inner content):
-- Body text & headings: solid DARK (`text-text-dark`)
+- Body text & headings: solid DARK (`text-text-dark`) — whole heading one color, no gold word
 - Primary button: NAVY fill, WHITE text → on hover: GOLD fill, DARK text
-- Italic accent in heading: GOLD (`h-section__accent`)
 - Card eyebrow: GOLD (`card-feature__eyebrow`)
 - Pills (pedigree/stat): full **GOLD fill** + DARK text — `bg-accent text-secondary px-3 py-1.5 rounded-[6px]`
 - Card surface: same WHITE as section — differentiated by `.shadow-soft` only
 
 On **NAVY surface** (`.section-accent`):
-- Body text & headings: solid WHITE (`text-text-light`)
-- Italic accent in heading: GOLD
+- Body text & headings: solid WHITE (`text-text-light`) — whole heading one color, no gold word
 - Inline tile bg (for info plates like "Ветеринарный контроль"): `bg-secondary/40` (no border)
 - Buttons: outline-light (white outline)
 
 On **DARK surface** (`.section-cinematic`, rare):
-- Body text & headings: WHITE
-- Italic accent in heading: GOLD
+- Body text & headings: WHITE — whole heading one color, no gold word
 - Buttons: outline-light
 
 What is **NOT** allowed:
@@ -114,12 +111,12 @@ The palette has three colors. They divide responsibility between home and inner 
 | Page | Dominant | Secondary | Accent (rare) |
 |---|---|---|---|
 | `TabMain` (Главная) | **Gold** (`accent` #D0B18A) + dark (`secondary` #06111E) — cinematic, brand-led | navy (`primary`) | light bg |
-| All inner tabs | **Light bg** (`bg-light` #F2EEE6) + **navy** (`primary` #0F2A47) | dark (`secondary`) for heroes | **gold (`accent`) — small only**: italic word in headings, eyebrows, stat pills, link hover |
+| All inner tabs | **Light bg** (`bg-light` #F2EEE6) + **navy** (`primary` #0F2A47) | dark (`secondary`) for heroes | **gold (`accent`) — small only**: eyebrows, stat pills, link hover (never inside a heading) |
 
 **Why this split**: the home page is the brand statement — gold is the signature and is allowed to dominate. Inner pages are content surfaces — they breathe with white and navy, and gold appears as a small accent that catches the eye, never as a block color.
 
 **How to apply**:
-- On inner pages, never use `bg-accent` (gold fill) on large surfaces (sections, full cards, big tags). Reserve gold for: italic accent in `<span className="h-section__accent">`, `.card-feature__eyebrow`, small stat pills, link hover states.
+- On inner pages, never use `bg-accent` (gold fill) on large surfaces (sections, full cards, big tags). Reserve gold for: `.card-feature__eyebrow`, small stat pills, link hover states. **Never inside a heading** — headings are one solid color.
 - The predominant section background on inner pages is `.section-calm` (white), which provides elegant, spacious breathing room. Do **not** alternate backgrounds mechanically (white, navy, white, navy). Instead, color sections based on their **semantic meaning**—navy (`.section-accent`) is reserved **rarely** and **strategically** for high-impact accents (like key summaries or final CTAs). White (`.section-calm`) sections are fully allowed to be consecutive. `.section-cinematic` (almost-black) is reserved for rare full-bleed dramatic statements.
 
 ### Typography — the locked scale
@@ -133,7 +130,7 @@ The palette has three colors. They divide responsibility between home and inner 
 | Class | Spec | Where |
 |---|---|---|
 | `.hero-title` / `.hero-title-light` | serif, 40 → 80 px, medium (500), `tracking-tight`, `leading-[0.9]` | H1 in `.hero-side-image`. |
-| `.h-section` / `.h-section-light` | serif, 30 → 46 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener on **inner pages**. One italic gold word via `<span className="h-section__accent">`. |
+| `.h-section` / `.h-section-light` | serif, 30 → 46 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener on **inner pages**. One solid color, one font — no gold word, no italic. |
 | `.h-section-xl` / `.h-section-xl-light` | serif, 30 → 64 px, medium (500), `tracking-tight`, `leading-[0.9]` | H2 — section opener on **TabMain (etalon) only**. Larger display variant for the home brand statement. |
 | `.h-block` / `.h-block-light` | serif, 20 → 24 px, bold (700), leading tight, `text-text-dark` | H3 — subsection title (e.g. "Где применяется", "Что изучается"). **Always serif, always dark.** Never gold, never navy, never sans-serif. |
 | `.card-feature__title` | serif, 20 → 24 px, bold (700), `text-text-dark` | Card title inside `.card-feature`. Same visual weight as `.h-block`. |
@@ -156,17 +153,18 @@ The palette has three colors. They divide responsibility between home and inner 
 | `.label-eyebrow` (canonical) — aliases: `.hero-eyebrow`, `.card-feature__eyebrow` | 14 px, bold (700), **no tracking**, `text-accent` (gold) | Gold label above any heading. The only 14 px label colored gold. |
 | `.label-meta` (canonical) — alias: `.card-stat__label` | 14 px, bold (700), **no tracking**, `text-text-dark` | Dark caption under `.card-stat__value`. |
 
-#### Inline accents — only 2 forms
+#### Inline accents — only 1 form
+
+The two-tone heading (light text + one gold italic word) is **retired**. Every heading is one solid color and one font — no gold word, no italic. The `.h-section__accent` utility still exists but is now a **no-op** (it inherits the heading's own color and normal style), so legacy `<span className="h-section__accent">…</span>` markup renders uniform; new markup needs no span at all.
 
 | What | How |
 |---|---|
-| Italic accent word in heading | `<span className="h-section__accent">` (italic + gold). **One per heading max.** Only inside `.hero-title` / `.h-section`. |
 | Bold lead-in inside a list/paragraph ("Спорт и высокие нагрузки:") | `<strong>` or `font-bold` — same size and color as wrapping text. |
 
 #### Locked typographic bans
 
-1. **Italic outside `.h-section__accent`** — forbidden. Quotes, disclaimers, captions, footnotes → plain body utility.
-2. **`text-accent` as the color of an entire heading** — forbidden. Gold = italic accent word, eyebrow, stat value, links/CTAs only.
+1. **Italic anywhere** — forbidden. Headings, quotes, disclaimers, captions, footnotes → plain upright utility. (The old gold italic accent word in headings is retired.)
+2. **`text-accent` (gold) anywhere inside a heading** — forbidden, whether the whole heading or a single word. Gold = eyebrow, stat value, links/CTAs only. Headings are one solid color: `text-text-dark` on light bg, `text-text-light` on dark bg.
 3. **`text-primary` as heading color** on white background — forbidden. Headings on light bg are always `text-text-dark`; on dark bg `text-text-light`.
 4. **`font-sans` on any heading** — forbidden. Every heading is `font-serif`.
 5. **Any `text-[Npx]` below 14 px** — forbidden (`text-[10px]`, `text-[11px]`, `text-[13px]`).
@@ -189,7 +187,7 @@ Every (eyebrow + H2 + lead paragraph[s]) group MUST be wrapped in `.section-head
 <div className="max-w-3xl section-header">
   <span className="card-feature__eyebrow">Eyebrow</span>
   <h2 className="h-section">
-    Title with <span className="h-section__accent">accent</span>
+    Title in one solid color, one font
   </h2>
   <p className="body-lead">First lead paragraph.</p>
   <p className="body-lead">Second lead paragraph.</p>
@@ -265,6 +263,30 @@ The only exception is when the right column's content type makes alignment irrel
 **Heuristic to apply blindly**: open the left column. If you see `<span className="label-eyebrow">` / `<span className="hero-eyebrow">` above the H2 — the right gets `lg:pt-14`. If you see `<h2>` directly as the first child — the right gets `lg:pt-3`. Don't think about what's on the right; the left tells you.
 
 Also applies on tile lists (Check + label) — checkmarks adopt `text-text-dark`, not `text-primary` (the navy is reserved for emphasis surfaces, not for tick icons next to body text). On dark sections the tick uses `text-accent`.
+
+### Check-mark text lists — locked anatomy
+
+A **check-mark text list** is a vertical list where each row is a `<Check>` (or similar tick) followed by a short `body-sm` label (e.g. "Что изучается", "Наши принципы", the home "О хозяйстве" items). It has **one** locked shape across the whole site — home and inner pages alike:
+
+```tsx
+<ul className="flex flex-col gap-2.5">           {/* rows pressed tight: gap-2.5 (10px) */}
+  {items.map((item) => (
+    <li key={item} className="flex items-center gap-2.5">   {/* items-center, gap-2.5 */}
+      <Check className="w-4 h-4 text-text-dark shrink-0" strokeWidth={2.5} />  {/* 16px, vrovne with text */}
+      <span className="body-sm">{item}</span>
+    </li>
+  ))}
+</ul>
+```
+
+Locked rules:
+- **Icon size `w-4 h-4` (16 px)** — the tick sits *vrovne* (level) with the `body-sm` (16 px) text, not towering over it. `w-5 h-5` / `w-6 h-6` are **forbidden for ticks in text lists** (they belong to standalone/decorative icons only).
+- **`items-center`** — vertical-center the tick against the text line. No `items-start`, no `mt-0.5` nudge.
+- **Row spacing `gap-2.5`** on the `<ul>` and **`gap-2.5`** between tick and label. Rows read as one tight group, not as scattered cards. No `gap-4` / `gap-6`.
+- **Tick color**: `text-text-dark` on light sections, `text-accent` on dark sections (`.section-accent` / `.section-cinematic`).
+- **Label**: `.body-sm` (16 px). Don't hand-roll `text-base font-semibold leading-snug` — use the utility.
+
+> This supersedes the old "icons in lists are always `w-6 h-6`" rule **for check-mark text lists**. The `w-6 h-6` size still applies to icon rows that pair an icon with a *heading-weight* label or a multi-line block (feature tiles), not to a tick + one-line `body-sm` label.
 
 ### Spacing rhythm
 - Section vertical: `py-8 md:py-12` (built into `.section-*` classes) — 32 px mobile, 48 px desktop. Two adjacent sections separate by 64 / 96 px total. **Не использовать `py-12` / `py-16` / `py-24`** на секциях — это раздувает вертикальный ритм и страница «расползается».
@@ -549,7 +571,7 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
     <div className="hero-side-image__text">
       <span className="hero-eyebrow">Племенные линии</span>
       <h1 className="hero-title">
-        Генетика и <span className="h-section__accent">племенная работа</span>
+        Генетика и племенная работа
       </h1>
       <p className="hero-desc">Подзаголовок из ТЗ слово в слово.</p>
       <div className="flex gap-4 flex-wrap mt-2">
@@ -568,6 +590,21 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 - Full-card hero with `rounded-br-[80px]` and background-image inside (TabGenetics) — **remove**.
 - Text-only hero with no image (TabIndustry) — **add a side image**.
 - Custom 12-col grid with `aspect-[4/3]` thumb (TabAntlers, TabContacts) — **replace with `.hero-side-image`**.
+
+---
+
+## 8.5. Pedigree tree (approved pattern — Genetics tab)
+
+A **pedigree tree** is the one place on the site where **connector lines are allowed**. The lines here are not dividers "to tidy a list" — they are a **semantic diagram element** that encodes lineage between ancestors; without them the genealogy is unreadable. This is the single sanctioned exception to §4 "Borders and divider lines — none." Approved 2026-06-09.
+
+Rules:
+- **Vertical, nested layout only** (file-tree style — subject on top, each generation indented below). Never the horizontal left-to-right chart from the source scan: 8 great-grandparents in one row is unreadable on mobile. Vertical nesting collapses cleanly to a phone width.
+- Connectors are **1px `border-light` (#DEDBD3)** lines only — the neutral divider shade, never gold, never navy, never thicker. They live on `.section-calm` (white).
+- Each ancestor is a **`.pedigree-card`** — a horizontal mini-card (photo thumbnail + role eyebrow + serif name + meta lines), defined by `.shadow-soft` (no border on the card itself). The subject uses `.pedigree-card--root` (larger photo + name).
+- Typography inside follows the law: role = `.pedigree-card__role` (gold 14px eyebrow), name = serif bold, meta = 14px. No 12px, no italic, no gold in the name.
+- Markup is a recursive `<PedigreeBranch>` over a `PedigreeNode` tree. Utilities (`.pedigree`, `.pedigree-branch`, `.pedigree-children`, `.pedigree-card*`) live in `index.css`. Data model lives in the tab component.
+
+Do **not** generalize this into "lines are OK now." Lines remain forbidden everywhere except an actual lineage/relationship diagram. If you want a line for any other reason, the answer is still no — use whitespace.
 
 ---
 
@@ -591,7 +628,8 @@ The mandatory pattern for inner tabs. Defined as `.hero-side-image` — self-con
 | CTA section laid out as 2-col `lg:grid-cols-12` with text on `lg:col-span-7` and the CTA button(s) on `lg:col-span-5` (or any side-by-side arrangement) — buttons float at H2 level on desktop while body text wraps around them, and the layout collapses awkwardly on mobile | Buttons read as detached right-rail content, not as the section's conclusion. CTAs are not a parallel piece of information; they are the closing ask | Stack vertically: `<section><div className="section-inner flex flex-col gap-10"><div className="max-w-3xl section-header">…</div><div className="flex flex-col sm:flex-row flex-wrap gap-4">…buttons…</div></div></section>`. See §5 "CTA layout — buttons always under the text" |
 | `text-[10px]`, `text-[11px]`, `text-[13px]`, `text-xs` — anywhere | Below 14 px is forbidden everywhere, no exceptions (eyebrow is 14 px via `.label-eyebrow`) | `text-sm` (14 px) or one of `.body-lead` / `.body-sm` (16 px). Eyebrow → `.label-eyebrow` |
 | Any positive letter-spacing: `tracking-wide`, `tracking-wider`, `tracking-widest` | No разрядка anywhere on the site. Eyebrows, meta-labels, footer columns, news meta — all without разрядка | Remove the class. Allowed only: `tracking-tight` (negative, sjatie) on `.hero-title` / `.h-section` |
-| Lucide icon in a text list sized other than `w-6 h-6` (i.e. `w-5`, `w-7`, `w-8`) | Inconsistent icon stacks; only one icon size in lists | `w-6 h-6` (24 px). Decorative single icons may be larger but not inside list rows |
+| Tick (`<Check>`) in a check-mark text list sized `w-5 h-5` / `w-6 h-6`, or with `items-start` + `mt-0.5`, or row/gap spacing `gap-4`+ | Tick towers over the `body-sm` (16 px) label and the rows scatter — reads as cards, not one tight group | `w-4 h-4` (16 px), `items-center`, `gap-2.5` on both the `<ul>` and the row. See §4 "Check-mark text lists — locked anatomy" |
+| Lucide icon paired with a heading-weight label or multi-line feature tile sized other than `w-6 h-6` (i.e. `w-5`, `w-7`, `w-8`) | Inconsistent icon stacks; only one icon size for non-tick list rows | `w-6 h-6` (24 px). Decorative single icons may be larger. Does NOT apply to check-mark text-list ticks — those are `w-4 h-4` (see row above) |
 | Icon wrapped in a bordered/tinted plate (`<div className="w-9 h-9 bg-primary/5 border ...">`) | Two visual elements (icon + box) competing for attention | Use icon alone, `w-6 h-6`, `text-primary`, no wrapper |
 | Pro/con cross icon in red (`text-red-*`, `#B43F3F`, any red) | Introduces a 5th color, breaks 4-color palette | Use `text-text-dark/50` (neutral muted dark) for the cross. Tick stays `text-primary` |
 | Pill / chip variant other than `solid-gold` (`bg-accent text-secondary`) or `gold-tint` (`bg-accent/15 text-text-dark`) — e.g. `bg-accent/15 border`, `text-[10px] uppercase` mini-badges, `bg-bg-light` on white | Only two pill styles exist on light surfaces | `bg-accent text-secondary px-3 py-1.5 rounded-[6px]` (solid) OR `bg-accent/15 text-text-dark px-3 py-1.5 rounded-[6px]` (tint). On dark sections → inline tile `bg-secondary/40` |

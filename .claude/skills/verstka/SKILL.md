@@ -25,7 +25,7 @@ If the user is asking about content only (translations, copy edits) — this ski
    - Hero: `.hero-side-image` (inner pages) — the side-image pattern only
    - Cards: `.card-feature`, `.card-flat`, `.card-stat`, `.card-accent` (home only)
    - Buttons: `.btn-primary`, `.btn-primary-sm`, `.btn-outline-light`, `.btn-outline-dark`, `.btn-link`
-   - Headings: `.h-section`, `.h-section-light`, `.h-section__accent`
+   - Headings: `.h-section`, `.h-section-light` — one solid color, one font (no italic, no gold word). `.h-section__accent` is retired (no-op).
    - Shadows: `.shadow-soft`, `.shadow-soft-lg` — never `shadow-xs/sm/md/lg/2xl`
    - Radii: `rounded-none` everywhere except buttons (`rounded-[6px]`). `rounded-[24px]` only inside `.card-accent` on the home page.
 
