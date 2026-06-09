@@ -455,7 +455,7 @@ function About({ lang }: SectionProps) {
           <div className="lg:col-span-6">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
               {t.titlePart1}
-              <span className="italic block mt-2 text-accent">{t.titlePart2}</span>
+              <span className="block mt-2">{t.titlePart2}</span>
             </h2>
           </div>
 
@@ -536,7 +536,7 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
     <section id="directions" className="py-12 md:py-20 lg:py-24 bg-primary relative z-10 scroll-mt-24">
       <div className="max-w-[1400px] mx-auto px-6 mb-10 lg:mb-16">
         <h2 className="h-section-light">
-          {t.title}<span className="italic text-accent">{t.titleAccent}</span>
+          {t.title}<span>{t.titleAccent}</span>
         </h2>
       </div>
 
