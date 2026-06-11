@@ -604,7 +604,17 @@ Rules:
 - Typography inside follows the law: role = `.pedigree-card__role` (gold 14px eyebrow), name = serif bold, meta = 14px. No 12px, no italic, no gold in the name.
 - Markup is a recursive `<PedigreeBranch>` over a `PedigreeNode` tree. Utilities (`.pedigree`, `.pedigree-branch`, `.pedigree-children`, `.pedigree-card*`) live in `index.css`. Data model lives in the tab component.
 
-Do **not** generalize this into "lines are OK now." Lines remain forbidden everywhere except an actual lineage/relationship diagram. If you want a line for any other reason, the answer is still no — use whitespace.
+### Horizontal "bracket" variant (`.pedigree-h-*`)
+
+A second, dramatic presentation of the same pedigree: the classic Western left-to-right ancestor chart (subject box LEFT, generations fanning RIGHT, joined by bracket connectors), shown over a dark cinematic scene. It is the **transpose** of the vertical tree — same `PedigreeNode` model, same recursion, same pseudo-element connector technique. Approved 2026-06-10.
+
+- **Lives ONLY on `.section-cinematic`** (almost-black). The chart renders horizontally at every width; on narrow screens it is **horizontally scrollable** (`overflow-x-auto`) with an **edge-fade scroll hint** — a gradient that fades to the section bg appears on whichever side still has hidden content (driven by a small scroll/ResizeObserver in `PedigreeChart.tsx`). Component: `src/components/PedigreeChart.tsx` (`variant="horizontal" tone="dark"`). The vertical nested tree (`variant="vertical"`) still exists for light sections and is unchanged.
+- **Connectors are 1px accent gold** (`var(--color-accent)`) on dark — `border-light` is invisible on near-black and is reserved for the light vertical variant only. The dark vertical variant (`tone="dark"`) recolors its connectors to gold via `.pedigree--dark`.
+- **Boxes** are `bg-secondary/40` fills (no border, no shadow) with light text — the standard dark-surface tile treatment (§4). Subject box larger (`--root`).
+- Data lives in `src/data/pedigrees.ts` (one `PedigreeNode` export per chart). A new pedigree = a new data object + `<PedigreeChart data={…} />`. Utilities `.pedigree-h*` live in `index.css`.
+- It may close the page directly above the footer: the footer is the same near-black (`bg-secondary`), so cinematic → footer reads as one continuous dark mass, not a flag (a flag needs a light sliver between two darks — that is what's forbidden). Never sandwich a `.section-calm` between this cinematic section and the footer.
+
+Do **not** generalize this into "lines are OK now" or "gold lines everywhere." Lines remain forbidden everywhere except an actual lineage/relationship diagram. If you want a line for any other reason, the answer is still no — use whitespace.
 
 ---
 

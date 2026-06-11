@@ -466,6 +466,125 @@
   @apply text-sm font-medium text-text-dark leading-snug;
 }
 
+/* Dark-tone vertical tree (used as the mobile fallback of the horizontal chart
+   on a .section-cinematic). Card = bg-secondary/40 fill, light text, no shadow;
+   connectors switch to accent gold (border-light is invisible on near-black). */
+.pedigree-card--dark {
+  @apply bg-secondary/40 shadow-none;
+}
+
+.pedigree-card--dark .pedigree-card__name,
+.pedigree-card--dark .pedigree-card__meta {
+  @apply text-text-light;
+}
+
+.pedigree--dark .pedigree-children > .pedigree-branch::before,
+.pedigree--dark .pedigree-children > .pedigree-branch::after {
+  background: var(--color-accent);
+}
+
+/* ─── Pedigree tree — horizontal "bracket" variant ──────────────────────────
+   The transpose of the vertical tree: each branch is [card LEFT][children
+   column RIGHT]; children stacked vertically and centered, joined by gold
+   bracket connectors. Allowed ONLY on .section-cinematic and ONLY at lg+ (below
+   lg the component falls back to the vertical tree). See CLAUDE.md §8.5. */
+
+.pedigree-h {
+  --ped-h-gap: 2.5rem;          /* horizontal gutter between card and children */
+  --ped-h-vgap: 1rem;           /* vertical gap between sibling children */
+  @apply inline-flex;
+}
+
+.pedigree-h-branch {
+  @apply relative flex flex-row items-center;
+}
+
+/* children column, to the RIGHT of the card */
+.pedigree-h-children {
+  @apply relative flex flex-col justify-center;
+  margin-left: var(--ped-h-gap);
+  gap: var(--ped-h-vgap);
+}
+
+/* parent stub: from the card's center out to the rail (mid-gutter) */
+.pedigree-h-children::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--ped-h-gap) * -1);
+  width: calc(var(--ped-h-gap) / 2);
+  height: 1px;
+  background: var(--color-accent);
+}
+
+/* vertical rail — built from the first & last child halves, meeting in the
+   middle of the vertical gap (robust to differing card heights; assumes the
+   binary pedigree shape of exactly two children). */
+.pedigree-h-children > .pedigree-h-branch:first-child::after,
+.pedigree-h-children > .pedigree-h-branch:last-child::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--ped-h-gap) / -2);
+  width: 1px;
+  background: var(--color-accent);
+}
+
+.pedigree-h-children > .pedigree-h-branch:first-child::after {
+  top: 50%;
+  bottom: calc(var(--ped-h-vgap) / -2);
+}
+
+.pedigree-h-children > .pedigree-h-branch:last-child::after {
+  top: calc(var(--ped-h-vgap) / -2);
+  bottom: 50%;
+}
+
+/* elbow from the rail INTO each child card's mid-line */
+.pedigree-h-children > .pedigree-h-branch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--ped-h-gap) / -2);
+  width: calc(var(--ped-h-gap) / 2);
+  height: 1px;
+  background: var(--color-accent);
+}
+
+/* node box on dark — definition via bg-fill, no border, no shadow */
+.pedigree-h-card {
+  @apply relative flex items-center gap-3 rounded-none bg-secondary/40 p-3 pr-4;
+  width: 15rem;
+}
+
+.pedigree-h-card--root {
+  @apply gap-4 p-4;
+  width: 16rem;
+}
+
+.pedigree-h-card__media {
+  @apply shrink-0 w-12 h-12 overflow-hidden bg-primary/10;
+}
+
+.pedigree-h-card--root .pedigree-h-card__media {
+  @apply w-16 h-16;
+}
+
+.pedigree-h-card__media img {
+  @apply w-full h-full object-cover;
+}
+
+.pedigree-h-card__name {
+  @apply font-serif text-lg font-bold leading-tight text-text-light;
+}
+
+.pedigree-h-card--root .pedigree-h-card__name {
+  @apply text-xl;
+}
+
+.pedigree-h-card__meta {
+  @apply text-sm font-medium text-text-light/90 leading-snug;
+}
+
 /* Premium feathered gradient overlay for the TabMain hero background slideshow. */
 .hero-gradient-overlay {
   background: linear-gradient(to top, #06111E 0%, #06111E 55%, rgba(6, 17, 30, 0.8) 75%, rgba(6, 17, 30, 0) 100%);
