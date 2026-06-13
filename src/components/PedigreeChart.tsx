@@ -95,9 +95,13 @@ function ScrollableChart({ tone, children }: { tone: Tone; children: React.React
 
   const fade = tone === 'dark' ? 'from-secondary' : 'from-bg-light';
 
+  // Break the scroll track out of the section's px-6 gutter (-mx-6) so it reaches
+  // the real viewport edge, then re-inset the content with px-6 so the cards still
+  // line up with the section header. The fades then pin to the true edges and melt
+  // into the section bg instead of framing a hard clip mid-screen.
   return (
-    <div className="relative">
-      <div ref={ref} className="overflow-x-auto pb-3">
+    <div className="relative -mx-6">
+      <div ref={ref} className="overflow-x-auto px-6 pb-3">
         {children}
       </div>
       <div
