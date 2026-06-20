@@ -1,7 +1,8 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Language } from '../translations';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import ImageCarousel from './ImageCarousel';
 
 interface TabIndustryProps {
   lang: Language;
@@ -411,16 +412,28 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
               </p>
             </div>
 
-            <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-10">
-              <h3 className="h-block">{isRU ? 'Статистические показатели' : isCN ? '核心产业统计数据' : 'Key Statistics'}</h3>
+            <div className="lg:col-span-5 flex flex-col gap-8 lg:pl-10">
               <div className="flex flex-col gap-6">
-                {nzStats.map((s, idx) => (
-                  <div key={idx} className="flex gap-5 items-baseline">
-                    <span className="card-stat__value shrink-0">{s.stat}</span>
-                    <span className="text-sm font-medium text-text-dark leading-snug">{s.label}</span>
-                  </div>
-                ))}
+                <h3 className="h-block">{isRU ? 'Статистические показатели' : isCN ? '核心产业统计数据' : 'Key Statistics'}</h3>
+                <div className="flex flex-col gap-6">
+                  {nzStats.map((s, idx) => (
+                    <div key={idx} className="flex gap-5 items-baseline">
+                      <span className="card-stat__value shrink-0">{s.stat}</span>
+                      <span className="text-sm font-medium text-text-dark leading-snug">{s.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
+              <ImageCarousel
+                slides={[
+                  { image: '/industry_nz_1.webp' },
+                  { image: '/industry_nz_2.webp' },
+                  { image: '/industry_nz_3.webp' },
+                  { image: '/industry_nz_4.webp' },
+                  { image: '/industry_nz_5.webp' },
+                ]}
+                alt="Новая Зеландия"
+              />
             </div>
           </div>
         </div>
@@ -430,6 +443,17 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       <section id="eu" className="section-calm scroll-mt-24">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-5 lg:pt-14 order-last lg:order-first">
+              <ImageCarousel
+                slides={[
+                  { image: '/industry_eu_1.webp' },
+                  { image: '/industry_eu_2.webp' },
+                  { image: '/industry_eu_3.webp' },
+                  { image: '/industry_eu_4.webp' },
+                ]}
+                alt="Европа"
+              />
+            </div>
             <div className="lg:col-span-7 section-header">
               <span className="card-feature__eyebrow">
                 {isRU ? 'Историческая колыбель' : isCN ? '历史的发源地' : 'Historical Cradle'}
@@ -453,7 +477,6 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                     : 'Europe’s strength lies in its genetics; its weakness — limited pastures and the high cost of agricultural land. Russia, by contrast, has vast land resources and a suitable climate, but the industry is still at an early stage of development.'}
               </p>
             </div>
-            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
@@ -491,7 +514,15 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                   : isCN ? '鹿茸原料贸易市场正在稳步、大跨步地从初级原料粗加工，向高利润、高附加值的现代精细深加工成品转型。' : 'the market is gradually shifting from raw materials to deep processing products with high added value.'}
               </p>
             </div>
-            <div className="lg:col-span-5" />
+            <div className="lg:col-span-5 lg:pt-14">
+              <ImageCarousel
+                slides={[
+                  { image: '/industry_asia_1.webp' },
+                  { image: '/industry_asia_2.webp' },
+                ]}
+                alt="Азия"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -500,6 +531,17 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       <section id="na" className="section-calm scroll-mt-24 pt-0">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-5 lg:pt-14 order-last lg:order-first">
+              <ImageCarousel
+                slides={[
+                  { image: '/industry_na_1.webp' },
+                  { image: '/industry_na_2.webp' },
+                  { image: '/industry_na_3.webp' },
+                  { image: '/industry_na_4.webp' },
+                ]}
+                alt="США и Канада"
+              />
+            </div>
             <div className="lg:col-span-7 section-header">
               <span className="card-feature__eyebrow">
                 {isRU ? 'Североамериканская модель' : isCN ? '北美育种管理模式' : 'North American Model'}
@@ -523,7 +565,6 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                     : 'USA and Canada are also among key velvet producers and are gradually increasing the share of processed high-value products.'}
               </p>
             </div>
-            <div className="lg:col-span-5" />
           </div>
         </div>
       </section>
@@ -533,9 +574,9 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
             <div className="lg:col-span-7 section-header">
-              <h2 className="h-section">
+              <h2 className="h-section text-accent">
                 {isRU ? 'Современное оленеводство — это не ' : isCN ? '现代养鹿业：' : 'Modern Deer Farming: '}
-                <span className="h-section__accent">{isRU ? 'модель одного дохода' : isCN ? '多元化创收模型' : 'Multiple Income Streams'}</span>
+                {isRU ? 'модель одного дохода' : isCN ? '多元化创收模型' : 'Multiple Income Streams'}
               </h2>
               <p className="body-lead">
                 {isRU
@@ -558,23 +599,35 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       {/* ─── 7. Почему Россия имеет потенциал (High-impact summary - strategic green CTA section) ─── */}
       <section id="ru-section" className="section-accent scroll-mt-24">
         <div className="section-inner flex flex-col gap-10">
-          <div className="max-w-3xl section-header">
-            <h2 className="h-section-light">
-              {isRU ? 'Почему Россия может стать ' : isCN ? '为什么俄罗斯具备成为全球' : 'Why Russia Can Become a '}
-              <span className="h-section__accent">{isRU ? 'сильным игроком' : isCN ? '核心强国的巨大潜力' : 'Strong Global Player'}</span>
-            </h2>
-            <p className="body-lead-light">
-              {isRU
-                ? 'Несмотря на наличие подходящего климата и больших земельных ресурсов, современное оленеводство в России пока находится на ранней стадии развития. При этом мировой опыт показывает: сочетание качественной генетики, технологий, ветеринарного сопровождения и переработки может формировать устойчивую современную отрасль.'
-                : isCN
-                  ? '尽管拥有极为理想的气候条件和无与伦比的草场土地深度空间，俄罗斯的现代高端红鹿养殖目前仍处于起步阶段。新西兰等国的经验深刻表明：通过将高端育种遗传、辅助繁育科技、全程兽医安全监护以及深加工技术开发紧密结合，必然能构建起一个长期繁荣、可持续的现代战略性产业。'
-                  : 'Despite having a suitable climate and vast land resources, modern deer farming in Russia is still in its early stages of development. However, global experience shows that a combination of quality genetics, technology, veterinary support, and processing can shape a sustainable modern industry.'}
-            </p>
-            <p className="body-lead-light">
-              {isRU
-                ? 'Россия уступает Европе по зрелости отрасли, но обладает значительно большими возможностями масштабирования.'
-                : isCN ? '俄罗斯尽管在产业配套和成熟度上暂时落后于欧洲，但在牧场面积、空间纵深和规模化扩展潜力上，拥有极其巨大的不对称领先优势。' : 'Russia lags Europe in industry maturity but has significantly larger scaling potential.'}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+            <div className="lg:col-span-7 section-header">
+              <h2 className="h-section-light">
+                {isRU ? 'Почему Россия может стать ' : isCN ? '为什么俄罗斯具备成为全球' : 'Why Russia Can Become a '}
+                <span className="h-section__accent">{isRU ? 'сильным игроком' : isCN ? '核心强国的巨大潜力' : 'Strong Global Player'}</span>
+              </h2>
+              <p className="body-lead-light">
+                {isRU
+                  ? 'Несмотря на наличие подходящего климата и больших земельных ресурсов, современное оленеводство в России пока находится на ранней стадии развития. При этом мировой опыт показывает: сочетание качественной генетики, технологий, ветеринарного сопровождения и переработки может формировать устойчивую современную отрасль.'
+                  : isCN
+                    ? '尽管拥有极为理想的气候条件和无与伦比的草场土地深度空间，俄罗斯的现代高端红鹿养殖目前仍处于起步阶段。新西兰等国的经验深刻表明：通过将高端育种遗传、辅助繁育科技、全程兽医安全监护以及深加工技术开发紧密结合，必然能构建起一个长期繁荣、可持续的现代战略性产业。'
+                    : 'Despite having a suitable climate and vast land resources, modern deer farming in Russia is still in its early stages of development. However, global experience shows that a combination of quality genetics, technology, veterinary support, and processing can shape a sustainable modern industry.'}
+              </p>
+              <p className="body-lead-light">
+                {isRU
+                  ? 'Россия уступает Европе по зрелости отрасли, но обладает значительно большими возможностями масштабирования.'
+                  : isCN ? '俄罗斯尽管在产业配套和成熟度上暂时落后于欧洲，但在牧场面积、空间纵深和规模化扩展潜力上，拥有极其巨大的不对称领先优势。' : 'Russia lags Europe in industry maturity but has significantly larger scaling potential.'}
+              </p>
+            </div>
+            <div className="lg:col-span-5 lg:pt-14">
+              <div className="aspect-[4/3] overflow-hidden shadow-soft">
+                <img
+                  src="/russia_player.webp"
+                  alt="Россия — крупный игрок"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <button
