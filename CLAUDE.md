@@ -618,6 +618,23 @@ Do **not** generalize this into "lines are OK now" or "gold lines everywhere." L
 
 ---
 
+## 8.6. Client brief 17.06.2026 — approved exceptions
+
+The client reviewed the design law and explicitly chose literal implementation of these brief items (approved 2026-06-20). They are sanctioned ONLY in the listed locations and must not be generalized elsewhere:
+
+- **Gold hero background** (`.hero-side-image--gold`) — Philosophy hero, Popularization hero only.
+- **Gold heading** — Industry «…не модель одного дохода» heading only (`h-section text-accent`).
+- **Navy photo frame** (`.photo-frame-navy`) — Philosophy «Семейный проект» photo only.
+- **Blue cooperation card** (`.card-cooperation`) — Contacts «Открыты к сотрудничеству» grid only.
+- **Image-behind-text + overlay** (`.principles-bg*`) — Philosophy «Наши принципы» only.
+- **Interactive image carousel** (`ImageCarousel`) — Industry region galleries, Popularization mission carousel.
+- **Auto-rotating hero slideshow** (`HeroSlideshow`) — Philosophy hero, Popularization hero.
+- **Left/right alternation** — Industry regional subsections only.
+
+Everywhere else the original §4–§9 rules still apply (gold never in headings, no borders on photos, navy not used as card fill, text-LEFT/decoration-RIGHT, etc.). `design-audit` must treat the above as intentional, not as violations.
+
+---
+
 ## 9. Anti-patterns (do not write these — if you see them, remove)
 
 | Anti-pattern | Why bad | Fix |

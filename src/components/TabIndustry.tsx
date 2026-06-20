@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Language } from '../translations';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';

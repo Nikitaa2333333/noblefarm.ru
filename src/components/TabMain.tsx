@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Dna, Leaf, Award, Globe, Sparkles, Check, ArrowRight } from 'lucide-react';
+import { Dna, Leaf, Award, Globe, Check, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Language, TRANSLATIONS } from '../translations';
 
@@ -8,20 +8,10 @@ interface TabMainProps {
   onSwitchTab: (tabId: string) => void;
 }
 
+// Hero slider — main page photos 1.2 / 1.3 (brief P2; 1.4 pending from client, 1.1 dropped per client).
 const HERO_BACKGROUNDS = [
-  { src: '/hero_1.webp', isVertical: false },
   { src: '/hero_2.webp', isVertical: false },
   { src: '/hero_3.webp', isVertical: false },
-  { src: '/enhanced_about_3.webp', isVertical: true },
-  { src: '/enhanced_about_4.webp', isVertical: true },
-  { src: '/enhanced_about_5.webp', isVertical: true },
-  { src: '/enhanced_about_6.webp', isVertical: true },
-  { src: '/enhanced_about_7.webp', isVertical: true },
-  { src: '/enhanced_about_8.webp', isVertical: true },
-  { src: '/enhanced_about_9.webp', isVertical: true },
-  { src: '/enhanced_deer_1.webp', isVertical: true },
-  { src: '/enhanced_deer_2.webp', isVertical: true },
-  { src: '/enhanced_deer_3.webp', isVertical: true },
 ];
 
 export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
@@ -58,28 +48,24 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       title: t.directions.card1.title,
       desc: t.directions.card1.desc,
       image: '/about-2.webp',
-      icon: <Dna className="w-6 h-6 text-accent" />
     },
     {
       id: 'reindeer-intro',
       title: t.directions.card2.title,
       desc: t.directions.card2.desc,
       image: '/about-4.webp',
-      icon: <Sparkles className="w-6 h-6 text-accent" />
     },
     {
       id: 'antlers',
       title: t.directions.card3.title,
       desc: t.directions.card3.desc,
       image: '/about-6.webp',
-      icon: <Award className="w-6 h-6 text-accent" />
     },
     {
       id: 'industry',
       title: t.directions.card4.title,
       desc: t.directions.card4.desc,
       image: '/about-8.webp',
-      icon: <Globe className="w-6 h-6 text-accent" />
     },
   ];
 
@@ -144,15 +130,6 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
               {t.hero.descAfter}
             </p>
 
-            <div className="mt-6 aspect-[16/9] max-w-2xl overflow-hidden shadow-soft">
-              <img
-                src="/under_hero.webp"
-                alt={t.hero.brandName}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
               {heroIcons.map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-text-light text-sm font-medium">
@@ -192,11 +169,19 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
       <section className="py-16 md:py-24 bg-primary overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-6">
+            <div className="lg:col-span-6 flex flex-col gap-8">
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
                 {t.about.titlePart1}
                 <span className="block mt-2">{t.about.titlePart2}</span>
               </h2>
+              <div className="aspect-[16/9] overflow-hidden shadow-soft">
+                <img
+                  src="/under_hero.webp"
+                  alt={t.about.titlePart2}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             </div>
 
             <div className="lg:col-span-6 lg:pl-10 text-text-light">
@@ -255,40 +240,17 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
                 key={card.id}
                 tabIndex={0}
                 onClick={() => onSwitchTab(card.id)}
-                className="group relative min-h-[460px] rounded-[24px] overflow-hidden flex flex-col justify-between p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border border-white/5 shadow-lg hover:shadow-2xl hover:-translate-y-2"
+                className="card-feature group"
               >
-                <div className="absolute inset-0 z-0">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/45 to-transparent transition-all duration-500 group-hover:from-secondary/98 group-hover:via-secondary/55" />
+                <div className="card-feature__media aspect-[4/3]">
+                  <img src={card.image} alt={card.title} loading="lazy" />
                 </div>
-
-                <div className="relative z-10 flex justify-between items-start">
-                  <div className="w-11 h-11 bg-secondary/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10">
-                    {card.icon}
-                  </div>
-                </div>
-
-                <div className="relative z-10 mt-auto">
-                  <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
-                    {card.title}
-                  </h3>
-                  <p className="text-text-light/85 font-medium text-base leading-snug mb-6">
-                    {card.desc}
-                  </p>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSwitchTab(card.id);
-                    }}
-                    className="flex items-center gap-1.5 text-accent group-hover:text-text-light text-sm font-semibold group-hover:gap-2.5 transition-all duration-300 cursor-pointer"
-                  >
+                <div className="card-feature__body">
+                  <h3 className="card-feature__title">{card.title}</h3>
+                  <p className="card-feature__desc">{card.desc}</p>
+                  <span className="card-feature__cta">
                     {t.directions.readMore} <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </span>
                 </div>
               </div>
             ))}

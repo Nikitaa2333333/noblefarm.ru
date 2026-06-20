@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { ExternalLink, GraduationCap } from 'lucide-react';
 import { Language } from '../translations';
+import HeroSlideshow from './HeroSlideshow';
+import ImageCarousel from './ImageCarousel';
 
 interface TabPopularizationProps {
   lang: Language;
@@ -117,7 +119,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="hero-side-image">
+      <section className="hero-side-image hero-side-image--gold">
         <div className="hero-side-image__grid">
           <div className="hero-side-image__text">
             <span className="hero-eyebrow">{t.hero.eyebrow}</span>
@@ -137,7 +139,10 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
             </div>
           </div>
           <div className="hero-side-image__media">
-            <img src="/pop_hero_1.webp" alt="Познакомиться с оленеводством" />
+            <HeroSlideshow
+              images={['/pop_hero_1.webp', '/pop_hero_2.webp', '/pop_hero_3.webp']}
+              alt="Познакомиться с оленеводством"
+            />
           </div>
         </div>
       </section>
@@ -155,16 +160,19 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               <p className="body-lead">{t.mission.p1}</p>
               <p className="body-lead">{t.mission.p2}</p>
             </div>
-            <ul className="flex flex-col gap-3 pl-1">
-              {t.mission.items.map((item) => (
-                <li key={item} className="flex items-start gap-3 body-sm">
-                  <span className="w-2 h-2 rounded-full bg-accent shrink-0 mt-2" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
-          <div className="lg:col-span-5"></div>
+          <div className="lg:col-span-5 lg:pt-14">
+            <ImageCarousel
+              slides={[
+                { image: '/pop_carousel_1.webp', caption: 'Чем благородный европейский олень отличается от других видов' },
+                { image: '/pop_carousel_2.webp', caption: 'Как формируется стадо' },
+                { image: '/pop_carousel_3.webp', caption: 'Зачем нужна генетика и ветеринарное сопровождение' },
+                { image: '/pop_carousel_4.webp', caption: 'Что такое панты' },
+                { image: '/pop_carousel_5.webp', caption: 'Почему оленеводство — перспективная отрасль для России' },
+              ]}
+              alt="Популяризация оленеводства"
+            />
+          </div>
         </div>
       </section>
 
@@ -181,7 +189,16 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               <p className="body-lead">{t.excursions.p1}</p>
               <p className="body-lead">{t.excursions.p2}</p>
             </div>
-            <div className="lg:col-span-5" />
+            <div className="lg:col-span-5 lg:pt-14">
+              <div className="aspect-[4/3] overflow-hidden shadow-soft">
+                <img
+                  src="/pop_excursions.webp"
+                  alt="В перспективе — знакомство с хозяйством"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-6">
