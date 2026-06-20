@@ -192,9 +192,9 @@ export default function TabContacts({ lang }: TabContactsProps) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {directions.map((card, i) => (
-              <div key={i} className="card-flat flex flex-col justify-between min-h-[180px] bg-bg-card">
-                <h4 className="font-serif text-base font-bold text-text-dark leading-tight">{card.title}</h4>
-                <p className="body-sm mt-3">{card.desc}</p>
+              <div key={i} className="card-cooperation">
+                <h4 className="font-serif text-base font-bold text-text-light leading-tight">{card.title}</h4>
+                <p className="body-sm mt-3 text-text-light">{card.desc}</p>
               </div>
             ))}
           </div>
