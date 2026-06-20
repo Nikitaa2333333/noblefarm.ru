@@ -548,31 +548,20 @@ function Directions({ lang, navigateAndScroll }: SectionProps) {
               id={card.id}
               tabIndex={0}
               onClick={() => navigateAndScroll && navigateAndScroll(card.id)}
-              className="group relative min-h-[460px] rounded-none rounded-br-[80px] overflow-hidden flex flex-col justify-between p-7 lg:p-8 text-text-light transition-all duration-500 cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border-2 border-accent scroll-mt-24"
+              className="card-feature group scroll-mt-24"
             >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/45 to-transparent transition-all duration-500 group-hover:from-secondary/98 group-hover:via-secondary/55" />
+              <div className="card-feature__media aspect-[4/3]">
+                <img src={card.image} alt={card.title} loading="lazy" />
               </div>
-
-              <div className="relative z-10 mt-auto">
-                <h3 className="font-serif text-xl sm:text-2xl font-medium mb-3 leading-tight text-text-light">
-                  {card.title}
-                </h3>
-                <p className="text-text-light/85 font-medium text-base leading-snug mb-6">
-                  {card.desc}
-                </p>
-                <button 
+              <div className="card-feature__body">
+                <h3 className="card-feature__title">{card.title}</h3>
+                <p className="card-feature__desc">{card.desc}</p>
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     navigateAndScroll && navigateAndScroll(card.id);
                   }}
-                  className="flex items-center gap-1.5 text-accent group-hover:text-text-light text-sm font-semibold group-hover:gap-2.5 transition-all duration-300 cursor-pointer focus-visible:underline focus-visible:outline-none py-1"
+                  className="card-feature__cta"
                 >
                   {t.readMore} <ArrowRight className="w-4 h-4" />
                 </button>
