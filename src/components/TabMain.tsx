@@ -144,6 +144,15 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
               {t.hero.descAfter}
             </p>
 
+            <div className="mt-6 aspect-[16/9] max-w-2xl overflow-hidden shadow-soft">
+              <img
+                src="/under_hero.webp"
+                alt={t.hero.brandName}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 md:flex md:flex-wrap md:items-center md:gap-x-6 lg:gap-x-8 md:gap-y-3">
               {heroIcons.map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-text-light text-sm font-medium">
@@ -308,7 +317,7 @@ export default function TabMain({ lang, onSwitchTab }: TabMainProps) {
                 loading="lazy"
               />
               <span className="block mt-4 text-sm font-bold text-accent">
-                {lang === 'RU' ? 'Московская область' : lang === 'CN' ? '莫斯科州' : 'Moscow Region'}
+                {lang === 'RU' ? 'РФ, Московская область' : lang === 'CN' ? '俄罗斯，莫斯科州' : 'Russia, Moscow Region'}
               </span>
             </div>
           </div>

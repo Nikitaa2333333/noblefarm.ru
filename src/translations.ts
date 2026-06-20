@@ -21,7 +21,7 @@ export const TRANSLATIONS = {
       call: 'Позвонить',
     },
     hero: {
-      subtitle: 'Московская область',
+      subtitle: 'РФ, Московская область',
       titleLine1: 'Современное',
       titleLine2: 'оленеводство',
       titleLine3: 'в\u00a0России',
@@ -133,7 +133,7 @@ export const TRANSLATIONS = {
       call: 'Call Us',
     },
     hero: {
-      subtitle: 'Moscow\u00a0Region',
+      subtitle: 'Russia, Moscow Region',
       titleLine1: 'Modern',
       titleLine2: 'deer farming',
       titleLine3: 'in\u00a0Russia',
@@ -245,7 +245,7 @@ export const TRANSLATIONS = {
       call: '拨打电话',
     },
     hero: {
-      subtitle: '莫斯科州',
+      subtitle: '俄罗斯，莫斯科州',
       titleLine1: '俄罗斯',
       titleLine2: '现代养鹿业',
       titleLine3: '新篇章',

@@ -639,10 +639,10 @@ function WhyImportant({ lang }: SectionProps) {
               />
               <span className="text-lg md:text-xl font-bold text-text-dark">
                 {lang === 'RU'
-                  ? 'Московская область, Дмитровский район'
+                  ? 'РФ, Московская область, Дмитровский район'
                   : lang === 'CN'
-                  ? '莫斯科州，德米特罗夫区'
-                  : 'Moscow Region, Dmitrov District'}
+                  ? '俄罗斯，莫斯科州，德米特罗夫区'
+                  : 'Russia, Moscow Region, Dmitrov District'}
               </span>
             </div>
           </div>
