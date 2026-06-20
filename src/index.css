@@ -273,6 +273,38 @@
   @apply w-full h-full object-cover;
 }
 
+/* ── Brief 17.06 override-approved patterns (human-approved 2026-06-20) ── */
+
+/* Gold hero background (P10 Philosophy, P43 Popularization).
+   Eyebrow is normally gold → recolor to dark so it reads on gold. */
+.hero-side-image--gold {
+  @apply bg-accent;
+}
+.hero-side-image--gold .hero-eyebrow {
+  color: var(--color-secondary);
+}
+
+/* Navy frame around a photo (P11 Семейный проект). */
+.photo-frame-navy {
+  @apply border-[6px] border-primary overflow-hidden shadow-soft;
+}
+
+/* Blue cooperation card (P39 Контакты «Открыты к сотрудничеству»). */
+.card-cooperation {
+  @apply bg-primary text-text-light p-7 md:p-8 flex flex-col justify-between min-h-[180px] shadow-soft;
+}
+
+/* Full-width principles block over a background image (P12 «Наши принципы»). */
+.principles-bg {
+  @apply relative overflow-hidden px-6 py-12 md:py-20;
+}
+.principles-bg__overlay {
+  @apply absolute inset-0 bg-secondary/70;
+}
+.principles-bg__content {
+  @apply relative z-10 max-w-[1400px] mx-auto;
+}
+
 /* Hero eyebrow — gold label above hero H1. 14 px, no tracking. */
 .hero-eyebrow {
   @apply text-accent text-sm font-bold;
