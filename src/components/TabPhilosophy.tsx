@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Language } from '../translations';
+import HeroSlideshow from './HeroSlideshow';
 
 interface TabPhilosophyProps {
   lang: Language;
@@ -76,7 +77,7 @@ const CONTENT = {
           name: 'Благородный европейский олень',
           latin: 'Cervus elaphus',
           desc: 'Современное фермерское направление',
-          image: '/enhanced_deer_1.webp',
+          image: '/european_deer.webp',
           highlight: true,
           modal: [
             '**Европейский благородный олень (лат. Cervus elaphus)** — подвид благородного оленя, обитает в большей части Европы, на Кавказе, в Малой Азии, Иране, в некоторых частях Западной и Центральной Азии. Также его можно встретить в регионе Атласских гор между Марокко и Тунисом на северо-запада Африки, являясь единственным видом оленей, обитающих в Африке. Благородные олени были завезены в другие районы, включая Австралию, Новую Зеландию, США, Канаду, Перу, Уругвай, Чили и Аргентину.',
@@ -145,7 +146,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="hero-side-image">
+      <section className="hero-side-image hero-side-image--gold">
         <div className="hero-side-image__grid">
           <div className="hero-side-image__text">
             <span className="hero-eyebrow">{t.hero.eyebrow}</span>
@@ -165,7 +166,10 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             </div>
           </div>
           <div className="hero-side-image__media">
-            <img src="/philosophy_1.webp" alt="Благородный Север" />
+            <HeroSlideshow
+              images={['/philosophy_1.webp', '/philosophy_2.webp', '/philosophy_3.webp']}
+              alt="Философия проекта"
+            />
           </div>
         </div>
       </section>
@@ -173,7 +177,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
       {/* ─── Family project ──────────────────────────────────────────────── */}
       <section className="section-calm">
         <div className="section-inner grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-          <div className="lg:col-span-7 flex flex-col gap-10">
+          <div className="lg:col-span-7">
             <div className="section-header">
               <span className="label-eyebrow">{t.family.eyebrow}</span>
               <h2 className="h-section">
@@ -183,26 +187,37 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
               <p className="body-lead">{t.family.p2}</p>
               <p className="body-lead">{t.family.p3}</p>
             </div>
-            <div className="flex flex-col gap-6">
-              <h3 className="h-block">{t.family.principlesTitle}</h3>
-              <ul className="flex flex-col gap-2.5">
-                {t.family.principles.map((principle) => (
-                  <li key={principle} className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-text-dark shrink-0" strokeWidth={2.5} />
-                    <span className="body-sm">{principle}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
           <div className="lg:col-span-5 lg:pt-14">
-            <div className="aspect-[16/10] overflow-hidden shadow-soft">
+            <div className="aspect-[16/10] photo-frame-navy">
               <img
                 src="/family_project.webp"
                 alt="Семья — основатели проекта"
                 className="w-full h-full object-cover"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Наши принципы (full-width bg image, content right) ──────────── */}
+      <section
+        className="principles-bg"
+        style={{ backgroundImage: 'url(/principles_bg.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="principles-bg__overlay" />
+        <div className="principles-bg__content grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="hidden lg:block lg:col-span-6" />
+          <div className="lg:col-span-6 flex flex-col gap-6">
+            <h2 className="h-section-light">{t.family.principlesTitle}</h2>
+            <ul className="flex flex-col gap-2.5">
+              {t.family.principles.map((principle) => (
+                <li key={principle} className="flex items-center gap-2.5">
+                  <Check className="w-4 h-4 text-accent shrink-0" strokeWidth={2.5} />
+                  <span className="body-sm text-text-light">{principle}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -317,7 +332,16 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             <p className="body-lead">{t.russia.p2}</p>
             <p className="body-lead">{t.russia.p3}</p>
           </div>
-          <div className="lg:col-span-5" />
+          <div className="lg:col-span-5 lg:pt-14">
+            <div className="aspect-[4/3] overflow-hidden shadow-soft">
+              <img
+                src="/russia_future.webp"
+                alt="Будущее оленеводства в России"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
