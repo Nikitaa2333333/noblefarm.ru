@@ -308,16 +308,8 @@ interface SectionProps {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 const HERO_BACKGROUNDS = [
-  { src: '/enhanced_hero_bg.webp', isVertical: false },
-  { src: '/enhanced_about_1.webp', isVertical: false },
-  { src: '/enhanced_about_2.webp', isVertical: true },
-  { src: '/enhanced_about_3.webp', isVertical: true },
-  { src: '/enhanced_about_4.webp', isVertical: true },
-  { src: '/enhanced_about_5.webp', isVertical: true },
-  { src: '/enhanced_about_6.webp', isVertical: true },
-  { src: '/enhanced_about_7.webp', isVertical: true },
-  { src: '/enhanced_about_8.webp', isVertical: true },
-  { src: '/enhanced_about_9.webp', isVertical: true },
+  { src: '/hero_2.webp', isVertical: false },
+  { src: '/hero_3.webp', isVertical: false },
   { src: '/enhanced_deer_1.webp', isVertical: true },
   { src: '/enhanced_deer_2.webp', isVertical: true },
   { src: '/enhanced_deer_3.webp', isVertical: true },
@@ -452,11 +444,19 @@ function About({ lang }: SectionProps) {
     <section id="about" className="py-12 md:py-20 lg:py-24 bg-primary overflow-hidden scroll-mt-24">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 flex flex-col gap-8">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-medium tracking-tight text-text-light leading-[1.15] md:leading-[1.1]">
               {t.titlePart1}
               <span className="block mt-2">{t.titlePart2}</span>
             </h2>
+            <div className="aspect-[16/9] overflow-hidden shadow-soft">
+              <img
+                src="/under_hero.webp"
+                alt={t.titlePart2}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           <div className="lg:col-span-6 lg:pl-10 text-text-light">
