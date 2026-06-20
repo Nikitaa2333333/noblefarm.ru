@@ -116,7 +116,7 @@ export default function TabAntlers({ lang, onSwitchTab }: TabAntlersProps) {
             </div>
           </div>
           <div className="hero-side-image__media">
-            <img src="/enhanced_about_6.webp" alt="Velvet Antlers" />
+            <img src="/antlers_hero.webp" alt="Velvet Antlers" />
           </div>
         </div>
       </section>

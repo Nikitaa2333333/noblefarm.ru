@@ -137,7 +137,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
             </div>
           </div>
           <div className="hero-side-image__media">
-            <img src="/enhanced_about_4.webp" alt="Познакомиться с оленеводством" />
+            <img src="/pop_hero_1.webp" alt="Познакомиться с оленеводством" />
           </div>
         </div>
       </section>

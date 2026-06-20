@@ -78,7 +78,7 @@ export default function TabContacts({ lang }: TabContactsProps) {
             </p>
           </div>
           <div className="hero-side-image__media">
-            <img src="/enhanced_about_9.webp" alt="Farm gate" />
+            <img src="/contacts_hero.webp" alt="Farm gate" />
           </div>
         </div>
       </section>

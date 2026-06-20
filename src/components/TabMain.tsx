@@ -9,9 +9,9 @@ interface TabMainProps {
 }
 
 const HERO_BACKGROUNDS = [
-  { src: '/enhanced_hero_bg.webp', isVertical: false },
-  { src: '/enhanced_about_1.webp', isVertical: false },
-  { src: '/enhanced_about_2.webp', isVertical: true },
+  { src: '/hero_1.webp', isVertical: false },
+  { src: '/hero_2.webp', isVertical: false },
+  { src: '/hero_3.webp', isVertical: false },
   { src: '/enhanced_about_3.webp', isVertical: true },
   { src: '/enhanced_about_4.webp', isVertical: true },
   { src: '/enhanced_about_5.webp', isVertical: true },

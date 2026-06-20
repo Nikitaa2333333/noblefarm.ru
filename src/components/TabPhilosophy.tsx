@@ -165,7 +165,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             </div>
           </div>
           <div className="hero-side-image__media">
-            <img src="/enhanced_about_4.webp" alt="Благородный Север" />
+            <img src="/philosophy_1.webp" alt="Благородный Север" />
           </div>
         </div>
       </section>
@@ -198,7 +198,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
           <div className="lg:col-span-5 lg:pt-14">
             <div className="aspect-[16/10] overflow-hidden shadow-soft">
               <img
-                src="/enhanced_about_7.webp"
+                src="/family_project.webp"
                 alt="Семья — основатели проекта"
                 className="w-full h-full object-cover"
               />

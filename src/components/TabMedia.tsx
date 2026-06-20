@@ -126,7 +126,7 @@ export default function TabMedia({ lang, onSwitchTab }: TabMediaProps) {
             </p>
           </div>
           <div className="hero-side-image__media">
-            <img src="/enhanced_about_7.webp" alt="Media" />
+            <img src="/media_hero.webp" alt="Media" />
           </div>
         </div>
       </section>
