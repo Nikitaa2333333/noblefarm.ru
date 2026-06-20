@@ -388,31 +388,29 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       <section id="nz" className="section-calm scroll-mt-24 pt-0">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-7 section-header">
-              <span className="card-feature__eyebrow">
-                {isRU ? 'Мировой лидер' : isCN ? '行业领导者' : 'World Leader'}
-              </span>
-              <h2 className="h-section">
-                {isRU ? 'Новая Зеландия: как оленеводство стало ' : isCN ? '新西兰：养鹿业是如何成长为' : 'New Zealand: How Deer Farming Became an '}
-                <span className="h-section__accent">{isRU ? 'индустрией' : isCN ? '产业' : 'Industry'}</span>
-              </h2>
-              <p className="body-lead">
-                {isRU
-                  ? 'Новая Зеландия считается мировым лидером современного оленеводства. Именно здесь отрасль была переведена на промышленный уровень: с системной селекцией, ветеринарией, экспортом и глубокой переработкой.'
-                  : isCN
-                    ? '新西兰是举世公认的现代养鹿业世界领头羊。正是在这里，养鹿业被提升到了规模化、工业化的先进生产水平：拥有全套科学的系统育种、全方位的兽医安检体系、庞大的出口外销机制以及高附加值的深加工技术。'
-                    : 'New Zealand is considered the global leader in modern deer farming. It is here that the industry was raised to an industrial level: with systematic selection, veterinary medicine, exports, and deep processing.'}
-              </p>
-              <p className="body-lead">
-                {isRU
-                  ? 'Успех отрасли держится на четырёх опорах: сильной генетике, выстроенной десятилетиями системной селекции; научном подходе с современной ветеринарией и исследованиями; экспортной модели с ориентацией на глобальный рынок; и глубокой переработке, где капсулы, порошки и экстракты заменили сырьё.'
-                  : isCN
-                    ? '产业的成功建立在四大支柱之上：经过数十年系统繁育改良的卓越遗传基因；以高端兽医医疗与学术研究为支撑的前沿科学方法；紧密对接全球消费市场的外向出口导向模式；以及用鹿茸精粉、胶囊、提取物代替初级原料的高价值深加工体系。'
-                    : 'The industry’s success rests on four pillars: strong genetics built over decades of systemic selection; a scientific approach backed by veterinary medicine and research; an export-driven model focused on the global market; and deep processing, where capsules, powders, and extracts have replaced raw materials.'}
-              </p>
-            </div>
-
-            <div className="lg:col-span-5 flex flex-col gap-8 lg:pl-10">
+            <div className="lg:col-span-7 flex flex-col gap-10">
+              <div className="section-header">
+                <span className="card-feature__eyebrow">
+                  {isRU ? 'Мировой лидер' : isCN ? '行业领导者' : 'World Leader'}
+                </span>
+                <h2 className="h-section">
+                  {isRU ? 'Новая Зеландия: как оленеводство стало индустрией' : isCN ? '新西兰：养鹿业是如何成长为产业' : 'New Zealand: How Deer Farming Became an Industry'}
+                </h2>
+                <p className="body-lead">
+                  {isRU
+                    ? 'Новая Зеландия считается мировым лидером современного оленеводства. Именно здесь отрасль была переведена на промышленный уровень: с системной селекцией, ветеринарией, экспортом и глубокой переработкой.'
+                    : isCN
+                      ? '新西兰是举世公认的现代养鹿业世界领头羊。正是在这里，养鹿业被提升到了规模化、工业化的先进生产水平：拥有全套科学的系统育种、全方位的兽医安检体系、庞大的出口外销机制以及高附加值的深加工技术。'
+                      : 'New Zealand is considered the global leader in modern deer farming. It is here that the industry was raised to an industrial level: with systematic selection, veterinary medicine, exports, and deep processing.'}
+                </p>
+                <p className="body-lead">
+                  {isRU
+                    ? 'Успех отрасли держится на четырёх опорах: сильной генетике, выстроенной десятилетиями системной селекции; научном подходе с современной ветеринарией и исследованиями; экспортной модели с ориентацией на глобальный рынок; и глубокой переработке, где капсулы, порошки и экстракты заменили сырьё.'
+                    : isCN
+                      ? '产业的成功建立在四大支柱之上：经过数十年系统繁育改良的卓越遗传基因；以高端兽医医疗与学术研究为支撑的前沿科学方法；紧密对接全球消费市场的外向出口导向模式；以及用鹿茸精粉、胶囊、提取物代替初级原料的高价值深加工体系。'
+                      : 'The industry’s success rests on four pillars: strong genetics built over decades of systemic selection; a scientific approach backed by veterinary medicine and research; an export-driven model focused on the global market; and deep processing, where capsules, powders, and extracts have replaced raw materials.'}
+                </p>
+              </div>
               <div className="flex flex-col gap-6">
                 <h3 className="h-block">{isRU ? 'Статистические показатели' : isCN ? '核心产业统计数据' : 'Key Statistics'}</h3>
                 <div className="flex flex-col gap-6">
@@ -424,6 +422,9 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                   ))}
                 </div>
               </div>
+            </div>
+
+            <div className="lg:col-span-5">
               <ImageCarousel
                 slides={[
                   { image: '/industry_nz_1.webp' },
@@ -443,7 +444,7 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       <section id="eu" className="section-calm scroll-mt-24">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-            <div className="lg:col-span-5 lg:pt-14 order-last lg:order-first">
+            <div className="lg:col-span-5 order-last lg:order-first">
               <ImageCarousel
                 slides={[
                   { image: '/industry_eu_1.webp' },
@@ -514,7 +515,7 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                   : isCN ? '鹿茸原料贸易市场正在稳步、大跨步地从初级原料粗加工，向高利润、高附加值的现代精细深加工成品转型。' : 'the market is gradually shifting from raw materials to deep processing products with high added value.'}
               </p>
             </div>
-            <div className="lg:col-span-5 lg:pt-14">
+            <div className="lg:col-span-5">
               <ImageCarousel
                 slides={[
                   { image: '/industry_asia_1.webp' },
@@ -531,7 +532,7 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
       <section id="na" className="section-calm scroll-mt-24 pt-0">
         <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
-            <div className="lg:col-span-5 lg:pt-14 order-last lg:order-first">
+            <div className="lg:col-span-5 order-last lg:order-first">
               <ImageCarousel
                 slides={[
                   { image: '/industry_na_1.webp' },
@@ -618,8 +619,8 @@ export default function TabIndustry({ lang, onSwitchTab }: TabIndustryProps) {
                   : isCN ? '俄罗斯尽管在产业配套和成熟度上暂时落后于欧洲，但在牧场面积、空间纵深和规模化扩展潜力上，拥有极其巨大的不对称领先优势。' : 'Russia lags Europe in industry maturity but has significantly larger scaling potential.'}
               </p>
             </div>
-            <div className="lg:col-span-5 lg:pt-14">
-              <div className="aspect-[4/3] overflow-hidden shadow-soft">
+            <div className="lg:col-span-5">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src="/russia_player.webp"
                   alt="Россия — крупный игрок"

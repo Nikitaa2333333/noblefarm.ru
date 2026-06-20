@@ -190,11 +190,11 @@ export default function TabContacts({ lang }: TabContactsProps) {
             </div>
             <div className="lg:col-span-5" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {directions.map((card, i) => (
               <div key={i} className="card-cooperation">
-                <h4 className="font-serif text-base font-bold text-text-light leading-tight">{card.title}</h4>
-                <p className="body-sm mt-3 text-text-light">{card.desc}</p>
+                <h4 className="card-cooperation__title">{card.title}</h4>
+                <p className="body-sm-light">{card.desc}</p>
               </div>
             ))}
           </div>

@@ -449,14 +449,13 @@ function About({ lang }: SectionProps) {
               {t.titlePart1}
               <span className="block mt-2">{t.titlePart2}</span>
             </h2>
-            <div className="aspect-[16/9] overflow-hidden shadow-soft">
-              <img
-                src="/under_hero.webp"
-                alt={t.titlePart2}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
+            <img
+              src="/decor-deer.webp"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-auto"
+              loading="lazy"
+            />
           </div>
 
           <div className="lg:col-span-6 lg:pl-10 text-text-light">

@@ -7,7 +7,7 @@ interface HeroSlideshowProps {
   intervalMs?: number;
 }
 
-export default function HeroSlideshow({ images, alt, intervalMs = 6000 }: HeroSlideshowProps) {
+export default function HeroSlideshow({ images, alt, intervalMs = 3000 }: HeroSlideshowProps) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

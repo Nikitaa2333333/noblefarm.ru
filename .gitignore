@@ -16,3 +16,9 @@ assets-source/
 
 # Per-user Claude Code settings
 .claude/settings.local.json
+.superpowers/
+docs/superpowers/
+CONTEXT_HANDOFF_17_06.md
+17.06.2026/
+scripts/_*
+scripts/comments_17_06_text.txt

@@ -161,7 +161,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               <p className="body-lead">{t.mission.p2}</p>
             </div>
           </div>
-          <div className="lg:col-span-5 lg:pt-14">
+          <div className="lg:col-span-5">
             <ImageCarousel
               slides={[
                 { image: '/pop_carousel_1.webp', caption: 'Чем благородный европейский олень отличается от других видов' },
@@ -189,7 +189,7 @@ export default function TabPopularization({ lang, onSwitchTab }: TabPopularizati
               <p className="body-lead">{t.excursions.p1}</p>
               <p className="body-lead">{t.excursions.p2}</p>
             </div>
-            <div className="lg:col-span-5 lg:pt-14">
+            <div className="lg:col-span-5">
               <div className="aspect-[4/3] overflow-hidden shadow-soft">
                 <img
                   src="/pop_excursions.webp"

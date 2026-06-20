@@ -188,7 +188,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
               <p className="body-lead">{t.family.p3}</p>
             </div>
           </div>
-          <div className="lg:col-span-5 lg:pt-14">
+          <div className="lg:col-span-5">
             <div className="aspect-[16/10] photo-frame-navy">
               <img
                 src="/family_project.webp"
@@ -207,14 +207,13 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
       >
         <div className="principles-bg__overlay" />
         <div className="principles-bg__content grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="hidden lg:block lg:col-span-6" />
-          <div className="lg:col-span-6 flex flex-col gap-6">
+          <div className="lg:col-span-7 flex flex-col gap-6">
             <h2 className="h-section-light">{t.family.principlesTitle}</h2>
             <ul className="flex flex-col gap-2.5">
               {t.family.principles.map((principle) => (
                 <li key={principle} className="flex items-center gap-2.5">
                   <Check className="w-4 h-4 text-accent shrink-0" strokeWidth={2.5} />
-                  <span className="body-sm text-text-light">{principle}</span>
+                  <span className="text-base font-medium leading-snug text-text-light">{principle}</span>
                 </li>
               ))}
             </ul>
@@ -332,7 +331,7 @@ export default function TabPhilosophy({ lang, onSwitchTab }: TabPhilosophyProps)
             <p className="body-lead">{t.russia.p2}</p>
             <p className="body-lead">{t.russia.p3}</p>
           </div>
-          <div className="lg:col-span-5 lg:pt-14">
+          <div className="lg:col-span-5">
             <div className="aspect-[4/3] overflow-hidden shadow-soft">
               <img
                 src="/russia_future.webp"
