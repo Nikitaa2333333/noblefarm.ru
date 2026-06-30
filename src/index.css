@@ -29,7 +29,10 @@
 
 @layer base {
   body {
-    @apply bg-bg-light text-text-dark font-medium antialiased overflow-x-hidden;
+    /* overflow-x: clip (not hidden) — clips horizontal overflow WITHOUT making
+       body a scroll container, which on iOS Safari detaches `position: fixed`
+       (the navbar) during scroll. */
+    @apply bg-bg-light text-text-dark font-medium antialiased overflow-x-clip;
   }
 
   /* Headings inherit weight from utility classes (.h-hero, .h-section, .h-block).
