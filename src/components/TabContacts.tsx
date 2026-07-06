@@ -54,6 +54,27 @@ export default function TabContacts({ lang }: TabContactsProps) {
     },
   ];
 
+  // Реквизиты — дословно из docs (Реквизиты.docx); значения не переводятся
+  const requisites = [
+    {
+      label: isRU ? 'Наименование' : isCN ? '名称' : 'Name',
+      value: 'гК(Ф)Х ИП Дерюгин П.С.',
+    },
+    {
+      label: isRU ? 'ИНН' : isCN ? '纳税人识别号（ИНН）' : 'INN (Taxpayer ID)',
+      value: '773170493306',
+    },
+    {
+      label: isRU ? 'Почтовый адрес' : isCN ? '邮政地址' : 'Postal Address',
+      value: 'Российская Федерация, Московская область, Дмитровский городской округ, деревня Василево, д.38С',
+    },
+    {
+      label: isRU ? 'Адрес эл. почты' : isCN ? '电子邮箱' : 'Email',
+      value: 'kfh-noble@inbox.ru',
+      href: 'mailto:kfh-noble@inbox.ru',
+    },
+  ];
+
   return (
     <div className="w-full">
       {/* ─── Hero / Header ────────────────────────────────────────────────── */}
@@ -252,7 +273,32 @@ export default function TabContacts({ lang }: TabContactsProps) {
         </div>
       </section>
 
-      {/* ─── 5. Финальный блок (Strategic Concluding Accent Section / CTA) ──────────── */}
+      {/* ─── 5. Реквизиты (юридическая информация, дословно) ──────────────────── */}
+      <section className="section-calm pt-0">
+        <div className="section-inner flex flex-col gap-10">
+          <div className="section-header">
+            <h2 className="h-section">
+              {isRU ? 'Реквизиты' : isCN ? '注册信息' : 'Legal Details'}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
+            {requisites.map((item) => (
+              <div key={item.label} className="flex flex-col gap-2">
+                <span className="label-meta">{item.label}</span>
+                {item.href ? (
+                  <a href={item.href} className="body-sm text-accent hover:underline font-semibold">
+                    {item.value}
+                  </a>
+                ) : (
+                  <p className="body-sm">{item.value}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. Финальный блок (Strategic Concluding Accent Section / CTA) ──────────── */}
       <section className="section-accent">
         <div className="section-inner flex flex-col gap-10">
           <div className="max-w-3xl section-header">

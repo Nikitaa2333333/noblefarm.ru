@@ -958,6 +958,7 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
 
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-text-light text-sm font-medium">
           <p>{t.copyright}</p>
+          <p>{t.owner}</p>
           <p>{t.region}</p>
         </div>
       </div>

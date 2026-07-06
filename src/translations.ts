@@ -111,6 +111,7 @@ export const TRANSLATIONS = {
       region: 'Московская область',
       call: 'Позвонить',
       copyright: '© 2026 Благородный Север',
+      owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
     },
   },
   EN: {
@@ -223,6 +224,7 @@ export const TRANSLATIONS = {
       region: 'Moscow\u00a0Region',
       call: 'Call Us',
       copyright: '© 2026 Noble Sever',
+      owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
     },
   },
   CN: {
@@ -335,6 +337,7 @@ export const TRANSLATIONS = {
       region: '莫斯科州',
       call: '拨打电话',
       copyright: '© 2026 高贵北方',
+      owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
     },
   },
 };
