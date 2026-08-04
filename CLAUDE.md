@@ -24,6 +24,7 @@ Single source of truth for how this site is built. If the codebase contradicts t
 | В СМИ (`media`) | `TabMedia.tsx` |
 | Новости (`news`) | `TabNews.tsx` |
 | Контакты (`contacts`) | `TabContacts.tsx` |
+| Презентация (`presentation`) | `TabPresentation.tsx` — in navbar group «О проекте». B2B deck: 12-slide carousel (`public/prez/slide-N.webp`), PDF download (`public/prez/blagorodny-sever-prezentaciya.pdf`), request form. Source PDF + v1 originals in `assets-source/prez/` (git-ignored). |
 
 Shared: `HeroSlideshow.tsx`, `ImageCarousel.tsx`, `translations.ts`. **`TabMain.tsx` was deleted — it was dead code (never imported); the home it described was a never-finished refactor target.** The home page in `App.tsx` is the etalon for layout/rhythm/typography.
 
@@ -162,6 +163,8 @@ Forbidden: `layoutId` morph, spring, custom scroll-reveal `@keyframes`, parallax
 ```
 
 **Fewer plashki — naked numbers.** A stat (big number + caption) gets NO card wrapper: `<div className="flex flex-col gap-2"><span className="card-stat__value">…</span><span className="label-meta">…</span></div>`, groups separated by outer `gap-6`. Plashki justified only for: `.card-feature` (image card), interactive contact tiles (mailto/tel), `.card-flat` for multi-line grouped content. NOT for a lone number/icon/quote.
+
+**Forms (B2B request, Presentation page)** — human-approved 2026-07-31. Fields = `.input-field` (white fill, `rounded-[6px]`, no border, placeholder is the sanctioned muted exception); captions = `.input-label`; multi-select interest chips = `.chip-toggle` / `.chip-toggle--on` (dark tile → gold pill, mirrors the navy-surface widget pattern). Lives on `.section-accent`; submit = `.btn-outline-light`. Submission: Telegram Bot API `sendMessage` straight from the browser (`@noblefarmrubot`, token intentionally in bundle — static hosting, no backend; recipients must /start the bot), fallback = `mailto:` compose. Validation errors = gold text + gold ring (never red — no 5th color). Don't reuse elsewhere without approval.
 
 **Icons:** lucide-react only (no emoji). Feature-tile icon = `w-6 h-6 text-primary`, no wrapper plate. Pro/con cross = `text-text-dark/50` (never red — no 5th color). Placeholders: `.img-placeholder-dark` / `-light`.
 

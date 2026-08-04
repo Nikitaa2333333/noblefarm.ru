@@ -74,6 +74,26 @@
   @apply flex items-center gap-2 text-accent hover:gap-3 font-semibold transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none px-2 py-1 rounded-[4px];
 }
 
+/* ─── Form fields (B2B request form, Presentation page) ─────────────────────── */
+/* White field on any surface; rounded-[6px] like buttons/inputs per CLAUDE.md §4.
+   Placeholder is the sanctioned muted exception (must differ from typed text). */
+.input-field {
+  @apply w-full px-4 py-3.5 bg-bg-card text-text-dark text-base rounded-[6px] placeholder:text-text-dark/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-all duration-300;
+}
+
+/* Field caption above an input; light — for the navy form section */
+.input-label {
+  @apply text-sm font-bold text-text-light;
+}
+
+/* Toggleable interest chip on navy: inactive = dark tile, active = gold pill */
+.chip-toggle {
+  @apply px-4 py-2.5 rounded-[6px] text-base font-medium bg-secondary/40 text-text-light cursor-pointer transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none;
+}
+.chip-toggle--on {
+  @apply bg-accent text-secondary font-bold;
+}
+
 /* ─── Unified Cards ─────────────────────────────────────────────────────────── */
 
 .card-interactive {

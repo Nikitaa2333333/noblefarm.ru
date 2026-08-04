@@ -16,6 +16,12 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
+      // Dedicated port for this project so it never wanders onto another dev
+      // server's port. strictPort = fail loudly if 5180 is taken instead of
+      // silently grabbing the next free port (which could clobber the Astro
+      // site on 4321).
+      port: 5180,
+      strictPort: true,
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',

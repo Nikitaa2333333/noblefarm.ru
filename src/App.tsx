@@ -22,6 +22,7 @@ import TabPhilosophy from './components/TabPhilosophy';
 import TabMedia from './components/TabMedia';
 import TabNews from './components/TabNews';
 import TabContacts from './components/TabContacts';
+import TabPresentation from './components/TabPresentation';
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 interface NavbarProps {
@@ -64,6 +65,7 @@ function Navbar({ lang, setLang, navigateAndScroll, activeTab }: NavbarProps) {
       items: [
         { label: t.philosophy, id: 'philosophy' },
         { label: t.importance, id: 'importance' },
+        { label: t.presentation, id: 'presentation' },
       ],
     },
     {
@@ -973,7 +975,7 @@ export default function App() {
 
   // Unified routing sync via URL Hash
   const navigateAndScroll = (id: string) => {
-    const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+    const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation'];
     if (validTabs.includes(id)) {
       window.location.hash = `#${id}`;
     } else {
@@ -994,7 +996,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '');
-      const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts'];
+      const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation'];
       
       if (validTabs.includes(hash)) {
         setActiveTab(hash);
@@ -1060,6 +1062,10 @@ export default function App() {
         <TabNews key="news" lang={lang} />
       )}
       
+      {activeTab === 'presentation' && (
+        <TabPresentation key="presentation" lang={lang} />
+      )}
+
       {activeTab === 'contacts' && (
         <TabContacts key="contacts" lang={lang} />
       )}
