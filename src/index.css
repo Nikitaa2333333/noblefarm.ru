@@ -86,12 +86,15 @@
   @apply text-sm font-bold text-text-light;
 }
 
-/* Toggleable interest chip on navy: inactive = dark tile, active = gold pill */
+/* Toggleable interest chip on navy: inactive = dark tile, active = gold pill.
+   Weight and padding are IDENTICAL in both states — only colors change — so
+   toggling never reflows the chip (no growing/jumping). Transition is limited
+   to colors for the same reason. */
 .chip-toggle {
-  @apply px-4 py-2.5 rounded-[6px] text-base font-medium bg-secondary/40 text-text-light cursor-pointer transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none;
+  @apply px-4 py-2.5 rounded-[6px] text-base font-bold bg-secondary/40 text-text-light cursor-pointer transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none;
 }
 .chip-toggle--on {
-  @apply bg-accent text-secondary font-bold;
+  @apply bg-accent text-secondary;
 }
 
 /* ─── Unified Cards ─────────────────────────────────────────────────────────── */

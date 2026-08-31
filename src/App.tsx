@@ -23,6 +23,7 @@ import TabMedia from './components/TabMedia';
 import TabNews from './components/TabNews';
 import TabContacts from './components/TabContacts';
 import TabPresentation from './components/TabPresentation';
+import TabPrivacy from './components/TabPrivacy';
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 interface NavbarProps {
@@ -412,7 +413,7 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full">
+          <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap lg:w-max gap-4 w-full">
             <button
               onClick={() => navigateAndScroll && navigateAndScroll('about')}
               className="btn-primary w-full sm:w-auto text-center justify-center cursor-pointer"
@@ -424,6 +425,12 @@ function Hero({ lang, navigateAndScroll }: SectionProps) {
               className="btn-outline-light w-full sm:w-auto text-center justify-center cursor-pointer"
             >
               {t.btnNews}
+            </button>
+            <button
+              onClick={() => navigateAndScroll && navigateAndScroll('presentation')}
+              className="btn-outline-light w-full sm:w-auto text-center justify-center cursor-pointer"
+            >
+              {t.btnPartners}
             </button>
           </div>
         </motion.div>
@@ -925,10 +932,10 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
               </li>
               <li>
                 <a
-                  href="mailto:info@blagorodnysever.ru"
+                  href="mailto:kfh-noble@inbox.ru"
                   className="hover:text-accent transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px] py-2 cursor-pointer block"
                 >
-                  info@blagorodnysever.ru
+                  kfh-noble@inbox.ru
                 </a>
               </li>
               <li className="text-text-light font-medium py-2">{t.region}</li>
@@ -962,6 +969,12 @@ function Footer({ lang, navigateAndScroll }: FooterProps) {
           <p>{t.copyright}</p>
           <p>{t.owner}</p>
           <p>{t.region}</p>
+          <button
+            onClick={() => navigateAndScroll('privacy')}
+            className="text-accent hover:underline font-semibold cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-[6px]"
+          >
+            {t.privacy}
+          </button>
         </div>
       </div>
     </footer>
@@ -975,7 +988,7 @@ export default function App() {
 
   // Unified routing sync via URL Hash
   const navigateAndScroll = (id: string) => {
-    const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation'];
+    const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation', 'privacy'];
     if (validTabs.includes(id)) {
       window.location.hash = `#${id}`;
     } else {
@@ -996,7 +1009,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '');
-      const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation'];
+      const validTabs = ['philosophy', 'genetics', 'antlers', 'importance', 'reindeer-intro', 'news', 'media', 'contacts', 'presentation', 'privacy'];
       
       if (validTabs.includes(hash)) {
         setActiveTab(hash);
@@ -1064,6 +1077,10 @@ export default function App() {
       
       {activeTab === 'presentation' && (
         <TabPresentation key="presentation" lang={lang} />
+      )}
+
+      {activeTab === 'privacy' && (
+        <TabPrivacy key="privacy" lang={lang} />
       )}
 
       {activeTab === 'contacts' && (

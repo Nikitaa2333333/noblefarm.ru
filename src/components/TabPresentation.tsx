@@ -10,11 +10,12 @@ interface TabPresentationProps {
 
 const PDF_URL = '/prez/blagorodny-sever-prezentaciya.pdf';
 
-// Заявки уходят в Telegram напрямую из браузера (у статичного хостинга нет бэкенда).
-// Токен в бандле виден любому — это осознанный компромисс; при злоупотреблении
-// токен перевыпускается у @BotFather. Получатели должны нажать Start у @noblefarmrubot.
-const TG_TOKEN = '8841429754:AAF7OzPqKBuqDTDL0azyG8XYn1gZ2PYUTus';
-const TG_CHAT_IDS = ['5139188030', '1088570591'];
+// Единственная точка приёма заявок: веб-приложение Google Apps Script.
+// Оно само шлёт в Telegram, на почту и пишет строку в таблицу. Напрямую в
+// api.telegram.org отсюда стучаться нельзя: в РФ он недоступен из браузера
+// посетителя, а токен бота светился бы в бандле.
+// Код скрипта — scripts/apps-script/Code.gs.
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzEBS9Q9R7x78IUIcahrbmFpDQJrMYJ46ZgP9Ou5Tr7bGlWwZTtZIszRGyGtzf5PEYS8w/exec';
 
 const SLIDES = Array.from({ length: 12 }, (_, i) => ({ image: `/prez/slide-${i + 1}.webp` }));
 
@@ -28,6 +29,18 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
     { id: 'longevity', label: 'Longevity' },
     { id: 'wellness', label: 'Wellness' },
     {
+      id: 'gastro',
+      label: isRU ? 'Гастрономия и крафт' : isCN ? '美食与手工艺' : 'Gastronomy & Craft',
+    },
+    {
+      id: 'livestock',
+      label: isRU ? 'Покупка племенных оленей' : isCN ? '购买种鹿' : 'Breeding Stock Purchase',
+    },
+    {
+      id: 'tourism',
+      label: isRU ? 'Сельский туризм' : isCN ? '乡村旅游' : 'Rural Tourism',
+    },
+    {
       id: 'invest',
       label: isRU ? 'Инвестиционное сотрудничество' : isCN ? '投资合作' : 'Investment Cooperation',
     },
@@ -38,12 +51,14 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
     company: '',
     activity: '',
     name: '',
+    region: '',
     phone: '+7 ',
     email: '',
     comment: '',
   });
   const [selected, setSelected] = useState<string[]>([]);
-  const [errors, setErrors] = useState<{ phone?: string; email?: string }>({});
+  const [consent, setConsent] = useState(false);
+  const [errors, setErrors] = useState<{ phone?: string; email?: string; consent?: string }>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -74,7 +89,7 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
   };
 
   const validate = () => {
-    const errs: { phone?: string; email?: string } = {};
+    const errs: { phone?: string; email?: string; consent?: string } = {};
     const phoneDigits = form.phone.replace(/\D/g, '');
     if (phoneDigits.length > 1 && phoneDigits.length < 11) {
       errs.phone = isRU
@@ -96,6 +111,13 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
           ? '请检查邮箱格式，例如 name@company.ru'
           : 'Check the email address: e.g. name@company.ru';
     }
+    if (!consent) {
+      errs.consent = isRU
+        ? 'Отметьте согласие на обработку персональных данных'
+        : isCN
+          ? '请勾选同意处理个人数据'
+          : 'Please confirm your consent to personal data processing';
+    }
     return errs;
   };
 
@@ -105,9 +127,9 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
-    if (errs.phone || errs.email) {
+    if (errs.phone || errs.email || errs.consent) {
       setErrors(errs);
-      const firstId = errs.phone ? 'req-phone' : 'req-email';
+      const firstId = errs.phone ? 'req-phone' : errs.email ? 'req-email' : 'req-consent';
       document.getElementById(firstId)?.focus();
       return;
     }
@@ -117,33 +139,37 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
       `Организация: ${form.company}`,
       `Сфера деятельности: ${form.activity}`,
       `Контактное лицо: ${form.name}`,
+      `Город и регион: ${form.region || '—'}`,
       `Телефон: ${phoneDigits.length === 11 ? form.phone : '—'}`,
       `Почта: ${form.email}`,
       `Интересующие направления: ${picked || '—'}`,
       `Комментарий: ${form.comment || '—'}`,
+      'Согласие на обработку персональных данных: да',
     ];
-    const text = ['Новая заявка с сайта noblefarm.ru', '', ...lines].join('\n');
     setStatus('sending');
     try {
-      const results = await Promise.all(
-        TG_CHAT_IDS.map((chatId) =>
-          fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: chatId, text }),
-          })
-            .then((r) => r.json())
-            .then((d) => !!d.ok)
-            .catch(() => false)
-        )
-      );
-      if (results.some(Boolean)) {
-        setStatus('sent');
-        return;
-      }
-      throw new Error('all recipients failed');
+      // no-cors и без Content-Type: application/json — иначе браузер шлёт
+      // preflight, который Apps Script не обрабатывает. Ответ opaque, поэтому
+      // успех = запрос ушёл; рассылку делает уже скрипт.
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({
+          company: form.company,
+          activity: form.activity,
+          name: form.name,
+          region: form.region,
+          phone: phoneDigits.length === 11 ? form.phone : '',
+          email: form.email,
+          interests: picked,
+          comment: form.comment,
+          consent: 'да',
+          page_url: window.location.href,
+        }),
+      });
+      setStatus('sent');
     } catch {
-      // Telegram недоступен — запасной путь: письмо через почтовый клиент
+      // Сеть недоступна — запасной путь: письмо через почтовый клиент
       setStatus('error');
       const subject = encodeURIComponent('Запрос на сотрудничество — Благородный Север');
       const body = encodeURIComponent(lines.join('\r\n'));
@@ -282,8 +308,20 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label htmlFor="req-region" className="input-label">
+                  {isRU ? 'Город и регион' : isCN ? '城市与地区' : 'City & region'}
+                </label>
+                <input
+                  id="req-region"
+                  value={form.region}
+                  onChange={set('region')}
+                  className="input-field"
+                  placeholder={isRU ? 'Москва, Московская область' : isCN ? '莫斯科，莫斯科州' : 'Moscow, Moscow Region'}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="req-phone" className="input-label">
-                  {isRU ? 'Телефон' : isCN ? '电话' : 'Phone'}
+                  {isRU ? 'Телефон (Telegram / WhatsApp / Max)' : isCN ? '电话（Telegram / WhatsApp / Max）' : 'Phone (Telegram / WhatsApp / Max)'}
                 </label>
                 <input
                   id="req-phone"
@@ -362,6 +400,40 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
               />
             </div>
 
+            <div className="flex flex-col gap-2">
+              <label htmlFor="req-consent" className="flex items-start gap-3 cursor-pointer">
+                <input
+                  id="req-consent"
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    setErrors((prev) => ({ ...prev, consent: undefined }));
+                  }}
+                  aria-invalid={!!errors.consent}
+                  className="mt-1 w-5 h-5 shrink-0 accent-accent cursor-pointer"
+                />
+                <span className="body-sm-light">
+                  {isRU
+                    ? 'Я согласен на обработку персональных данных и принимаю условия '
+                    : isCN
+                      ? '我同意处理个人数据并接受'
+                      : 'I consent to the processing of my personal data and accept the '}
+                  <a
+                    href="#privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline font-semibold"
+                  >
+                    {isRU ? 'политики конфиденциальности' : isCN ? '隐私政策' : 'privacy policy'}
+                  </a>
+                </span>
+              </label>
+              {errors.consent && (
+                <p className="text-sm font-bold text-accent">{errors.consent}</p>
+              )}
+            </div>
+
             <div className="flex flex-col gap-4">
               {status === 'sent' ? (
                 <p className="body-lead-light font-bold text-accent">
@@ -390,6 +462,40 @@ export default function TabPresentation({ lang }: TabPresentationProps) {
               </p>
             </div>
           </form>
+
+          {/* Прямой контакт руководителя — из «Анкеты партнёра» */}
+          <div className="w-full max-w-[640px] mx-auto flex flex-col sm:flex-row sm:items-center gap-6">
+            <img
+              src="/valova-portrait.webp"
+              alt="Валова Екатерина Сергеевна"
+              className="w-28 h-28 rounded-full object-cover shrink-0"
+              loading="lazy"
+            />
+            <div className="flex flex-col gap-2">
+              <span className="label-eyebrow">
+                {isRU ? 'Написать напрямую' : isCN ? '直接联系' : 'Contact directly'}
+              </span>
+              <h3 className="h-block-light">
+                {isRU ? 'Валова Екатерина Сергеевна' : isCN ? '叶卡捷琳娜·瓦洛娃' : 'Ekaterina Valova'}
+              </h3>
+              <p className="body-sm-light">
+                {isRU ? 'Руководитель КФХ' : isCN ? '农场负责人' : 'Head of the farm'}
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-1">
+                <a href="tel:+79258710937" className="text-accent hover:underline font-semibold">
+                  +7 925 871-09-37
+                </a>
+                <a
+                  href="https://t.me/ESValova"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline font-semibold"
+                >
+                  @ESValova
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </motion.div>

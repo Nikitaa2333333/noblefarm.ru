@@ -38,6 +38,7 @@ export const TRANSLATIONS = {
       intl: 'Международный опыт',
       btnAbout: 'О\u00a0хозяйстве',
       btnNews: 'Новости проекта',
+      btnPartners: 'Партнёрам и инвесторам',
     },
     about: {
       titlePart1: 'Создаём культуру ',
@@ -113,6 +114,7 @@ export const TRANSLATIONS = {
       call: 'Позвонить',
       copyright: '© 2026 Благородный Север',
       owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
+      privacy: 'Политика конфиденциальности',
     },
   },
   EN: {
@@ -152,6 +154,7 @@ export const TRANSLATIONS = {
       intl: 'International Experience',
       btnAbout: 'About Farm',
       btnNews: 'Project News',
+      btnPartners: 'For Partners & Investors',
     },
     about: {
       titlePart1: 'Creating the culture',
@@ -227,6 +230,7 @@ export const TRANSLATIONS = {
       call: 'Call Us',
       copyright: '© 2026 Noble Sever',
       owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
+      privacy: 'Privacy Policy',
     },
   },
   CN: {
@@ -266,6 +270,7 @@ export const TRANSLATIONS = {
       intl: '国际经验',
       btnAbout: '农场介绍',
       btnNews: '项目动态',
+      btnPartners: '合作伙伴与投资者',
     },
     about: {
       titlePart1: '引领 ',
@@ -341,6 +346,7 @@ export const TRANSLATIONS = {
       call: '拨打电话',
       copyright: '© 2026 高贵北方',
       owner: 'Владелец: гК(Ф)Х ИП Дерюгин П.С.',
+      privacy: '隐私政策',
     },
   },
 };
